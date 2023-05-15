@@ -22,6 +22,9 @@ const RegisterForm = () => {
 
   const history = useNavigate();
 
+  // todo
+  // add register user
+
   return (
     <ContainerWithoutHeight>
       <LogoRow>
