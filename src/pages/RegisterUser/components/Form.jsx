@@ -25,7 +25,6 @@ const RegisterForm = () => {
   // todo
   // add register user
 
-  
   return (
     <ContainerWithoutHeight>
       <LogoRow>
