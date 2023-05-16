@@ -1,0 +1,57 @@
+.profile-section {
+  background-color: #e8f0f4 !important;
+  padding: 0.5rem 1.5rem 1rem 1.5rem;
+  border-radius: 9px;
+  margin-bottom: 1rem;
+  width: 100%;
+  position: relative;
+}
+
+@media (max-width: 1200px) {
+  .profile-section {
+    /* width: 50%; */
+  }
+  
+}
+
+.profile-photo{
+  margin-top: 0px !important;
+  width: 4.5rem;
+  height: 4.5rem;
+}
+
+.profile-name {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.profile-age {
+  font-weight: 400;
+  font-size: 1rem;
+  color: #68767a !important;
+  margin-top: 0 !important;
+}
+
+.profile-info {
+  background-color: white;
+  margin-right: 1rem;
+  border-radius: 12px;
+  padding: 0;
+  flex: auto !important;
+  margin-top: 10px;
+}
+
+.profile-info-title {
+  color: #1cb5bd;
+  font-weight: 400;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.profile-info-value {
+  font-weight: 800;
+  font-size: 1.5rem;
+  text-align: center;
+  margin: auto;
+}
+

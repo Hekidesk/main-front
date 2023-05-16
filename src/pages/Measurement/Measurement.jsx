@@ -9,14 +9,14 @@ import soundIcon from "../../assets/icon/heart_lung_sound_icon.svg";
 import temeperatureIcon from "../../assets/icon/temeperature_icon.svg";
 import bpIcon from "../../assets/icon/blood_pressure_icon.svg";
 
-import Profile from "../Sidebar/profile";
+import Profile from "../Profile/Profile";
 
 function Measurement() {
   return (
     <div className="box">
       <Profile />
       <Row>
-        <Col className="sidebar" md={1} >
+        <Col className="sidebar" md={1}>
           <Sidebar />
         </Col>
         <Col md={7} lg={9}>
@@ -27,7 +27,7 @@ function Measurement() {
             <Image src={topPhoto} className="top-img" />
           </Row>
           <Row>
-            <Col lg={4} sm = {6}>
+            <Col lg={4} sm={6}>
               <Card>
                 <Card.Body>
                   <Card.Title>
@@ -39,7 +39,7 @@ function Measurement() {
                 </Card.Body>
               </Card>
             </Col>
-            <Col lg={4} sm = {6} >
+            <Col lg={4} sm={6}>
               <Card>
                 <Card.Body>
                   <Card.Title>
@@ -51,7 +51,7 @@ function Measurement() {
                 </Card.Body>
               </Card>
             </Col>
-            <Col lg={4} sm = {6}>
+            <Col lg={4} sm={6}>
               <Card>
                 <Card.Body>
                   <Card.Title>
@@ -65,7 +65,7 @@ function Measurement() {
                 </Card.Body>
               </Card>
             </Col>
-            <Col lg={4} sm = {6}>
+            <Col lg={4} sm={6}>
               <Card>
                 <Card.Body>
                   <Card.Title>
@@ -77,7 +77,7 @@ function Measurement() {
                 </Card.Body>
               </Card>
             </Col>
-            <Col lg={4} sm = {6} >
+            <Col lg={4} sm={6}>
               <Card>
                 <Card.Body>
                   <Card.Title>

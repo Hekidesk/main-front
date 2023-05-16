@@ -1,0 +1,38 @@
+.bg-gray {
+  background-color: #e8f0f4;
+  height: 350px;
+  border-radius: 15px;
+  padding-left: 50px;
+  padding-top: 30px;
+}
+
+.parameter-section {
+  background-color: #e8f0f4;
+  height: 300px;
+  border-radius: 9px;
+  padding: 1rem;
+  font-weight: 600;
+  font-size: 24px;
+  color: #576367;
+  margin-top: 20px;
+}
+
+.top-history-img {
+  max-width: 100%;
+  margin-bottom: 25px;
+}
+
+.cropped-image {
+  width: 300px;
+  height: 200px;
+  object-fit: none;
+  object-position: center top;
+  margin-bottom: 1rem;
+}
+
+.rate-box {
+  font-weight: 400 !important;
+  font-size: 15px;
+  line-height: 40px;
+  color: #576367;
+}
