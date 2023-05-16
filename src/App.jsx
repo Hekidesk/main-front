@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import HomePage from "./pages/Home/Home.page";
 import RegisterPage from "./pages/RegisterUser/Register.page";
 import RegisterDevicePage from "./pages/RegisterDevice/RegisterDevice.page";
+import DeskPage from "./pages/UserDesk/UserDesk.page";
 // import "bootstrap/dist/css/bootstrap.min.css";/
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
           <Route index element={<HomePage />} />
           <Route path={"register-user"} element={<RegisterPage />} />
           <Route path={"register-device"} element={<RegisterDevicePage />} />
+          <Route path={"user-desk"} element={<DeskPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

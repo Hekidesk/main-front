@@ -1,7 +1,6 @@
 import Icon from "../../../assets/svg/hekidesk-transparent.svg";
-import HeartbeatIcon from "../../../assets/icon/heartbeat.svg";
-import StethoscopeIcon from "../../../assets/icon/stethoscope.svg";
-import BluetoothIcon from "../../../assets/icon/bluetooth.svg";
+import HistoryIcon from "../../../assets/icon/history.svg";
+import AddIcon from "../../../assets/icon/add.svg";
 import SearchIcon from "../../../assets/icon/question.svg";
 import { Image } from "primereact/image";
 import { Text } from "../../../components/reusable/Text";
@@ -14,34 +13,25 @@ import {
 const InfoHome = () => {
   return (
     <span>
-      <Text>Smart Listening Device - Smart Activity Fitness Tracker</Text>
+      <Text>My Desk</Text>
       <List>
         <ListItems>
           <Image
-            src={StethoscopeIcon}
+            src={AddIcon}
             alt="Image"
             width="16px"
-            style={{ margin: "0em 1em", textTransform: "uppercase" }}
+            style={{ margin: "0em 1em" }}
           />
-          AMAZING AUSCULTATION EXPERIENCE
+          Add new medical records by connecting to device.
         </ListItems>
         <ListItems>
           <Image
-            src={HeartbeatIcon}
+            src={HistoryIcon}
             alt="Image"
             width="16px"
-            style={{ margin: "0em 1em", textTransform: "uppercase" }}
+            style={{ margin: "0em 1em" }}
           />
-          PERSONAL HEALTH MONITORING
-        </ListItems>
-        <ListItems>
-          <Image
-            src={BluetoothIcon}
-            alt="Image"
-            width="10px"
-            style={{ margin: "0em 1em", textTransform: "uppercase" }}
-          />
-          BLUETOOTH CONNECTION{" "}
+          View medical record history
         </ListItems>
       </List>
       <ImageWrapper>

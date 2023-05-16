@@ -8,10 +8,15 @@ import { Title } from "../../../components/reusable/Title";
 import { CustomDropdown, FlexContainer, FormTitle, LogoRow } from "./CSS";
 import { Dropdown } from "primereact/Dropdown";
 import { useState } from "react";
-import { ButtonStyle } from "../../../components/reusable/ButtonStyle";
+import {
+  ButtonOutlineStyle,
+  ButtonStyle,
+} from "../../../components/reusable/ButtonStyle";
 
 const HomeForm = () => {
-  const [selected, setSelected] = useState(null);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [selectedDevice, setSelectedDevice] = useState(null);
+
   // todo
   // read from db and add context
   const [users] = useState([
@@ -47,8 +52,8 @@ const HomeForm = () => {
           <Image src={PlusIcon} alt="plus"></Image>
         </Link>
         <Dropdown
-          value={selected}
-          onChange={(e) => setSelected(e.value)}
+          value={selectedDevice}
+          onChange={(e) => setSelectedDevice(e.value)}
           options={devices}
           optionLabel="name"
           placeholder={"Select a device"}
@@ -61,14 +66,17 @@ const HomeForm = () => {
           <Image src={PlusIcon} alt="plus"></Image>
         </Link>
         <Dropdown
-          value={selected}
-          onChange={(e) => setSelected(e.value)}
+          value={selectedUser}
+          onChange={(e) => setSelectedUser(e.value)}
           options={users}
           optionLabel="name"
           placeholder={"Select a user"}
           style={{ ...CustomDropdown, margin: "1em 0" }}
         />
       </FlexContainer>
+      <Link to="/user-desk" style={ButtonOutlineStyle}>
+        OK
+      </Link>
     </ContainerWithoutHeight>
   );
 };
