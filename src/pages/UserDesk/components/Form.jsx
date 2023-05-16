@@ -13,7 +13,7 @@ import HeartbeatIcon from "../../../assets/icon/heartbeat.svg";
 import HistoryIcon from "../../../assets/icon/history.svg";
 import HomeIcon from "../../../assets/icon/home-green.svg";
 
-const HomeForm = () => {
+const DeskForm = () => {
   const [user] = useState("Saeed");
   return (
     <ContainerWithoutHeight>
@@ -52,4 +52,4 @@ const HomeForm = () => {
   );
 };
 
-export default HomeForm;
+export default DeskForm;

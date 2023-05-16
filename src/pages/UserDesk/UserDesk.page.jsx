@@ -1,7 +1,7 @@
 import FormWrapper from "../../components/FormWrapper/FormWrapper";
 import DeskInfo from "./components/Info";
 import DeskForm from "./components/Form";
-import { Container } from "./components/CSS";
+import { Container } from "../../components/reusable/Container";
 
 const DeskPage = () => {
   return (
