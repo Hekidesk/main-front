@@ -1,10 +1,13 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 import HomePage from "./pages/Home/Home.page";
 import RegisterPage from "./pages/RegisterUser/Register.page";
 import RegisterDevicePage from "./pages/RegisterDevice/RegisterDevice.page";
 import DeskPage from "./pages/UserDesk/UserDesk.page";
 import ConnectionPage from "./pages/Connection/Connection.page";
-// import "bootstrap/dist/css/bootstrap.min.css";/
+import MeasurementPage from "./pages/measurement/measurement.page";
+import ParameterHistoryPage from "./pages/History/parameter/ParameterHistory.page";
+import TimeHistoryPage from "./pages/History/time/TimeHistory.page";
 
 function App() {
   return (
@@ -16,6 +19,11 @@ function App() {
           <Route path={"register-device"} element={<RegisterDevicePage />} />
           <Route path={"user-desk"} element={<DeskPage />} />
           <Route path={"connection"} element={<ConnectionPage />} />
+          <Route path={"measurement"} element={<MeasurementPage />} />
+          <Route path="/history" element={null}>
+            <Route path={"parameter"} element={<ParameterHistoryPage />} />
+            <Route path={"time"} element={<TimeHistoryPage />} />
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>
