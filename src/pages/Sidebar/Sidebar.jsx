@@ -6,7 +6,7 @@ import HistoryLogo from "../../assets/icon/history.svg";
 import Measurement from "../../assets/icon/3D.svg";
 import "../../assets/styles/Sidebar.css";
 
-export default function Sidebar() {
+const Sidebar = () => {
   const [click, setClick] = React.useState(false);
 
   return (
@@ -37,4 +37,6 @@ export default function Sidebar() {
       </div>
     </div>
   );
-}
+};
+
+export default Sidebar;
