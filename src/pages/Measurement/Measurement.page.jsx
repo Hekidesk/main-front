@@ -11,7 +11,7 @@ import bpIcon from "../../assets/icon/blood_pressure_icon.svg";
 
 import Profile from "../Profile/Profile";
 
-function Measurement() {
+const MeasurementPage = () => {
   return (
     <div className="box">
       <Profile />
@@ -94,6 +94,6 @@ function Measurement() {
       </Row>
     </div>
   );
-}
+};
 
-export default Measurement;
+export default MeasurementPage;
