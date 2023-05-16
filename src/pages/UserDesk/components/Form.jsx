@@ -45,7 +45,7 @@ const HomeForm = () => {
           alt="Image"
           width="16px"
           style={{ margin: "0em 0.2em" }}
-        />{" "}
+        />
         Home
       </Link>
     </ContainerWithoutHeight>
