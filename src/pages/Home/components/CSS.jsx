@@ -6,18 +6,22 @@ export const LogoRow = styled.div`
   margin-top: 3em;
 `;
 
-export const ButtonOKStyle = {
-  backgroundColor: "white",
-  border: "2px solid var(--title-color)",
-  fontSize: "18px",
-  width: "100%",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  margin: "1em 0",
+export const FlexContainer = styled.div`
+  display: grid;
+  grid-template-columns: 3em auto;
+  gap: 0.5em;
+  width: 100%;
+`;
+export const FormTitle = {
   color: "var(--title-color)",
-  padding: "0.4em 0.6em",
-  textDecoration: "none",
+  fontSize: "16px",
+  margin: "1em 0",
+};
+export const CustomDropdown = {
+  width: "100%",
+  textAlign: "center",
+  background: "var(--title-color)",
+  borderColor: "var(--title-color)",
 };
 
 export const ImageWrapper = styled.span`
@@ -44,7 +48,7 @@ export const List = styled.ul`
   font-weight: medium;
   color: white;
   list-style: none;
-  margin-top: 2em;
+  margin-top: 4em;
 `;
 
 export const ListItems = styled.li`
