@@ -1,13 +1,13 @@
 import React from "react";
-import "../../assets/styles/Measurement.css";
+import "@/assets/styles/Measurement.css";
 import { Col, Row, Card, Image } from "react-bootstrap";
 import Sidebar from "../Sidebar/Sidebar";
-import topPhoto from "../../assets/icon/doctor_photo.svg";
-import carIcon from "../../assets/icon/cardiogram_icon.svg";
-import oxIcon from "../../assets/icon/oximetry_icon.svg";
-import soundIcon from "../../assets/icon/heart_lung_sound_icon.svg";
-import temeperatureIcon from "../../assets/icon/temeperature_icon.svg";
-import bpIcon from "../../assets/icon/blood_pressure_icon.svg";
+import topPhoto from "@/assets/icon/doctor_photo.svg";
+import carIcon from "@/assets/icon/cardiogram_icon.svg";
+import oxIcon from "@/assets/icon/oximetry_icon.svg";
+import soundIcon from "@/assets/icon/heart_lung_sound_icon.svg";
+import temeperatureIcon from "@/assets/icon/temeperature_icon.svg";
+import bpIcon from "@/assets/icon/blood_pressure_icon.svg";
 
 import Profile from "../Profile/Profile";
 

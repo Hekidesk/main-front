@@ -1,10 +1,10 @@
-import Icon from "../../../assets/svg/hekidesk-transparent.svg";
-import BluetoothIcon from "../../../assets/icon/bluetooth.svg";
-import OffIcon from "../../../assets/icon/off.svg";
-import SearchIcon from "../../../assets/icon/question.svg";
+import Icon from "@/assets/svg/hekidesk-transparent.svg";
+import BluetoothIcon from "@/assets/icon/bluetooth.svg";
+import OffIcon from "@/assets/icon/off.svg";
+import SearchIcon from "@/assets/icon/question.svg";
 import { Image } from "primereact/image";
-import { Text } from "../../../components/reusable/Text";
-import { List, ListItems } from "../../../components/reusable/List";
+import { Text } from "@/components/reusable/Text";
+import { List, ListItems } from "@/components/reusable/List";
 import {
   ImageWrapper,
   QuestionWrapper,

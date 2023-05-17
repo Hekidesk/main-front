@@ -1,7 +1,7 @@
 import React from 'react'
 import { Col, Row, Image } from "react-bootstrap";
-import profilePhoto from "../../assets/icon/profile.svg";
-import bell from "../../assets/icon/bell.svg";
+import profilePhoto from "@/assets/icon/profile.svg";
+import bell from "@/assets/icon/bell.svg";
 
 function Profile() {
   return (

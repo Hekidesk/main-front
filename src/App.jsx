@@ -1,13 +1,14 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import HomePage from "./pages/Home/Home.page";
-import RegisterPage from "./pages/RegisterUser/Register.page";
-import RegisterDevicePage from "./pages/RegisterDevice/RegisterDevice.page";
-import DeskPage from "./pages/UserDesk/UserDesk.page";
-import ConnectionPage from "./pages/Connection/Connection.page";
-import ParameterHistoryPage from "./pages/History/parameter/ParameterHistory.page";
-import TimeHistoryPage from "./pages/History/time/TimeHistory.page";
-import MeasurementPage from "./pages/Measurement/Measurement.page";
+import HomePage from "@/pages/Home/Home.page";
+import RegisterPage from "@/pages/RegisterUser/Register.page";
+import RegisterDevicePage from "@/pages/RegisterDevice/RegisterDevice.page";
+import DeskPage from "@/pages/UserDesk/UserDesk.page";
+import ConnectionPage from "@/pages/Connection/Connection.page";
+import ParameterHistoryPage from "@/pages/History/parameter/ParameterHistory.page";
+import TimeHistoryPage from "@/pages/History/time/TimeHistory.page";
+import MeasurementPage from "@/pages/Measurement/Measurement.page";
+import DemoPage from "@/pages/Demo/Demo.page";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
             <Route path={"parameter"} element={<ParameterHistoryPage />} />
             <Route path={"time"} element={<TimeHistoryPage />} />
           </Route>
+          <Route path={"rdemo"} element={<DemoPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

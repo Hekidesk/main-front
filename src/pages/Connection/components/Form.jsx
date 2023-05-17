@@ -1,10 +1,10 @@
-import Heartbeat from "../../../assets/gif/life-heart.mp4";
+import Heartbeat from "@/assets/gif/life-heart.mp4";
 import { Image } from "primereact/image";
-import { ContainerWithoutHeight } from "../../../components/reusable/Container";
-import { Title } from "../../../components/reusable/Title";
-import { ButtonOutlineStyle } from "../../../components/reusable/ButtonStyle";
+import { ContainerWithoutHeight } from "@/components/reusable/Container";
+import { Title } from "@/components/reusable/Title";
+import { ButtonOutlineStyle } from "@/components/reusable/ButtonStyle";
 import { LogoRow } from "./CSS";
-import DisconnectIcon from "../../../assets/icon/disconnect.svg";
+import DisconnectIcon from "@/assets/icon/disconnect.svg";
 
 const ConnectionForm = () => {
   return (

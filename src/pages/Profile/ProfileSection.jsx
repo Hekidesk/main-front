@@ -1,7 +1,7 @@
 import React from "react";
 import { Col, Row, Image } from "react-bootstrap";
-import profilePhoto from "../../assets/icon/profile.svg";
-import "../../assets/styles/profile.css";
+import profilePhoto from "@/assets/icon/profile.svg";
+import "@/assets/styles/profile.css";
 
 function ProfileSection() {
   return (
