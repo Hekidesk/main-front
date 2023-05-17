@@ -21,7 +21,8 @@ function App() {
           <Route path={"user-desk"} element={<DeskPage />} />
           <Route path={"connection"} element={<ConnectionPage />} />
           <Route path={"measurement"} element={<MeasurementPage />} />
-          <Route path="/history" element={<HistoryDeskPage />}>
+          <Route path="/history" element={null}>
+            <Route index element={<HistoryDeskPage />} />
             <Route path={"parameter"} element={<ParameterHistoryPage />} />
             <Route path={"time"} element={<TimeHistoryPage />} />
           </Route>

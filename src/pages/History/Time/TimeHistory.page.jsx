@@ -38,7 +38,7 @@ const TimeHistoryPage = () => {
                   <Pagination.First
                   // onClick={() => setCurrentDate(0)}
                   >
-                    <FaAngleDoubleUp />
+                    {/* <FaAngleDoubleUp /> */}
                   </Pagination.First>
                   <Pagination.Prev
                   // onClick={() =>
@@ -47,7 +47,7 @@ const TimeHistoryPage = () => {
                   //     : setCurrentDate(currentDate)
                   // }
                   >
-                    <AiFillCaretUp />
+                    {/* <AiFillCaretUp /> */}
                   </Pagination.Prev>
                   <Pagination.Item
                   //   key={currElement}
@@ -63,12 +63,12 @@ const TimeHistoryPage = () => {
                   //     : setCurrentDate(currentDate);
                   // }}
                   >
-                    <AiFillCaretDown />
+                    {/* <AiFillCaretDown /> */}
                   </Pagination.Next>
                   <Pagination.Last
                   // onClick={() => setCurrentDate(dates.length - 1)}
                   >
-                    <FaAngleDoubleDown />
+                    {/* <FaAngleDoubleDown /> */}
                   </Pagination.Last>
                 </Pagination>
               </Row>

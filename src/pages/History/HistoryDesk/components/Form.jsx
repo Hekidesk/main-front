@@ -39,7 +39,7 @@ const HistoryForm = () => {
         />
         Parameter
       </Link>
-      <Link to="/" exact style={ButtonOutlineStyle}>
+      <Link to="/" style={ButtonOutlineStyle}>
         <Image
           src={HomeIcon}
           alt="Image"
