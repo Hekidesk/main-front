@@ -4,8 +4,8 @@ import { Col, Row, Image, Pagination } from "react-bootstrap";
 import Sidebar from "../../Sidebar/Sidebar";
 import ProfileSection from "../../Profile/ProfileSection";
 import body from "../../../assets/icon/history/body_img.svg";
-import { AiFillCaretDown, AiFillCaretUp } from "react-icons/ai";
-import { FaAngleDoubleDown, FaAngleDoubleUp } from "react-icons/fa";
+// import { AiFillCaretDown, AiFillCaretUp } from "react-icons/ai";
+// import { FaAngleDoubleDown, FaAngleDoubleUp } from "react-icons/fa";
 
 const TimeHistoryPage = () => {
   return (
