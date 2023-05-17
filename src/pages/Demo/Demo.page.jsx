@@ -1,12 +1,7 @@
-import { Fragment } from "react";
-import Sidebar from "../Sidebar/Sidebar";
+import PageWrapper from "@/components/PageWrapper/PageWrapper";
 
 const DemoPage = () => {
-  return (
-    <Fragment>
-      <Sidebar />
-    </Fragment>
-  );
+  return <PageWrapper></PageWrapper>;
 };
 
 export default DemoPage;

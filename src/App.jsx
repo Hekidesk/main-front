@@ -25,7 +25,7 @@ function App() {
             <Route path={"parameter"} element={<ParameterHistoryPage />} />
             <Route path={"time"} element={<TimeHistoryPage />} />
           </Route>
-          <Route path={"rdemo"} element={<DemoPage />} />
+          <Route path={"demo"} element={<DemoPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
