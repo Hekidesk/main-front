@@ -6,7 +6,6 @@ const WriteCharistristicUUID = "e505ffd3-ecd5-4365-b57d-70202ab71692";
 
 export const useSignalFeed = () => {
   const [device, setDevice] = useState();
-  const [service, setService] = useState();
   const [loading, setLoading] = useState(false);
   const [read_charastirctic, setCharastircticR] = useState();
   const [write_charastirctic, setCharastircticW] = useState();
@@ -20,7 +19,6 @@ export const useSignalFeed = () => {
 
     device?.gatt.disconnect();
     setCharastircticR(null);
-    setService();
   };
 
   const start = async () => {
@@ -64,7 +62,6 @@ export const useSignalFeed = () => {
         setIsConnected(true);
         device.gatt.connect().then((gatt) => {
           gatt.getPrimaryService(ServiceUUID).then((service) => {
-            setService(service);
             service.getCharacteristic(WriteCharistristicUUID).then((char) => {
               char.writeValue(new Uint8Array([0x8f]).buffer);
               setCharastircticW(char);
