@@ -6,8 +6,12 @@
 :root {
   --bg-color: #d7ecf8;
   --title-color: #2cafa4;
-  --white: #FFF;
-  --nav-color-top:#28ACD8;
+  --white: #fff;
+  --nav-color-top: #28acd8;
+  --light-blue: #adc7e5;
+  --gray-green: #a5c2cb;
+  --main-green: #1cb5bd;
+  --important-color: #fe5558;
 }
 
 body,
@@ -29,4 +33,12 @@ body {
 }
 .p-dropdown .p-dropdown-trigger {
   width: 0 !important;
+}
+
+.canvasjs-chart-credit {
+  display: none !important;
+}
+
+.canvasjs-chart-canvas {
+  position: relative !important;
 }

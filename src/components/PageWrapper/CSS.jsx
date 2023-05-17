@@ -24,9 +24,12 @@ export const ProfileContainer = styled.span`
   width: 10em;
 `;
 export const SidebarContainer = styled.div`
-  width: 20%;
+  width: 15%;
 `;
 export const ChildContainer = styled.div`
-  width: 80%;
-  padding-top: 2em;
+  width: 100%;
+  padding-top: 4em;
+  @media ${devices.tablet} {
+    width: 95%;
+  }
 `;

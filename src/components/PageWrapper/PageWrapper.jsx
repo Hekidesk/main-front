@@ -10,7 +10,7 @@ import Profile from "@/pages/Profile/Profile";
 
 const PageWrapper = (props) => {
   return (
-    <Container>
+    <Container {...props}>
       <Wrapper>
         <ProfileContainer>
           <Profile />
