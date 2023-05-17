@@ -1,13 +1,24 @@
 import { Container } from "@/components/reusable/Container";
-import { Wrapper } from "./CSS";
+import {
+  Wrapper,
+  ProfileContainer,
+  SidebarContainer,
+  ChildContainer,
+} from "./CSS";
 import Sidebar from "@/pages/Sidebar/Sidebar";
+import Profile from "@/pages/Profile/Profile";
 
 const PageWrapper = (props) => {
   return (
     <Container>
       <Wrapper>
-        <Sidebar />
-        {props.children}
+        <ProfileContainer>
+          <Profile />
+        </ProfileContainer>
+        <SidebarContainer>
+          <Sidebar />
+        </SidebarContainer>
+        <ChildContainer> {props.children}</ChildContainer>
       </Wrapper>
     </Container>
   );

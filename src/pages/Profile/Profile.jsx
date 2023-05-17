@@ -8,7 +8,12 @@ const Profile = () => {
     <div>
       <Row className="profile">
         <Col className="profile-col">
-          <Image src={BellIcon} alt="profile" width={25} className="bell-profile" />
+          <Image
+            src={BellIcon}
+            alt="profile"
+            width={25}
+            className="bell-profile"
+          />
         </Col>
         <Col className="profile-col">
           <Image src={ProfilePhotoIcon} alt="profile" width={60} />
