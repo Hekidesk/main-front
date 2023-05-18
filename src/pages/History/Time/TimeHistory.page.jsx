@@ -3,9 +3,9 @@ import Profile from "../../Profile/Profile";
 import { Col, Row, Image, Pagination } from "react-bootstrap";
 import Sidebar from "../../Sidebar/Sidebar";
 import ProfileSection from "../../Profile/ProfileSection";
-import body from "../../../assets/icon/history/bodyImg.svg";
-// import { AiFillCaretDown, AiFillCaretUp } from "react-icons/ai";
-// import { FaAngleDoubleDown, FaAngleDoubleUp } from "react-icons/fa";
+import BodyIcon from "@/assets/icon/history/body_img.svg";
+import { AiFillCaretDown, AiFillCaretUp } from "react-icons/ai";
+import { FaAngleDoubleDown, FaAngleDoubleUp } from "react-icons/fa";
 
 const TimeHistoryPage = () => {
   return (
@@ -25,7 +25,7 @@ const TimeHistoryPage = () => {
                 <ProfileSection />
               </Row>
               <Row>
-                <Image src={body} alt="body" className="cropped-image" />
+                <Image src={BodyIcon} alt="body" className="cropped-image" />
               </Row>
               <Row
                 style={{

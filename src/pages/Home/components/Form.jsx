@@ -1,17 +1,17 @@
-import Icon from "../../../assets/svg/hekidesk-green.svg";
-import PlusIcon from "../../../assets/icon/plus.svg";
+import Icon from "@/assets/svg/hekidesk-green.svg";
+import PlusIcon from "@/assets/icon/plus.svg";
 import { Image } from "primereact/image";
 import { Link } from "react-router-dom";
-import { ContainerWithoutHeight } from "../../../components/reusable/Container";
-import { Text } from "../../../components/reusable/Text";
-import { Title } from "../../../components/reusable/Title";
+import { ContainerWithoutHeight } from "@/components/reusable/Container";
+import { Text } from "@/components/reusable/Text";
+import { Title } from "@/components/reusable/Title";
 import { CustomDropdown, FlexContainer, FormTitle, LogoRow } from "./CSS";
 import { Dropdown } from "primereact/Dropdown";
 import { useState } from "react";
 import {
   ButtonOutlineStyle,
   ButtonStyle,
-} from "../../../components/reusable/ButtonStyle";
+} from "@/components/reusable/ButtonStyle";
 
 const HomeForm = () => {
   const [selectedUser, setSelectedUser] = useState(null);

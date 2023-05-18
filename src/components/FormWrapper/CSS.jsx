@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import { devices } from "../../assets/styles/size";
+import { devices, wrapperWidth } from "@/assets/styles/size";
 
 export const Wrapper = styled.div`
-  width: 86%;
+  width: ${wrapperWidth};
   min-height: auto;
   background-color: white;
   padding: 1em;
@@ -12,7 +12,6 @@ export const Wrapper = styled.div`
   @media ${devices.tablet} {
     flex-direction: row;
     height: 96vh;
-    min-height: 90vh;
   }
 `;
 

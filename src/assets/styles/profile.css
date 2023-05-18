@@ -7,7 +7,7 @@
   position: relative;
 }
 
-.profile-photo{
+.profile-photo {
   margin-top: 0px !important;
   width: 4.5rem;
   height: 4.5rem;
@@ -35,7 +35,7 @@
 }
 
 .profile-info-title {
-  color: #1cb5bd;
+  color: var(--main-green);
   font-weight: 400;
   font-size: 1rem;
   text-align: center;
@@ -47,4 +47,3 @@
   text-align: center;
   margin: auto;
 }
-

@@ -1,14 +1,14 @@
-import Icon from "../../../assets/svg/hekidesk-transparent.svg";
-import HistoryIcon from "../../../assets/icon/history.svg";
-import AddIcon from "../../../assets/icon/add.svg";
-import SearchIcon from "../../../assets/icon/question.svg";
+import Icon from "@/assets/svg/hekidesk-transparent.svg";
+import HistoryIcon from "@/assets/icon/history.svg";
+import AddIcon from "@/assets/icon/add.svg";
+import SearchIcon from "@/assets/icon/question.svg";
 import { Image } from "primereact/image";
-import { Text } from "../../../components/reusable/Text";
-import { List, ListItems } from "../../../components/reusable/List";
+import { Text } from "@/components/reusable/Text";
+import { List, ListItems } from "@/components/reusable/List";
 import {
   ImageWrapper,
   QuestionWrapper,
-} from "../../../components/reusable/ImageWrapper";
+} from "@/components/reusable/ImageWrapper";
 
 const DeskInfo = () => {
   return (

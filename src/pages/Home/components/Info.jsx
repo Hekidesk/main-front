@@ -1,15 +1,15 @@
-import Icon from "../../../assets/svg/hekidesk-transparent.svg";
-import HeartbeatIcon from "../../../assets/icon/heartbeat.svg";
-import StethoscopeIcon from "../../../assets/icon/stethoscope.svg";
-import BluetoothIcon from "../../../assets/icon/bluetooth.svg";
-import SearchIcon from "../../../assets/icon/question.svg";
+import Icon from "@/assets/svg/hekidesk-transparent.svg";
+import HeartbeatIcon from "@/assets/icon/heartbeat.svg";
+import StethoscopeIcon from "@/assets/icon/stethoscope.svg";
+import BluetoothIcon from "@/assets/icon/bluetooth.svg";
+import SearchIcon from "@/assets/icon/question.svg";
 import { Image } from "primereact/image";
-import { Text } from "../../../components/reusable/Text";
-import { List, ListItems } from "../../../components/reusable/List";
+import { Text } from "@/components/reusable/Text";
+import { List, ListItems } from "@/components/reusable/List";
 import {
   ImageWrapper,
   QuestionWrapper,
-} from "../../../components/reusable/ImageWrapper";
+} from "@/components/reusable/ImageWrapper";
 
 const InfoHome = () => {
   return (

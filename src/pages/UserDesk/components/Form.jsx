@@ -1,26 +1,33 @@
-import Icon from "../../../assets/svg/hekidesk-green.svg";
+import Icon from "@/assets/svg/hekidesk-green.svg";
 import { Image } from "primereact/image";
 import { Link } from "react-router-dom";
-import { ContainerWithoutHeight } from "../../../components/reusable/Container";
-import { Title } from "../../../components/reusable/Title";
+import { ContainerWithoutHeight } from "@/components/reusable/Container";
+import { Title } from "@/components/reusable/Title";
 import {
   ButtonOutlineStyle,
   ButtonStyle,
-} from "../../../components/reusable/ButtonStyle";
+} from "@/components/reusable/ButtonStyle";
 import { LogoRow } from "./CSS";
 import { useState } from "react";
-import HeartbeatIcon from "../../../assets/icon/heartbeat.svg";
-import HistoryIcon from "../../../assets/icon/history.svg";
-import HomeIcon from "../../../assets/icon/home-green.svg";
+import HeartbeatIcon from "@/assets/icon/heartbeat.svg";
+import HistoryIcon from "@/assets/icon/history.svg";
+import HomeIcon from "@/assets/icon/home-green.svg";
 
 const DeskForm = () => {
   const [user] = useState("Saeed");
   return (
     <ContainerWithoutHeight>
       <LogoRow>
-        <Image src={Icon} alt="icon" width="60px" />
+        <Image
+          src={Icon}
+          alt="icon"
+          width="60px"
+          style={{ paddingLeft: "0.5em", marginBottom: "0.5em" }}
+        />
         <Title>Hi {user}</Title>
       </LogoRow>
+      <br />
+      <br />
       <Link to="/measurement" style={ButtonStyle}>
         <Image
           src={HeartbeatIcon}

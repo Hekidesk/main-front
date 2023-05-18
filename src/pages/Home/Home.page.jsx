@@ -1,7 +1,7 @@
-import FormWrapper from "../../components/FormWrapper/FormWrapper";
+import FormWrapper from "@/components/FormWrapper/FormWrapper";
 import InfoHome from "./components/Info";
 import HomeForm from "./components/Form";
-import { Container } from "../../components/reusable/Container";
+import { Container } from "@/components/reusable/Container";
 
 const HomePage = () => {
   return (
