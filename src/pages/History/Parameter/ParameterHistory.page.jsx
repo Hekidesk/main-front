@@ -3,15 +3,15 @@ import Sidebar from "../../Sidebar/Sidebar";
 import { Col, Row, Image } from "react-bootstrap";
 import Profile from "../../Profile/Profile";
 import ProfileSection from "../../Profile/ProfileSection";
-import parameterPhoto from "../../../assets/icon/parameter-history.svg";
-import heart_rate from "../../../assets/icon/history/heart_rate.svg";
-import spo2 from "../../../assets/icon/history/spo2.svg";
-import respiration_rate from "../../../assets/icon/history/respiration_rate.svg";
-import heart_abnormality from "../../../assets/icon/history/heart_abnormality.svg";
-import temperature from "../../../assets/icon/history/temperature.svg";
+import parameterPhoto from "../../../assets/icon/parameterHistory.svg";
+import heart_rate from "../../../assets/icon/history/heartRateIcon.svg";
+import spo2 from "../../../assets/icon/history/spo2Icon.svg";
+import respiration_rate from "../../../assets/icon/history/respirationRateIcon.svg";
+import heart_abnormality from "../../../assets/icon/history/heartAbnormalityIcon.svg";
+import temperature from "../../../assets/icon/history/temperatureIcon.svg";
 import "../../../assets/styles/history.css";
 import "../../../assets/styles/profile.css";
-import HistoryChartPage from "../Chart/HistoryChart.page";
+import HistoryChart from "../Chart/HistoryChart";
 
 const ParameterHistoryPage = () => {
   return (
@@ -42,7 +42,7 @@ const ParameterHistoryPage = () => {
               <div className="parameter-section">
                 <Image src={heart_rate} alt="time-history-photo" />
                 <div>Heart Rate (bpm)</div>
-                <HistoryChartPage />
+                <HistoryChart />
               </div>
             </Col>
             <Col md={6}>
