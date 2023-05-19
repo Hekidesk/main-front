@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Chart } from 'primereact/chart';
 
-const HistoryChart = () => {
+const HistoryChart = ({color}) => {
     const [chartData, setChartData] = useState({});
     const [chartOptions, setChartOptions] = useState({});
 
@@ -12,24 +12,26 @@ const HistoryChart = () => {
         const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
         const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
         const data = {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+            labels: ['01/02/2022', '01/02/2022', '01/02/2022', '01/02/2022', '01/02/2022', '01/02/2022', '01/02/2022'],
             datasets: [
                 {
                     label: 'Second Dataset',
-                    data: [28, 48, 40, 19, 86, 27, 90],
+                    data: [28, 48, 43, 58, 46, 89],
                     fill: false,
-                    borderColor: documentStyle.getPropertyValue('--pink-500'),
+                    borderColor: color,
                     tension: 0.4
                 }
             ]
         };
         const options = {
             maintainAspectRatio: false,
+            responsive:true,
             aspectRatio: 0.6,
             plugins: {
                 legend: {
+                    display: false,
                     labels: {
-                        color: textColor
+                        color: color
                     }
                 }
             },
@@ -59,7 +61,7 @@ const HistoryChart = () => {
 
     return (
         <div className="card">
-            <Chart type="line" data={chartData} options={chartOptions} />
+            <Chart type="line" className="chart" data={chartData} options={chartOptions} />
         </div>
     )
 }

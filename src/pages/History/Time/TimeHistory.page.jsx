@@ -3,9 +3,12 @@ import Profile from "../../Profile/Profile";
 import { Col, Row, Image, Pagination } from "react-bootstrap";
 import Sidebar from "../../Sidebar/Sidebar";
 import ProfileSection from "../../Profile/ProfileSection";
-import BodyIcon from "@/assets/icon/history/body_img.svg";
+import BodyIcon from "@/assets/icon/history/bodyImg.svg";
 import { AiFillCaretDown, AiFillCaretUp } from "react-icons/ai";
 import { FaAngleDoubleDown, FaAngleDoubleUp } from "react-icons/fa";
+import upIcon from "@/assets/icon/history/upIcon.svg";
+import { ButtonHistoryStyle } from "@/components/reusable/ButtonStyle";
+import { Link } from "react-router-dom";
 
 const TimeHistoryPage = () => {
   return (
@@ -121,6 +124,17 @@ const TimeHistoryPage = () => {
             </Col>
           </Row>
         </Col>
+      </Row>
+      <Row className="d-flex justify-content-end">
+        <Link to="/history" style={ButtonHistoryStyle}>
+          <Image
+            src={upIcon}
+            alt="Image"
+            width="16px"
+            style={{ margin: "0em 0.2em" }}
+          />
+          Up
+        </Link>
       </Row>
     </div>
   );

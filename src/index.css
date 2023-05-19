@@ -42,3 +42,7 @@ body {
 .canvasjs-chart-canvas {
   position: relative !important;
 }
+
+a{
+  text-decoration: none;
+}

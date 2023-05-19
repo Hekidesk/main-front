@@ -22,3 +22,23 @@ export const ButtonOutlineStyle = {
   border: "1px solid var(--title-color)",
   ...btn,
 };
+
+export const ButtonMyDeskStyle = {
+  backgroundColor: "var(--title-color)",
+  borderColor: "var(--title-color)",
+  color: "white",
+  alignItems: "right",
+  ...btn,
+  marginRight: "41px", 
+  width: "200px",
+};
+
+export const ButtonHistoryStyle = {
+  backgroundColor: "var(--title-color)",
+  borderColor: "var(--title-color)",
+  color: "white",
+  alignItems: "right",
+  ...btn,
+  marginRight: "90px", 
+  width: "200px",
+};

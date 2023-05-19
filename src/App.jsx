@@ -9,6 +9,7 @@ import ParameterHistoryPage from "@/pages/History/parameter/ParameterHistory.pag
 import TimeHistoryPage from "@/pages/History/time/TimeHistory.page";
 import MeasurementPage from "@/pages/Measurement/Measurement.page";
 import DemoPage from "@/pages/Demo/Demo.page";
+import HistoryDeskPage from "./pages/History/HistoryDesk/HistoryDesk.page";
 
 function App() {
   return (

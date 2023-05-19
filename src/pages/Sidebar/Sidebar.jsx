@@ -5,6 +5,7 @@ import MyDeskIcon from "../../assets/icon/myDesk.svg";
 import HistoryIcon from "../../assets/icon/history.svg";
 import MeasurementIcon from "../../assets/icon/3D.svg";
 import "../../assets/styles/Sidebar.css";
+import { Link } from "react-router-dom";
 
 const Sidebar = () => {
   const [click, setClick] = React.useState(false);
@@ -17,22 +18,22 @@ const Sidebar = () => {
           <div className="logo-text">Hekidesk</div>
         </div>
         <div className="sidebar-item">
-          <a onClick={() => setClick(false)} to="/">
+          <Link onClick={() => setClick(false)} to="/">
             <img src={HomeIcon} alt="logo" width="25" />
             <div className="sidebar-text">Home</div>
-          </a>
-          <a onClick={() => setClick(false)} to="/">
+          </Link>
+          <Link onClick={() => setClick(false)} to="/user-desk">
             <img src={MyDeskIcon} alt="logo" width="25" />
             <div className="sidebar-text">My Desk</div>
-          </a>
-          <a onClick={() => setClick(false)} to="/">
+          </Link>
+          <Link onClick={() => setClick(false)} to="/measurement">
             <img src={MeasurementIcon} alt="logo" width="25" />
             <div className="sidebar-text">Measurement</div>
-          </a>
-          <a onClick={() => setClick(false)} to="/">
+          </Link>
+          <Link onClick={() => setClick(false)} to="/history">
             <img src={HistoryIcon} alt="logo" width="25" />
             <div className="sidebar-text">History</div>
-          </a>
+          </Link>
         </div>
       </div>
     </div>
