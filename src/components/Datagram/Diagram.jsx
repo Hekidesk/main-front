@@ -41,7 +41,7 @@ const Diagram = ({ data }) => {
       ],
     });
     chart.render();
-  }, []);
+  }, [data]);
 
   return (
     <div style={DiagramWrapper}>

@@ -1,6 +1,6 @@
 import PageWrapper from "@/components/PageWrapper/PageWrapper";
-import Diagram from "../../components/Datagram/Diagram";
-import HeartIcon from "@/assets/icon/measurement/heart.svg";
+import Diagram from "@/components/Datagram/Diagram";
+import temeperature from "@/assets/icon/parameter/temeperature.svg";
 import HighlightTitle from "@/components/HighlightTitle/HighlightTitle";
 import { useEffect, useState } from "react";
 import {
@@ -18,7 +18,7 @@ import {
   SimpleValue,
 } from "./components/CSS";
 
-const DemoPage = () => {
+const TemperaturePage = () => {
   const [data, setData] = useState();
 
   useEffect(() => {
@@ -49,7 +49,7 @@ const DemoPage = () => {
   return (
     <PageWrapper>
       <div style={{ display: "grid", placeItems: "center" }}>
-        <HighlightTitle title="Cardiogram" icon={HeartIcon} />
+        <HighlightTitle title="Temperature" icon={temeperature} />
         <br />
         <DiagramWrapper>
           <Description>
@@ -62,12 +62,8 @@ const DemoPage = () => {
           <DiagramContainer>
             <Diagram data={data} />
             <InfoContainer>
-              <ImportantTitle>bpmHr</ImportantTitle>
+              <ImportantTitle>Temperature</ImportantTitle>
               <ImportantValue>-?-</ImportantValue>
-              <SimpleTitle>PR/RR Interval</SimpleTitle>
-              <SimpleValue>-</SimpleValue>
-              <SimpleTitle>QRS Duration</SimpleTitle>
-              <SimpleValue>-</SimpleValue>
               <CircularContainer>
                 <CircularValue>30</CircularValue>
               </CircularContainer>
@@ -79,4 +75,4 @@ const DemoPage = () => {
   );
 };
 
-export default DemoPage;
+export default TemperaturePage;

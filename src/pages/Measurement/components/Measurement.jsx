@@ -1,10 +1,10 @@
 import { Col, Row, Card, Image } from "react-bootstrap";
-import TopPhotoIcon from "@/assets/icon/doctorPhoto.svg";
-import CarIcon from "@/assets/icon/cardiogramIcon.svg";
-import OxIcon from "@/assets/icon/oximetryIcon.svg";
-import SoundIcon from "@/assets/icon/heartLungSoundIcon.svg";
-import TemeperatureIcon from "@/assets/icon/temeperatureIcon.svg";
-import BpIcon from "@/assets/icon/bloodPressureIcon.svg";
+import TopPhotoIcon from "@/assets/icon/measurement/doctorPhoto.svg";
+import CarIcon from "@/assets/icon/measurement/cardiogramIcon.svg";
+import OxIcon from "@/assets/icon/measurement/oximetryIcon.svg";
+import SoundIcon from "@/assets/icon/measurement/heartLungSoundIcon.svg";
+import TemeperatureIcon from "@/assets/icon/measurement/temeperatureIcon.svg";
+import BpIcon from "@/assets/icon/measurement/bloodPressureIcon.svg";
 import "@/assets/styles/Measurement.css";
 import { Link } from "react-router-dom";
 import {ButtonMyDeskStyle} from "@/components/reusable/ButtonStyle";
@@ -22,7 +22,7 @@ const Measurement = () => {
         </Row>
         <Row>
           <Col lg={4} sm={6}>
-            <Link to="/demo">
+            <Link to="cardiogram">
               <Card>
                 <Card.Body>
                   <Card.Title>
@@ -35,7 +35,7 @@ const Measurement = () => {
             </Link>
           </Col>
           <Col lg={4} sm={6}>
-          <Link to="/demo">
+          <Link to="oximetry">
             <Card>
               <Card.Body>
                 <Card.Title>
@@ -48,7 +48,7 @@ const Measurement = () => {
           </Link>
           </Col>
           <Col lg={4} sm={6}>
-          <Link to="/demo">
+          <Link to="heart-and-lung-sound">
             <Card>
               <Card.Body>
                 <Card.Title>
@@ -63,7 +63,7 @@ const Measurement = () => {
           </Link>
           </Col>
           <Col lg={4} sm={6}>
-          <Link to="/demo">
+          <Link to="blood-pressure">
             <Card>
               <Card.Body>
                 <Card.Title>
@@ -76,7 +76,7 @@ const Measurement = () => {
           </Link>
           </Col>
           <Col lg={4} sm={6}>
-          <Link to="/demo">
+          <Link to="temperature">
             <Card>
               <Card.Body>
                 <Card.Title>

@@ -1,6 +1,6 @@
 import PageWrapper from "@/components/PageWrapper/PageWrapper";
-import Diagram from "../../components/Datagram/Diagram";
-import HeartIcon from "@/assets/icon/measurement/heart.svg";
+import Diagram from "@/components/Datagram/Diagram";
+import heartAndLungSound from "@/assets/icon/parameter/heartAndLungSound.svg";
 import HighlightTitle from "@/components/HighlightTitle/HighlightTitle";
 import { useEffect, useState } from "react";
 import {
@@ -18,7 +18,7 @@ import {
   SimpleValue,
 } from "./components/CSS";
 
-const DemoPage = () => {
+const HeartAndLungSoundPage = () => {
   const [data, setData] = useState();
 
   useEffect(() => {
@@ -49,7 +49,7 @@ const DemoPage = () => {
   return (
     <PageWrapper>
       <div style={{ display: "grid", placeItems: "center" }}>
-        <HighlightTitle title="Cardiogram" icon={HeartIcon} />
+        <HighlightTitle title="Heart Lung Sound" icon={heartAndLungSound} />
         <br />
         <DiagramWrapper>
           <Description>
@@ -64,9 +64,7 @@ const DemoPage = () => {
             <InfoContainer>
               <ImportantTitle>bpmHr</ImportantTitle>
               <ImportantValue>-?-</ImportantValue>
-              <SimpleTitle>PR/RR Interval</SimpleTitle>
-              <SimpleValue>-</SimpleValue>
-              <SimpleTitle>QRS Duration</SimpleTitle>
+              <SimpleTitle>bpm Respiration Rate</SimpleTitle>
               <SimpleValue>-</SimpleValue>
               <CircularContainer>
                 <CircularValue>30</CircularValue>
@@ -79,4 +77,4 @@ const DemoPage = () => {
   );
 };
 
-export default DemoPage;
+export default HeartAndLungSoundPage;

@@ -1,6 +1,6 @@
 import PageWrapper from "@/components/PageWrapper/PageWrapper";
-import Diagram from "../../components/Datagram/Diagram";
-import HeartIcon from "@/assets/icon/measurement/heart.svg";
+import Diagram from "@/components/Datagram/Diagram";
+import bloodPressure from "@/assets/icon/parameter/bloodPressure.svg";
 import HighlightTitle from "@/components/HighlightTitle/HighlightTitle";
 import { useEffect, useState } from "react";
 import {
@@ -18,7 +18,7 @@ import {
   SimpleValue,
 } from "./components/CSS";
 
-const DemoPage = () => {
+const BloodPressurePage = () => {
   const [data, setData] = useState();
 
   useEffect(() => {
@@ -49,7 +49,7 @@ const DemoPage = () => {
   return (
     <PageWrapper>
       <div style={{ display: "grid", placeItems: "center" }}>
-        <HighlightTitle title="Cardiogram" icon={HeartIcon} />
+        <HighlightTitle title="Blood Pressure" icon={bloodPressure} />
         <br />
         <DiagramWrapper>
           <Description>
@@ -79,4 +79,4 @@ const DemoPage = () => {
   );
 };
 
-export default DemoPage;
+export default BloodPressurePage;

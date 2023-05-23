@@ -224,10 +224,15 @@
     "@babel/helper-validator-identifier" "^7.19.1"
     "to-fast-properties" "^2.0.0"
 
-"@canvasjs/charts@^3.7.6":
+"@canvasjs/charts@^3.7.5", "@canvasjs/charts@^3.7.6":
   "integrity" "sha512-ZxYbRJFn8grye6yBcEI5jptk0/R1BFu13myl0AvT69v3CGHEcWosh/quKhpA++ZJF9mkUzYL2sD1DvhMuw6t6w=="
   "resolved" "https://registry.npmjs.org/@canvasjs/charts/-/charts-3.7.6.tgz"
   "version" "3.7.6"
+
+"@canvasjs/react-charts@^1.0.0":
+  "integrity" "sha512-wGI675kz65owAwXZWzJULK9GXKCrPV59+CCawXP801f4rmYGmPskdtGrczgJhA8ThFEgIvq3K4qrkpLDPSmxCQ=="
+  "resolved" "https://registry.npmjs.org/@canvasjs/react-charts/-/react-charts-1.0.0.tgz"
+  "version" "1.0.0"
 
 "@emotion/is-prop-valid@^1.1.0":
   "integrity" "sha512-3aDpDprjM0AwaxGE09bOPkNxHpBd+kA6jty3RnaEXdweX1DF1U3VQpPYb0g1IStAuK7SVQ1cy+bNBBKp4W3Fjg=="
@@ -442,6 +447,11 @@
   dependencies:
     "tslib" "^2.4.0"
 
+"@types/canvasjs@^1.9.8":
+  "integrity" "sha512-+EFzR0V5oB8KrzjitIIEi0oYznRb9ZvxCBpX5XILUesuKcDJSaDKQ9ccC5wf+c998u7pILKojPEqvOSenURJ2A=="
+  "resolved" "https://registry.npmjs.org/@types/canvasjs/-/canvasjs-1.9.8.tgz"
+  "version" "1.9.8"
+
 "@types/d3-array@^3.0.3":
   "integrity" "sha512-nwvEkG9vYOc0Ic7G7kwgviY4AQlTfYGIZ0fqB7CQHXGyYM6nO7kJh5EguSNA3jfh4rq7Sb7eMVq8isuvg2/miQ=="
   "resolved" "https://registry.npmjs.org/@types/d3-array/-/d3-array-3.0.4.tgz"
@@ -492,6 +502,11 @@
   "integrity" "sha512-HNB/9GHqu7Fo8AQiugyJbv6ZxYz58wef0esl4Mv828w1ZKpAshw/uFWVDUcIB9KKFeFKoxS3cHY07FFgtTRZ1g=="
   "resolved" "https://registry.npmjs.org/@types/d3-timer/-/d3-timer-3.0.0.tgz"
   "version" "3.0.0"
+
+"@types/file-saver@^2.0.5":
+  "integrity" "sha512-zv9kNf3keYegP5oThGLaPk8E081DFDuwfqjtiTzm6PoxChdJ1raSuADf2YGCVIyrSynLrgc8JWv296s7Q7pQSQ=="
+  "resolved" "https://registry.npmjs.org/@types/file-saver/-/file-saver-2.0.5.tgz"
+  "version" "2.0.5"
 
 "@types/prop-types@*":
   "integrity" "sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w=="
@@ -2008,7 +2023,7 @@
     "prop-types" "^15.6.2"
     "react-lifecycles-compat" "^3.0.4"
 
-"react@*", "react@^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0", "react@^15.5.x || ^16.x || ^17.x || ^18.x", "react@^16.0.0 || ^17.0.0 || ^18.0.0", "react@^16.8.0 || ^17 || ^18", "react@^16.8.0 || ^17.0.0-rc.1 || ^18.0.0", "react@^16.9.0 || ^17 || ^18", "react@^17.0.0 || ^18.0.0", "react@^18.2.0", "react@>= 16.8.0", "react@>=0.14.0", "react@>=15.0.0", "react@>=16.14.0", "react@>=16.3", "react@>=16.6.0", "react@>=16.8", "react@>=16.8.0":
+"react@*", "react@^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0", "react@^15.5.x || ^16.x || ^17.x || ^18.x", "react@^16.0.0 || ^17.0.0 || ^18.0.0", "react@^16.8.0 || ^17 || ^18", "react@^16.8.0 || ^17.0.0-rc.1 || ^18.0.0", "react@^16.9.0 || ^17 || ^18", "react@^17.0.0 || ^18.0.0", "react@^18.2.0", "react@>= 16.8.0", "react@>=0.14.0", "react@>=15.0.0", "react@>=16.0.0", "react@>=16.14.0", "react@>=16.3", "react@>=16.6.0", "react@>=16.8", "react@>=16.8.0":
   "integrity" "sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ=="
   "resolved" "https://registry.npmjs.org/react/-/react-18.2.0.tgz"
   "version" "18.2.0"

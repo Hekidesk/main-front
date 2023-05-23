@@ -1,6 +1,6 @@
 import PageWrapper from "@/components/PageWrapper/PageWrapper";
-import Diagram from "../../components/Datagram/Diagram";
-import HeartIcon from "@/assets/icon/measurement/heart.svg";
+import Diagram from "@/components/Datagram/Diagram";
+import HeartIcon from "@/assets/icon/parameter/heart.svg";
 import HighlightTitle from "@/components/HighlightTitle/HighlightTitle";
 import { useEffect, useState } from "react";
 import {
@@ -17,8 +17,12 @@ import {
   SimpleTitle,
   SimpleValue,
 } from "./components/CSS";
+import { Link } from "react-router-dom";
+import {ButtonMyDeskStyle} from "@/components/reusable/ButtonStyle";
+import MyDeskIcon from "@/assets/icon/myDesk.svg";
+import { Image } from "react-bootstrap";
 
-const DemoPage = () => {
+const CardiogramPage = () => {
   const [data, setData] = useState();
 
   useEffect(() => {
@@ -75,8 +79,17 @@ const DemoPage = () => {
           </DiagramContainer>
         </DiagramWrapper>
       </div>
+        <Link to="/" style={ButtonMyDeskStyle}>
+          <Image
+            src={MyDeskIcon}
+            alt="Image"
+            width="16px"
+            style={{ margin: "0em 0.2em" }}
+          />
+          Back
+        </Link>
     </PageWrapper>
   );
 };
 
-export default DemoPage;
+export default CardiogramPage;
