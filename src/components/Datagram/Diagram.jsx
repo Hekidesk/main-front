@@ -4,7 +4,7 @@ import { DiagramS, DiagramWrapper } from "./CSS";
 
 const Diagram = ({ data }) => {
   useEffect(() => {
-    var chart = new CanvasJS.Chart("chartContainer", {
+    const chart = new CanvasJS.Chart("chartContainer", {
       animationEnabled: true,
       zoomEnabled: true,
       backgroundColor: "#C8E7F1",

@@ -5,7 +5,7 @@ export const Wrapper = styled.div`
   width: ${wrapperWidth};
   min-height: 80vh;
   background-color: white;
-  padding: 1em;
+  padding: 1em 1em 5em 1em;
   border-radius: 40px;
   display: flex;
   position: relative;
@@ -13,6 +13,7 @@ export const Wrapper = styled.div`
   @media ${devices.tablet} {
     flex-direction: row;
     min-height: 90vh;
+    padding: 1em;
   }
 `;
 
