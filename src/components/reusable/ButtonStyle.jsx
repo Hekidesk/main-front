@@ -8,6 +8,7 @@ const btn = {
   borderRadius: "6px",
   textDecoration: "auto",
   margin: "1em 0",
+  cursor: "pointer",
 };
 
 export const ButtonStyle = {
@@ -29,7 +30,7 @@ export const ButtonMyDeskStyle = {
   color: "white",
   alignItems: "right",
   ...btn,
-  marginRight: "41px", 
+  marginRight: "41px",
   width: "200px",
 };
 
@@ -39,6 +40,6 @@ export const ButtonHistoryStyle = {
   color: "white",
   alignItems: "right",
   ...btn,
-  marginRight: "90px", 
+  marginRight: "90px",
   width: "200px",
 };

@@ -12,43 +12,10 @@ export const useSignalFeed = () => {
   const [duration, setDuration] = useState(0);
   const [isConnected, setIsConnected] = useState(false);
   const [finish, setFinish] = useState(false);
+
   const Data = [];
 
-  const disconnect = () => {
-    console.log("disconnect");
-
-    device?.gatt.disconnect();
-    setCharastircticR(null);
-  };
-
-  const start = async () => {
-    console.log("start");
-    Data.splice(0, Data.length);
-    setFinish(0);
-    setDuration(performance.now());
-    read_charastirctic?.startNotifications();
-  };
-
-  const turnOff = () => {
-    if (isConnected && device?.gatt.connected) {
-      write_charastirctic?.writeValue(new Uint8Array([0x000]).buffer);
-    }
-  };
-
-  const stop = async () => {
-    console.log("stop");
-    setDuration(0);
-    setFinish(1);
-    read_charastirctic?.stopNotifications();
-  };
-
-  const GetFrequency = () => {
-    const time = performance.now() - duration;
-    return Math.ceil(Data.length / Math.ceil(time / 1000));
-  };
-  const GetTime = () => performance.now() - duration;
-
-  const connect = () => {
+  const Connect = () => {
     console.log("connect");
     navigator.bluetooth
       .requestDevice({
@@ -72,19 +39,45 @@ export const useSignalFeed = () => {
             });
           });
         });
-        device.addEventListener("gattserverdisconnected", onDisconnected);
+        device.addEventListener("gattserverdisconnected", () => {
+          setIsConnected(false);
+          setDevice("");
+        });
       });
   };
 
-  const onDisconnected = () => {
-    setIsConnected(false);
-    setDevice("");
+  const Disconnect = () => {
+    console.log("disconnect");
+
+    device?.gatt.disconnect();
+    setCharastircticR(null);
   };
 
-  const sendCommand = async (command, callBack) => {
+  const Start = async () => {
+    console.log("start");
+    Data.splice(0, Data.length);
+    setFinish(0);
+    setDuration(performance.now());
+    read_charastirctic?.startNotifications();
+  };
+
+  const Stop = async () => {
+    console.log("stop");
+    setDuration(0);
+    setFinish(1);
+    read_charastirctic?.stopNotifications();
+  };
+
+  const GetFrequency = () => {
+    const time = performance.now() - duration;
+    return [Math.ceil(Data.length / Math.ceil(time / 1000)), time];
+  };
+
+  const SendCommand = async (command, callBack) => {
     if (device?.gatt.connected) {
       console.log("command ", command);
       write_charastirctic?.writeValue(new Uint8Array([command]).buffer);
+      if (!callBack) return;
       if (read_charastirctic)
         read_charastirctic.oncharacteristicvaluechanged = (data) => {
           const red = [];
@@ -126,18 +119,16 @@ export const useSignalFeed = () => {
   };
 
   return {
-    device,
-    stop,
-    start,
+    Stop,
+    Start,
     isConnected,
-    channelConnected: !!read_charastirctic,
-    connect,
-    disconnect,
-    sendCommand,
+    isChannelExits: !!read_charastirctic,
+    Connect,
+    Disconnect,
+    SendCommand,
     loading,
     GetFrequency,
-    GetTime,
-    turnOff,
+    finish,
   };
 };
 
