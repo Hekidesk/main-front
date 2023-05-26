@@ -13,7 +13,6 @@ import { useContext } from "react";
 
 const ConnectionForm = () => {
   const bluetooth = useContext(BluetoothContext);
-  console.log(bluetooth);
   return (
     <ContainerWithoutHeight>
       <LogoRow>
