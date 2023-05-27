@@ -1,12 +1,11 @@
-import React from "react";
-import { useContext } from "react";
+import React, { useContext } from "react";
 import { Navigate } from "react-router-dom";
 import { BluetoothContext } from "../App";
 
 function ProtectedRoute(props) {
   const bluetooth = useContext(BluetoothContext);
-  const isSignedIn = false;
-  const isDeviceRegistered = false;
+  const isSignedIn = true;
+  const isDeviceRegistered = true;
 
   if (!bluetooth.isConnected && props.needsDevice) {
     return <Navigate to="/connection" replace />;
