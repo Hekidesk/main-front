@@ -14,7 +14,7 @@ export const Description = styled.div`
 `;
 export const DiagramText = styled.h6`
   color: white;
-  font-size: 1.2em;
+  font-size: 1.4em;
 `;
 export const DiagramButton = styled.button`
   background: transparent;

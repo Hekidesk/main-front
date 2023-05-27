@@ -17,6 +17,7 @@ import {
   SimpleTitle,
   SimpleValue,
 } from "./components/CSS";
+import PageButtons from "@/components/reusable/PageButtons";
 
 const BloodPressurePage = () => {
   const [data, setData] = useState();
@@ -75,6 +76,7 @@ const BloodPressurePage = () => {
           </DiagramContainer>
         </DiagramWrapper>
       </div>
+      <PageButtons />
     </PageWrapper>
   );
 };

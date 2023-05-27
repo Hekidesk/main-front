@@ -89,17 +89,15 @@
   cursor: pointer;
   display: flex;
   padding-left: 1rem;
-  transition: all 0.1s ease;
+  /* transition: all 0.1s ease; */
 }
 
 .sidebar-container a:hover {
   background-color: white;
   border-radius: 35px 0px 0px 35px;
-  color: var(--nav-color-top) !important;
-  padding-right: 7px;
-  border-right: 2px solid var(--white);
   width: 11.58rem;
-  transition: all 0.1s ease;
+  color: var(--nav-color-top) !important;
+  transition: width 1s, background-color 0.5s;
 }
 
 .sidebar-container a:hover img {

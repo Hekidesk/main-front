@@ -26,7 +26,7 @@ export const ProfileContainer = styled.span`
 `;
 export const SidebarContainer = styled.div`
   width: 15%;
-  margin-right: 25px;
+  margin-right: 40px;
 `;
 export const ChildContainer = styled.div`
   width: 100%;

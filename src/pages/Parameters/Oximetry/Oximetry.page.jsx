@@ -17,9 +17,12 @@ import {
   SimpleTitle,
   SimpleValue,
 } from "./components/CSS";
+import PageButtons from "@/components/reusable/PageButtons";
 
 const OximetryPage = () => {
   const [data, setData] = useState();
+
+
 
   useEffect(() => {
     setData([
@@ -73,6 +76,7 @@ const OximetryPage = () => {
           </DiagramContainer>
         </DiagramWrapper>
       </div>
+      <PageButtons />
     </PageWrapper>
   );
 };

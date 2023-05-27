@@ -7,10 +7,12 @@ import {
 } from "./CSS";
 import Sidebar from "@/pages/Sidebar/Sidebar";
 import Profile from "@/pages/Profile/Profile";
+import Particle from "./Particle";
 
 const PageWrapper = (props) => {
   return (
     <Container {...props}>
+      <Particle />
       <Wrapper>
         <ProfileContainer>
           <Profile />

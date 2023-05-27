@@ -32,6 +32,32 @@ export const ButtonMyDeskStyle = {
   ...btn,
   marginRight: "41px",
   width: "200px",
+  padding: "0.4em 1em 0.4em 0.2em",
+};
+
+export const ButtonBackStyle = {
+  backgroundColor: "var(--title-color)",
+  borderColor: "var(--title-color)",
+  color: "white",
+  alignItems: "right",
+  ...btn,
+  marginTop: "50px",
+  marginLeft: "50px",
+  width: "200px",
+  padding: "0.4em 1em 0.4em 0.2em",
+};  
+
+export const ButtonMeasurementStyle = {
+  backgroundColor: "var(--title-color)",
+  borderColor: "var(--title-color)",
+  color: "white",
+  alignItems: "right",
+  ...btn,
+  cursor: "pointer",
+  marginTop: "50px",
+  marginLeft: "50px",
+  width: "200px",
+  padding: "0.4em 1em 0.4em 0.2em",
 };
 
 export const ButtonHistoryStyle = {
@@ -43,3 +69,4 @@ export const ButtonHistoryStyle = {
   marginRight: "90px",
   width: "200px",
 };
+

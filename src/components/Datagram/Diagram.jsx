@@ -16,12 +16,14 @@ const Diagram = ({ data }) => {
         tickLength: 0,
         gridColor: "#1CB5BDb1",
         gridThickness: 1,
+        ticksLimit: 2,
         labelFormatter: function () {
           return "";
         },
       },
       axisY: {
         lineThickness: 0,
+        interval: 300,
         tickLength: 0,
         gridColor: "#1CB5BDb1",
         gridThickness: 1,
