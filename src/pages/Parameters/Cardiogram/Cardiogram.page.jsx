@@ -17,10 +17,8 @@ import {
   SimpleTitle,
   SimpleValue,
 } from "./components/CSS";
-import { Link } from "react-router-dom";
-import {ButtonMyDeskStyle} from "@/components/reusable/ButtonStyle";
-import MyDeskIcon from "@/assets/icon/myDesk.svg";
-import { Image } from "react-bootstrap";
+import PageButtons from "@/components/reusable/PageButtons";
+
 
 const CardiogramPage = () => {
   const [data, setData] = useState();
@@ -79,15 +77,7 @@ const CardiogramPage = () => {
           </DiagramContainer>
         </DiagramWrapper>
       </div>
-        <Link to="/" style={ButtonMyDeskStyle}>
-          <Image
-            src={MyDeskIcon}
-            alt="Image"
-            width="16px"
-            style={{ margin: "0em 0.2em" }}
-          />
-          Back
-        </Link>
+      <PageButtons />
     </PageWrapper>
   );
 };

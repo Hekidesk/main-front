@@ -9,6 +9,11 @@ import Spo2Icon from "@/assets/icon/history/spo2Icon.svg";
 import RespirationRateIcon from "@/assets/icon/history/respirationRateIcon.svg";
 import HeartAbnormalityIcon from "@/assets/icon/history/heartAbnormalityIcon.svg";
 import TemperatureIcon from "@/assets/icon/history/temperatureIcon.svg";
+
+import PR_RR_INTERVAL from "@/assets/icon/history/PR_RR_INTERVAL.svg";
+import QRS_Duration from "@/assets/icon/history/QRS_Duration.svg";
+import SYSDIAIcon from "@/assets/icon/history/bloodPressureIcon.svg";
+
 import "@/assets/styles/history.css";
 import "@/assets/styles/profile.css";
 import HistoryChart from "../Chart/HistoryChart";
@@ -44,7 +49,7 @@ const ParameterHistoryPage = () => {
             <Col md={6}>
               <div className="parameter-section">
                 <Image src={HeartRateIcon} alt="time-history-photo" />
-                <div>Heart Rate (bpm)</div>
+                <div>Heart Rate (bpm) - ecg</div>
                 <HistoryChart color = "red" />
               </div>
             </Col>
@@ -52,6 +57,54 @@ const ParameterHistoryPage = () => {
               <div className="parameter-section">
                 <Image src={Spo2Icon} alt="time-history-photo" />
                 <div>SpO2 (%)</div>
+                <HistoryChart color = "#8CCD47" />
+              </div>
+            </Col>
+          </Row>
+          <Row>
+            <Col md={6}>
+              <div className="parameter-section">
+                <Image src={HeartRateIcon} alt="time-history-photo" />
+                <div>Heart Rate (bpm) - ppg</div>
+                <HistoryChart color = "red" />
+              </div>
+            </Col>
+            <Col md={6}>
+              <div className="parameter-section">
+                <Image src={PR_RR_INTERVAL} alt="time-history-photo" />
+                <div>PR/RR Interval (msec)</div>
+                <HistoryChart color = "#8CCD47" />
+              </div>
+            </Col>
+          </Row>
+          <Row>
+            <Col md={6}>
+              <div className="parameter-section">
+                <Image src={QRS_Duration} alt="time-history-photo" />
+                <div>QRS Duration (msec)</div>
+                <HistoryChart color = "red" />
+              </div>
+            </Col>
+            <Col md={6}>
+              <div className="parameter-section">
+                <Image alt="hr" />
+                <div>HR Variation</div>
+                <HistoryChart color = "#8CCD47" />
+              </div>
+            </Col>
+          </Row>
+          <Row>
+            <Col md={6}>
+              <div className="parameter-section">
+                <Image src={SYSDIAIcon} alt="time-history-photo" />
+                <div>SYS/DIA(mmHg)</div>
+                <HistoryChart color = "red" />
+              </div>
+            </Col>
+            <Col md={6}>
+              <div className="parameter-section">
+                <Image alt="time-history-photo" />
+                <div>Arrythmia Type</div>
                 <HistoryChart color = "#8CCD47" />
               </div>
             </Col>

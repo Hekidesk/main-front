@@ -2,12 +2,14 @@ import { Button } from "primereact/button";
 import BackIcon from "@/assets/icon/back.svg";
 import { useLocation, useNavigate } from "react-router-dom";
 import { FormSection, InfoSection, Wrapper } from "./CSS";
+import Particle from "../PageWrapper/Particle";
 
 const FormWrapper = ({ children1 = null, children2 = null }) => {
   const history = useNavigate();
   const location = useLocation();
   return (
     <Wrapper>
+      <Particle />
       <InfoSection>
         {location.pathname !== "/" && (
           <Button

@@ -17,6 +17,7 @@ import {
   SimpleTitle,
   SimpleValue,
 } from "./components/CSS";
+import PageButtons from "@/components/reusable/PageButtons";
 
 const TemperaturePage = () => {
   const [data, setData] = useState();
@@ -71,6 +72,7 @@ const TemperaturePage = () => {
           </DiagramContainer>
         </DiagramWrapper>
       </div>
+      <PageButtons />
     </PageWrapper>
   );
 };
