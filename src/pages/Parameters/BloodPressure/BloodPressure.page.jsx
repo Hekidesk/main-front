@@ -21,6 +21,10 @@ import PageButtons from "@/components/reusable/PageButtons";
 
 const BloodPressurePage = () => {
   const [data, setData] = useState();
+  const [SYS, setSYS] = useState(0);
+  const [DIA, setDIA] = useState(0);
+  const [qualityIndex, setQualityIndex] = useState(0);
+  const [saved, setSaved] = useState(0);
 
   useEffect(() => {
     setData([
@@ -76,7 +80,7 @@ const BloodPressurePage = () => {
           </DiagramContainer>
         </DiagramWrapper>
       </div>
-      <PageButtons />
+      <PageButtons dataName="BloodPressureData" texts={["SYS/DIA " + ""]} />
     </PageWrapper>
   );
 };

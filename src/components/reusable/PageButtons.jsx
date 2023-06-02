@@ -5,9 +5,8 @@ import {ButtonMeasurementStyle, ButtonBackStyle} from "@/components/reusable/But
 import backIcon from "@/assets/icon/measurement/back.svg";
 import shareIcon from "@/assets/icon/measurement/shareIcon.svg";
 import saveIcon from "@/assets/icon/measurement/saveIcon.svg";
-
-const PageButtons = () =>  {
-  
+import {shareData} from "@/utilities/share/Share"
+const PageButtons = ({dataName, texts, extraChartName = [], extraText = []}) =>  {
   return (
     <Row className="d-flex justify-content-between">
         <Col>
@@ -22,7 +21,7 @@ const PageButtons = () =>  {
           </Link>
         </Col>
         <Col>
-          <Button onClick={() => console.log("hi")} style={ButtonMeasurementStyle} className="d-flex justify-content-center">
+          <Button onClick={() => shareData(dataName, texts, extraChartName, extraText)} style={ButtonMeasurementStyle} className="d-flex justify-content-center">
             <Image
               src={shareIcon}
               alt="Image"

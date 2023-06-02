@@ -19,9 +19,30 @@ import {
 } from "./components/CSS";
 import PageButtons from "@/components/reusable/PageButtons";
 
-
 const CardiogramPage = () => {
   const [data, setData] = useState();
+
+  const [heartBeat, setHeartBeat] = useState("");
+  const [qualityIndex, setQualityIndex] = useState("");
+  const [PR_RR_Interval, setPR_RR_Interval] = useState("");
+  const [QRS_Duration, setQRSDuration] = useState("");
+  const [dot, setDot] = useState([]);
+  const [saved, setSaved] = useState(0);
+  const [hrv, setHrv] = useState([]);
+  const [hrvVal, setHrvVal] = useState(0);
+  const [ssTime, setSsTime] = useState([]);
+  const [singleSpike, setSingleSpike] = useState([]);
+  const [PQRST_ss, setPQRST_ss] = useState([]);
+  const [ArrythmiaType, setArrythmiaType] = useState("");
+
+  const types = [
+    "Normal",
+    "Sinus Tachicardia",
+    "Sinus Bradicardia",
+    "Premature Atrial Contrature (PAC)",
+    "Paroxysmal Atrial Tachycardia (PAT)",
+    "Multifocul Atrial Tachycardia (MAT)",
+  ];
 
   useEffect(() => {
     setData([
@@ -77,7 +98,22 @@ const CardiogramPage = () => {
           </DiagramContainer>
         </DiagramWrapper>
       </div>
-      <PageButtons />
+      <PageButtons
+        dataName="cardiogramData"
+        texts={
+          ["Heart beat: " + heartBeat,
+          "PR/RR Interval: " + PR_RR_Interval,
+          "QRS Duration: " + QRS_Duration]
+        }
+        extraChartName={[
+          "#chartContainerAbnormality1 canvas",
+          "#chartContainerAbnormality2 canvas",
+        ]}
+        extraText={[
+          ["hrv: " + hrvVal],
+          ["Arrythmia Type: " + types[ArrythmiaType]],
+        ]}
+      />
     </PageWrapper>
   );
 };

@@ -1,9 +1,8 @@
-import * as saveSvgAsPng from "save-svg-as-png";
 import {
   GetCurrentDateTime,
   GetCurrentDateTimeForFileName,
-} from "../../../utilities/time";
-import { prepareURLFile } from "../../../utilities/downloadFile";
+} from "../time/time";
+import { prepareURLFile } from "./downloadFile";
 
 
 export async function shareData(dataName, texts, extraChartName = [], extraText = []) {
