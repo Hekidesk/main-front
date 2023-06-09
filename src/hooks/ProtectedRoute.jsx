@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Navigate } from "react-router-dom";
-import { BluetoothContext } from "../App";
+import { BluetoothContext } from "@/App";
 
 function ProtectedRoute(props) {
   const bluetooth = useContext(BluetoothContext);

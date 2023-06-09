@@ -7,7 +7,7 @@ export default function Particle() {
   };
 
   return (
-    <div className="App">
+    <div className="particles">
       <Particles
         id="tsparticles"
         init={particlesInit}

@@ -13,6 +13,9 @@ const RegisterForm = () => {
 
   const history = useNavigate();
 
+  // todo
+  // add information of device after confirmation
+
   const submitRegisteryCode = () => {
     // todo
     // implement registery

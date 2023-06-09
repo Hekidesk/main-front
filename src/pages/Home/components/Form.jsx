@@ -18,7 +18,7 @@ const HomeForm = () => {
   const [selectedDevice, setSelectedDevice] = useState(null);
 
   // todo
-  // read from db and add context
+  // read from db "users" and add context
   const [users] = useState([
     { name: "Test1", code: "Ts1" },
     { name: "Test2", code: "Ts2" },
@@ -29,6 +29,8 @@ const HomeForm = () => {
     { name: "Test7", code: "Ts7" },
     { name: "Test8", code: "Ts8" },
   ]);
+  // todo 
+  // read from db "devices" and add data
   const [devices] = useState([
     { name: "Test1", code: "Ts1" },
     { name: "Test2", code: "Ts2" },

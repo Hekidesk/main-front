@@ -9,7 +9,6 @@ import { ContainerWithoutHeight } from "@/components/reusable/Container";
 import { useNavigate } from "react-router-dom";
 import { Col, LogoRow, Row, Title } from "./CSS";
 
-
 const RegisterForm = () => {
   const [form, setForm] = useState({
     username: "",
@@ -18,6 +17,7 @@ const RegisterForm = () => {
     height: "",
     gender: 0,
   });
+  console.log("🚀 ~ file: Form.jsx:21 ~ RegisterForm ~ form:", form);
   const onChangeValue = (n, v) => setForm({ ...form, [n]: v });
 
   const history = useNavigate();
@@ -66,10 +66,10 @@ const RegisterForm = () => {
         <label htmlFor={"gender"}>Gender</label>
         <Dropdown
           value={form.gender}
-          onChange={(v) => onChangeValue("gender", v)}
+          onChange={(v) => onChangeValue("gender", v.value)}
           options={[
-            { name: "Male", code: 1 },
-            { name: "Female", code: 0 },
+            { name: "Male", value: 1 },
+            { name: "Female", value: 0 },
           ]}
           optionLabel="name"
           placeholder="Select a gender"

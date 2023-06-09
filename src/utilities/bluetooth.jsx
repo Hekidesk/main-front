@@ -20,7 +20,7 @@ export const useSignalFeed = () => {
     navigator.bluetooth
       .requestDevice({
         optionalServices: [ServiceUUID],
-        // filters: [{ name: "ECG-PPG-Server" }], //todo remove it later
+        // filters: [{ name: "HekiDesk1.2" }],
         acceptAllDevices: true,
       })
       .then((device) => {
