@@ -22,6 +22,10 @@ import PageButtons from "@/components/reusable/PageButtons";
 const TemperaturePage = () => {
   const [data, setData] = useState();
 
+  const [temperature, setTemperature] = useState(0);
+  const [qualityIndex, setQualityIndex] = useState(100);
+  const [saved, setSaved] = useState(0);
+
   useEffect(() => {
     setData([
       { x: new Date(2017, 0, 1), y: 610 },
@@ -72,7 +76,13 @@ const TemperaturePage = () => {
           </DiagramContainer>
         </DiagramWrapper>
       </div>
-      <PageButtons />
+      <PageButtons
+        dataName="TemperatureData"
+        texts={[
+          "Temperature: " + temperature,
+          "Quality index: " + qualityIndex,
+        ]}
+      />
     </PageWrapper>
   );
 };

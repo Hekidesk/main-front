@@ -22,8 +22,12 @@ import PageButtons from "@/components/reusable/PageButtons";
 const OximetryPage = () => {
   const [data, setData] = useState();
 
-
-
+  const [heartBeat, setHeartBeat] = useState(0);
+  const [SPO2, setSPO2] = useState(0);
+  const [qualityIndex, setQualityIndex] = useState(0);
+  const [saved, setSaved] = useState(0);
+  const [filterActiveNum, setFilterActiveNum] = useState(0);
+  
   useEffect(() => {
     setData([
       { x: new Date(2017, 0, 1), y: 610 },
@@ -76,7 +80,14 @@ const OximetryPage = () => {
           </DiagramContainer>
         </DiagramWrapper>
       </div>
-      <PageButtons />
+      <PageButtons
+        dataName="oximetryData"
+        texts={
+          ["Heart beat: " + heartBeat,
+          "SPO2: " + SPO2,
+          "Quality index: " + qualityIndex]
+        }
+      />
     </PageWrapper>
   );
 };

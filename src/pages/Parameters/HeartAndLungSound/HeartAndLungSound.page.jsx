@@ -22,6 +22,22 @@ import PageButtons from "@/components/reusable/PageButtons";
 const HeartAndLungSoundPage = () => {
   const [data, setData] = useState();
 
+  const [sound, setSound] = useState([]);
+  const [filterdSound, setFilterdSound] = useState([]);
+  const [heartSound, setHeartSound] = useState([]);
+  const [preHeartSound, setPreHeartSound] = useState([]);
+  const [lungSound, setLungSound] = useState([]);
+  const [preLungSound, setPreLungSound] = useState([]);
+
+  const [heartBeat, setHeartBeat] = useState(0);
+  const [respirationRate, setRespirationRate] = useState(0);
+  const [qualityIndex, setQualityIndex] = useState(0);
+  const [filterActiveNum, setFilterActiveNum] = useState(0);
+  const [saved, setSaved] = useState(0);
+  const [fs, setFs] = useState(0);
+  const [position, setPosition] = useState("heart");
+
+
   useEffect(() => {
     setData([
       { x: new Date(2017, 0, 1), y: 610 },
@@ -74,7 +90,13 @@ const HeartAndLungSoundPage = () => {
           </DiagramContainer>
         </DiagramWrapper>
       </div>
-      <PageButtons />
+      <PageButtons
+        dataName="pcgData"
+        texts={[
+          "Heart beat: " + heartBeat,
+          "Quality index: " + qualityIndex,
+        ]}
+      />
     </PageWrapper>
   );
 };
