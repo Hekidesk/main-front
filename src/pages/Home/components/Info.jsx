@@ -1,4 +1,4 @@
-import Icon from "@/assets/svg/hekidesk-transparent.svg";
+import Icon from "@/assets/logo/hekidesk-transparent.svg";
 import HeartbeatIcon from "@/assets/icon/heartbeat.svg";
 import StethoscopeIcon from "@/assets/icon/stethoscope.svg";
 import BluetoothIcon from "@/assets/icon/bluetooth.svg";

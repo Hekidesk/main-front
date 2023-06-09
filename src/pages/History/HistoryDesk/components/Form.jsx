@@ -1,4 +1,4 @@
-import Icon from "../../../../assets/svg/hekidesk-green.svg";
+import Icon from "../../../../assets/logo/hekidesk-green.svg";
 import { Image } from "primereact/image";
 import { Link } from "react-router-dom";
 import { ContainerWithoutHeight } from "../../../../components/reusable/Container";

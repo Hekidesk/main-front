@@ -5,7 +5,7 @@ import OxIcon from "@/assets/icon/measurement/oximetryIcon.svg";
 import SoundIcon from "@/assets/icon/measurement/heartLungSoundIcon.svg";
 import TemeperatureIcon from "@/assets/icon/measurement/temeperatureIcon.svg";
 import BpIcon from "@/assets/icon/measurement/bloodPressureIcon.svg";
-import "@/assets/styles/Measurement.css";
+import "@/assets/styles/measurement.css";
 import { Link } from "react-router-dom";
 import {ButtonMyDeskStyle} from "@/components/reusable/ButtonStyle";
 import MyDeskIcon from "@/assets/icon/myDesk.svg";

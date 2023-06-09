@@ -1,4 +1,4 @@
-import Icon from "@/assets/svg/hekidesk-green.svg";
+import Icon from "@/assets/logo/hekidesk-green.svg";
 import { Image } from "primereact/image";
 import { Button } from "primereact/button";
 import { ButtonStyle } from "@/components/reusable/ButtonStyle";

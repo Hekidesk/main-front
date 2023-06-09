@@ -1,6 +1,6 @@
 import { Text } from "@/components/reusable/Text";
 import { Image } from "primereact/image";
-import Icon from "@/assets/svg/hekidesk-transparent.svg";
+import Icon from "@/assets/logo/hekidesk-transparent.svg";
 import { ImageWrapper } from "@/components/reusable/ImageWrapper";
 
 const RegisterInfo = () => {

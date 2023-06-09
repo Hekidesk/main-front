@@ -1,4 +1,4 @@
-import Icon from "@/assets/svg/hekidesk-transparent.svg";
+import Icon from "@/assets/logo/hekidesk-transparent.svg";
 import HistoryIcon from "@/assets/icon/history.svg";
 import AddIcon from "@/assets/icon/add.svg";
 import SearchIcon from "@/assets/icon/question.svg";

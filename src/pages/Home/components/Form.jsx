@@ -1,4 +1,4 @@
-import Icon from "@/assets/svg/hekidesk-green.svg";
+import Icon from "@/assets/logo/hekidesk-green.svg";
 import PlusIcon from "@/assets/icon/plus.svg";
 import { Image } from "primereact/image";
 import { Link } from "react-router-dom";
