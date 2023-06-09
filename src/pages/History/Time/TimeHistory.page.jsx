@@ -1,11 +1,9 @@
 import React from "react";
 import Profile from "../../Profile/Profile";
 import { Col, Row, Image, Pagination } from "react-bootstrap";
-import Sidebar from "../../Sidebar/Sidebar";
+import Sidebar from "@/components/Sidebar/Sidebar";
 import ProfileSection from "../../Profile/ProfileSection";
 import BodyIcon from "@/assets/icon/history/bodyImg.svg";
-import { AiFillCaretDown, AiFillCaretUp } from "react-icons/ai";
-import { FaAngleDoubleDown, FaAngleDoubleUp } from "react-icons/fa";
 import upIcon from "@/assets/icon/history/upIcon.svg";
 import { ButtonHistoryStyle } from "@/components/reusable/ButtonStyle";
 import { Link } from "react-router-dom";

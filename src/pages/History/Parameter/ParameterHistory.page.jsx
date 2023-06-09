@@ -1,5 +1,5 @@
 import React from "react";
-import Sidebar from "../../Sidebar/Sidebar";
+import Sidebar from "@/components/Sidebar/Sidebar";
 import { Col, Row, Image } from "react-bootstrap";
 import Profile from "../../Profile/Profile";
 import ProfileSection from "../../Profile/ProfileSection";

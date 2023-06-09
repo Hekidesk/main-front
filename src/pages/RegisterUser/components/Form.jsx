@@ -17,7 +17,6 @@ const RegisterForm = () => {
     height: "",
     gender: 0,
   });
-  console.log("🚀 ~ file: Form.jsx:21 ~ RegisterForm ~ form:", form);
   const onChangeValue = (n, v) => setForm({ ...form, [n]: v });
 
   const history = useNavigate();

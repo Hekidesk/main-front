@@ -10,6 +10,7 @@ import { LogoRow } from "./CSS";
 import DisconnectIcon from "@/assets/icon/disconnect.svg";
 import { BluetoothContext } from "@/App";
 import { useContext } from "react";
+import { Link } from "react-router-dom";
 
 const ConnectionForm = () => {
   const bluetooth = useContext(BluetoothContext);
@@ -37,6 +38,11 @@ const ConnectionForm = () => {
         </video>
       )}
       <br />
+      {bluetooth.isConnected && !bluetooth.loading && (
+        <Link to="/measurement" style={ButtonStyle}>
+          Go to Measurement
+        </Link>
+      )}
       {bluetooth.isConnected && !bluetooth.loading && (
         <div style={ButtonOutlineStyle} onClick={bluetooth.Disconnect}>
           <Image
