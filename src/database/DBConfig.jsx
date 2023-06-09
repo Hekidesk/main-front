@@ -25,5 +25,21 @@ export const DBConfig = {
         { name: "serial", keypath: "serial", options: { unique: false } },
       ],
     },
+    {
+      store: "time",
+      storeConfig: { keypath: "date", autoIncrement: false },
+      storeSchema: [
+        { name: "date", keypath: "date", options: { unique: true } },
+        { name: "data", keypath: "data", options: { unique: false } },
+      ],
+    },
+    {
+      store: "parameters",
+      storeConfig: { keypath: "name", autoIncrement: false },
+      storeSchema: [
+        { name: "name", keypath: "name", options: { unique: true } },
+        { name: "data", keypath: "data", options: { unique: false } },
+      ],
+    },
   ],
 };

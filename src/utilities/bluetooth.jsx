@@ -4,6 +4,15 @@ const ServiceUUID = "4fafc201-1fb5-459e-8fcc-c5c9c331914b";
 const ReadCharistristicUUID = "beb5483e-36e1-4688-b7f5-ea07361b26a8";
 const WriteCharistristicUUID = "e505ffd3-ecd5-4365-b57d-70202ab71692";
 
+const initialState = {
+  red: [],
+  ecg: [],
+  force: [],
+  ir: [],
+  pcg: [],
+  temperature: [],
+};
+
 export const useSignalFeed = () => {
   const [device, setDevice] = useState();
   const [loading, setLoading] = useState(false);
@@ -12,6 +21,8 @@ export const useSignalFeed = () => {
   const [duration, setDuration] = useState(0);
   const [isConnected, setIsConnected] = useState(false);
   const [finish, setFinish] = useState(false);
+
+  const [safe, setSafe] = useState(initialState);
 
   const Data = [];
 
@@ -58,6 +69,7 @@ export const useSignalFeed = () => {
     Data.splice(0, Data.length);
     setFinish(0);
     setDuration(performance.now());
+    setSafe(initialState);
     read_charastirctic?.startNotifications();
   };
 
@@ -106,15 +118,36 @@ export const useSignalFeed = () => {
               Bytes2Float16(data.srcElement.value.getUint16(0, true))
             );
           }
-          callBack({
+          let recieved = {
             red,
             ecg,
             force,
             ir,
             pcg,
             temperature,
+          };
+          let temp = safe;
+          KEYS.map((key) => {
+            temp[key] = [...temp[key], ...recieved[key]];
+            return "";
+          });
+
+          setSafe(temp);
+          callBack({
+            red: temp.red,
+            ecg: temp.ecg,
+            force: temp.force,
+            ir: temp.ir,
+            pcg: temp.pcg,
+            temperature: temp.temperature,
           });
         };
+    }
+  };
+
+  const TurnOff = () => {
+    if (isConnected && device.gatt.connected) {
+      write_charastirctic.writeValue(new Uint8Array([0x000]).buffer);
     }
   };
 
@@ -129,6 +162,7 @@ export const useSignalFeed = () => {
     loading,
     GetFrequency,
     finish,
+    TurnOff,
   };
 };
 

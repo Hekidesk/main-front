@@ -34,6 +34,9 @@ const Sidebar = () => {
             <img src={HistoryIcon} alt="logo" width="25" />
             <div className="sidebar-text">History</div>
           </Link>
+          <Link onClick={() => setClick(false)} to="/demo">
+            <div className="sidebar-text">Demo</div>
+          </Link>
         </div>
       </div>
     </div>
