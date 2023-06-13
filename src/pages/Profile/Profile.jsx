@@ -2,8 +2,13 @@ import React from "react";
 import { Col, Row, Image } from "react-bootstrap";
 import ProfilePhotoIcon from "@/assets/icon/profile.svg";
 import BellIcon from "@/assets/icon/bell.svg";
+import { useEffect, useState } from "react";
 
 const Profile = () => {
+  const [username,setUsername] = useState("");
+  useEffect(() => {
+    setUsername(localStorage.getItem("user"));
+  }, [])
   return (
     <div>
       <Row className="profile">
@@ -20,7 +25,7 @@ const Profile = () => {
         </Col>
         <Col className="profile-col">
           <div className="hello-profile">hello</div>
-          <div className="name-profile">Nima</div>
+          <div className="name-profile">{username}</div>
         </Col>
       </Row>
     </div>
