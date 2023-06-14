@@ -8,13 +8,20 @@ import {
   ButtonStyle,
 } from "../../../../components/reusable/ButtonStyle";
 import { LogoRow } from "./CSS";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import HomeIcon from "../../../../assets/icon/home-green.svg";
 import timeIcon from "../../../../assets/icon/history/timeIcon.svg";
 import parameterIcon from "../../../../assets/icon/history/parameterIcon.svg";
 
 const HistoryForm = () => {
-  const [user] = useState("Saeed");
+  const [user, setUser] = useState("");
+  useEffect(() => {
+    if(localStorage.getItem("user") !== null){
+      setUser(localStorage.getItem("user"));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <ContainerWithoutHeight>
       <LogoRow>

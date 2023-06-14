@@ -7,7 +7,7 @@ function ProtectedRoute(props) {
   const isSignedIn = true;
   const isDeviceRegistered = true;
 
-  if (bluetooth.isConnected && props.needsDevice) { //changed
+  if (!bluetooth.isConnected && props.needsDevice) { //changed
     return <Navigate to="/connection" replace />;
   }
   if (!isSignedIn || !isDeviceRegistered) {
