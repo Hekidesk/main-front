@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import * as CanvasJS from "@canvasjs/charts";
 import { DiagramS, DiagramWrapper } from "./CSS";
 
-const Diagram = ({ data }) => {
+const Diagram = ({ data, sizeOfSlice = -1 }) => {
   useEffect(() => {
     const chart = new CanvasJS.Chart("chartContainer", {
       animationEnabled: true,
@@ -36,7 +36,8 @@ const Diagram = ({ data }) => {
         {
           type: "line",
           color: "#1CB5BD",
-          dataPoints: data,
+          dataPoints:
+            sizeOfSlice > 0 ? data.slice(data.length - sizeOfSlice) : data,
           markerSize: 0,
           lineThickness: 5,
         },

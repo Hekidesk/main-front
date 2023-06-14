@@ -21,6 +21,7 @@ import { BluetoothContext } from "@/App";
 
 const DemoPage = () => {
   const [data, setData] = useState();
+  const [sizeOfSlice, setSizeOfSlice] = useState(-1);
 
   const bluetooth = useContext(BluetoothContext);
 
@@ -65,9 +66,11 @@ const DemoPage = () => {
     setData();
     startTime.current = setTimeout(() => {
       bluetooth.Start();
+      setSizeOfSlice(200);
     }, [pendingTime]);
     endTime.current = setTimeout(() => {
       bluetooth.Stop();
+      setSizeOfSlice(-1);
     }, [sampleTime + pendingTime]);
   };
 
@@ -85,7 +88,7 @@ const DemoPage = () => {
             <DiagramButton onClick={startInput}>Start</DiagramButton>
           </Description>
           <DiagramContainer>
-            <Diagram data={data} />
+            <Diagram data={data} sizeOfSlice={sizeOfSlice} />
             <InfoContainer>
               <ImportantTitle>bpmHr</ImportantTitle>
               <ImportantValue>-?-</ImportantValue>
