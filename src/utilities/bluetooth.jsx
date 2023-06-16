@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 const ServiceUUID = "4fafc201-1fb5-459e-8fcc-c5c9c331914b";
 const ReadCharistristicUUID = "beb5483e-36e1-4688-b7f5-ea07361b26a8";
@@ -23,8 +23,6 @@ export const useSignalFeed = () => {
   const [finish, setFinish] = useState(false);
 
   const [safe, setSafe] = useState(initialState);
-
-  const Data = [];
 
   const Connect = () => {
     console.log("connect");
@@ -59,30 +57,30 @@ export const useSignalFeed = () => {
 
   const Disconnect = () => {
     console.log("disconnect");
-
     device?.gatt.disconnect();
     setCharastircticR(null);
   };
 
   const Start = async () => {
     console.log("start");
-    Data.splice(0, Data.length);
     setFinish(0);
-    setDuration(performance.now());
+    console.log("start " + performance.now());
     setSafe(initialState);
+    console.log("safe: " + JSON.stringify(safe))
     read_charastirctic?.startNotifications();
+    return performance.now();
   };
 
-  const Stop = async () => {
+  const Stop = async (startTime) => {
     console.log("stop");
-    setDuration(0);
+    setDuration(performance.now() - startTime);
     setFinish(1);
     read_charastirctic?.stopNotifications();
   };
 
   const GetFrequency = () => {
-    const time = performance.now() - duration;
-    return [Math.ceil(Data.length / Math.ceil(time / 1000)), time];
+    const length = Math.max(safe.force.length, safe.pcg.length, safe.temperature.length);
+    return [Math.ceil(length / Math.ceil(duration / 1000)), duration];
   };
 
   const SendCommand = async (command, callBack) => {
@@ -107,7 +105,6 @@ export const useSignalFeed = () => {
               force.push(
                 Bytes2Float16(data.srcElement.value.getUint16(8 * i + 6, true))
               );
-              Data.push(0);
             }
           } else if (command === 0x03) {
             for (let i = 0; i < 100; i++) {
@@ -118,6 +115,7 @@ export const useSignalFeed = () => {
               Bytes2Float16(data.srcElement.value.getUint16(0, true))
             );
           }
+
           let recieved = {
             red,
             ecg,
@@ -131,7 +129,7 @@ export const useSignalFeed = () => {
             temp[key] = [...temp[key], ...recieved[key]];
             return "";
           });
-
+          // console.log("temp: " + JSON.stringify(temp))
           setSafe(temp);
           callBack({
             red: temp.red,

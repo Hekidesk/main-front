@@ -18,6 +18,8 @@ import {
   SimpleValue,
 } from "./components/CSS";
 import PageButtons from "@/components/reusable/PageButtons";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const BloodPressurePage = () => {
   const [data, setData] = useState();
@@ -25,6 +27,30 @@ const BloodPressurePage = () => {
   const [DIA, setDIA] = useState(0);
   const [qualityIndex, setQualityIndex] = useState(0);
   const [saved, setSaved] = useState(0);
+
+  async function calculate (inputs) {
+    console.log(inputs.data);
+    let payload = {
+      IR: "[" + inputs.data.ir.toString() + "]",
+      force: "[" + inputs.data.force.toString() + "]",
+      fs: inputs.freq,
+    };
+    let res = await axios.post("http://127.0.0.1:5000//bp_signal", payload);
+    console.log(res.data);
+    if(!Number(res.data.Try_Again)){
+      setSYS(res.data.Diastolic);
+      setDIA(res.data.Systolic);  
+      setQualityIndex(res.data.Quality_index);
+    }
+    else {
+      Swal.fire({
+        icon: "error",
+        title: "Something went wrong",
+        text: "Please repeat procedure!",
+      });
+    }
+    
+  };
 
   useEffect(() => {
     setData([
@@ -67,14 +93,10 @@ const BloodPressurePage = () => {
           <DiagramContainer>
             <Diagram data={data} />
             <InfoContainer>
-              <ImportantTitle>bpmHr</ImportantTitle>
-              <ImportantValue>-?-</ImportantValue>
-              <SimpleTitle>PR/RR Interval</SimpleTitle>
-              <SimpleValue>-</SimpleValue>
-              <SimpleTitle>QRS Duration</SimpleTitle>
-              <SimpleValue>-</SimpleValue>
+              <ImportantTitle>SYS/DIA</ImportantTitle>
+              <ImportantValue>{SYS}/{DIA}</ImportantValue>
               <CircularContainer>
-                <CircularValue>30</CircularValue>
+                <CircularValue>{qualityIndex}</CircularValue>
               </CircularContainer>
             </InfoContainer>
           </DiagramContainer>

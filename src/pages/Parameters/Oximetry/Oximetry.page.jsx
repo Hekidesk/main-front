@@ -18,6 +18,8 @@ import {
   SimpleValue,
 } from "./components/CSS";
 import PageButtons from "@/components/reusable/PageButtons";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const OximetryPage = () => {
   const [data, setData] = useState();
@@ -27,6 +29,44 @@ const OximetryPage = () => {
   const [qualityIndex, setQualityIndex] = useState(0);
   const [saved, setSaved] = useState(0);
   const [filterActiveNum, setFilterActiveNum] = useState(0);
+
+  const [filteredArray, setFilteredArray] = useState([]);
+
+  function makeArrayFormString(arr) {
+    return arr
+      .split(" ")
+      .map(function (item) {
+        return Number(item);
+      });
+  }
+
+  async function calculateBeatPerMinuteAPI(inputs) {
+    console.log(inputs.data);
+    let payload = {
+      IR: "[" + inputs.data.ir.toString() + "]",
+      Red: "[" + inputs.data.red.toString() + "]",
+      fs: inputs.freq,
+    };
+    let res = await axios.post("http://127.0.0.1:5000//PPG_signal", payload);
+    console.log(res.data);
+    if (!Number(res.data.Try_Again)) {
+      setHeartBeat(res.data.HeartRate);
+      setSPO2(res.data.SpO2);
+      setQualityIndex(res.data.Quality_index);
+      setFilteredArray(
+        [makeArrayFormString(res.data.clear_IR),
+        inputs.data.red,
+        makeArrayFormString(res.data.clear_Red),
+        makeArrayFormString(res.data.PPG_clear),
+        makeArrayFormString(res.data.PPG_clear)]
+      );
+    } else
+      Swal.fire({
+        icon: "error",
+        title: "Something went wrong",
+        text: "Please repeat procedure!",
+      });
+  }
   
   useEffect(() => {
     setData([
@@ -70,11 +110,11 @@ const OximetryPage = () => {
             <Diagram data={data} />
             <InfoContainer>
               <ImportantTitle>bpmHr</ImportantTitle>
-              <ImportantValue>-?-</ImportantValue>
+              <ImportantValue>{heartBeat}</ImportantValue>
               <SimpleTitle>SPO2</SimpleTitle>
-              <SimpleValue>-</SimpleValue>
+              <SimpleValue>{SPO2}</SimpleValue>
               <CircularContainer>
-                <CircularValue>30</CircularValue>
+                <CircularValue>{qualityIndex}</CircularValue>
               </CircularContainer>
             </InfoContainer>
           </DiagramContainer>

@@ -18,6 +18,7 @@ import {
   SimpleValue,
 } from "./components/CSS";
 import PageButtons from "@/components/reusable/PageButtons";
+import axios from "axios";
 
 const HeartAndLungSoundPage = () => {
   const [data, setData] = useState();
@@ -37,6 +38,51 @@ const HeartAndLungSoundPage = () => {
   const [fs, setFs] = useState(0);
   const [position, setPosition] = useState("heart");
 
+  const [filteredArray, setFilteredArray] = useState([]);
+
+  function makeArrayFormString(arr) {
+    return arr
+      .split(" ")
+      .map(function (item) {
+        return Number(item);
+      });
+  }
+
+  async function getDataAPI(data, fs) {
+    let payload = {
+      pcg: "[" + data.toString() + "]",
+      fs: fs,
+    };
+    let addr =
+      position === "heart"
+        ? "http://127.0.0.1:5000//PCG_signal/heart"
+        : "http://127.0.0.1:5000//PCG_signal/optional";
+    let res = await axios.post(addr, payload);
+    return res.data;
+  }
+
+  async function calculateBeatPerMinuteAPI(inputs) {
+    console.log(inputs.data);
+    setSound(inputs.data.pcg);
+    setFs(inputs.freq);
+    return getDataAPI(inputs.data.pcg, inputs.freq).then((res) => {
+      console.log(res);
+      setHeartBeat(res.heart_rate);
+      setRespirationRate(res.respiration_rate);
+      setQualityIndex(res.lung_quality_ind);
+      const filterdSound = makeArrayFormString(res.pcg_filtered);
+      const preHeartSound = makeArrayFormString(res.heart_signal_pre);
+      const heartSound = makeArrayFormString(res.heart_signal);
+      const preLungSound = makeArrayFormString(res.lung_signal_pre);
+      const lungSound = makeArrayFormString(res.lung_signal);
+      setFilterdSound(filterdSound);
+      setPreHeartSound(preHeartSound);
+      setHeartSound(heartSound);
+      setPreLungSound(preLungSound);
+      setLungSound(lungSound);
+      setFilteredArray([filterdSound, preHeartSound, heartSound, preLungSound, lungSound]);
+    });
+  }
 
   useEffect(() => {
     setData([
@@ -80,11 +126,11 @@ const HeartAndLungSoundPage = () => {
             <Diagram data={data} />
             <InfoContainer>
               <ImportantTitle>bpmHr</ImportantTitle>
-              <ImportantValue>-?-</ImportantValue>
+              <ImportantValue>-{heartBeat}-</ImportantValue>
               <SimpleTitle>bpm Respiration Rate</SimpleTitle>
-              <SimpleValue>-</SimpleValue>
+              <SimpleValue>{respirationRate}</SimpleValue>
               <CircularContainer>
-                <CircularValue>30</CircularValue>
+                <CircularValue>{qualityIndex}</CircularValue>
               </CircularContainer>
             </InfoContainer>
           </DiagramContainer>

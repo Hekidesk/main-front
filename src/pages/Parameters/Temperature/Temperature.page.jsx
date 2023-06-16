@@ -26,6 +26,12 @@ const TemperaturePage = () => {
   const [qualityIndex, setQualityIndex] = useState(100);
   const [saved, setSaved] = useState(0);
 
+  function calculateTemperature(inputs){
+    console.log(inputs.data.temperature);
+    const average = inputs.data.temperature.reduce((a, b) => a + b, 0) / inputs.data.temperature.length;
+    setTemperature(Number(average).toFixed(2));
+  }
+
   useEffect(() => {
     setData([
       { x: new Date(2017, 0, 1), y: 610 },
@@ -68,9 +74,9 @@ const TemperaturePage = () => {
             <Diagram data={data} />
             <InfoContainer>
               <ImportantTitle>Temperature</ImportantTitle>
-              <ImportantValue>-?-</ImportantValue>
+              <ImportantValue>-{temperature}-</ImportantValue>
               <CircularContainer>
-                <CircularValue>30</CircularValue>
+                <CircularValue>100</CircularValue>
               </CircularContainer>
             </InfoContainer>
           </DiagramContainer>

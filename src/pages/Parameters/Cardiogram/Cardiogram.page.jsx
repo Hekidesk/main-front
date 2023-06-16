@@ -18,6 +18,8 @@ import {
   SimpleValue,
 } from "./components/CSS";
 import PageButtons from "@/components/reusable/PageButtons";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const CardiogramPage = () => {
   const [data, setData] = useState();
@@ -35,6 +37,8 @@ const CardiogramPage = () => {
   const [PQRST_ss, setPQRST_ss] = useState([]);
   const [ArrythmiaType, setArrythmiaType] = useState("");
 
+  const [filteredArray, setFilteredArray] = useState([]);
+
   const types = [
     "Normal",
     "Sinus Tachicardia",
@@ -43,6 +47,65 @@ const CardiogramPage = () => {
     "Paroxysmal Atrial Tachycardia (PAT)",
     "Multifocul Atrial Tachycardia (MAT)",
   ];
+
+  function makePQRST(ps, qs, rs, ss, ts) {
+    let newArr = [];
+    for (const p of ps) newArr.push({ x: Number(p), color: "red" });
+    for (const q of qs) newArr.push({ x: Number(q), color: "blue" });
+    for (const r of rs) newArr.push({ x: Number(r), color: "black" });
+    for (const s of ss) newArr.push({ x: Number(s), color: "white" });
+    for (const t of ts) newArr.push({ x: Number(t), color: "orange" });
+    // console.log("newParr: " + JSON.stringify(newArr));
+    return newArr;
+  }
+
+  function makeArrayFormString(arr) {
+    return arr
+      .split(" ")
+      .map(function (item) {
+        return Number(item);
+      });
+  }
+
+  async function calculateBeatPerMinuteAPI(inputs){
+    console.log(inputs.data);
+    let payload = {
+      ECG: "[" + inputs.data.ecg.toString() + "]",
+      fs: inputs.freq,
+    };
+    let res = await axios.post("http://127.0.0.1:5000//ECG_signal", payload);
+    console.log(res.data);
+    if(!Number(res.data.Try_Again)){
+      setHeartBeat(Number(res.data.HeartRate));
+      setPR_RR_Interval(res.data.PR_RR);
+      setQRSDuration(res.data.QRS_duration);
+      setQualityIndex(res.data.Quality_index);
+      let newArr = makePQRST(
+        makeArrayFormString(res.data.P),
+        makeArrayFormString(res.data.Q),
+        makeArrayFormString(res.data.R),
+        makeArrayFormString(res.data.S),
+        makeArrayFormString(res.data.T)
+      );
+      setDot(newArr);
+
+      setSsTime(makeArrayFormString(res.data.ss_time));
+      setSingleSpike(makeArrayFormString(res.data.single_spike));
+      setPQRST_ss(makeArrayFormString(res.data.PQRST_ss));
+      setHrv(makeArrayFormString(res.data.hrv));
+      setHrvVal(res.data.hrv_val);
+      setArrythmiaType(parseInt(res.data.arrhythmia_type_PQRST));
+      let filterd_signal = makeArrayFormString(res.data.ECG_filtered);
+      setFilteredArray([filterd_signal]);
+    }
+    else {
+      Swal.fire({
+        icon: "error",
+        title: "Something went wrong",
+        text: "Please repeat procedure!",
+      });
+    }
+  }
 
   useEffect(() => {
     setData([
@@ -86,13 +149,13 @@ const CardiogramPage = () => {
             <Diagram data={data} />
             <InfoContainer>
               <ImportantTitle>bpmHr</ImportantTitle>
-              <ImportantValue>-?-</ImportantValue>
+              <ImportantValue>{heartBeat}</ImportantValue>
               <SimpleTitle>PR/RR Interval</SimpleTitle>
-              <SimpleValue>-</SimpleValue>
+              <SimpleValue>{PR_RR_Interval}</SimpleValue>
               <SimpleTitle>QRS Duration</SimpleTitle>
-              <SimpleValue>-</SimpleValue>
+              <SimpleValue>{QRS_Duration}</SimpleValue>
               <CircularContainer>
-                <CircularValue>30</CircularValue>
+                <CircularValue>{Quality_index}</CircularValue>
               </CircularContainer>
             </InfoContainer>
           </DiagramContainer>

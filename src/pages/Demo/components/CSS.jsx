@@ -32,7 +32,7 @@ export const DiagramContainer = styled.div`
   background: #c8e7f1;
   width: 100%;
   flex-direction: column;
-  box-shadow: -1px -1px 50px -12px rgba(0, 0, 0, 0.82);
+  box-shadow: -1px -1px 25px -12px rgba(0, 0, 0, 0.82);
   @media ${devices.tablet} {
     flex-direction: row;
   }
@@ -91,3 +91,14 @@ export const CircularContainer = styled.div`
   display: flex;
   justify-content: center;
 `;
+
+export const filterButton = {
+  margin: "20px auto",
+  display: "block",
+  alignItems: "center",
+  backgroundColor: "var(--main-green)",
+  border: "var(--main-green)",
+}
+
+
+
