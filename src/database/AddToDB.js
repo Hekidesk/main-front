@@ -1,21 +1,19 @@
 import { useIndexedDB } from "react-indexed-db";
-import { UserContext } from "../App";
-import { useContext } from "react";
-import { GetCurrentDateTimeDB } from "@/utilities/time";
+
+import { GetCurrentDateTimeDB } from "@/utilities/time/time";
 
 export const useAddToDB = (DBName) => {
   const { update: updateParameterHistory } = useIndexedDB(DBName);
-  const { getByID, update: updateTimeHistory } = useIndexedDB("dataTime");
-  const UserInfo = useContext(UserContext);
+  const { getByID, update: updateTimeHistory } = useIndexedDB("time");
 
   const currentDate = GetCurrentDateTimeDB();
-  const id = parseInt(String(currentDate + UserInfo.id));
+  const id = parseInt(String(currentDate + localStorage.getItem("id")));
   console.log(id);
 
   const updateHistory = (timeData) => {
     updateParameterHistory({
       dateAndId: id,
-      userId: UserInfo.id,
+      userId: localStorage.getItem("id"),
       ...timeData,
     }).then(
       (event) => {
@@ -39,7 +37,7 @@ export const useAddToDB = (DBName) => {
       .then(() => {
         updateTimeHistory({
           dateAndId: id,
-          userId: UserInfo.id,
+          userId: localStorage.getItem("id"),
           parameters: newParameter,
         }).then(
           (event) => {

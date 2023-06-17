@@ -23,6 +23,7 @@ const HomeForm = () => {
 
   useEffect(() => {
     getAll().then((usersFromDB) => {
+      console.log(usersFromDB);
       setUsers(usersFromDB);
     });
     console.log("here 1 " + localStorage.getItem("user"));
@@ -60,8 +61,10 @@ const HomeForm = () => {
   ]);
 
   const selectUser = (user) =>{
+    console.log(users.indexOf(user))
     setSelectedUser(user);
     localStorage.setItem("user", user.username);
+    localStorage.setItem("id", users.indexOf(user) + 1);
   }
 
   return (

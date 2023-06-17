@@ -32,6 +32,7 @@ const RegisterForm = () => {
     add({...form}).then(
       (event) => {
         console.log("Data added: ", event);
+        localStorage.setItem("id", event);
         history("/");
       },
       (error) => {

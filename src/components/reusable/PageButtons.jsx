@@ -8,30 +8,42 @@ import {
 import backIcon from "@/assets/icon/measurement/back.svg";
 import shareIcon from "@/assets/icon/measurement/shareIcon.svg";
 import saveIcon from "@/assets/icon/measurement/saveIcon.svg";
+import ckeckmarkIcon from "@/assets/icon/ckeckmarkIcon.svg";
 import { shareData } from "@/utilities/share/Share";
 
 const PageButtons = ({
   dataName,
   texts,
+  saved,
+  setSaved,
   extraChartName = [],
   extraText = [],
 }) => {
   return (
     <Row className="d-flex justify-content-between">
       <Col>
-        <Link
-          to="/measurement"
-          style={ButtonBackStyle}
+        <Button
+          onClick={() => setSaved(1)}
+          style={ButtonMeasurementStyle}
           className="d-flex justify-content-center"
         >
-          <Image
-            src={saveIcon}
-            alt="Image"
-            width="16px"
-            style={{ margin: "0em 0.6em" }}
-          />
+          {saved ? (
+            <Image
+              src={ckeckmarkIcon}
+              alt="Image"
+              width="16px"
+              style={{ margin: "0em 0.6em" }}
+            />
+          ) : (
+            <Image
+              src={saveIcon}
+              alt="Image"
+              width="16px"
+              style={{ margin: "0em 0.6em" }}
+            />
+          )}
           <span>Save</span>
-        </Link>
+        </Button>
       </Col>
       <Col>
         <Button

@@ -17,22 +17,27 @@ import {
   SimpleTitle,
   SimpleValue,
   filterButton,
+  CountDownNumber,
 } from "./components/CSS";
 import { BluetoothContext } from "@/App";
-import { Row, Col, Button, Dropdown, DropdownButton } from "react-bootstrap";
+import { Button, Dropdown, DropdownButton } from "react-bootstrap";
 import "@/assets/styles/Measurement.css";
 import axios from "axios";
+import { useAddToDB } from "@/database/AddToDB";
+import PageButtons from "@/components/reusable/PageButtons";
 
 const DemoPage = () => {
   const [IrData, setIrData] = useState();
   const [RedData, setRedData] = useState();
   const [chartData, setChartData] = useState();
   const [sizeOfSlice, setSizeOfSlice] = useState(-1);
+  const dbFunc = useAddToDB("oximetryData");
 
   
   const [heartBeat, setHeartBeat] = useState(0);
   const [SPO2, setSPO2] = useState(0);
   const [qualityIndex, setQualityIndex] = useState(0);
+  const [saved, setSaved] = useState(0);
 
   const [filteredArray, setFilteredArray] = useState([]);
   const [filterActiveNum, setFilterActiveNum] = useState(0);
@@ -88,8 +93,6 @@ const DemoPage = () => {
   }
 
   useEffect(() => {
-    // todo
-    // get data stream from last phaze, with refactor should be used here
     if (bluetooth)
       bluetooth.SendCommand(COMMAND, (input) => {
         setChartData(makeArrayForChart(input.ir));
@@ -97,20 +100,31 @@ const DemoPage = () => {
         setRedData(input.red);
       });
     if (bluetooth.finish) {
-      // todo
-      // call api with "data" and set elements.then(
       calculateBeatPerMinuteAPI(IrData, RedData);
-      /**
-       * after call api, set the result in the indexDB
-       */
-      //)
     }
     return bluetooth.turnOff;
   }, [bluetooth]);
 
   useEffect(() => {
     setChartData(filter ? filteredArray[filterActiveNum] : filteredArray[filterActiveNum + 1]);
-  },[filterActiveNum, filter])
+  },[filterActiveNum, filter]);
+
+  useEffect(() => {
+    if(saved){
+      var dataParameter = {};
+      dataParameter["heartBeatPPG"] = heartBeat;
+      dataParameter["SPO2"] = SPO2;
+      dbFunc.updateHistory(dataParameter);
+    }
+  }, [saved]);
+
+  const [counter, setCounter] = useState(5);
+  const [startCountDown, setStartCountDown] = useState(0);
+  useEffect(() => {
+    const timer =
+      startCountDown && counter >= 0 && setInterval(() => setCounter(counter - 1), 1000);
+    return () => clearInterval(timer);
+  }, [counter, startCountDown]);
 
   // todo
   // add loading ( a reusable modal with count down is needed,gets the pending time and show loading)
@@ -122,9 +136,12 @@ const DemoPage = () => {
 
   const startInput = () => {
     let startTimeDuration = 0;
+    setStartCountDown(1);
+    setCounter(5);
     startTime.current = setTimeout(() => {
       bluetooth.Start().then((result) => startTimeDuration = result);
       setSizeOfSlice(200);
+      setStartCountDown(0);
     }, [pendingTime]);
     endTime.current = setTimeout(() => {
       bluetooth.Stop(startTimeDuration);
@@ -135,7 +152,7 @@ const DemoPage = () => {
   return (
     <PageWrapper>
       <div style={{ display: "grid", placeItems: "center" }}>
-        <HighlightTitle title="Cardiogram" icon={HeartIcon} />
+        <HighlightTitle title="Oximetry" icon={HeartIcon} />
         <br />
         <DiagramWrapper>
           <Description>
@@ -144,6 +161,7 @@ const DemoPage = () => {
               press
             </DiagramText>
             <DiagramButton onClick={startInput}>Start</DiagramButton>
+            <CountDownNumber> {startCountDown ? counter : ""} </CountDownNumber>
           </Description>
           <DiagramContainer>
             <Diagram data={chartData} sizeOfSlice={sizeOfSlice} />
@@ -185,6 +203,16 @@ const DemoPage = () => {
           </DiagramContainer>
         </DiagramWrapper>
       </div>
+      <PageButtons
+        dataName="oximetryData"
+        texts={
+          ["Heart beat: " + heartBeat,
+          "SPO2: " + SPO2,
+          "Quality index: " + qualityIndex]
+        }
+        saved = {saved}
+        setSaved = {setSaved}
+      />
     </PageWrapper>
   );
 };

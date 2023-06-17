@@ -155,7 +155,7 @@ const CardiogramPage = () => {
               <SimpleTitle>QRS Duration</SimpleTitle>
               <SimpleValue>{QRS_Duration}</SimpleValue>
               <CircularContainer>
-                <CircularValue>{Quality_index}</CircularValue>
+                <CircularValue>{qualityIndex}</CircularValue>
               </CircularContainer>
             </InfoContainer>
           </DiagramContainer>

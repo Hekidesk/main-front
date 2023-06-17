@@ -14,7 +14,7 @@ import HistoryIcon from "@/assets/icon/history.svg";
 import HomeIcon from "@/assets/icon/home-green.svg";
 
 const DeskForm = () => {
-  const [user] = useState("Saeed");
+  const [user] = useState(localStorage.getItem("user"));
   return (
     <ContainerWithoutHeight>
       <LogoRow>
