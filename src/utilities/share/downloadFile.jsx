@@ -1,7 +1,8 @@
 import { jsPDF } from "jspdf";
 
 export function prepareURLFile(texts, extraChart = [], extraText = []) {
-  var oldCanvas = document.querySelector('#chartContainer canvas')
+  var oldCanvas = document.querySelector('#chartContainer canvas');
+  console.log(oldCanvas);
   var newCanvas = document.createElement('canvas');
   var context = newCanvas.getContext('2d');
   

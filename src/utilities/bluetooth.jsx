@@ -4,16 +4,16 @@ const ServiceUUID = "4fafc201-1fb5-459e-8fcc-c5c9c331914b";
 const ReadCharistristicUUID = "beb5483e-36e1-4688-b7f5-ea07361b26a8";
 const WriteCharistristicUUID = "e505ffd3-ecd5-4365-b57d-70202ab71692";
 
-const initialState = {
-  red: [],
-  ecg: [],
-  force: [],
-  ir: [],
-  pcg: [],
-  temperature: [],
-};
 
 export const useSignalFeed = () => {
+  const initialState = {
+    red: [],
+    ecg: [],
+    force: [],
+    ir: [],
+    pcg: [],
+    temperature: [],
+  };
   const [device, setDevice] = useState();
   const [loading, setLoading] = useState(false);
   const [read_charastirctic, setCharastircticR] = useState();
@@ -61,15 +61,24 @@ export const useSignalFeed = () => {
     setCharastircticR(null);
   };
 
+  const isFirstRender = useRef(true);
+
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return; // 👈️🤣 return early if initial render
+    }
+    read_charastirctic?.startNotifications();
+  }, [safe]);
+
   const Start = async () => {
     console.log("start");
     setFinish(0);
     console.log("start " + performance.now());
     setSafe(initialState);
-    console.log("safe: " + JSON.stringify(safe))
-    read_charastirctic?.startNotifications();
     return performance.now();
   };
+  
 
   const Stop = async (startTime) => {
     console.log("stop");
