@@ -38,6 +38,7 @@ const CardiogramPage = () => {
   const [filteredArray, setFilteredArray] = useState([]);
   const [filter, setFilter] = useState(1);
   const [chartData, setChartData] = useState();
+  const [sizeOfSlice, setSizeOfSlice] = useState(-1);
 
   const [heartBeat, setHeartBeat] = useState("");
   const [qualityIndex, setQualityIndex] = useState("");
@@ -136,7 +137,7 @@ const CardiogramPage = () => {
     setCounter(5);
     startTime.current = setTimeout(() => {
       bluetooth.Start().then((result) => startTimeDuration = result);
-      setSizeOfSlice(200);
+      setSizeOfSlice(400);
       setStartCountDown(0);
     }, [pendingTime]);
     endTime.current = setTimeout(() => {
@@ -181,7 +182,7 @@ const CardiogramPage = () => {
             <CountDownNumber> {startCountDown ? counter : ""} </CountDownNumber>
           </Description>
           <DiagramContainer>
-            <Diagram data={chartData} />
+            <Diagram data={chartData} sizeOfSlice={sizeOfSlice} />
             <InfoContainer>
               <ImportantTitle>bpmHr</ImportantTitle>
               <ImportantValue>{heartBeat}</ImportantValue>
@@ -196,9 +197,7 @@ const CardiogramPage = () => {
                 {filter % 2 ? "filtered" : "main"} signal
               </Button>
             </InfoContainer>
-          </DiagramContainer>
-
-        
+          </DiagramContainer> 
         </DiagramWrapper>
       </div>
       <PageButtons

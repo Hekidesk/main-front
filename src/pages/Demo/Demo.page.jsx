@@ -112,10 +112,7 @@ const DemoPage = () => {
     return () => clearInterval(timer);
   }, [counter, startCountDown]);
 
-  // todo
-  // add loading ( a reusable modal with count down is needed,gets the pending time and show loading)
   const pendingTime = 5000;
-
   const sampleTime = 10000;
   const startTime = useRef(null);
   const endTime = useRef(null);
@@ -126,7 +123,7 @@ const DemoPage = () => {
     setCounter(5);
     startTime.current = setTimeout(() => {
       bluetooth.Start().then((result) => startTimeDuration = result);
-      setSizeOfSlice(200);
+      setSizeOfSlice(400);
       setStartCountDown(0);
     }, [pendingTime]);
     endTime.current = setTimeout(() => {

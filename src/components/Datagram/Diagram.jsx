@@ -20,8 +20,8 @@ const Diagram = ({ data, sizeOfSlice = -1 }) => {
         gridColor: "#1CB5BDb1",
         gridThickness: 1,
         ticksLimit: 2,
-        minimum: 0,
-        maximum: 1500,
+        minimum: sizeOfSlice > 0 && data ? (data.length - sizeOfSlice > 0 ? data.length - sizeOfSlice : 0) : null,
+        maximum: sizeOfSlice > 0 && data ? (data.length < sizeOfSlice ? sizeOfSlice : data.length)  : null,
          labelFormatter: function () {
           return "";
         },
@@ -41,9 +41,9 @@ const Diagram = ({ data, sizeOfSlice = -1 }) => {
         {
           type: "line",
           color: "#1CB5BD",
-          dataPoints: data,
-          // dataPoints:
-          //   sizeOfSlice > 0 ? data.slice(data.length - sizeOfSlice) : data,
+          // dataPoints: data,
+          dataPoints:
+          data && sizeOfSlice > 0 && data.length - sizeOfSlice > 0 ? data.slice(data.length - sizeOfSlice) : data,
           markerSize: 0,
           lineThickness: 2,
         },
