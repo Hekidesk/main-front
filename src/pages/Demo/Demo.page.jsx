@@ -25,6 +25,7 @@ import "@/assets/styles/Measurement.css";
 import axios from "axios";
 import { useAddToDB } from "@/database/AddToDB";
 import PageButtons from "@/components/reusable/PageButtons";
+import { makeArrayForChart, makeArrayFormString } from "@/components/reusableDataFunc/DataFunc";
 
 const DemoPage = () => {
   const [IrData, setIrData] = useState();
@@ -41,26 +42,11 @@ const DemoPage = () => {
 
   const [filteredArray, setFilteredArray] = useState([]);
   const [filterActiveNum, setFilterActiveNum] = useState(0);
-  const [filter, setFilter] = useState(0);
+  const [filter, setFilter] = useState(1);
 
   const bluetooth = useContext(BluetoothContext);
 
   const COMMAND = 0x01;
-
-  const makeArrayFormString = (arr) => {
-    return arr.split(" ").map(function (item) {
-      return Number(item);
-    });
-  }
-
-  const makeArrayForChart = (arr) => {
-    return arr.map((item, id) => {
-      return {
-        x: item?.id ?? id,
-        y: item?.value ?? item,
-      };
-    })
-  }
 
   async function calculateBeatPerMinuteAPI(irData, RedData) {
     console.log(bluetooth.GetFrequency()[0]);

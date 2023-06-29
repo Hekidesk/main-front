@@ -28,7 +28,7 @@ const Diagram = ({ data, sizeOfSlice = -1 }) => {
       },
       axisY: {
         lineThickness: 0,
-        interval: 50,
+        // interval: 50,
         tickLength: 0,
         gridColor: "#1CB5BDb1",
         gridThickness: 0.5,

@@ -63,6 +63,9 @@ const PageButtons = ({
       <Col>
         <Link
           to="/measurement"
+          className="d-flex justify-content-center"
+        >
+          <Button
           style={ButtonMeasurementStyle}
           className="d-flex justify-content-center"
         >
@@ -73,6 +76,7 @@ const PageButtons = ({
             style={{ margin: "0em 0.6em" }}
           />
           <span>Back</span>
+          </Button>
         </Link>
       </Col>
     </Row>
