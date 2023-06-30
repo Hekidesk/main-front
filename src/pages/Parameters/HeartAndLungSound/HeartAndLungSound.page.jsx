@@ -22,6 +22,8 @@ import axios from "axios";
 
 const HeartAndLungSoundPage = () => {
   const [data, setData] = useState();
+  const [filteredArray, setFilteredArray] = useState([]);
+  const [filterActiveNum, setFilterActiveNum] = useState(0);
 
   const [sound, setSound] = useState([]);
   const [filterdSound, setFilterdSound] = useState([]);
@@ -33,20 +35,10 @@ const HeartAndLungSoundPage = () => {
   const [heartBeat, setHeartBeat] = useState(0);
   const [respirationRate, setRespirationRate] = useState(0);
   const [qualityIndex, setQualityIndex] = useState(0);
-  const [filterActiveNum, setFilterActiveNum] = useState(0);
   const [saved, setSaved] = useState(0);
   const [fs, setFs] = useState(0);
   const [position, setPosition] = useState("heart");
 
-  const [filteredArray, setFilteredArray] = useState([]);
-
-  function makeArrayFormString(arr) {
-    return arr
-      .split(" ")
-      .map(function (item) {
-        return Number(item);
-      });
-  }
 
   async function getDataAPI(data, fs) {
     let payload = {
@@ -85,29 +77,52 @@ const HeartAndLungSoundPage = () => {
   }
 
   useEffect(() => {
-    setData([
-      { x: new Date(2017, 0, 1), y: 610 },
-      { x: new Date(2017, 0, 2), y: 680 },
-      { x: new Date(2017, 0, 3), y: 690 },
-      { x: new Date(2017, 0, 4), y: 700 },
-      { x: new Date(2017, 0, 5), y: 710 },
-      { x: new Date(2017, 0, 6), y: 658 },
-      { x: new Date(2017, 0, 7), y: 734 },
-      { x: new Date(2017, 0, 8), y: 963 },
-      { x: new Date(2017, 0, 9), y: 847 },
-      { x: new Date(2017, 0, 10), y: 853 },
-      { x: new Date(2017, 0, 11), y: 869 },
-      { x: new Date(2017, 0, 12), y: 943 },
-      { x: new Date(2017, 0, 13), y: 970 },
-      { x: new Date(2017, 0, 14), y: 869 },
-      { x: new Date(2017, 0, 15), y: 890 },
-      { x: new Date(2017, 0, 16), y: 930 },
-      { x: new Date(2017, 0, 17), y: 1850 },
-      { x: new Date(2017, 0, 29), y: 890 },
-      { x: new Date(2017, 0, 30), y: 930 },
-      { x: new Date(2017, 0, 31), y: 750 },
-    ]);
-  }, []);
+    if (bluetooth)
+      bluetooth.SendCommand(COMMAND, (input) => {
+        console.log(input.temperature)
+        setChartData(makeArrayForChart(input.temperature));
+        setData(input.temperature);
+      });
+    if (bluetooth.finish) {
+      calculateTemperature(data);
+    }
+    return bluetooth.turnOff;
+  }, [bluetooth]);
+
+  useEffect(() => {
+    if(saved){
+      var dataParameter = {};
+      dataParameter["temperature"] = temeperature;
+      dbFunc.updateHistory(dataParameter);
+    }
+  }, [saved]);
+
+  const [counter, setCounter] = useState(5);
+  const [startCountDown, setStartCountDown] = useState(0);
+  useEffect(() => {
+    const timer =
+      startCountDown && counter >= 0 && setInterval(() => setCounter(counter - 1), 1000);
+    return () => clearInterval(timer);
+  }, [counter, startCountDown]);
+
+  const pendingTime = 5000;
+  const sampleTime = 10000;
+  const startTime = useRef(null);
+  const endTime = useRef(null);
+
+  const startInput = () => {
+    let startTimeDuration = 0;
+    setStartCountDown(1);
+    setCounter(5);
+    startTime.current = setTimeout(() => {
+      bluetooth.Start().then((result) => startTimeDuration = result);
+      setStartCountDown(0);
+    }, [pendingTime]);
+    endTime.current = setTimeout(() => {
+      bluetooth.Stop(startTimeDuration);
+    }, [sampleTime + pendingTime]);
+  };
+
 
   return (
     <PageWrapper>

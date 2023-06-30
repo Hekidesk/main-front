@@ -42,8 +42,9 @@ const TemperaturePage = () => {
   useEffect(() => {
     if (bluetooth)
       bluetooth.SendCommand(COMMAND, (input) => {
-        setChartData(makeArrayForChart(input.temeperature));
-        setData(input.temeperature);
+        console.log(input.temperature)
+        setChartData(makeArrayForChart(input.temperature));
+        setData(input.temperature);
       });
     if (bluetooth.finish) {
       calculateTemperature(data);
@@ -100,7 +101,7 @@ const TemperaturePage = () => {
             <CountDownNumber> {startCountDown ? counter : ""} </CountDownNumber>
           </Description>
           <DiagramContainer>
-            <Diagram data={chartData} />
+            <Diagram data={chartData} sizeOfSlice={-2} />
             <InfoContainer>
               <ImportantTitle>Temperature</ImportantTitle>
               <ImportantValue>-{temperature}-</ImportantValue>
