@@ -37,7 +37,11 @@ export const DiagramContainer = styled.div`
     flex-direction: row;
   }
 `;
-
+export const AbnormalityDiagramContainer = styled.div`
+  background: #c8e7f1;
+  flex-direction: column;
+  box-shadow: -1px -1px 50px -12px rgba(0, 0, 0, 0.82);
+`;
 export const InfoContainer = styled.div`
   background: #c8e7f1;
   border: 3px solid;
@@ -69,6 +73,12 @@ export const SimpleTitle = styled.h6`
 `;
 
 export const SimpleValue = styled.h3`
+  color: var(--main-green);
+  font-weight: bold;
+  text-align: center;
+`;
+
+export const SmallSimpleValue = styled.h5`
   color: var(--main-green);
   font-weight: bold;
   text-align: center;
@@ -109,3 +119,4 @@ export const CountDownNumber = styled.div`
   margin-bottom: 0.5rem;
   margin-left: 2rem;
 `;
+

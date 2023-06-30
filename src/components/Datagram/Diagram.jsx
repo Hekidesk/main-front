@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
 // import * as CanvasJS from "@canvasjs/charts";
-import { DiagramS, DiagramWrapper } from "./CSS";
+import {  DiagramWrapper } from "./CSS";
 
 import CanvasJSReact from "./canvasjs.react";
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;

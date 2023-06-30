@@ -26,6 +26,7 @@ import axios from "axios";
 import { useAddToDB } from "@/database/AddToDB";
 import PageButtons from "@/components/reusable/PageButtons";
 import { makeArrayForChart, makeArrayFormString } from "@/components/reusableDataFunc/DataFunc";
+import Swal from "sweetalert2";
 
 const DemoPage = () => {
   const [IrData, setIrData] = useState();

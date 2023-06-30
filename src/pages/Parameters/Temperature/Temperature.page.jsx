@@ -2,7 +2,7 @@ import PageWrapper from "@/components/PageWrapper/PageWrapper";
 import Diagram from "@/components/Datagram/Diagram";
 import temeperature from "@/assets/icon/parameter/temeperature.svg";
 import HighlightTitle from "@/components/HighlightTitle/HighlightTitle";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext, useRef } from "react";
 import {
   CircularContainer,
   CircularValue,
@@ -14,48 +14,76 @@ import {
   ImportantTitle,
   ImportantValue,
   InfoContainer,
-  SimpleTitle,
-  SimpleValue,
+  CountDownNumber,
 } from "./components/CSS";
 import PageButtons from "@/components/reusable/PageButtons";
+import { useAddToDB } from "@/database/AddToDB";
+import { BluetoothContext } from "@/App";
+import { makeArrayForChart } from "@/components/reusableDataFunc/DataFunc";
 
 const TemperaturePage = () => {
-  const [data, setData] = useState();
+  const [data, setData] = useState([]);
+  const [chartData, setChartData] = useState([]);
 
   const [temperature, setTemperature] = useState(0);
   const [qualityIndex, setQualityIndex] = useState(100);
   const [saved, setSaved] = useState(0);
+  const dbFunc = useAddToDB("TemperatureData");
+  const bluetooth = useContext(BluetoothContext);
 
-  function calculateTemperature(inputs){
-    console.log(inputs.data.temperature);
-    const average = inputs.data.temperature.reduce((a, b) => a + b, 0) / inputs.data.temperature.length;
+  const COMMAND = 0x04;
+  function calculateTemperature(data){
+    console.log(data);
+    const average = data.reduce((a, b) => a + b, 0) / data.length;
     setTemperature(Number(average).toFixed(2));
+    setQualityIndex(100);
   }
 
   useEffect(() => {
-    setData([
-      { x: new Date(2017, 0, 1), y: 610 },
-      { x: new Date(2017, 0, 2), y: 680 },
-      { x: new Date(2017, 0, 3), y: 690 },
-      { x: new Date(2017, 0, 4), y: 700 },
-      { x: new Date(2017, 0, 5), y: 710 },
-      { x: new Date(2017, 0, 6), y: 658 },
-      { x: new Date(2017, 0, 7), y: 734 },
-      { x: new Date(2017, 0, 8), y: 963 },
-      { x: new Date(2017, 0, 9), y: 847 },
-      { x: new Date(2017, 0, 10), y: 853 },
-      { x: new Date(2017, 0, 11), y: 869 },
-      { x: new Date(2017, 0, 12), y: 943 },
-      { x: new Date(2017, 0, 13), y: 970 },
-      { x: new Date(2017, 0, 14), y: 869 },
-      { x: new Date(2017, 0, 15), y: 890 },
-      { x: new Date(2017, 0, 16), y: 930 },
-      { x: new Date(2017, 0, 17), y: 1850 },
-      { x: new Date(2017, 0, 29), y: 890 },
-      { x: new Date(2017, 0, 30), y: 930 },
-      { x: new Date(2017, 0, 31), y: 750 },
-    ]);
-  }, []);
+    if (bluetooth)
+      bluetooth.SendCommand(COMMAND, (input) => {
+        setChartData(makeArrayForChart(input.temeperature));
+        setData(input.temeperature);
+      });
+    if (bluetooth.finish) {
+      calculateTemperature(data);
+    }
+    return bluetooth.turnOff;
+  }, [bluetooth]);
+
+  useEffect(() => {
+    if(saved){
+      var dataParameter = {};
+      dataParameter["temperature"] = temeperature;
+      dbFunc.updateHistory(dataParameter);
+    }
+  }, [saved]);
+
+  const [counter, setCounter] = useState(5);
+  const [startCountDown, setStartCountDown] = useState(0);
+  useEffect(() => {
+    const timer =
+      startCountDown && counter >= 0 && setInterval(() => setCounter(counter - 1), 1000);
+    return () => clearInterval(timer);
+  }, [counter, startCountDown]);
+
+  const pendingTime = 5000;
+  const sampleTime = 10000;
+  const startTime = useRef(null);
+  const endTime = useRef(null);
+
+  const startInput = () => {
+    let startTimeDuration = 0;
+    setStartCountDown(1);
+    setCounter(5);
+    startTime.current = setTimeout(() => {
+      bluetooth.Start().then((result) => startTimeDuration = result);
+      setStartCountDown(0);
+    }, [pendingTime]);
+    endTime.current = setTimeout(() => {
+      bluetooth.Stop(startTimeDuration);
+    }, [sampleTime + pendingTime]);
+  };
 
   return (
     <PageWrapper>
@@ -68,10 +96,11 @@ const TemperaturePage = () => {
               Please put your right and left fingers on ECG sensors and then
               press
             </DiagramText>
-            <DiagramButton>Start</DiagramButton>
+            <DiagramButton onClick={startInput}>Start</DiagramButton>
+            <CountDownNumber> {startCountDown ? counter : ""} </CountDownNumber>
           </Description>
           <DiagramContainer>
-            <Diagram data={data} />
+            <Diagram data={chartData} />
             <InfoContainer>
               <ImportantTitle>Temperature</ImportantTitle>
               <ImportantValue>-{temperature}-</ImportantValue>
@@ -88,6 +117,8 @@ const TemperaturePage = () => {
           "Temperature: " + temperature,
           "Quality index: " + qualityIndex,
         ]}
+        saved = {saved}
+        setSaved = {setSaved}
       />
     </PageWrapper>
   );

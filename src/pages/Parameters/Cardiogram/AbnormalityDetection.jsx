@@ -1,13 +1,11 @@
 import React from "react";
 import { Row, Col } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import CanvasJSReact from "../../../Diagram/canvasjs.react";
+import CanvasJSReact from "@/components/Datagram/canvasjs.react";
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 function AbnormalityDetection({
   heartBeat,
   hrv,
-  hrvVal,
   ssTime,
   singleSpike,
   PQRST_ss,
@@ -48,15 +46,20 @@ function AbnormalityDetection({
 
   function getOptions(data) {
     return {
-      theme: "light1",
-      backgroundColor: "transparent",
+      animationEnabled: true,
       zoomEnabled: true,
+      backgroundColor: "#C8E7F1",
       toolTip: {
         animationEnabled: true,
       },
       axisY: {
-        labelFontFamily: "system-ui",
+        lineThickness: 0,
+        tickLength: 0,
+        gridColor: "#1CB5BDb1",
         gridThickness: 0,
+        labelFormatter: function () {
+          return "";
+        },
         stripLines: [
           {
             startValue: heartBeat,
@@ -67,16 +70,21 @@ function AbnormalityDetection({
         ],
       },
       axisX: {
-        labelFontFamily: "system-ui",
+        lineThickness: 0,
+        tickLength: 0,
+        gridColor: "#1CB5BDb1",
+        gridThickness: 0,
+        labelFormatter: function () {
+          return "";
+        },
       },
-      animationEnabled: true,
       animationDuration: 500,
       dataPointWidth: 2,
       data: [
         {
           type: data === "hrv" ? "rangeColumn" : "line",
-          lineColor: "#8884d8",
-          color: "#8884d8",
+          lineColor: "#1CB5BD",
+          color: "#1CB5BD",
           lineThickness: 0,
           dataPoints:
             data === "hrv" ? [...getHrvSteam()] : getSingleSpikeSteam(),

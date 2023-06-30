@@ -17,21 +17,28 @@ import {
   InfoContainer,
   SimpleTitle,
   SimpleValue,
+  SmallSimpleValue,
   filterButton,
+  AbnormalityDiagramContainer,
+  CountDownNumber,
 } from "./components/CSS";
 import PageButtons from "@/components/reusable/PageButtons";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { makeArrayForChart, makeArrayFormString, makeFilteredArray } from "@/components/reusableDataFunc/DataFunc";
-import { CountDownNumber } from "../../Demo/components/CSS";
+import {
+  makeArrayForChart,
+  makeArrayFormString,
+  makeFilteredArray,
+} from "@/components/reusableDataFunc/DataFunc";
 import { Button } from "react-bootstrap";
 import { useAddToDB } from "@/database/AddToDB";
+import AbnormalityDetection from "./AbnormalityDetection";
 
 const CardiogramPage = () => {
   const COMMAND = 0x02;
 
   const bluetooth = useContext(BluetoothContext);
-  // const dbFunc = useAddToDB("oximetryData");
+  const dbFunc = useAddToDB("cardiogramData");
   const [saved, setSaved] = useState(0);
 
   const [data, setData] = useState();
@@ -40,16 +47,16 @@ const CardiogramPage = () => {
   const [chartData, setChartData] = useState();
   const [sizeOfSlice, setSizeOfSlice] = useState(-1);
 
-  const [heartBeat, setHeartBeat] = useState("");
+  const [heartBeat, setHeartBeat] = useState("-");
   const [qualityIndex, setQualityIndex] = useState("");
-  const [PR_RR_Interval, setPR_RR_Interval] = useState("");
-  const [QRS_Duration, setQRSDuration] = useState("");
+  const [PR_RR_Interval, setPR_RR_Interval] = useState("-");
+  const [QRS_Duration, setQRSDuration] = useState("-");
   const [hrv, setHrv] = useState([]);
-  const [hrvVal, setHrvVal] = useState(0);
+  const [hrvVal, setHrvVal] = useState("-");
   const [ssTime, setSsTime] = useState([]);
   const [singleSpike, setSingleSpike] = useState([]);
   const [PQRST_ss, setPQRST_ss] = useState([]);
-  const [ArrythmiaType, setArrythmiaType] = useState("");
+  const [ArrythmiaType, setArrythmiaType] = useState("-");
 
   const types = [
     "Normal",
@@ -71,15 +78,15 @@ const CardiogramPage = () => {
     return newArr;
   }
 
-  async function calculateBeatPerMinuteAPI(ecg){
-    console.log("data: " + ecg)
+  async function calculateBeatPerMinuteAPI(ecg) {
+    console.log("data: " + ecg);
     let payload = {
       ECG: "[" + ecg.toString() + "]",
       fs: bluetooth.GetFrequency()[0],
     };
     let res = await axios.post("http://127.0.0.1:5000//ECG_signal", payload);
     console.log(res.data);
-    if(!Number(res.data.Try_Again)){
+    if (!Number(res.data.Try_Again)) {
       setHeartBeat(Number(res.data.HeartRate));
       setPR_RR_Interval(res.data.PR_RR);
       setQRSDuration(res.data.QRS_duration);
@@ -99,13 +106,12 @@ const CardiogramPage = () => {
       setHrvVal(res.data.hrv_val);
       setArrythmiaType(parseInt(res.data.arrhythmia_type_PQRST));
       let filtered_signal = makeArrayFormString(res.data.ECG_filtered);
-      setFilteredArray(makeFilteredArray(dot,filtered_signal));
-      setFilteredArray([  
-        makeFilteredArray(dot,filtered_signal),
+      setFilteredArray(makeFilteredArray(dot, filtered_signal));
+      setFilteredArray([
+        makeFilteredArray(dot, filtered_signal),
         makeArrayForChart(ecg),
       ]);
-    }
-    else {
+    } else {
       Swal.fire({
         icon: "error",
         title: "Something went wrong",
@@ -116,13 +122,15 @@ const CardiogramPage = () => {
 
   useEffect(() => {
     setChartData(filteredArray[filter]);
-  },[filter]);
+  }, [filter]);
 
   const [counter, setCounter] = useState(5);
   const [startCountDown, setStartCountDown] = useState(0);
   useEffect(() => {
     const timer =
-      startCountDown && counter > 0 && setInterval(() => setCounter(counter - 1), 1000);
+      startCountDown &&
+      counter > 0 &&
+      setInterval(() => setCounter(counter - 1), 1000);
     return () => clearInterval(timer);
   }, [counter, startCountDown]);
 
@@ -136,7 +144,7 @@ const CardiogramPage = () => {
     setStartCountDown(1);
     setCounter(5);
     startTime.current = setTimeout(() => {
-      bluetooth.Start().then((result) => startTimeDuration = result);
+      bluetooth.Start().then((result) => (startTimeDuration = result));
       setSizeOfSlice(400);
       setStartCountDown(0);
     }, [pendingTime]);
@@ -152,17 +160,20 @@ const CardiogramPage = () => {
         setChartData(makeArrayForChart(input.ecg));
         setData(input.ecg);
       });
-      if (bluetooth.finish) {
+    if (bluetooth.finish) {
       calculateBeatPerMinuteAPI(data);
     }
     return bluetooth.turnOff;
   }, [bluetooth]);
 
   useEffect(() => {
-    if(saved){
+    if (saved) {
       var dataParameter = {};
-      dataParameter["heartBeatPPG"] = heartBeat;
-      dataParameter["SPO2"] = SPO2;
+      dataParameter["heartBeatECG"] = heartBeat;
+      dataParameter["PR_RR_Interval"] = PR_RR_Interval;
+      dataParameter["QRS_Duration"] = QRS_Duration;
+      dataParameter["hrvVal"] = hrvVal;
+      dataParameter["ArrythmiaType"] = ArrythmiaType;
       dbFunc.updateHistory(dataParameter);
     }
   }, [saved]);
@@ -190,23 +201,39 @@ const CardiogramPage = () => {
               <SimpleValue>{PR_RR_Interval}</SimpleValue>
               <SimpleTitle>QRS Duration</SimpleTitle>
               <SimpleValue>{QRS_Duration}</SimpleValue>
+              <SimpleTitle>hrv</SimpleTitle>
+              <SimpleValue>{hrvVal}</SimpleValue>
+              <SimpleTitle>Arrythmia Type</SimpleTitle>
+              <SmallSimpleValue>{types[ArrythmiaType]}</SmallSimpleValue>
               <CircularContainer>
                 <CircularValue>{qualityIndex}</CircularValue>
               </CircularContainer>
-              <Button style={filterButton} onClick={() => setFilter(1-filter)}>
+              <Button
+                style={filterButton}
+                onClick={() => setFilter(1 - filter)}
+              >
                 {filter % 2 ? "filtered" : "main"} signal
               </Button>
             </InfoContainer>
-          </DiagramContainer> 
+          </DiagramContainer>
+          <AbnormalityDiagramContainer>
+            <AbnormalityDetection
+              heartBeat={heartBeat}
+              hrv={hrv}
+              ssTime={ssTime}
+              singleSpike={singleSpike}
+              PQRST_ss={PQRST_ss}
+            ></AbnormalityDetection>
+          </AbnormalityDiagramContainer>
         </DiagramWrapper>
       </div>
       <PageButtons
         dataName="cardiogramData"
-        texts={
-          ["Heart beat: " + heartBeat,
+        texts={[
+          "Heart beat: " + heartBeat,
           "PR/RR Interval: " + PR_RR_Interval,
-          "QRS Duration: " + QRS_Duration]
-        }
+          "QRS Duration: " + QRS_Duration,
+        ]}
         extraChartName={[
           "#chartContainerAbnormality1 canvas",
           "#chartContainerAbnormality2 canvas",
@@ -215,8 +242,8 @@ const CardiogramPage = () => {
           ["hrv: " + hrvVal],
           ["Arrythmia Type: " + types[ArrythmiaType]],
         ]}
-        saved = {saved}
-        setSaved = {setSaved}
+        saved={saved}
+        setSaved={setSaved}
       />
     </PageWrapper>
   );
