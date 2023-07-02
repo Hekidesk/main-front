@@ -2,7 +2,7 @@ import PageWrapper from "@/components/PageWrapper/PageWrapper";
 import Diagram from "@/components/Datagram/Diagram";
 import bloodPressure from "@/assets/icon/parameter/bloodPressure.svg";
 import HighlightTitle from "@/components/HighlightTitle/HighlightTitle";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext, useRef } from "react";
 import {
   CircularContainer,
   CircularValue,
@@ -14,68 +14,104 @@ import {
   ImportantTitle,
   ImportantValue,
   InfoContainer,
-  SimpleTitle,
-  SimpleValue,
+  CountDownNumber,
 } from "./components/CSS";
 import PageButtons from "@/components/reusable/PageButtons";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { useAddToDB } from "@/database/AddToDB";
+import { BluetoothContext } from "@/App";
+import { makeArrayForChart } from "@/components/reusableDataFunc/DataFunc";
 
 const BloodPressurePage = () => {
-  const [data, setData] = useState();
+  const [IrData, setIrData] = useState();
+  const [forceData, setforceData] = useState();
+  const [chartData, setChartData] = useState();
+  const [sizeOfSlice, setSizeOfSlice] = useState(-1);
+  const dbFunc = useAddToDB("BPData");
+
   const [SYS, setSYS] = useState(0);
   const [DIA, setDIA] = useState(0);
   const [qualityIndex, setQualityIndex] = useState(0);
   const [saved, setSaved] = useState(0);
 
-  async function calculate (inputs) {
-    console.log(inputs.data);
+  const bluetooth = useContext(BluetoothContext);
+
+  const COMMAND = 0x01;
+
+  async function calculate(irData, forceData) {
     let payload = {
-      IR: "[" + inputs.data.ir.toString() + "]",
-      force: "[" + inputs.data.force.toString() + "]",
-      fs: inputs.freq,
+      IR: "[" + irData.toString() + "]",
+      force: "[" + forceData.toString() + "]",
+      fs: bluetooth.GetFrequency()[0],
     };
     let res = await axios.post("http://127.0.0.1:5000//bp_signal", payload);
     console.log(res.data);
-    if(!Number(res.data.Try_Again)){
+    if (!Number(res.data.Try_Again)) {
       setSYS(res.data.Diastolic);
-      setDIA(res.data.Systolic);  
+      setDIA(res.data.Systolic);
       setQualityIndex(res.data.Quality_index);
-    }
-    else {
+    } else {
       Swal.fire({
         icon: "error",
         title: "Something went wrong",
         text: "Please repeat procedure!",
+        confirmButtonColor: '#3085d6',
       });
     }
-    
-  };
+  }
 
   useEffect(() => {
-    setData([
-      { x: new Date(2017, 0, 1), y: 610 },
-      { x: new Date(2017, 0, 2), y: 680 },
-      { x: new Date(2017, 0, 3), y: 690 },
-      { x: new Date(2017, 0, 4), y: 700 },
-      { x: new Date(2017, 0, 5), y: 710 },
-      { x: new Date(2017, 0, 6), y: 658 },
-      { x: new Date(2017, 0, 7), y: 734 },
-      { x: new Date(2017, 0, 8), y: 963 },
-      { x: new Date(2017, 0, 9), y: 847 },
-      { x: new Date(2017, 0, 10), y: 853 },
-      { x: new Date(2017, 0, 11), y: 869 },
-      { x: new Date(2017, 0, 12), y: 943 },
-      { x: new Date(2017, 0, 13), y: 970 },
-      { x: new Date(2017, 0, 14), y: 869 },
-      { x: new Date(2017, 0, 15), y: 890 },
-      { x: new Date(2017, 0, 16), y: 930 },
-      { x: new Date(2017, 0, 17), y: 1850 },
-      { x: new Date(2017, 0, 29), y: 890 },
-      { x: new Date(2017, 0, 30), y: 930 },
-      { x: new Date(2017, 0, 31), y: 750 },
-    ]);
-  }, []);
+    if (bluetooth)
+      bluetooth.SendCommand(COMMAND, (input) => {
+        setChartData(makeArrayForChart(input.ir));
+        setIrData(input.ir);
+        setforceData(input.force);
+      });
+    if (bluetooth.finish) {
+      calculate(IrData, forceData);
+    }
+    return bluetooth.turnOff;
+  }, [bluetooth]);
+
+  useEffect(() => {
+    if (saved) {
+      var dataParameter = {};
+      dataParameter["SYS"] = SYS;
+      dataParameter["DIA"] = DIA;
+      dbFunc.updateHistory(dataParameter);
+    }
+  }, [saved]);
+
+  const [counter, setCounter] = useState(5);
+  const [startCountDown, setStartCountDown] = useState(0);
+  useEffect(() => {
+    const timer =
+      startCountDown &&
+      counter >= 0 &&
+      setInterval(() => setCounter(counter - 1), 1000);
+    return () => clearInterval(timer);
+  }, [counter, startCountDown]);
+
+  const pendingTime = 5000;
+  const sampleTime = 10000;
+  const startTime = useRef(null);
+  const endTime = useRef(null);
+
+  const startInput = () => {
+    let startTimeDuration = 0;
+    setStartCountDown(1);
+    setCounter(5);
+    startTime.current = setTimeout(() => {
+      bluetooth.Start().then((result) => (startTimeDuration = result));
+      setSizeOfSlice(400);
+      setStartCountDown(0);
+    }, [pendingTime]);
+    endTime.current = setTimeout(() => {
+      bluetooth.Stop(startTimeDuration);
+      setSizeOfSlice(-1);
+    }, [sampleTime + pendingTime]);
+  };
 
   return (
     <PageWrapper>
@@ -88,13 +124,16 @@ const BloodPressurePage = () => {
               Please put your right and left fingers on ECG sensors and then
               press
             </DiagramText>
-            <DiagramButton>Start</DiagramButton>
+            <DiagramButton onClick={startInput}>Start</DiagramButton>
+            <CountDownNumber> {startCountDown ? counter : ""} </CountDownNumber>
           </Description>
           <DiagramContainer>
-            <Diagram data={data} />
+            <Diagram data={chartData} sizeOfSlice={sizeOfSlice} />
             <InfoContainer>
               <ImportantTitle>SYS/DIA</ImportantTitle>
-              <ImportantValue>{SYS}/{DIA}</ImportantValue>
+              <ImportantValue>
+                {SYS}/{DIA}
+              </ImportantValue>
               <CircularContainer>
                 <CircularValue>{qualityIndex}</CircularValue>
               </CircularContainer>
@@ -102,7 +141,12 @@ const BloodPressurePage = () => {
           </DiagramContainer>
         </DiagramWrapper>
       </div>
-      <PageButtons dataName="BloodPressureData" texts={["SYS/DIA " + ""]} />
+      <PageButtons
+        dataName="BloodPressureData"
+        texts={["SYS/DIA " + ""]}
+        saved={saved}
+        setSaved={setSaved}
+      />
     </PageWrapper>
   );
 };

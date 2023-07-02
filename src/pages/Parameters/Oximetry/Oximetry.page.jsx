@@ -17,7 +17,6 @@ import {
   SimpleTitle,
   SimpleValue,
   filterButton,
-  CountDownNumber,
 } from "./components/CSS";
 import { BluetoothContext } from "@/App";
 import { Button, Dropdown, DropdownButton } from "react-bootstrap";
@@ -27,6 +26,7 @@ import { useAddToDB } from "@/database/AddToDB";
 import PageButtons from "@/components/reusable/PageButtons";
 import { makeArrayForChart, makeArrayFormString } from "@/components/reusableDataFunc/DataFunc";
 import Swal from "sweetalert2";
+import Counter from "@/components/Counter/Counter";
 
 const DemoPage = () => {
   const [IrData, setIrData] = useState();
@@ -76,6 +76,7 @@ const DemoPage = () => {
         icon: "error",
         title: "Something went wrong",
         text: "Please repeat procedure!",
+        confirmButtonColor: '#3085d6',
       });
   }
 
@@ -105,13 +106,8 @@ const DemoPage = () => {
     }
   }, [saved]);
 
-  const [counter, setCounter] = useState(5);
   const [startCountDown, setStartCountDown] = useState(0);
-  useEffect(() => {
-    const timer =
-      startCountDown && counter >= 0 && setInterval(() => setCounter(counter - 1), 1000);
-    return () => clearInterval(timer);
-  }, [counter, startCountDown]);
+
 
   const pendingTime = 5000;
   const sampleTime = 10000;
@@ -121,7 +117,6 @@ const DemoPage = () => {
   const startInput = () => {
     let startTimeDuration = 0;
     setStartCountDown(1);
-    setCounter(5);
     startTime.current = setTimeout(() => {
       bluetooth.Start().then((result) => startTimeDuration = result);
       setSizeOfSlice(400);
@@ -145,7 +140,7 @@ const DemoPage = () => {
               press
             </DiagramText>
             <DiagramButton onClick={startInput}>Start</DiagramButton>
-            <CountDownNumber> {startCountDown ? counter : ""} </CountDownNumber>
+            <Counter startCountDown = {startCountDown}/>
           </Description>
           <DiagramContainer>
             <Diagram data={chartData} sizeOfSlice={sizeOfSlice} />

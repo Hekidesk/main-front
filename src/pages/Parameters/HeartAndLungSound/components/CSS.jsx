@@ -91,3 +91,12 @@ export const CircularContainer = styled.div`
   display: flex;
   justify-content: center;
 `;
+
+export const filterButton = {
+  margin: "20px auto",
+  display: "block",
+  alignItems: "center",
+  backgroundColor: "var(--main-green)",
+  border: "var(--main-green)",
+}
+

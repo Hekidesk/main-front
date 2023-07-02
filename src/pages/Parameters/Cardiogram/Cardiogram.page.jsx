@@ -20,7 +20,6 @@ import {
   SmallSimpleValue,
   filterButton,
   AbnormalityDiagramContainer,
-  CountDownNumber,
 } from "./components/CSS";
 import PageButtons from "@/components/reusable/PageButtons";
 import axios from "axios";
@@ -33,6 +32,7 @@ import {
 import { Button } from "react-bootstrap";
 import { useAddToDB } from "@/database/AddToDB";
 import AbnormalityDetection from "./AbnormalityDetection";
+import Counter from "@/components/Counter/Counter";
 
 const CardiogramPage = () => {
   const COMMAND = 0x02;
@@ -116,6 +116,7 @@ const CardiogramPage = () => {
         icon: "error",
         title: "Something went wrong",
         text: "Please repeat procedure!",
+        confirmButtonColor: '#3085d6',
       });
     }
   }
@@ -124,15 +125,7 @@ const CardiogramPage = () => {
     setChartData(filteredArray[filter]);
   }, [filter]);
 
-  const [counter, setCounter] = useState(5);
   const [startCountDown, setStartCountDown] = useState(0);
-  useEffect(() => {
-    const timer =
-      startCountDown &&
-      counter > 0 &&
-      setInterval(() => setCounter(counter - 1), 1000);
-    return () => clearInterval(timer);
-  }, [counter, startCountDown]);
 
   const pendingTime = 5000;
   const sampleTime = 10000;
@@ -142,7 +135,6 @@ const CardiogramPage = () => {
   const startInput = () => {
     let startTimeDuration = 0;
     setStartCountDown(1);
-    setCounter(5);
     startTime.current = setTimeout(() => {
       bluetooth.Start().then((result) => (startTimeDuration = result));
       setSizeOfSlice(400);
@@ -190,7 +182,7 @@ const CardiogramPage = () => {
               press
             </DiagramText>
             <DiagramButton onClick={startInput}>Start</DiagramButton>
-            <CountDownNumber> {startCountDown ? counter : ""} </CountDownNumber>
+            <Counter startCountDown = {startCountDown}/>
           </Description>
           <DiagramContainer>
             <Diagram data={chartData} sizeOfSlice={sizeOfSlice} />

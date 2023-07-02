@@ -73,7 +73,20 @@
   border: var(--main-green);
 }
 
+.dropdown button:disabled{
+  background-color: var(--main-green) !important;
+  border: var(--main-green);
+}
+
 .btn:hover{
   background-color: var(--nav-color-top) !important;
 }
 
+.p-radiobutton .p-radiobutton-box.p-highlight {
+  background: var(--main-green) !important;
+  border: var(--main-green) !important;
+}
+
+.p-radiobutton .p-radiobutton-box{
+  border: none !important;
+}
