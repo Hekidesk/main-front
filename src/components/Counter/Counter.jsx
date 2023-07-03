@@ -7,6 +7,9 @@ const Counter = ({startCountDown}) => {
     useEffect(() => {
       const timer =
         startCountDown && counter >= 0 && setInterval(() => setCounter(counter - 1), 1000);
+      console.log("counter is: " + counter)
+      if(!startCountDown)
+        setCounter(5);
       return () => clearInterval(timer);
     }, [counter, startCountDown]);
 

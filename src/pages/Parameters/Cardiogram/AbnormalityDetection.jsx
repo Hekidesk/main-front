@@ -63,7 +63,7 @@ function AbnormalityDetection({
         stripLines: [
           {
             startValue: heartBeat,
-            endValue: heartBeat+0.08,
+            endValue: heartBeat + 0.08,
             lineDashType: "dot",
             color: "black",
           },
@@ -95,11 +95,33 @@ function AbnormalityDetection({
 
   return (
     <Row>
-      <Col id = "chartContainerAbnormality1">
+      <Col style={{ marginRight: "50px", position: "relative" }} id="chartContainerAbnormality1">
         <CanvasJSChart options={getOptions("hrv")} />
+        <div
+          style={{
+            width: "8em",
+            position: "absolute",
+            bottom: "2px",
+            height: "16px",
+            background: "#C8E7F1",
+          }}
+        >
+          <span style={{ color: "white" }}>.</span>{" "}
+        </div>
       </Col>
-      <Col id = "chartContainerAbnormality2">
+      <Col style={{ marginLeft: "50px", position: "relative" }} id="chartContainerAbnormality2">
         <CanvasJSChart options={getOptions("singleSpike")} />
+        <div
+          style={{
+            width: "8em",
+            position: "absolute",
+            bottom: "2px",
+            height: "16px",
+            background: "#C8E7F1",
+          }}
+        >
+          <span style={{ color: "white" }}>.</span>{" "}
+        </div>
       </Col>
     </Row>
   );

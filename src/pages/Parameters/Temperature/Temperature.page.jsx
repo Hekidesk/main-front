@@ -14,12 +14,12 @@ import {
   ImportantTitle,
   ImportantValue,
   InfoContainer,
-  CountDownNumber,
 } from "./components/CSS";
 import PageButtons from "@/components/reusable/PageButtons";
 import { useAddToDB } from "@/database/AddToDB";
 import { BluetoothContext } from "@/App";
 import { makeArrayForChart } from "@/components/reusableDataFunc/DataFunc";
+import Counter from "@/components/Counter/Counter";
 
 const TemperaturePage = () => {
   const [data, setData] = useState([]);
@@ -60,13 +60,8 @@ const TemperaturePage = () => {
     }
   }, [saved]);
 
-  const [counter, setCounter] = useState(5);
   const [startCountDown, setStartCountDown] = useState(0);
-  useEffect(() => {
-    const timer =
-      startCountDown && counter >= 0 && setInterval(() => setCounter(counter - 1), 1000);
-    return () => clearInterval(timer);
-  }, [counter, startCountDown]);
+
 
   const pendingTime = 5000;
   const sampleTime = 10000;
@@ -76,7 +71,6 @@ const TemperaturePage = () => {
   const startInput = () => {
     let startTimeDuration = 0;
     setStartCountDown(1);
-    setCounter(5);
     startTime.current = setTimeout(() => {
       bluetooth.Start().then((result) => startTimeDuration = result);
       setStartCountDown(0);
@@ -98,7 +92,7 @@ const TemperaturePage = () => {
               press
             </DiagramText>
             <DiagramButton onClick={startInput}>Start</DiagramButton>
-            <CountDownNumber> {startCountDown ? counter : ""} </CountDownNumber>
+            <Counter startCountDown = {startCountDown}/>
           </Description>
           <DiagramContainer>
             <Diagram data={chartData} sizeOfSlice={-2} />

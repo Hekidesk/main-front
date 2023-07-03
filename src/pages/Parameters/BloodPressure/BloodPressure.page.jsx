@@ -14,7 +14,6 @@ import {
   ImportantTitle,
   ImportantValue,
   InfoContainer,
-  CountDownNumber,
 } from "./components/CSS";
 import PageButtons from "@/components/reusable/PageButtons";
 import axios from "axios";
@@ -22,6 +21,7 @@ import Swal from "sweetalert2";
 import { useAddToDB } from "@/database/AddToDB";
 import { BluetoothContext } from "@/App";
 import { makeArrayForChart } from "@/components/reusableDataFunc/DataFunc";
+import Counter from "@/components/Counter/Counter";
 
 const BloodPressurePage = () => {
   const [IrData, setIrData] = useState();
@@ -40,14 +40,18 @@ const BloodPressurePage = () => {
   const COMMAND = 0x01;
 
   async function calculate(irData, forceData) {
+    console.log(irData);
+    console.log(forceData);
     let payload = {
       IR: "[" + irData.toString() + "]",
       force: "[" + forceData.toString() + "]",
       fs: bluetooth.GetFrequency()[0],
     };
     let res = await axios.post("http://127.0.0.1:5000//bp_signal", payload);
-    console.log(res.data);
-    if (!Number(res.data.Try_Again)) {
+    console.log(res);
+    if ( res.status < 400 && !Number(res.data.Try_Again)) {
+      console.log(SYS);
+      console.log(DIA);
       setSYS(res.data.Diastolic);
       setDIA(res.data.Systolic);
       setQualityIndex(res.data.Quality_index);
@@ -83,15 +87,7 @@ const BloodPressurePage = () => {
     }
   }, [saved]);
 
-  const [counter, setCounter] = useState(5);
   const [startCountDown, setStartCountDown] = useState(0);
-  useEffect(() => {
-    const timer =
-      startCountDown &&
-      counter >= 0 &&
-      setInterval(() => setCounter(counter - 1), 1000);
-    return () => clearInterval(timer);
-  }, [counter, startCountDown]);
 
   const pendingTime = 5000;
   const sampleTime = 10000;
@@ -101,7 +97,6 @@ const BloodPressurePage = () => {
   const startInput = () => {
     let startTimeDuration = 0;
     setStartCountDown(1);
-    setCounter(5);
     startTime.current = setTimeout(() => {
       bluetooth.Start().then((result) => (startTimeDuration = result));
       setSizeOfSlice(400);
@@ -125,7 +120,7 @@ const BloodPressurePage = () => {
               press
             </DiagramText>
             <DiagramButton onClick={startInput}>Start</DiagramButton>
-            <CountDownNumber> {startCountDown ? counter : ""} </CountDownNumber>
+            <Counter startCountDown = {startCountDown}/>
           </Description>
           <DiagramContainer>
             <Diagram data={chartData} sizeOfSlice={sizeOfSlice} />
