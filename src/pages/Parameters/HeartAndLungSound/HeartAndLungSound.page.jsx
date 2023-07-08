@@ -40,8 +40,8 @@ const HeartAndLungSoundPage = () => {
   const [sizeOfSlice, setSizeOfSlice] = useState(-1);
   const [disable, setDisable] = useState(1);
 
-  const [heartBeat, setHeartBeat] = useState(0);
-  const [respirationRate, setRespirationRate] = useState(0);
+  const [heartBeat, setHeartBeat] = useState("-");
+  const [respirationRate, setRespirationRate] = useState("-");
   const [qualityIndex, setQualityIndex] = useState(0);
   const [position, setPosition] = useState("heart");
 
@@ -132,6 +132,10 @@ const HeartAndLungSoundPage = () => {
   const startInput = () => {
     let startTimeDuration = 0;
     setStartCountDown(1);
+    setSaved(0);
+    setHeartBeat("-");
+    setRespirationRate("-");
+    setQualityIndex(0);
     startTime.current = setTimeout(() => {
       bluetooth.Start().then((result) => (startTimeDuration = result));
       setStartCountDown(0);

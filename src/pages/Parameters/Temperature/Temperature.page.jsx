@@ -72,6 +72,8 @@ const TemperaturePage = () => {
   const startInput = () => {
     let startTimeDuration = 0;
     setStartCountDown(1);
+    setSaved(0);
+    setTemperature("-")
     startTime.current = setTimeout(() => {
       bluetooth.Start().then((result) => startTimeDuration = result);
       setStartCountDown(0);

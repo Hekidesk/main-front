@@ -36,8 +36,8 @@ const DemoPage = () => {
   const dbFunc = useAddToDB("oximetryData");
 
   
-  const [heartBeat, setHeartBeat] = useState(0);
-  const [SPO2, setSPO2] = useState(0);
+  const [heartBeat, setHeartBeat] = useState("-");
+  const [SPO2, setSPO2] = useState("-");
   const [qualityIndex, setQualityIndex] = useState(0);
   const [saved, setSaved] = useState(0);
 
@@ -117,6 +117,10 @@ const DemoPage = () => {
   const startInput = () => {
     let startTimeDuration = 0;
     setStartCountDown(1);
+    setSaved(0);
+    setHeartBeat("-");
+    setSPO2("-");
+    setQualityIndex("");
     startTime.current = setTimeout(() => {
       bluetooth.Start().then((result) => startTimeDuration = result);
       setSizeOfSlice(400);

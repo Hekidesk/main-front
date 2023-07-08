@@ -97,6 +97,10 @@ const BloodPressurePage = () => {
   const startInput = () => {
     let startTimeDuration = 0;
     setStartCountDown(1);
+    setSaved(0);
+    setSYS("-");
+    setDIA("-");
+    setQualityIndex(0);
     startTime.current = setTimeout(() => {
       bluetooth.Start().then((result) => (startTimeDuration = result));
       setSizeOfSlice(400);
