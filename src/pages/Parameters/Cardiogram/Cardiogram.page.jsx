@@ -132,9 +132,21 @@ const CardiogramPage = () => {
   const startTime = useRef(null);
   const endTime = useRef(null);
 
+  
+
   const startInput = () => {
     let startTimeDuration = 0;
     setStartCountDown(1);
+    setSaved(0);
+    setHeartBeat("-");
+    setQualityIndex("");
+    setPR_RR_Interval("-");
+    setQRSDuration("-");
+    setHrv([]);
+    setSsTime([]);
+    setHrvVal("-");
+    setPQRST_ss([]);
+    setArrythmiaType("");
     startTime.current = setTimeout(() => {
       bluetooth.Start().then((result) => (startTimeDuration = result));
       setSizeOfSlice(400);

@@ -1,69 +1,86 @@
+import React, { useState, useEffect } from "react";
+import { Chart } from "primereact/chart";
 
-import React, { useState, useEffect } from 'react';
-import { Chart } from 'primereact/chart';
+const HistoryChart = ({ color, data, name }) => {
+  const [chartData, setChartData] = useState({});
+  const [chartOptions, setChartOptions] = useState({});
 
-const HistoryChart = ({color}) => {
-    const [chartData, setChartData] = useState({});
-    const [chartOptions, setChartOptions] = useState({});
+  useEffect(() => {
+    console.log(data)
+    console.log(name)
 
-    useEffect(() => {
-        const documentStyle = getComputedStyle(document.documentElement);
-        const textColor = documentStyle.getPropertyValue('--text-color');
-        const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
-        const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
-        const data = {
-            labels: ['01/02/2022', '01/02/2022', '01/02/2022', '01/02/2022', '01/02/2022', '01/02/2022', '01/02/2022'],
-            datasets: [
-                {
-                    label: 'Second Dataset',
-                    data: [28, 48, 43, 58, 46, 89],
-                    fill: false,
-                    borderColor: color,
-                    tension: 0.4
-                }
-            ]
-        };
-        const options = {
-            maintainAspectRatio: false,
-            responsive:true,
-            aspectRatio: 0.6,
-            plugins: {
-                legend: {
-                    display: false,
-                    labels: {
-                        color: color
-                    }
-                }
+    const documentStyle = getComputedStyle(document.documentElement);
+    const textColorSecondary = documentStyle.getPropertyValue(
+      "--text-color-secondary"
+    );
+    const surfaceBorder = documentStyle.getPropertyValue("--surface-border");
+    if (data) {
+      const chartDataTemp = {
+        labels: data[0].map((e) => e.date),
+        datasets: [
+          {
+            label: name[0],
+            data: data[0].map((e) => e.value),
+            fill: false,
+            borderColor: color,
+            tension: 0.4,
+          },
+          {
+            label: name.length > 1 ?  name[1] : null,
+            data: data.length > 1 ? data[1].map((e) => e.value) : null,
+            fill: false,
+            borderColor: 0xFFFFFF - color,
+            tension: 0.4,
+          }
+        ],
+      };
+      const options = {
+        maintainAspectRatio: false,
+        responsive: true,
+        aspectRatio: 0.6,
+        plugins: {
+          legend: {
+            display: false,
+            labels: {
+              color: color,
             },
-            scales: {
-                x: {
-                    ticks: {
-                        color: textColorSecondary
-                    },
-                    grid: {
-                        color: surfaceBorder
-                    }
-                },
-                y: {
-                    ticks: {
-                        color: textColorSecondary
-                    },
-                    grid: {
-                        color: surfaceBorder
-                    }
-                }
-            }
-        };
+          },
+        },
+        scales: {
+          x: {
+            ticks: {
+              color: textColorSecondary,
+            },
+            grid: {
+              color: surfaceBorder,
+            },
+          },
+          y: {
+            ticks: {
+              color: textColorSecondary,
+            },
+            grid: {
+              color: surfaceBorder,
+            },
+          },
+        },
+      };
 
-        setChartData(data);
-        setChartOptions(options);
-    }, []);
+      setChartData(chartDataTemp);
+      setChartOptions(options);
+    }
+  }, [data]);
 
-    return (
-        <div className="card">
-            <Chart type="line" className="chart" data={chartData} options={chartOptions} />
-        </div>
-    )
-}
-        
+  return (
+    <div className="card">
+      <Chart
+        type="line"
+        className="chart"
+        data={chartData}
+        options={chartOptions}
+      />
+    </div>
+  );
+};
+
 export default HistoryChart;

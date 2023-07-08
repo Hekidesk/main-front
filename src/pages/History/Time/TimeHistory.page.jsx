@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Profile from "../../Profile/Profile";
 import { Col, Row, Image, Pagination } from "react-bootstrap";
 import Sidebar from "@/components/Sidebar/Sidebar";
@@ -7,8 +7,82 @@ import BodyIcon from "@/assets/icon/history/bodyImg.svg";
 import upIcon from "@/assets/icon/history/upIcon.svg";
 import { ButtonHistoryStyle } from "@/components/reusable/ButtonStyle";
 import { Link } from "react-router-dom";
+import { useIndexedDB } from "react-indexed-db";
+import { GetDateTimeDB, convertStringToDateDB } from "@/utilities/time/time";
 
 const TimeHistoryPage = () => {
+  const [data, setData] = useState(null);
+  const [parameter, setParameter] = useState({});
+
+  //pagination
+  const [dates, setDates] = useState([]);
+  const [currentDate, setCurrentDate] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const { getAll: getAllData } = useIndexedDB("time");
+
+  useEffect(() => {
+    getAllData().then((dataFromDB) => {
+      console.log(dataFromDB)
+      const result = dataFromDB.filter(
+        (temp) => temp.userId === localStorage.getItem("id")
+      );
+      console.log(result);
+      let dateAndIds = result.map((d) => d.dateAndId);
+      const result2 = dateAndIds.map((d) => GetDateTimeDB(String(d)));
+      console.log(result2);
+      setDates(result2);
+      setData(result);
+    });
+  }, []);
+
+  useEffect(() => {
+    console.log(currentDate);
+    if(data && data.length)
+      retrieveDate(currentDate);
+  }, [data])
+
+  const retrieveDate = (currentDate) => {
+    console.log(currentDate)
+    setActiveIndex(currentDate);
+    const dateAndId = parseInt(
+      convertStringToDateDB(dates[currentDate], localStorage.getItem("id"))
+    );
+    const result = data.filter((temp) => temp.dateAndId === dateAndId);
+    console.log("result: " + JSON.stringify(result));
+    setParameter(result[0].parameters);
+  };
+
+  const decCurrentUser = () => {
+    currentDate - 1 >= 0
+    ? setCurrentDate(currentDate - 1)
+    : setCurrentDate(currentDate);
+
+    activeIndex - 1  >= 0
+    ? setActiveIndex(activeIndex - 1)
+    : setActiveIndex(activeIndex);
+  }
+
+  const incCurrentUser = () => {
+    currentDate + 1 < dates.length && activeIndex % 5 == 4
+    ? setCurrentDate(currentDate + 1)
+    : setCurrentDate(currentDate);
+
+    activeIndex + 1  < dates.length
+    ? setActiveIndex(activeIndex + 1)
+    : setActiveIndex(activeIndex);
+  }
+
+  const firstDate = () => {
+    setActiveIndex(0);
+    setCurrentDate(0);
+  }
+
+  const lastDate = () => {
+    setActiveIndex(dates.length - 1);
+    setCurrentDate(dates.length - 5)
+  }
+
   return (
     <div className="box">
       <Profile />
@@ -37,40 +111,27 @@ const TimeHistoryPage = () => {
               >
                 <Pagination style={{ display: "inline-block" }}>
                   <Pagination.First
-                  // onClick={() => setCurrentDate(0)}
-                  >
-                    {/* <FaAngleDoubleUp /> */}
-                  </Pagination.First>
+                    onClick={() => firstDate()}
+                  ></Pagination.First>
                   <Pagination.Prev
-                  // onClick={() =>
-                  //   currentDate - 1 >= 0
-                  //     ? setCurrentDate(currentDate - 1)
-                  //     : setCurrentDate(currentDate)
-                  // }
-                  >
-                    {/* <AiFillCaretUp /> */}
-                  </Pagination.Prev>
-                  <Pagination.Item
-                  //   key={currElement}
-                  //   onClick={() => retrieveDate(currentDate + index)}
-                  //   active={activeIndex === currentDate + index}
-                  >
-                    2011/5/11
-                  </Pagination.Item>
+                    onClick={() => decCurrentUser()}
+                  ></Pagination.Prev>
+                  {[...Array(5)].map((currElement, index) => (
+                    <Pagination.Item
+                      key={currElement}
+                      onClick={() => retrieveDate(currentDate + index)}
+                      active={activeIndex === currentDate + index}
+                    >
+                      <div style={{height: "20px"}}>{dates[currentDate + index]}</div>
+                    </Pagination.Item>
+                  ))}
                   <Pagination.Next
-                  // onClick={() => {
-                  //   currentDate + 1 < dates.length
-                  //     ? setCurrentDate(currentDate + 1)
-                  //     : setCurrentDate(currentDate);
-                  // }}
+                    onClick={() => incCurrentUser()}
                   >
-                    {/* <AiFillCaretDown /> */}
                   </Pagination.Next>
                   <Pagination.Last
-                  // onClick={() => setCurrentDate(dates.length - 1)}
-                  >
-                    {/* <FaAngleDoubleDown /> */}
-                  </Pagination.Last>
+                    onClick={() => lastDate()}
+                  ></Pagination.Last>
                 </Pagination>
               </Row>
             </Col>
@@ -82,30 +143,36 @@ const TimeHistoryPage = () => {
                     style={{ marginBottom: "20px" }}
                   >
                     <Row style={{ fontSize: "30", fontWeight: "600" }}>
-                      Rates
+                      Rates: 
                     </Row>
                     <Row>
-                      <Col>Heart Rate ECG (bpm): </Col>
-                      <Col>Heart Rate PPG (bpm): </Col>
+                      <Col style={{fontWeight: parameter.heartBeatECG ? "bold" : ""}}>Heart Rate ECG (bpm): {parameter.heartBeatECG}</Col>
+                      <Col style={{fontWeight: parameter.heartBeatPPG ? "bold" : ""}}>Heart Rate PPG (bpm): {parameter.heartBeatPPG}</Col>
                     </Row>
                     <Row>
-                      <Col>PR/RR Interval (msec):</Col>
-                      <Col>QRS Duration (msec):</Col>
+                      <Col style={{fontWeight: parameter.PR_RR_Interval ? "bold" : ""}}>
+                        PR/RR Interval (msec): {parameter.PR_RR_Interval}
+                      </Col>
+                      <Col style={{fontWeight: parameter.QRS_Duration ? "bold" : ""}}>QRS Duration (msec): {parameter.QRS_Duration}</Col>
                     </Row>
                     <Row>
-                      <Col>HR Variation:</Col>
-                      <Col>SpO2 (%):</Col>
+                      <Col style={{fontWeight: parameter.hrvVal ? "bold" : ""}}>HR Variation: {parameter.hrvVal}</Col>
+                      <Col style={{fontWeight: parameter.SPO2 ? "bold" : ""}}>SpO2 (%): {parameter.SPO2}</Col>
                     </Row>
                     <Row>
-                      <Col>Temperature(C):</Col>
-                      <Col>Sys/DIA(mmHg):</Col>
+                      <Col style={{fontWeight: parameter.temperature ? "bold" : ""}}>Temperature(C): {parameter.temperature}</Col>
+                      <Col style={{fontWeight: parameter.SYS ? "bold" : ""}}>
+                        SYS/DIA(mmHg): {parameter.SYS} {parameter.SYS ? "/" : ""} {parameter.DIA}
+                      </Col>
                     </Row>
                     <Row>
-                      <Col>Lung Abnormality:</Col>
-                      <Col>Arrythmia Type:</Col>
+                      <Col >Lung Abnormality:</Col>
+                      <Col  style={{fontWeight: parameter.ArrythmiaType ? "bold" : ""}}>Arrythmia Type: {parameter.ArrythmiaType}</Col>
                     </Row>
                     <Row>
-                      <Col>Heart Rate sound (bpm): </Col>
+                      <Col style={{fontWeight: parameter.heartBeatSound ? "bold" : ""}} >
+                        Heart Rate sound (bpm): {parameter.heartBeatSound}{" "}
+                      </Col>
                       <Col>Heart Abnormality:</Col>
                     </Row>
                   </div>

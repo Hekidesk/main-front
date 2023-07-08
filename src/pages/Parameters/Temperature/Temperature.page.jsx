@@ -1,6 +1,6 @@
 import PageWrapper from "@/components/PageWrapper/PageWrapper";
 import Diagram from "@/components/Datagram/Diagram";
-import temeperature from "@/assets/icon/parameter/temeperature.svg";
+import temperatureIcon from "@/assets/icon/parameter/temeperature.svg";
 import HighlightTitle from "@/components/HighlightTitle/HighlightTitle";
 import { useEffect, useState, useContext, useRef } from "react";
 import {
@@ -25,7 +25,7 @@ const TemperaturePage = () => {
   const [data, setData] = useState([]);
   const [chartData, setChartData] = useState([]);
 
-  const [temperature, setTemperature] = useState(0);
+  const [temperature, setTemperature] = useState("-");
   const [qualityIndex, setQualityIndex] = useState(100);
   const [saved, setSaved] = useState(0);
   const dbFunc = useAddToDB("TemperatureData");
@@ -35,6 +35,7 @@ const TemperaturePage = () => {
   function calculateTemperature(data){
     console.log(data);
     const average = data.reduce((a, b) => a + b, 0) / data.length;
+    console.log(Number(average).toFixed(2))
     setTemperature(Number(average).toFixed(2));
     setQualityIndex(100);
   }
@@ -55,7 +56,7 @@ const TemperaturePage = () => {
   useEffect(() => {
     if(saved){
       var dataParameter = {};
-      dataParameter["temperature"] = temeperature;
+      dataParameter["temperature"] = temperature;
       dbFunc.updateHistory(dataParameter);
     }
   }, [saved]);
@@ -83,7 +84,7 @@ const TemperaturePage = () => {
   return (
     <PageWrapper>
       <div style={{ display: "grid", placeItems: "center" }}>
-        <HighlightTitle title="Temperature" icon={temeperature} />
+        <HighlightTitle title="Temperature" icon={temperatureIcon} />
         <br />
         <DiagramWrapper>
           <Description>
