@@ -18,23 +18,38 @@ const Sidebar = () => {
           <div className="logo-text">Hekidesk</div>
         </div>
         <div className="sidebar-item">
-          <Link onClick={() => setClick(false)} to="/">
+          <Link
+            onClick={() => setClick(false)}
+            to={process.env.REACT_APP_BASE_URL + "/"}
+          >
             <img src={HomeIcon} alt="logo" width="25" />
             <div className="sidebar-text">Home</div>
           </Link>
-          <Link onClick={() => setClick(false)} to="/user-desk">
+          <Link
+            onClick={() => setClick(false)}
+            to={process.env.REACT_APP_BASE_URL + "/user-desk"}
+          >
             <img src={MyDeskIcon} alt="logo" width="25" />
             <div className="sidebar-text">My Desk</div>
           </Link>
-          <Link onClick={() => setClick(false)} to="/measurement">
+          <Link
+            onClick={() => setClick(false)}
+            to={process.env.REACT_APP_BASE_URL + "/measurement"}
+          >
             <img src={MeasurementIcon} alt="logo" width="25" />
             <div className="sidebar-text">Measurement</div>
           </Link>
-          <Link onClick={() => setClick(false)} to="/history">
+          <Link
+            onClick={() => setClick(false)}
+            to={process.env.REACT_APP_BASE_URL + "/history"}
+          >
             <img src={HistoryIcon} alt="logo" width="25" />
             <div className="sidebar-text">History</div>
           </Link>
-          <Link onClick={() => setClick(false)} to="/demo">
+          <Link
+            onClick={() => setClick(false)}
+            to={process.env.REACT_APP_BASE_URL + "/demo"}
+          >
             <div className="sidebar-text">Demo</div>
           </Link>
         </div>

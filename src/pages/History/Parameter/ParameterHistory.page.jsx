@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "@/components/Sidebar/Sidebar";
 import { Col, Row, Image } from "react-bootstrap";
 import Profile from "../../Profile/Profile";
@@ -18,20 +18,17 @@ import "@/assets/styles/history.css";
 import "@/assets/styles/profile.css";
 import HistoryChart from "../Chart/HistoryChart";
 import upIcon from "@/assets/icon/history/upIcon.svg";
-import {ButtonMyDeskStyle} from "@/components/reusable/ButtonStyle";
+import { ButtonMyDeskStyle } from "@/components/reusable/ButtonStyle";
 import { Link } from "react-router-dom";
 import { useIndexedDB } from "react-indexed-db";
-import { GetDateTimeDB } from "@/utilities/time/time"
+import { GetDateTimeDB } from "@/utilities/time/time";
 
 const ParameterHistoryPage = () => {
-
-  const { getAll : getAllOximetryData } = useIndexedDB("oximetryData");
-  const { getAll : getAllCardiogramData } = useIndexedDB("cardiogramData");
-  const { getAll : getAllBPData } = useIndexedDB("BPData");
-  const { getAll : getAllTemperatureData } = useIndexedDB("TemperatureData");
-  const { getAll : getAllPCGData } = useIndexedDB("PCGData");
-
-
+  const { getAll: getAllOximetryData } = useIndexedDB("oximetryData");
+  const { getAll: getAllCardiogramData } = useIndexedDB("cardiogramData");
+  const { getAll: getAllBPData } = useIndexedDB("BPData");
+  const { getAll: getAllTemperatureData } = useIndexedDB("TemperatureData");
+  const { getAll: getAllPCGData } = useIndexedDB("PCGData");
 
   const [heartBeatPPG, setHeartBeatPPG] = useState([]);
   const [SPO2, setSPO2] = useState([]);
@@ -52,64 +49,126 @@ const ParameterHistoryPage = () => {
   useEffect(() => {
     // console.log("in parameter diagram" + localStorage.getItem("id"));
 
-    getAllOximetryData().then(dataFromDB => {
-      const result = dataFromDB.filter(temp => temp.userId === localStorage.getItem("id"));
+    getAllOximetryData().then((dataFromDB) => {
+      const result = dataFromDB.filter(
+        (temp) => temp.userId === localStorage.getItem("id")
+      );
       let tempFlow1 = [];
-      result.map((res) => tempFlow1.push({'date' : GetDateTimeDB(String(res['dateAndId'])), 'value': res['heartBeatPPG']}));
+      result.map((res) =>
+        tempFlow1.push({
+          date: GetDateTimeDB(String(res["dateAndId"])),
+          value: res["heartBeatPPG"],
+        })
+      );
       setHeartBeatPPG(tempFlow1);
       let tempFlow2 = [];
-      result.map((res) => tempFlow2.push({'date' : GetDateTimeDB(String(res['dateAndId'])), 'value': res['SPO2']}));
-      setSPO2(tempFlow2)
+      result.map((res) =>
+        tempFlow2.push({
+          date: GetDateTimeDB(String(res["dateAndId"])),
+          value: res["SPO2"],
+        })
+      );
+      setSPO2(tempFlow2);
     });
 
-    getAllCardiogramData().then(dataFromDB => {
-      const result = dataFromDB.filter(temp => temp.userId === localStorage.getItem("id"));
+    getAllCardiogramData().then((dataFromDB) => {
+      const result = dataFromDB.filter(
+        (temp) => temp.userId === localStorage.getItem("id")
+      );
       let tempFlow1 = [];
-      result.map((res) => tempFlow1.push({'date' : GetDateTimeDB(String(res['dateAndId'])), 'value': res['heartBeatECG']}));
+      result.map((res) =>
+        tempFlow1.push({
+          date: GetDateTimeDB(String(res["dateAndId"])),
+          value: res["heartBeatECG"],
+        })
+      );
       setHeartBeatECG(tempFlow1);
       let tempFlow2 = [];
-      result.map((res) => tempFlow2.push({'date' : GetDateTimeDB(String(res['dateAndId'])), 'value': res['PR_RR_Interval']}));
+      result.map((res) =>
+        tempFlow2.push({
+          date: GetDateTimeDB(String(res["dateAndId"])),
+          value: res["PR_RR_Interval"],
+        })
+      );
       setPR_RR_Interval(tempFlow2);
       let tempFlow3 = [];
-      result.map((res) => tempFlow3.push({'date' : GetDateTimeDB(String(res['dateAndId'])), 'value': res['QRS_Duration']}));
+      result.map((res) =>
+        tempFlow3.push({
+          date: GetDateTimeDB(String(res["dateAndId"])),
+          value: res["QRS_Duration"],
+        })
+      );
       setQRSDuration(tempFlow3);
       let tempFlow4 = [];
-      result.map((res) => tempFlow4.push({'date' : GetDateTimeDB(String(res['dateAndId'])), 'value': res['hrvVal']}));
+      result.map((res) =>
+        tempFlow4.push({
+          date: GetDateTimeDB(String(res["dateAndId"])),
+          value: res["hrvVal"],
+        })
+      );
       setHrvVal(tempFlow4);
     });
 
     getAllBPData().then((dataFromDB) => {
-      const result = dataFromDB.filter(temp => temp.userId === localStorage.getItem("id"));
+      const result = dataFromDB.filter(
+        (temp) => temp.userId === localStorage.getItem("id")
+      );
       let tempFlow1 = [];
-      result.map((res) => tempFlow1.push({'date' : GetDateTimeDB(String(res['dateAndId'])), 'value': res['SYS']}));
+      result.map((res) =>
+        tempFlow1.push({
+          date: GetDateTimeDB(String(res["dateAndId"])),
+          value: res["SYS"],
+        })
+      );
       setSYS(tempFlow1);
 
       let tempFlow2 = [];
-      result.map((res) => tempFlow2.push({'date' : GetDateTimeDB(String(res['dateAndId'])), 'value': res['DIA']}));
+      result.map((res) =>
+        tempFlow2.push({
+          date: GetDateTimeDB(String(res["dateAndId"])),
+          value: res["DIA"],
+        })
+      );
       setDIA(tempFlow2);
     });
 
     getAllTemperatureData().then((dataFromDB) => {
-      const result = dataFromDB.filter(temp => temp.userId === localStorage.getItem("id"));
+      const result = dataFromDB.filter(
+        (temp) => temp.userId === localStorage.getItem("id")
+      );
       let tempFlow1 = [];
-      result.map((res) => tempFlow1.push({'date' : GetDateTimeDB(String(res['dateAndId'])), 'value': res['temperature']}));
+      result.map((res) =>
+        tempFlow1.push({
+          date: GetDateTimeDB(String(res["dateAndId"])),
+          value: res["temperature"],
+        })
+      );
       setTemperature(tempFlow1);
     });
 
     getAllPCGData().then((dataFromDB) => {
-      const result = dataFromDB.filter(temp => temp.userId === localStorage.getItem("id"));
+      const result = dataFromDB.filter(
+        (temp) => temp.userId === localStorage.getItem("id")
+      );
       let tempFlow1 = [];
-      result.map((res) => tempFlow1.push({'date' : GetDateTimeDB(String(res['dateAndId'])), 'value': res['heartBeatSound']}));
+      result.map((res) =>
+        tempFlow1.push({
+          date: GetDateTimeDB(String(res["dateAndId"])),
+          value: res["heartBeatSound"],
+        })
+      );
       setHeartBeatSound(tempFlow1);
 
       let tempFlow2 = [];
-      result.map((res) => tempFlow2.push({'date' : GetDateTimeDB(String(res['dateAndId'])), 'value': res['respirationRate']}));
+      result.map((res) =>
+        tempFlow2.push({
+          date: GetDateTimeDB(String(res["dateAndId"])),
+          value: res["respirationRate"],
+        })
+      );
       setRespirationRate(tempFlow2);
     });
-    
   }, []);
-
-  
 
   return (
     <div className="box">
@@ -139,14 +198,18 @@ const ParameterHistoryPage = () => {
               <div className="parameter-section">
                 <Image src={HeartRateIcon} alt="time-history-photo" />
                 <div>Heart Rate (bpm) - ppg</div>
-                <HistoryChart color = "red" data = {[heartBeatPPG]} name={['heartbeat ppg']}/>
+                <HistoryChart
+                  color="red"
+                  data={[heartBeatPPG]}
+                  name={["heartbeat ppg"]}
+                />
               </div>
             </Col>
             <Col md={6}>
               <div className="parameter-section">
                 <Image src={Spo2Icon} alt="time-history-photo" />
                 <div>SpO2 (%)</div>
-                <HistoryChart color = "#8CCD47" data = {[SPO2]} name={['SPO2']}/>
+                <HistoryChart color="#8CCD47" data={[SPO2]} name={["SPO2"]} />
               </div>
             </Col>
           </Row>
@@ -155,14 +218,22 @@ const ParameterHistoryPage = () => {
               <div className="parameter-section">
                 <Image src={HeartRateIcon} alt="time-history-photo" />
                 <div>Heart Rate (bpm) - ecg</div>
-                <HistoryChart color = "#43a5d6" data = {[heartBeatECG]} name={['heartbeat ecg']}/>
+                <HistoryChart
+                  color="#43a5d6"
+                  data={[heartBeatECG]}
+                  name={["heartbeat ecg"]}
+                />
               </div>
             </Col>
             <Col md={6}>
               <div className="parameter-section">
                 <Image src={PR_RR_INTERVAL} alt="time-history-photo" />
                 <div>PR/RR Interval (msec)</div>
-                <HistoryChart color = "orange" data = {[PR_RR_Interval]} name={['PR RR Interval']} />
+                <HistoryChart
+                  color="orange"
+                  data={[PR_RR_Interval]}
+                  name={["PR RR Interval"]}
+                />
               </div>
             </Col>
           </Row>
@@ -171,14 +242,18 @@ const ParameterHistoryPage = () => {
               <div className="parameter-section">
                 <Image src={QRS_Duration_Icon} alt="time-history-photo" />
                 <div>QRS Duration (msec)</div>
-                <HistoryChart color = "black" data = {[QRS_Duration]} name={['QRS Duration']} />
-              </div> 
+                <HistoryChart
+                  color="black"
+                  data={[QRS_Duration]}
+                  name={["QRS Duration"]}
+                />
+              </div>
             </Col>
             <Col md={6}>
               <div className="parameter-section">
-                <Image alt="hr" src={SYSDIAIcon}/>
+                <Image alt="hr" src={SYSDIAIcon} />
                 <div>HR Variation</div>
-                <HistoryChart color = "green" data = {[hrvVal]} name={['hrv']}/>
+                <HistoryChart color="green" data={[hrvVal]} name={["hrv"]} />
               </div>
             </Col>
           </Row>
@@ -187,14 +262,22 @@ const ParameterHistoryPage = () => {
               <div className="parameter-section">
                 <Image src={SYSDIAIcon} alt="time-history-photo" />
                 <div>SYS/DIA(mmHg)</div>
-                <HistoryChart color = "yellow" data={[SYS, DIA]} name={['SYS', 'DIA']} />
+                <HistoryChart
+                  color="yellow"
+                  data={[SYS, DIA]}
+                  name={["SYS", "DIA"]}
+                />
               </div>
             </Col>
             <Col md={6}>
               <div className="parameter-section">
                 <Image src={TemperatureIcon} alt="time-history-photo" />
                 <div>Temperature</div>
-                <HistoryChart color = "purple" data={[temperature]} name={['Temperature']}/>
+                <HistoryChart
+                  color="purple"
+                  data={[temperature]}
+                  name={["Temperature"]}
+                />
               </div>
             </Col>
           </Row>
@@ -203,21 +286,32 @@ const ParameterHistoryPage = () => {
               <div className="parameter-section">
                 <Image src={RespirationRateIcon} alt="time-history-photo" />
                 <div>Respiration Rate (bpm)</div>
-                <HistoryChart color = "#43a5d6" data = {[respirationRate]} name={['Rrespiration Rate']}/>
+                <HistoryChart
+                  color="#43a5d6"
+                  data={[respirationRate]}
+                  name={["Rrespiration Rate"]}
+                />
               </div>
             </Col>
             <Col md={6}>
               <div className="parameter-section">
                 <Image src={HeartAbnormalityIcon} alt="time-history-photo" />
                 <div>Heart Rate - sound</div>
-                <HistoryChart color = "black" data={[heartBeatSound]} name={['HeartBeat Sound']} />
+                <HistoryChart
+                  color="black"
+                  data={[heartBeatSound]}
+                  name={["HeartBeat Sound"]}
+                />
               </div>
             </Col>
           </Row>
         </Col>
       </Row>
       <Row className="d-flex justify-content-end">
-        <Link to="/history" style={ButtonMyDeskStyle}>
+        <Link
+          to={process.env.REACT_APP_BASE_URL + "/history"}
+          style={ButtonMyDeskStyle}
+        >
           <Image
             src={upIcon}
             alt="Image"

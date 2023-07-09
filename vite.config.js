@@ -12,4 +12,7 @@ export default defineConfig({
       "@": path.resolve(path.dirname(fileURLToPath(import.meta.url)), "src"),
     },
   },
+  define: {
+    "process.env": { REACT_APP_BASE_URL: "/main-front" },
+  },
 });
