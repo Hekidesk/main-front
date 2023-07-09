@@ -27,15 +27,6 @@ export const SubText = styled.p`
   align-items: center;
 `;
 
-export const ImageWrapper = styled.span`
-  position: absolute;
-  bottom: -20px;
-  right: -80px;
-  width: 300px;
-  height: auto;
-  overflow: hidden;
-`;
-
 export const SNBox = styled.span`
   border: 2px solid white;
   padding: 0 1px;

@@ -6,6 +6,12 @@
 :root {
   --bg-color: #d7ecf8;
   --title-color: #2cafa4;
+  --white: #fff;
+  --nav-color-top: #28acd8;
+  --light-blue: #adc7e5;
+  --gray-green: #a5c2cb;
+  --main-green: #1cb5bd;
+  --important-color: #fe5558;
 }
 
 body,
@@ -27,4 +33,35 @@ body {
 }
 .p-dropdown .p-dropdown-trigger {
   width: 0 !important;
+}
+
+.canvasjs-chart-credit {
+  display: none !important;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 300ms ease-in;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 300ms ease-out;
+}
+
+.particles {
+  display: none;
 }

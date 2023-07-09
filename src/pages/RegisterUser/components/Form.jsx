@@ -1,19 +1,19 @@
-import Icon from "../../../assets/svg/hekidesk-green.svg";
+import Icon from "@/assets/logo/hekidesk-green.svg";
 import { Image } from "primereact/image";
 import { Button } from "primereact/button";
-import { ButtonStyle } from "../../../components/reusable/ButtonStyle";
+import { ButtonStyle } from "@/components/reusable/ButtonStyle";
 import { useState } from "react";
 import { Dropdown } from "primereact/Dropdown";
-import { InputTextGroup } from "../../../components/reusable/InputTextGroup";
-import { ContainerWithoutHeight } from "../../../components/reusable/Container";
+import { InputTextGroup } from "@/components/reusable/InputTextGroup";
+import { ContainerWithoutHeight } from "@/components/reusable/Container";
 import { useNavigate } from "react-router-dom";
 import { Col, LogoRow, Row, Title } from "./CSS";
-
+import { useIndexedDB } from "react-indexed-db";
 
 const RegisterForm = () => {
   const [form, setForm] = useState({
     username: "",
-    dof: "",
+    dateOfBirth: "",
     weight: "",
     height: "",
     gender: 0,
@@ -22,8 +22,24 @@ const RegisterForm = () => {
 
   const history = useNavigate();
 
-  // todo
+  const { add } = useIndexedDB("users");
+
+
+  // todo --> done
   // add register user
+  function addUser(){
+    localStorage.setItem("user", form.username);
+    add({...form}).then(
+      (event) => {
+        console.log("Data added: ", event);
+        localStorage.setItem("id", event);
+        history("/");
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
 
   return (
     <ContainerWithoutHeight>
@@ -38,10 +54,10 @@ const RegisterForm = () => {
         setState={(v) => onChangeValue("username", v)}
       />
       <InputTextGroup
-        state={form.dof}
+        state={form.dateOfBirth}
         label={"Date of birth"}
         placeHolder={"YYYY-MM-DD"}
-        setState={(v) => onChangeValue("dof", v)}
+        setState={(v) => onChangeValue("dateOfBirth", v)}
       />
       <InputTextGroup
         state={form.weight}
@@ -66,10 +82,10 @@ const RegisterForm = () => {
         <label htmlFor={"gender"}>Gender</label>
         <Dropdown
           value={form.gender}
-          onChange={(v) => onChangeValue("gender", v)}
+          onChange={(v) => onChangeValue("gender", v.value)}
           options={[
-            { name: "Male", code: 1 },
-            { name: "Female", code: 0 },
+            { name: "Male", value: 1 },
+            { name: "Female", value: 0 },
           ]}
           optionLabel="name"
           placeholder="Select a gender"
@@ -82,7 +98,7 @@ const RegisterForm = () => {
           </Button>
         </Col>
         <Col>
-          <Button style={ButtonStyle}>Sign in</Button>
+          <Button style={ButtonStyle} onClick={() => addUser()}>Sign in</Button>
         </Col>
       </Row>
     </ContainerWithoutHeight>

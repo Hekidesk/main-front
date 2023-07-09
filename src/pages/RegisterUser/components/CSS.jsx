@@ -20,12 +20,3 @@ export const Row = styled.div`
 export const Col = styled.div`
   width: 50%;
 `;
-
-export const ImageWrapper = styled.span`
-  position: absolute;
-  bottom: -20px;
-  right: -80px;
-  width: 300px;
-  height: auto;
-  overflow: hidden;
-`;

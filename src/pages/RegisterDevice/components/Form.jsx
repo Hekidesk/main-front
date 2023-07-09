@@ -1,7 +1,7 @@
 import { Button } from "primereact/button";
-import { ButtonStyle } from "../../../components/reusable/ButtonStyle";
+import { ButtonStyle } from "@/components/reusable/ButtonStyle";
 import { useState } from "react";
-import { InputTextGroup } from "../../../components/reusable/InputTextGroup";
+import { InputTextGroup } from "@/components/reusable/InputTextGroup";
 import { useNavigate } from "react-router-dom";
 import { Col, Container, Row } from "./CSS";
 
@@ -12,6 +12,9 @@ const RegisterForm = () => {
   const onChangeValue = (n, v) => setForm({ ...form, [n]: v });
 
   const history = useNavigate();
+
+  // todo
+  // add information of device after confirmation
 
   const submitRegisteryCode = () => {
     // todo

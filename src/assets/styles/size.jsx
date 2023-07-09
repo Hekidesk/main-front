@@ -17,3 +17,5 @@ export const devices = {
   laptopL: `(min-width: ${sizes.laptopL})`,
   desktop: `(min-width: ${sizes.desktop})`,
 };
+
+export const wrapperWidth = "80%";

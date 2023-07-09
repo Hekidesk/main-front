@@ -1,20 +1,23 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import HomePage from "./pages/Home/Home.page";
-import RegisterPage from "./pages/RegisterUser/Register.page";
-import RegisterDevicePage from "./pages/RegisterDevice/RegisterDevice.page";
 import "bootstrap/dist/css/bootstrap.min.css";
+import AppRoutes from "./routes";
+import { createContext, useMemo } from "react";
+import { useSignalFeed } from "./utilities/bluetooth";
+import { initDB } from "react-indexed-db";
+import {DBConfig} from "@/database/DBConfig"
+export const BluetoothContext = createContext({});
+
+initDB(DBConfig);
 
 function App() {
+  const connection = useSignalFeed();
+  const bluetooth = useMemo(() => {
+    return connection;
+  }, [connection]);
+
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={null}>
-          <Route index element={<HomePage />} />
-          <Route path={"register-user"} element={<RegisterPage />} />
-          <Route path={"register-device"} element={<RegisterDevicePage />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <BluetoothContext.Provider value={bluetooth}>
+      <AppRoutes />
+    </BluetoothContext.Provider>
   );
 }
 
