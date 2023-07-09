@@ -6,7 +6,7 @@ import RegisterDevicePage from "@/pages/RegisterDevice/RegisterDevice.page";
 import DeskPage from "@/pages/UserDesk/UserDesk.page";
 import ConnectionPage from "@/pages/Connection/Connection.page";
 import ParameterHistoryPage from "@/pages/History/Parameter/ParameterHistory.page";
-import TimeHistoryPage from "@/pages/History/time/TimeHistory.page";
+import TimeHistoryPage from "@/pages/History/Time/TimeHistory.page";
 import MeasurementPage from "@/pages/Measurement/Measurement.page";
 import HistoryDeskPage from "@/pages/History/HistoryDesk/HistoryDesk.page";
 import CardiogramPage from "@/pages/Parameters/Cardiogram/Cardiogram.page";
