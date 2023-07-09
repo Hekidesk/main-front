@@ -6,7 +6,7 @@ import { ContainerWithoutHeight } from "@/components/reusable/Container";
 import { Text } from "@/components/reusable/Text";
 import { Title } from "@/components/reusable/Title";
 import { CustomDropdown, FlexContainer, FormTitle, LogoRow } from "./CSS";
-import { Dropdown } from "primereact/Dropdown";
+import { Dropdown } from "primereact/dropdown";
 import { useState, useEffect } from "react";
 import {
   ButtonOutlineStyle,

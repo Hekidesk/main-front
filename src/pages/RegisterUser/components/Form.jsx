@@ -3,7 +3,7 @@ import { Image } from "primereact/image";
 import { Button } from "primereact/button";
 import { ButtonStyle } from "@/components/reusable/ButtonStyle";
 import { useState } from "react";
-import { Dropdown } from "primereact/Dropdown";
+import { Dropdown } from "primereact/dropdown";
 import { InputTextGroup } from "@/components/reusable/InputTextGroup";
 import { ContainerWithoutHeight } from "@/components/reusable/Container";
 import { useNavigate } from "react-router-dom";
