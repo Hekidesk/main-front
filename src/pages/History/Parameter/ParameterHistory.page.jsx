@@ -14,8 +14,8 @@ import PR_RR_INTERVAL from "@/assets/icon/history/PR_RR_INTERVAL.svg";
 import QRS_Duration_Icon from "@/assets/icon/history/QRS_Duration.svg";
 import SYSDIAIcon from "@/assets/icon/history/bloodPressureIcon.svg";
 
-import "@/assets/styles/history.css";
-import "@/assets/styles/profile.css";
+import "../../../assets/styles/history.css";
+import "../../../assets/styles/profile.css";
 import HistoryChart from "../Chart/HistoryChart";
 import upIcon from "@/assets/icon/history/upIcon.svg";
 import { ButtonMyDeskStyle } from "@/components/reusable/ButtonStyle";

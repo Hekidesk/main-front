@@ -4,7 +4,7 @@ import HomeIcon from "@/assets/icon/home.svg";
 import MyDeskIcon from "@/assets/icon/myDesk.svg";
 import HistoryIcon from "@/assets/icon/history.svg";
 import MeasurementIcon from "@/assets/icon/3D.svg";
-import "@/assets/styles/sidebar.css";
+import "../../assets/styles/sidebar.css";
 import { Link } from "react-router-dom";
 
 const Sidebar = () => {

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { devices } from "@/assets/styles/size";
+import { devices } from "../../assets/styles/size";
 
 export const TitleContainer = styled.div`
   display: flex;
