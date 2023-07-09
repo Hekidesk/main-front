@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 import { ContainerWithoutHeight } from "@/components/reusable/Container";
 import { Text } from "@/components/reusable/Text";
 import { Title } from "@/components/reusable/Title";
-import { CustomDropdown, FlexContainer, FormTitle, LogoRow } from "./CSS";
-import { Dropdown } from "primereact/Dropdown";
+import { FlexContainer, FormTitle, LogoRow } from "./CSS";
+// import { Dropdown } from "primereact/Dropdown";
 import { useState, useEffect } from "react";
 import {
   ButtonOutlineStyle,
@@ -16,7 +16,7 @@ import { useIndexedDB } from "react-indexed-db";
 
 const HomeForm = () => {
   const [selectedUser, setSelectedUser] = useState(null);
-  const [selectedDevice, setSelectedDevice] = useState(null);
+  // const [selectedDevice, setSelectedDevice] = useState(null);
 
   const { getAll } = useIndexedDB("users");
   const [users, setUsers] = useState([]);
@@ -31,7 +31,6 @@ const HomeForm = () => {
     if(localStorage.getItem("user") !== null){
       setSelectedUser(localStorage.getItem("user"));
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // todo -> done
@@ -49,23 +48,23 @@ const HomeForm = () => {
 
   // todo 
   // read from db "devices" and add data
-  const [devices] = useState([
-    { name: "Test1", code: "Ts1" },
-    { name: "Test2", code: "Ts2" },
-    { name: "Test3", code: "Ts3" },
-    { name: "Test4", code: "Ts4" },
-    { name: "Test5", code: "Ts5" },
-    { name: "Test6", code: "Ts6" },
-    { name: "Test7", code: "Ts7" },
-    { name: "Test8", code: "Ts8" },
-  ]);
+  // const [devices] = useState([
+  //   { name: "Test1", code: "Ts1" },
+  //   { name: "Test2", code: "Ts2" },
+  //   { name: "Test3", code: "Ts3" },
+  //   { name: "Test4", code: "Ts4" },
+  //   { name: "Test5", code: "Ts5" },
+  //   { name: "Test6", code: "Ts6" },
+  //   { name: "Test7", code: "Ts7" },
+  //   { name: "Test8", code: "Ts8" },
+  // ]);
 
-  const selectUser = (user) =>{
-    console.log(users.indexOf(user))
-    setSelectedUser(user);
-    localStorage.setItem("user", user.username);
-    localStorage.setItem("id", users.indexOf(user) + 1);
-  }
+  // const selectUser = (user) =>{
+  //   console.log(users.indexOf(user))
+  //   setSelectedUser(user);
+  //   localStorage.setItem("user", user.username);
+  //   localStorage.setItem("id", users.indexOf(user) + 1);
+  // }
 
   return (
     <ContainerWithoutHeight>
@@ -79,28 +78,28 @@ const HomeForm = () => {
         <Link to="/register-device" style={ButtonStyle}>
           <Image src={PlusIcon} alt="plus"></Image>
         </Link>
-        <Dropdown
+        {/* <Dropdown
           value={selectedDevice}
           onChange={(e) => setSelectedDevice(e.value)}
           options={devices}
           optionLabel="name"
           placeholder={"Select a device"}
           style={{ ...CustomDropdown, margin: "1em 0" }}
-        />
+        /> */}
       </FlexContainer>
       <Text style={FormTitle}>Then, sign up with your user.</Text>
       <FlexContainer>
         <Link to="/register-user" style={ButtonStyle}>
           <Image src={PlusIcon} alt="plus"></Image>
         </Link>
-        <Dropdown
+        {/* <Dropdown
           value={selectedUser}
           onChange={(e) => selectUser(e.value)}
           options={users}
           optionLabel="username"
           placeholder={"Select a user"}
           style={{ ...CustomDropdown, margin: "1em 0" }}
-        />
+        /> */}
       </FlexContainer>
       <Link to="/user-desk" style={ButtonOutlineStyle}>
         OK
