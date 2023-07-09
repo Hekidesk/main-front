@@ -15,4 +15,9 @@ export default defineConfig({
   define: {
     "process.env": { REACT_APP_BASE_URL: "/main-front" },
   },
+  build: {
+    rollupOptions: {
+      external: ['primereact/Dropdown'],
+    },
+  },
 });
