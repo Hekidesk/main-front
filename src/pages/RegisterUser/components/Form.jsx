@@ -9,7 +9,9 @@ import { ContainerWithoutHeight } from "@/components/reusable/Container";
 import { useNavigate } from "react-router-dom";
 import { Col, LogoRow, Row, Title } from "./CSS";
 import { useIndexedDB } from "react-indexed-db";
-
+import { Calendar } from "primereact/calendar";
+import "@/assets/styles/measurement.css";
+ 
 const RegisterForm = () => {
   const [form, setForm] = useState({
     username: "",
@@ -24,12 +26,11 @@ const RegisterForm = () => {
 
   const { add } = useIndexedDB("users");
 
-
   // todo --> done
   // add register user
-  function addUser(){
+  function addUser() {
     localStorage.setItem("user", form.username);
-    add({...form}).then(
+    add({ ...form }).then(
       (event) => {
         console.log("Data added: ", event);
         localStorage.setItem("id", event);
@@ -59,6 +60,23 @@ const RegisterForm = () => {
         placeHolder={"YYYY-MM-DD"}
         setState={(v) => onChangeValue("dateOfBirth", v)}
       />
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          width: "100%",
+          margin: "0.5em 0",
+        }}
+      >
+        <label htmlFor={"dob"}>Date of Birth</label>
+        <Calendar
+          value={form.dateOfBirth}
+          onChange={(v) => onChangeValue("dateOfBirth", v)}
+          placeHolder={"YYYY-MM-DD"}
+          dateFormat="dd/mm/yy"
+          showIcon
+        />
+      </div>
       <InputTextGroup
         state={form.weight}
         label={"Weight"}
@@ -98,7 +116,9 @@ const RegisterForm = () => {
           </Button>
         </Col>
         <Col>
-          <Button style={ButtonStyle} onClick={() => addUser()}>Sign in</Button>
+          <Button style={ButtonStyle} onClick={() => addUser()}>
+            Sign in
+          </Button>
         </Col>
       </Row>
     </ContainerWithoutHeight>

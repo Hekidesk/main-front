@@ -9729,10 +9729,10 @@
   "resolved" "https://registry.npmjs.org/primeicons/-/primeicons-6.0.1.tgz"
   "version" "6.0.1"
 
-"primereact@^9.4.0":
-  "integrity" "sha512-nJGQUfc26XCeqdmLPhLKhs+H4ilP4ER2q0J0PhSD0c/U499JI6bBTTDzQjqNs+DsIh/cLSeIR3bx5c0+Zq+qLg=="
-  "resolved" "https://registry.npmjs.org/primereact/-/primereact-9.4.0.tgz"
-  "version" "9.4.0"
+"primereact@^9.6.0":
+  "integrity" "sha512-+9nhZkh914aSDh2phuSm3BQNKQW0kpcBZqUd+Jdlpg+f6fvgNGGUr2wgZiqfXljkHeCEHdWO/wqB8WvfzqjOVw=="
+  "resolved" "https://registry.npmjs.org/primereact/-/primereact-9.6.0.tgz"
+  "version" "9.6.0"
   dependencies:
     "@types/react-transition-group" "^4.4.1"
     "react-transition-group" "^4.4.1"

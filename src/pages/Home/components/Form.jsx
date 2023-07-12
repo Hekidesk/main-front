@@ -27,25 +27,19 @@ const HomeForm = () => {
       setUsers(usersFromDB);
     });
     console.log("here 1 " + localStorage.getItem("user"));
-
-    if(localStorage.getItem("user") !== null){
-      setSelectedUser(localStorage.getItem("user"));
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // todo -> done
-  // read from db "users" and add context
-  // const [users] = useState([
-  //   { name: "Test1", code: "Ts1" },
-  //   { name: "Test2", code: "Ts2" },
-  //   { name: "Test3", code: "Ts3" },
-  //   { name: "Test4", code: "Ts4" },
-  //   { name: "Test5", code: "Ts5" },
-  //   { name: "Test6", code: "Ts6" },
-  //   { name: "Test7", code: "Ts7" },
-  //   { name: "Test8", code: "Ts8" },
-  // ]);
+  useEffect(() =>{
+    if(localStorage.getItem("user") !== null){
+      console.log("here");
+      console.log(users);
+      console.log(localStorage.getItem("user"));
+      const foundUser = users.find(user => user.username === localStorage.getItem("user"));
+      if (foundUser) {
+        setSelectedUser(foundUser);
+    }
+  }
+  }, [users]);
 
   // todo 
   // read from db "devices" and add data
@@ -99,7 +93,7 @@ const HomeForm = () => {
           options={users}
           optionLabel="username"
           placeholder={"Select a user"}
-          style={{ ...CustomDropdown, margin: "1em 0" }}
+          style={{ ...CustomDropdown, margin: "1em 0", color: "white" }}
         />
       </FlexContainer>
       <Link to="/user-desk" style={ButtonOutlineStyle}>

@@ -4,7 +4,7 @@ import { BluetoothContext } from "@/App";
 
 function ProtectedRoute(props) {
   const bluetooth = useContext(BluetoothContext);
-  const isSignedIn = true;
+  const isSignedIn = localStorage.getItem("user") !== null;
   const isDeviceRegistered = true;
 
   if (!bluetooth.isConnected && props.needsDevice) { //changed
