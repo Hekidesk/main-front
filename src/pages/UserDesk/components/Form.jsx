@@ -28,7 +28,10 @@ const DeskForm = () => {
       </LogoRow>
       <br />
       <br />
-      <Link to="/measurement" style={ButtonStyle}>
+      <Link
+        to={process.env.REACT_APP_BASE_URL + "/measurement"}
+        style={ButtonStyle}
+      >
         <Image
           src={HeartbeatIcon}
           alt="Image"
@@ -37,7 +40,10 @@ const DeskForm = () => {
         />
         Measurement
       </Link>
-      <Link to="/history" style={ButtonStyle}>
+      <Link
+        to={process.env.REACT_APP_BASE_URL + "/history"}
+        style={ButtonStyle}
+      >
         <Image
           src={HistoryIcon}
           alt="Image"
@@ -46,7 +52,10 @@ const DeskForm = () => {
         />
         History
       </Link>
-      <Link to="/" style={ButtonOutlineStyle}>
+      <Link
+        to={process.env.REACT_APP_BASE_URL + "/"}
+        style={ButtonOutlineStyle}
+      >
         <Image
           src={HomeIcon}
           alt="Image"

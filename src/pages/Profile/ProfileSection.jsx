@@ -1,7 +1,7 @@
 import React from "react";
 import { Col, Row, Image } from "react-bootstrap";
 import ProfilePhotoIcon from "@/assets/icon/profile.svg";
-import "@/assets/styles/profile.css";
+import "../../assets/styles/profile.css";
 import { useEffect, useState } from "react";
 import { useIndexedDB } from "react-indexed-db";
 const ProfileSection = () => {

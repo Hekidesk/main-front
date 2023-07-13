@@ -16,10 +16,9 @@ import parameterIcon from "../../../../assets/icon/history/parameterIcon.svg";
 const HistoryForm = () => {
   const [user, setUser] = useState("");
   useEffect(() => {
-    if(localStorage.getItem("user") !== null){
+    if (localStorage.getItem("user") !== null) {
       setUser(localStorage.getItem("user"));
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -28,7 +27,7 @@ const HistoryForm = () => {
         <Image src={Icon} alt="icon" width="60px" />
         <Title>Hi {user}</Title>
       </LogoRow>
-      <Link to="time" style={ButtonStyle}>
+      <Link to={process.env.REACT_APP_BASE_URL + "/history/time"} style={ButtonStyle}>
         <Image
           src={timeIcon}
           alt="Image"
@@ -37,7 +36,10 @@ const HistoryForm = () => {
         />
         Time
       </Link>
-      <Link to="parameter" style={ButtonStyle}>
+      <Link
+        to={process.env.REACT_APP_BASE_URL + "/history/parameter"}
+        style={ButtonStyle}
+      >
         <Image
           src={parameterIcon}
           alt="Image"
@@ -46,7 +48,10 @@ const HistoryForm = () => {
         />
         Parameter
       </Link>
-      <Link to="/" style={ButtonOutlineStyle}>
+      <Link
+        to={process.env.REACT_APP_BASE_URL + "/"}
+        style={ButtonOutlineStyle}
+      >
         <Image
           src={HomeIcon}
           alt="Image"
