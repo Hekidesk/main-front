@@ -1,10 +1,7 @@
 import React from "react";
 import { Image, Row, Col, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import {
-  ButtonMeasurementStyle,
-  ButtonBackStyle,
-} from "@/components/reusable/ButtonStyle";
+import { ButtonMeasurementStyle } from "@/components/reusable/ButtonStyle";
 import backIcon from "@/assets/icon/measurement/back.svg";
 import shareIcon from "@/assets/icon/measurement/shareIcon.svg";
 import saveIcon from "@/assets/icon/measurement/saveIcon.svg";
@@ -62,20 +59,20 @@ const PageButtons = ({
       </Col>
       <Col>
         <Link
-          to="/measurement"
+          to={process.env.REACT_APP_BASE_URL + "/measurement"}
           className="d-flex justify-content-center"
         >
           <Button
-          style={ButtonMeasurementStyle}
-          className="d-flex justify-content-center"
-        >
-          <Image
-            src={backIcon}
-            alt="Image"
-            width="8px"
-            style={{ margin: "0em 0.6em" }}
-          />
-          <span>Back</span>
+            style={ButtonMeasurementStyle}
+            className="d-flex justify-content-center"
+          >
+            <Image
+              src={backIcon}
+              alt="Image"
+              width="8px"
+              style={{ margin: "0em 0.6em" }}
+            />
+            <span>Back</span>
           </Button>
         </Link>
       </Col>

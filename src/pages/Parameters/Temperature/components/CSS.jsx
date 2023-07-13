@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { devices } from "@/assets/styles/size";
+import { devices } from "../../../../assets/styles/size";
 
 export const DiagramWrapper = styled.div`
   width: 100%;

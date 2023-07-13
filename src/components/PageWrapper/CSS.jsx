@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { devices, wrapperWidth } from "@/assets/styles/size";
+import { devices, wrapperWidth } from "../../assets/styles/size";
 
 export const Wrapper = styled.div`
   width: ${wrapperWidth};

@@ -39,7 +39,10 @@ const ConnectionForm = () => {
       )}
       <br />
       {bluetooth.isConnected && !bluetooth.loading && (
-        <Link to="/measurement" style={ButtonStyle}>
+        <Link
+          to={process.env.REACT_APP_BASE_URL + "/measurement"}
+          style={ButtonStyle}
+        >
           Go to Measurement
         </Link>
       )}
