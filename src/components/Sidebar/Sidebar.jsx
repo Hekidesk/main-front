@@ -4,7 +4,7 @@ import HomeIcon from "@/assets/icon/home.svg";
 import MyDeskIcon from "@/assets/icon/myDesk.svg";
 import HistoryIcon from "@/assets/icon/history.svg";
 import MeasurementIcon from "@/assets/icon/3D.svg";
-import "@/assets/styles/sidebar.css";
+import "../../assets/styles/Sidebar.css";
 import { Link } from "react-router-dom";
 
 const Sidebar = () => {
@@ -18,19 +18,31 @@ const Sidebar = () => {
           <div className="logo-text">Hekidesk</div>
         </div>
         <div className="sidebar-item">
-          <Link onClick={() => setClick(false)} to="/">
+          <Link
+            onClick={() => setClick(false)}
+            to={process.env.REACT_APP_BASE_URL + "/"}
+          >
             <img src={HomeIcon} alt="logo" width="25" />
             <div className="sidebar-text">Home</div>
           </Link>
-          <Link onClick={() => setClick(false)} to="/user-desk">
+          <Link
+            onClick={() => setClick(false)}
+            to={process.env.REACT_APP_BASE_URL + "/user-desk"}
+          >
             <img src={MyDeskIcon} alt="logo" width="25" />
             <div className="sidebar-text">My Desk</div>
           </Link>
-          <Link onClick={() => setClick(false)} to="/measurement">
+          <Link
+            onClick={() => setClick(false)}
+            to={process.env.REACT_APP_BASE_URL + "/measurement"}
+          >
             <img src={MeasurementIcon} alt="logo" width="25" />
             <div className="sidebar-text">Measurement</div>
           </Link>
-          <Link onClick={() => setClick(false)} to="/history">
+          <Link
+            onClick={() => setClick(false)}
+            to={process.env.REACT_APP_BASE_URL + "/history"}
+          >
             <img src={HistoryIcon} alt="logo" width="25" />
             <div className="sidebar-text">History</div>
           </Link>

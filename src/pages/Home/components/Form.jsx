@@ -6,7 +6,7 @@ import { ContainerWithoutHeight } from "@/components/reusable/Container";
 import { Text } from "@/components/reusable/Text";
 import { Title } from "@/components/reusable/Title";
 import { CustomDropdown, FlexContainer, FormTitle, LogoRow } from "./CSS";
-import { Dropdown } from "primereact/Dropdown";
+import { Dropdown } from "primereact/dropdown";
 import { useState, useEffect } from "react";
 import {
   ButtonOutlineStyle,
@@ -41,7 +41,7 @@ const HomeForm = () => {
   }
   }, [users]);
 
-  // todo 
+  // todo
   // read from db "devices" and add data
   const [devices] = useState([
     { name: "Test1", code: "Ts1" },
@@ -54,12 +54,12 @@ const HomeForm = () => {
     { name: "Test8", code: "Ts8" },
   ]);
 
-  const selectUser = (user) =>{
-    console.log(users.indexOf(user))
+  const selectUser = (user) => {
+    console.log(users.indexOf(user));
     setSelectedUser(user);
     localStorage.setItem("user", user.username);
     localStorage.setItem("id", users.indexOf(user) + 1);
-  }
+  };
 
   return (
     <ContainerWithoutHeight>
@@ -70,7 +70,10 @@ const HomeForm = () => {
       </LogoRow>
       <Text style={FormTitle}>First, register your Hekidesk device.</Text>
       <FlexContainer>
-        <Link to="/register-device" style={ButtonStyle}>
+        <Link
+          to={process.env.REACT_APP_BASE_URL + "/register-device"}
+          style={ButtonStyle}
+        >
           <Image src={PlusIcon} alt="plus"></Image>
         </Link>
         <Dropdown
@@ -84,7 +87,10 @@ const HomeForm = () => {
       </FlexContainer>
       <Text style={FormTitle}>Then, sign up with your user.</Text>
       <FlexContainer>
-        <Link to="/register-user" style={ButtonStyle}>
+        <Link
+          to={process.env.REACT_APP_BASE_URL + "/register-user"}
+          style={ButtonStyle}
+        >
           <Image src={PlusIcon} alt="plus"></Image>
         </Link>
         <Dropdown
@@ -96,7 +102,10 @@ const HomeForm = () => {
           style={{ ...CustomDropdown, margin: "1em 0", color: "white" }}
         />
       </FlexContainer>
-      <Link to="/user-desk" style={ButtonOutlineStyle}>
+      <Link
+        to={process.env.REACT_APP_BASE_URL + "/user-desk"}
+        style={ButtonOutlineStyle}
+      >
         OK
       </Link>
     </ContainerWithoutHeight>
