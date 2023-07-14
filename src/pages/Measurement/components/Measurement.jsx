@@ -22,7 +22,7 @@ const Measurement = () => {
         </Row>
         <Row>
           <Col lg={4} sm={6}>
-            <Link to={process.env.REACT_APP_BASE_URL + "/cardiogram"}>
+            <Link to={process.env.REACT_APP_BASE_URL + "/measurement/cardiogram"}>
               <Card>
                 <Card.Body>
                   <Card.Title>
@@ -35,7 +35,7 @@ const Measurement = () => {
             </Link>
           </Col>
           <Col lg={4} sm={6}>
-            <Link to={process.env.REACT_APP_BASE_URL + "/oximetry"}>
+            <Link to={process.env.REACT_APP_BASE_URL + "/measurement/oximetry"}>
               <Card>
                 <Card.Body>
                   <Card.Title>
@@ -48,7 +48,7 @@ const Measurement = () => {
             </Link>
           </Col>
           <Col lg={4} sm={6}>
-            <Link to={process.env.REACT_APP_BASE_URL + "/heart-and-lung-sound"}>
+            <Link to={process.env.REACT_APP_BASE_URL + "/measurement/heart-and-lung-sound"}>
               <Card>
                 <Card.Body>
                   <Card.Title>
@@ -63,7 +63,7 @@ const Measurement = () => {
             </Link>
           </Col>
           <Col lg={4} sm={6}>
-            <Link to={process.env.REACT_APP_BASE_URL + "/blood-pressure"}>
+            <Link to={process.env.REACT_APP_BASE_URL + "/measurement/blood-pressure"}>
               <Card>
                 <Card.Body>
                   <Card.Title>
@@ -76,7 +76,7 @@ const Measurement = () => {
             </Link>
           </Col>
           <Col lg={4} sm={6}>
-            <Link to={process.env.REACT_APP_BASE_URL + "/temperature"}>
+            <Link to={process.env.REACT_APP_BASE_URL + "/measurement/temperature"}>
               <Card>
                 <Card.Body>
                   <Card.Title>
