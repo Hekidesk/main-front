@@ -20,11 +20,14 @@ import {
 } from "./components/CSS";
 import { BluetoothContext } from "@/App";
 import { Button, Dropdown, DropdownButton } from "react-bootstrap";
-import "../../../assets/styles/Measurement.css";
+import "../../../assets/styles/measurement.css";
 import axios from "axios";
 import { useAddToDB } from "@/database/AddToDB";
 import PageButtons from "@/components/reusable/PageButtons";
-import { makeArrayForChart, makeArrayFormString } from "@/components/reusableDataFunc/DataFunc";
+import {
+  makeArrayForChart,
+  makeArrayFormString,
+} from "@/components/reusableDataFunc/DataFunc";
 import Swal from "sweetalert2";
 import Counter from "@/components/Counter/Counter";
 
@@ -35,7 +38,6 @@ const DemoPage = () => {
   const [sizeOfSlice, setSizeOfSlice] = useState(-1);
   const dbFunc = useAddToDB("oximetryData");
 
-  
   const [heartBeat, setHeartBeat] = useState("-");
   const [SPO2, setSPO2] = useState("-");
   const [qualityIndex, setQualityIndex] = useState(0);
@@ -62,8 +64,8 @@ const DemoPage = () => {
       setHeartBeat(res.data.HeartRate);
       setSPO2(res.data.SpO2);
       setQualityIndex(res.data.Quality_index);
-      console.log(makeArrayFormString(res.data.clear_IR))
-      setFilteredArray([  
+      console.log(makeArrayFormString(res.data.clear_IR));
+      setFilteredArray([
         makeArrayForChart(irData),
         makeArrayForChart(makeArrayFormString(res.data.clear_IR)),
         makeArrayForChart(RedData),
@@ -76,7 +78,7 @@ const DemoPage = () => {
         icon: "error",
         title: "Something went wrong",
         text: "Please repeat procedure!",
-        confirmButtonColor: '#3085d6',
+        confirmButtonColor: "#3085d6",
       });
   }
 
@@ -94,11 +96,15 @@ const DemoPage = () => {
   }, [bluetooth]);
 
   useEffect(() => {
-    setChartData(filter ? filteredArray[filterActiveNum] : filteredArray[filterActiveNum + 1]);
-  },[filterActiveNum, filter]);
+    setChartData(
+      filter
+        ? filteredArray[filterActiveNum]
+        : filteredArray[filterActiveNum + 1]
+    );
+  }, [filterActiveNum, filter]);
 
   useEffect(() => {
-    if(saved){
+    if (saved) {
       var dataParameter = {};
       dataParameter["heartBeatPPG"] = heartBeat;
       dataParameter["SPO2"] = SPO2;
@@ -107,7 +113,6 @@ const DemoPage = () => {
   }, [saved]);
 
   const [startCountDown, setStartCountDown] = useState(0);
-
 
   const pendingTime = 5000;
   const sampleTime = 10000;
@@ -122,7 +127,7 @@ const DemoPage = () => {
     setSPO2("-");
     setQualityIndex("");
     startTime.current = setTimeout(() => {
-      bluetooth.Start().then((result) => startTimeDuration = result);
+      bluetooth.Start().then((result) => (startTimeDuration = result));
       setSizeOfSlice(400);
       setStartCountDown(0);
     }, [pendingTime]);
@@ -144,7 +149,7 @@ const DemoPage = () => {
               press
             </DiagramText>
             <DiagramButton onClick={startInput}>Start</DiagramButton>
-            <Counter startCountDown = {startCountDown}/>
+            <Counter startCountDown={startCountDown} />
           </Description>
           <DiagramContainer>
             <Diagram data={chartData} sizeOfSlice={sizeOfSlice} />
@@ -156,45 +161,45 @@ const DemoPage = () => {
               <CircularContainer>
                 <CircularValue>{qualityIndex}</CircularValue>
               </CircularContainer>
-              <Button style={filterButton} onClick={() => setFilter(1-filter)}>
+              <Button
+                style={filterButton}
+                onClick={() => setFilter(1 - filter)}
+              >
                 {filter % 2 ? "filtered" : "main"} signal
               </Button>
-              <DropdownButton
-                  id="dropdown-basic-button"
-                  title="Choose signal"
+              <DropdownButton id="dropdown-basic-button" title="Choose signal">
+                <Dropdown.Item
+                  onClick={() => setFilterActiveNum(0)}
+                  active={filterActiveNum === 0 || filterActiveNum === 1}
                 >
-                  <Dropdown.Item
-                    onClick={() => setFilterActiveNum(0)}
-                    active={filterActiveNum === 0 || filterActiveNum === 1}
-                  >
-                    ir
-                  </Dropdown.Item>
-                  <Dropdown.Item
-                    onClick={() => setFilterActiveNum(2)}
-                    active={filterActiveNum === 2 || filterActiveNum === 3}
-                  >
-                    red
-                  </Dropdown.Item>
-                  <Dropdown.Item
-                    onClick={() => setFilterActiveNum(4)}
-                    active={filterActiveNum === 4 || filterActiveNum === 5}
-                  >
-                    filtered ppg
-                  </Dropdown.Item>
-                </DropdownButton>
+                  ir
+                </Dropdown.Item>
+                <Dropdown.Item
+                  onClick={() => setFilterActiveNum(2)}
+                  active={filterActiveNum === 2 || filterActiveNum === 3}
+                >
+                  red
+                </Dropdown.Item>
+                <Dropdown.Item
+                  onClick={() => setFilterActiveNum(4)}
+                  active={filterActiveNum === 4 || filterActiveNum === 5}
+                >
+                  filtered ppg
+                </Dropdown.Item>
+              </DropdownButton>
             </InfoContainer>
           </DiagramContainer>
         </DiagramWrapper>
       </div>
       <PageButtons
         dataName="oximetryData"
-        texts={
-          ["Heart beat: " + heartBeat,
+        texts={[
+          "Heart beat: " + heartBeat,
           "SPO2: " + SPO2,
-          "Quality index: " + qualityIndex]
-        }
-        saved = {saved}
-        setSaved = {setSaved}
+          "Quality index: " + qualityIndex,
+        ]}
+        saved={saved}
+        setSaved={setSaved}
       />
     </PageWrapper>
   );
