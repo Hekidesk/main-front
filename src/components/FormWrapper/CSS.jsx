@@ -38,6 +38,7 @@ export const FormSection = styled.div`
   height: 100%;
   border-radius: 30px;
   position: relative;
+  overflow: auto;
 
   @media ${devices.tablet} {
     width: 50%;

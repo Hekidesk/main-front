@@ -11,7 +11,7 @@ import { Col, LogoRow, Row, Title } from "./CSS";
 import { useIndexedDB } from "react-indexed-db";
 import { Calendar } from "primereact/calendar";
 import "@/assets/styles/measurement.css";
- 
+
 const RegisterForm = () => {
   const [form, setForm] = useState({
     username: "",
@@ -20,6 +20,7 @@ const RegisterForm = () => {
     height: "",
     gender: 0,
   });
+  console.log("🚀 ~ file: Form.jsx:23 ~ RegisterForm ~ form:", form);
   const onChangeValue = (n, v) => setForm({ ...form, [n]: v });
 
   const history = useNavigate();
@@ -54,25 +55,26 @@ const RegisterForm = () => {
         label="Name"
         setState={(v) => onChangeValue("username", v)}
       />
-      <InputTextGroup
+      {/* <InputTextGroup
         state={form.dateOfBirth}
         label={"Date of birth"}
         placeHolder={"YYYY-MM-DD"}
         setState={(v) => onChangeValue("dateOfBirth", v)}
-      />
+      /> */}
       <div
         style={{
           display: "flex",
           flexDirection: "column",
           width: "100%",
           margin: "0.5em 0",
+          position: "relative",
         }}
       >
         <label htmlFor={"dob"}>Date of Birth</label>
         <Calendar
           value={form.dateOfBirth}
-          onChange={(v) => onChangeValue("dateOfBirth", v)}
-          placeHolder={"YYYY-MM-DD"}
+          onChange={(v) => onChangeValue("dateOfBirth", v.target.value)}
+          placeholder={"YYYY-MM-DD"}
           dateFormat="dd/mm/yy"
           showIcon
         />
