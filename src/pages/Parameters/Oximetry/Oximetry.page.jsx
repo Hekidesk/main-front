@@ -20,7 +20,7 @@ import {
 } from "./components/CSS";
 import { BluetoothContext } from "@/App";
 import { Button, Dropdown, DropdownButton } from "react-bootstrap";
-import "../../../assets/styles/measurement.css";
+// import "../../../assets/styles/measurement.css";
 import axios from "axios";
 import { useAddToDB } from "@/database/AddToDB";
 import PageButtons from "@/components/reusable/PageButtons";
