@@ -5,7 +5,6 @@ import HighlightTitle from "@/components/HighlightTitle/HighlightTitle";
 import { useEffect, useState, useContext, useRef } from "react";
 import {
   CircularContainer,
-  CircularValue,
   Description,
   DiagramButton,
   DiagramContainer,
@@ -31,16 +30,16 @@ import {
 import Swal from "sweetalert2";
 import Counter from "@/components/Counter/Counter";
 
-const DemoPage = () => {
+const OximetryPage = () => {
   const [IrData, setIrData] = useState();
   const [RedData, setRedData] = useState();
   const [chartData, setChartData] = useState();
   const [sizeOfSlice, setSizeOfSlice] = useState(-1);
   const dbFunc = useAddToDB("oximetryData");
 
-  const [heartBeat, setHeartBeat] = useState("-");
+  const [heartBeat, setHeartBeat] = useState("- ? -");
   const [SPO2, setSPO2] = useState("-");
-  const [qualityIndex, setQualityIndex] = useState(0);
+  const [qualityIndex, setQualityIndex] = useState("-");
   const [saved, setSaved] = useState(0);
 
   const [filteredArray, setFilteredArray] = useState([]);
@@ -123,9 +122,9 @@ const DemoPage = () => {
     let startTimeDuration = 0;
     setStartCountDown(1);
     setSaved(0);
-    setHeartBeat("-");
+    setHeartBeat("-?-");
     setSPO2("-");
-    setQualityIndex("");
+    setQualityIndex("-");
     startTime.current = setTimeout(() => {
       bluetooth.Start().then((result) => (startTimeDuration = result));
       setSizeOfSlice(400);
@@ -149,17 +148,18 @@ const DemoPage = () => {
               press
             </DiagramText>
             <DiagramButton onClick={startInput}>Start</DiagramButton>
-            <Counter startCountDown={startCountDown} />
           </Description>
           <DiagramContainer>
             <Diagram data={chartData} sizeOfSlice={sizeOfSlice} />
             <InfoContainer>
-              <ImportantTitle>bpmHr</ImportantTitle>
-              <ImportantValue>-{heartBeat}-</ImportantValue>
-              <SimpleTitle>SPO2</SimpleTitle>
+              <ImportantTitle>Heart Rate (bpm)</ImportantTitle>
+              <ImportantValue>{heartBeat}</ImportantValue>
+              <SimpleTitle>SPO2 %</SimpleTitle>
               <SimpleValue>{SPO2}</SimpleValue>
-              <CircularContainer>
-                <CircularValue>{qualityIndex}</CircularValue>
+              <SimpleTitle>Quality Index %</SimpleTitle>
+              <SimpleValue>{qualityIndex}</SimpleValue>
+              <CircularContainer>                
+                  <Counter startCountDown={startCountDown} />
               </CircularContainer>
               <Button
                 style={filterButton}
@@ -205,4 +205,4 @@ const DemoPage = () => {
   );
 };
 
-export default DemoPage;
+export default OximetryPage;

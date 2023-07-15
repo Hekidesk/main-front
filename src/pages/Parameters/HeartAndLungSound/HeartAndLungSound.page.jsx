@@ -40,8 +40,8 @@ const HeartAndLungSoundPage = () => {
   const [sizeOfSlice, setSizeOfSlice] = useState(-1);
   const [disable, setDisable] = useState(1);
 
-  const [heartBeat, setHeartBeat] = useState("-");
-  const [respirationRate, setRespirationRate] = useState("-");
+  const [heartBeat, setHeartBeat] = useState("-?-");
+  const [respirationRate, setRespirationRate] = useState("-?-");
   const [qualityIndex, setQualityIndex] = useState(0);
   const [position, setPosition] = useState("heart");
 
@@ -221,9 +221,9 @@ const HeartAndLungSoundPage = () => {
           <DiagramContainer>
             <Diagram data={chartData} sizeOfSlice={sizeOfSlice} />
             <InfoContainer>
-              <ImportantTitle>bpmHr</ImportantTitle>
-              <ImportantValue>-{heartBeat}-</ImportantValue>
-              <SimpleTitle>bpm Respiration Rate</SimpleTitle>
+              <ImportantTitle>Heart Beat (bpm)</ImportantTitle>
+              <ImportantValue>{heartBeat}</ImportantValue>
+              <SimpleTitle>Respiration Rate (bpm)</SimpleTitle>
               <SimpleValue>{respirationRate}</SimpleValue>
               <CircularContainer>
                 <CircularValue>{qualityIndex}</CircularValue>

@@ -47,7 +47,7 @@ const CardiogramPage = () => {
   const [chartData, setChartData] = useState();
   const [sizeOfSlice, setSizeOfSlice] = useState(-1);
 
-  const [heartBeat, setHeartBeat] = useState("-");
+  const [heartBeat, setHeartBeat] = useState("-?-");
   const [qualityIndex, setQualityIndex] = useState("");
   const [PR_RR_Interval, setPR_RR_Interval] = useState("-");
   const [QRS_Duration, setQRSDuration] = useState("-");
@@ -199,7 +199,7 @@ const CardiogramPage = () => {
           <DiagramContainer>
             <Diagram data={chartData} sizeOfSlice={sizeOfSlice} />
             <InfoContainer>
-              <ImportantTitle>bpmHr</ImportantTitle>
+              <ImportantTitle>Heart Beat (bpm)</ImportantTitle>
               <ImportantValue>{heartBeat}</ImportantValue>
               <SimpleTitle>PR/RR Interval</SimpleTitle>
               <SimpleValue>{PR_RR_Interval}</SimpleValue>

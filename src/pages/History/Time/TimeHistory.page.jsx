@@ -5,6 +5,7 @@ import Sidebar from "@/components/Sidebar/Sidebar";
 import ProfileSection from "../../Profile/ProfileSection";
 import BodyIcon from "@/assets/icon/history/bodyImg.svg";
 import upIcon from "@/assets/icon/history/upIcon.svg";
+import timeHistory from "@/assets/icon/history/time-history.svg";
 import { ButtonHistoryStyle } from "@/components/reusable/ButtonStyle";
 import { Link } from "react-router-dom";
 import { useIndexedDB } from "react-indexed-db";
@@ -223,10 +224,13 @@ const TimeHistoryPage = () => {
               </Row>
               <Row>
                 <Col>
-                  <div className="bg-gray"></div>
+                  <div className="bg-gray">
+                    <Image src={timeHistory} />
+                  </div>
                 </Col>
                 <Col>
-                  <div className="bg-gray"></div>
+                  <div className="bg-gray">
+                  </div>
                 </Col>
               </Row>
             </Col>

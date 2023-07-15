@@ -25,7 +25,7 @@ const TemperaturePage = () => {
   const [data, setData] = useState([]);
   const [chartData, setChartData] = useState([]);
 
-  const [temperature, setTemperature] = useState("-");
+  const [temperature, setTemperature] = useState("-?-");
   const [qualityIndex, setQualityIndex] = useState(100);
   const [saved, setSaved] = useState(0);
   const dbFunc = useAddToDB("TemperatureData");
@@ -100,8 +100,8 @@ const TemperaturePage = () => {
           <DiagramContainer>
             <Diagram data={chartData} sizeOfSlice={-2} />
             <InfoContainer>
-              <ImportantTitle>Temperature</ImportantTitle>
-              <ImportantValue>-{temperature}-</ImportantValue>
+              <ImportantTitle>Temperature (°C)</ImportantTitle>
+              <ImportantValue>{temperature}</ImportantValue>
               <CircularContainer>
                 <CircularValue>100</CircularValue>
               </CircularContainer>

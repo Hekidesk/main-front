@@ -18,12 +18,14 @@ export const DiagramText = styled.h6`
 `;
 export const DiagramButton = styled.button`
   background: transparent;
-  color: var(--main-green);
+  color: var(--gray);
+  text-shadow : 1px 1px 1px #fff;
   border: none;
   font-size: 1.4em;
   font-weight: bold;
   margin-bottom: 0.5rem;
   margin-left: 0.5rem;
+
 `;
 export const DiagramContainer = styled.div`
   display: flex;
@@ -59,24 +61,27 @@ export const InfoContainer = styled.div`
 
 export const ImportantTitle = styled.h6`
   color: var(--important-color);
-  font-weight: bold;
+  text-shadow : 1px 1px 10px var(--important-color);
 `;
 
 export const ImportantValue = styled.h3`
   color: var(--important-color);
-  font-weight: bold;
   text-align: center;
+  font-size: 50px;
+  font-weight: bold;
+  text-shadow : 1px 1px 10px var(--important-color);
 `;
 
 export const SimpleTitle = styled.h6`
   color: var(--main-green);
-  font-weight: bold;
+  text-shadow : 1px 1px 10px var(--main-green);
 `;
 
 export const SimpleValue = styled.h3`
   color: var(--main-green);
-  font-weight: bold;
   text-align: center;
+  font-size: 30px;
+  text-shadow : 1px 1px 10px var(--main-green);
 `;
 
 export const SmallSimpleValue = styled.h5`

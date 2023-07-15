@@ -20,6 +20,7 @@ const Sidebar = () => {
         <div className="sidebar-item">
           <Link
             onClick={() => setClick(false)}
+            // eslint-disable-next-line no-undef
             to={process.env.REACT_APP_BASE_URL + "/"}
           >
             <img src={HomeIcon} alt="logo" width="25" />
@@ -27,6 +28,7 @@ const Sidebar = () => {
           </Link>
           <Link
             onClick={() => setClick(false)}
+            // eslint-disable-next-line no-undef
             to={process.env.REACT_APP_BASE_URL + "/user-desk"}
           >
             <img src={MyDeskIcon} alt="logo" width="25" />
@@ -34,6 +36,7 @@ const Sidebar = () => {
           </Link>
           <Link
             onClick={() => setClick(false)}
+            // eslint-disable-next-line no-undef
             to={process.env.REACT_APP_BASE_URL + "/measurement"}
           >
             <img src={MeasurementIcon} alt="logo" width="25" />
@@ -41,6 +44,7 @@ const Sidebar = () => {
           </Link>
           <Link
             onClick={() => setClick(false)}
+            // eslint-disable-next-line no-undef
             to={process.env.REACT_APP_BASE_URL + "/history"}
           >
             <img src={HistoryIcon} alt="logo" width="25" />

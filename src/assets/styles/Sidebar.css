@@ -95,7 +95,7 @@
 .sidebar-container a:hover {
   background-color: white;
   border-radius: 35px 0px 0px 35px;
-  width: 11.58rem;
+  width: 11.6rem;
   color: var(--nav-color-top) !important;
   transition: width 1s, background-color 0.5s;
 }

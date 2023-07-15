@@ -71,6 +71,7 @@ const HomeForm = () => {
       <Text style={FormTitle}>First, register your Hekidesk device.</Text>
       <FlexContainer>
         <Link
+          // eslint-disable-next-line no-undef
           to={process.env.REACT_APP_BASE_URL + "/register-device"}
           style={ButtonStyle}
         >
@@ -88,6 +89,7 @@ const HomeForm = () => {
       <Text style={FormTitle}>Then, sign up with your user.</Text>
       <FlexContainer>
         <Link
+          // eslint-disable-next-line no-undef
           to={process.env.REACT_APP_BASE_URL + "/register-user"}
           style={ButtonStyle}
         >
@@ -103,7 +105,8 @@ const HomeForm = () => {
         />
       </FlexContainer>
       <Link
-        to={process.env.REACT_APP_BASE_URL + "/user-desk"}
+          // eslint-disable-next-line no-undef
+          to={process.env.REACT_APP_BASE_URL + "/user-desk"}
         style={ButtonOutlineStyle}
       >
         OK
