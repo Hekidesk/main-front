@@ -19,13 +19,12 @@ export const DiagramText = styled.h6`
 export const DiagramButton = styled.button`
   background: transparent;
   color: var(--gray);
-  text-shadow : 1px 1px 1px #fff;
+  text-shadow: 1px 1px 1px #fff;
   border: none;
   font-size: 1.4em;
   font-weight: bold;
   margin-bottom: 0.5rem;
   margin-left: 0.5rem;
-
 `;
 export const DiagramContainer = styled.div`
   display: flex;
@@ -34,16 +33,24 @@ export const DiagramContainer = styled.div`
   background: #c8e7f1;
   width: 100%;
   flex-direction: column;
-  box-shadow: -1px -1px 50px -12px rgba(0, 0, 0, 0.82);
-  margin-bottom: 50px;
+  box-shadow: -1px -1px 10px -12px rgba(0, 0, 0, 0.82);
+  margin-bottom: 10px;
   @media ${devices.tablet} {
     flex-direction: row;
   }
 `;
 export const AbnormalityDiagramContainer = styled.div`
-  background: #c8e7f1;
+  background-color: #c8e7f1;
   flex-direction: column;
-  box-shadow: -1px -1px 50px -12px rgba(0, 0, 0, 0.82);
+  box-shadow: -1px -1px 10px -12px rgba(0, 0, 0, 0.82);
+`;
+export const AbnormalityDiagramTitleContainer = styled.div`
+  height: 50px;
+  text-align: center;
+  text-shadow: 1px 1px 1px #fff;
+  font-size: 1em;
+  font-weight: bold;
+  margin-top: 10px;
 `;
 export const InfoContainer = styled.div`
   background: #c8e7f1;
@@ -61,7 +68,7 @@ export const InfoContainer = styled.div`
 
 export const ImportantTitle = styled.h6`
   color: var(--important-color);
-  text-shadow : 1px 1px 10px var(--important-color);
+  text-shadow: 1px 1px 10px var(--important-color);
 `;
 
 export const ImportantValue = styled.h3`
@@ -69,19 +76,19 @@ export const ImportantValue = styled.h3`
   text-align: center;
   font-size: 50px;
   font-weight: bold;
-  text-shadow : 1px 1px 10px var(--important-color);
+  text-shadow: 1px 1px 10px var(--important-color);
 `;
 
 export const SimpleTitle = styled.h6`
   color: var(--main-green);
-  text-shadow : 1px 1px 10px var(--main-green);
+  text-shadow: 1px 1px 10px var(--main-green);
 `;
 
 export const SimpleValue = styled.h3`
   color: var(--main-green);
   text-align: center;
   font-size: 30px;
-  text-shadow : 1px 1px 10px var(--main-green);
+  text-shadow: 1px 1px 10px var(--main-green);
 `;
 
 export const SmallSimpleValue = styled.h5`
@@ -114,5 +121,4 @@ export const filterButton = {
   alignItems: "center",
   backgroundColor: "var(--main-green)",
   border: "var(--main-green)",
-}
-
+};

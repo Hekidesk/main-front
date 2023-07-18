@@ -19,8 +19,8 @@ function Counter({ counter, startCountDown }) {
         duration={counter}
         size={50}
         strokeWidth={5}
-        colors={ counter == 5 ? ["#1cb5bd"] : ["#28acd8"]}
-        colorsTime={[0]}
+        colors={ counter == 5 ? ["#1cb5bd", "#fe5558"] : ["#28acd8", "#28acd8"]}
+        colorsTime={[4, 0]}
         onComplete= {() => setKey((prevKey) => prevKey + 1)}
         >
         {({ remainingTime }) => <div style = {{...circleStyle, color: "black"}}>{remainingTime}</div>}

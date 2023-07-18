@@ -49,7 +49,7 @@ const CardiogramPage = () => {
   const [disable, setDisable] = useState(1);
 
   const [heartBeat, setHeartBeat] = useState("-?-");
-  const [qualityIndex, setQualityIndex] = useState("");
+  const [qualityIndex, setQualityIndex] = useState("-");
   const [PR_RR_Interval, setPR_RR_Interval] = useState("-");
   const [QRS_Duration, setQRSDuration] = useState("-");
   const [hrv, setHrv] = useState([]);
@@ -57,7 +57,7 @@ const CardiogramPage = () => {
   const [ssTime, setSsTime] = useState([]);
   const [singleSpike, setSingleSpike] = useState([]);
   const [PQRST_ss, setPQRST_ss] = useState([]);
-  const [ArrythmiaType, setArrythmiaType] = useState("-");
+  const [ArrythmiaType, setArrythmiaType] = useState(-1);
 
   const types = [
     "Normal",
@@ -149,7 +149,7 @@ const CardiogramPage = () => {
     setSsTime([]);
     setHrvVal("-");
     setPQRST_ss([]);
-    setArrythmiaType("");
+    setArrythmiaType(-1);
   }
 
   const startInput = () => {
@@ -187,7 +187,7 @@ const CardiogramPage = () => {
       dataParameter["PR_RR_Interval"] = PR_RR_Interval;
       dataParameter["QRS_Duration"] = QRS_Duration;
       dataParameter["hrvVal"] = hrvVal;
-      dataParameter["ArrythmiaType"] = ArrythmiaType;
+      dataParameter["ArrythmiaType"] = types[ArrythmiaType];
       dbFunc.updateHistory(dataParameter);
     }
   }, [saved]);
@@ -219,8 +219,10 @@ const CardiogramPage = () => {
               <SimpleValue>{QRS_Duration}</SimpleValue>
               <SimpleTitle>hrv</SimpleTitle>
               <SimpleValue>{hrvVal}</SimpleValue>
+              <SimpleTitle>Quality Index</SimpleTitle>
+              <SimpleValue>{qualityIndex}</SimpleValue>
               <SimpleTitle>Arrythmia Type</SimpleTitle>
-              <SmallSimpleValue>{types[ArrythmiaType]}</SmallSimpleValue>
+              <SmallSimpleValue>{ArrythmiaType !== -1 ?  types[ArrythmiaType] : "-"}</SmallSimpleValue>
               
               <Button
                 style={filterButton}
