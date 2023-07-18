@@ -94,9 +94,8 @@ export const CircularValue = styled.div`
   font-weight: bold;
 `;
 export const CircularContainer = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: center;
+  margin-left: 20px;
+  margin-bottom: 20px;
 `;
 
 export const filterButton = {

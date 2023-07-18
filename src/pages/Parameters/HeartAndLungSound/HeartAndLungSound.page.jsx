@@ -8,7 +8,7 @@ import { BluetoothContext } from "@/App";
 import { useAddToDB } from "@/database/AddToDB";
 import {
   CircularContainer,
-  CircularValue,
+  // CircularValue,
   Description,
   DiagramButton,
   DiagramContainer,
@@ -58,8 +58,8 @@ const HeartAndLungSoundPage = () => {
     };
     let addr =
       position === "heart"
-        ? "http://127.0.0.1:5000//PCG_signal/heart"
-        : "http://127.0.0.1:5000//PCG_signal/optional";
+        ? "https://api.hekidesk.com//PCG_signal/heart"
+        : "https://api.hekidesk.com//PCG_signal/optional";
     let res = await axios.post(addr, payload);
     return res.data;
   }
@@ -123,28 +123,39 @@ const HeartAndLungSoundPage = () => {
   }, [saved]);
 
   const [startCountDown, setStartCountDown] = useState(0);
+  const [counter, setCounter] = useState(5);
 
   const pendingTime = 5000;
   const sampleTime = 10000;
   const startTime = useRef(null);
   const endTime = useRef(null);
+  const delayTime = 30;
+
+  const flushData = () => {
+    setStartCountDown(1);
+    setDisable(1);
+    setChartData([]);
+    setSaved(0);
+    setHeartBeat("-?-");
+    setRespirationRate("-?-");
+    setQualityIndex(0);
+  }
 
   const startInput = () => {
+    flushData();
+    setCounter(5);
     let startTimeDuration = 0;
-    setStartCountDown(1);
-    setSaved(0);
-    setHeartBeat("-");
-    setRespirationRate("-");
-    setQualityIndex(0);
     startTime.current = setTimeout(() => {
       bluetooth.Start().then((result) => (startTimeDuration = result));
-      setStartCountDown(0);
+      setCounter(10);
       setSizeOfSlice(10000);
-    }, [pendingTime]);
+    }, [pendingTime + delayTime]);
     endTime.current = setTimeout(() => {
+      setCounter(5);
+      setStartCountDown(0);
       bluetooth.Stop(startTimeDuration);
       setSizeOfSlice(-1);
-    }, [sampleTime + pendingTime]);
+    }, [sampleTime + pendingTime + delayTime]);
   };
 
   async function playAudio() {
@@ -156,9 +167,9 @@ const HeartAndLungSoundPage = () => {
       sound: "[" + finalSound.toString() + "]",
       fs: bluetooth.GetFrequency()[0],
     };
-    let res = await axios.post("http://127.0.0.1:5000//rcv_audio", payload);
+    let res = await axios.post("https://api.hekidesk.com//rcv_audio", payload);
     if (res.statusText === "OK") {
-      const { data } = await axios.get("http://127.0.0.1:5000//snd_audio", {
+      const { data } = await axios.get("https://api.hekidesk.com//snd_audio", {
         responseType: "arraybuffer",
         headers: {
           "Content-Type": "audio/x-wav",
@@ -216,7 +227,9 @@ const HeartAndLungSoundPage = () => {
               </label>
             </div>
             <DiagramButton onClick={startInput}>Start</DiagramButton>
-            <Counter startCountDown = {startCountDown}/>
+            <CircularContainer>
+              <Counter counter={counter} startCountDown={startCountDown} />
+            </CircularContainer>
           </Description>
           <DiagramContainer>
             <Diagram data={chartData} sizeOfSlice={sizeOfSlice} />
@@ -225,9 +238,6 @@ const HeartAndLungSoundPage = () => {
               <ImportantValue>{heartBeat}</ImportantValue>
               <SimpleTitle>Respiration Rate (bpm)</SimpleTitle>
               <SimpleValue>{respirationRate}</SimpleValue>
-              <CircularContainer>
-                <CircularValue>{qualityIndex}</CircularValue>
-              </CircularContainer>
               <Button
                 style={filterButton}
                 onClick={() => setFilter(1 - filter)}
@@ -259,7 +269,11 @@ const HeartAndLungSoundPage = () => {
                   lung
                 </Dropdown.Item>
               </DropdownButton>
-              <Button style={filterButton} onClick={() => playAudio()} disabled={disable}>
+              <Button
+                style={filterButton}
+                onClick={() => playAudio()}
+                disabled={disable}
+              >
                 <div style={{ fontSize: "15px", display: "inline" }}>
                   Play Sound
                 </div>{" "}
@@ -272,8 +286,13 @@ const HeartAndLungSoundPage = () => {
         </DiagramWrapper>
       </div>
       <PageButtons
+        disable={disable}
         dataName="pcgData"
-        texts={["Heart beat: " + heartBeat, "Respiration rate: " + respirationRate ,"Quality index: " + qualityIndex]}
+        texts={[
+          "Heart beat: " + heartBeat,
+          "Respiration rate: " + respirationRate,
+          "Quality index: " + qualityIndex,
+        ]}
         saved={saved}
         setSaved={setSaved}
       />

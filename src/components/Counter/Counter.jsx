@@ -1,46 +1,32 @@
 import React from "react";
-import { useEffect, useState } from "react";
-import { CountDownNumber } from "./style/CSS";
-import CircularSlider from "@fseehawer/react-circular-slider";
+import { useState } from "react";
+import { CountdownCircleTimer } from "react-countdown-circle-timer";
 
+function Counter({ counter, startCountDown }) {
 
-const Counter = ({ startCountDown }) => {
-  const [counter, setCounter] = useState(5);
+  const [key, setKey] = useState(0);
 
-  useEffect(() => {
-    const timer =
-      startCountDown &&
-      counter >= 0 &&
-      setInterval(() => setCounter(counter - 1), 1000);
-    console.log("counter is: " + counter);
-    if (!startCountDown) setCounter(5);
-    return () => clearInterval(timer);
-  }, [counter, startCountDown]);
+  const circleStyle = {
+    fontSize: "20px",
+    textShadow: "2px 2px 15px var(--main-green)",
+  };
 
   return (
-    <div>
-      <CircularSlider
-        width={50}
-        label={counter.toString()}
-        min={0}
-        max={5}
-        value= {counter}
-        labelColor="#00bfbd"
-        labelBottom = {true}
-        valueFontSize="0.01rem"
-        knobColor="#1CB5BD"
-        knobSize={22}
-        progressColorFrom="#00bfbd"
-        progressColorTo="#00bfbd"
-        progressSize={5}
-        trackColor="#dfffff"
-        trackSize={5}
-        // knobDraggable={false}
-      >
-        <div></div>
-      </CircularSlider>
+    <div style={{marginTop: "15px"}}>
+      <CountdownCircleTimer
+        isPlaying = {startCountDown}
+        key = {key}
+        duration={counter}
+        size={50}
+        strokeWidth={5}
+        colors={ counter == 5 ? ["#1cb5bd"] : ["#28acd8"]}
+        colorsTime={[0]}
+        onComplete= {() => setKey((prevKey) => prevKey + 1)}
+        >
+        {({ remainingTime }) => <div style = {{...circleStyle, color: "black"}}>{remainingTime}</div>}
+      </CountdownCircleTimer>
     </div>
   );
-};
+}
 
 export default Counter;

@@ -9,6 +9,7 @@ import ckeckmarkIcon from "@/assets/icon/ckeckmarkIcon.svg";
 import { shareData } from "@/utilities/share/Share";
 
 const PageButtons = ({
+  disable,
   dataName,
   texts,
   saved,
@@ -23,6 +24,7 @@ const PageButtons = ({
           onClick={() => setSaved(1)}
           style={ButtonMeasurementStyle}
           className="d-flex justify-content-center"
+          disabled = {disable}
         >
           {saved ? (
             <Image

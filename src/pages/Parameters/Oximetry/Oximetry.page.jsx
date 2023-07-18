@@ -45,6 +45,7 @@ const OximetryPage = () => {
   const [filteredArray, setFilteredArray] = useState([]);
   const [filterActiveNum, setFilterActiveNum] = useState(0);
   const [filter, setFilter] = useState(1);
+  const [disable, setDisable] = useState(1);
 
   const bluetooth = useContext(BluetoothContext);
 
@@ -57,7 +58,7 @@ const OximetryPage = () => {
       Red: "[" + RedData.toString() + "]",
       fs: bluetooth.GetFrequency()[0],
     };
-    let res = await axios.post("http://127.0.0.1:5000//PPG_signal", payload);
+    let res = await axios.post("https://api.hekidesk.com//PPG_signal", payload);
     console.log(res.data);
     if (!Number(res.data.Try_Again)) {
       setHeartBeat(res.data.HeartRate);
@@ -72,6 +73,7 @@ const OximetryPage = () => {
         makeArrayForChart(makeArrayFormString(res.data.PPG_clear)),
         makeArrayForChart(makeArrayFormString(res.data.PPG_clear)),
       ]);
+      setDisable(0);
     } else
       Swal.fire({
         icon: "error",
@@ -112,28 +114,40 @@ const OximetryPage = () => {
   }, [saved]);
 
   const [startCountDown, setStartCountDown] = useState(0);
+  const [counter, setCounter] = useState(5);
 
   const pendingTime = 5000;
   const sampleTime = 10000;
   const startTime = useRef(null);
   const endTime = useRef(null);
+  const delayTime = 30;
+
+  const flushData = () => {
+    setStartCountDown(1);
+    setSaved(0);
+    setDisable(1);
+    setChartData([]);
+    setHeartBeat("- ? -");
+    setSPO2("-");
+    setQualityIndex("-");
+    setCounter(5);
+  }
 
   const startInput = () => {
     let startTimeDuration = 0;
-    setStartCountDown(1);
-    setSaved(0);
-    setHeartBeat("-?-");
-    setSPO2("-");
-    setQualityIndex("-");
+    flushData();
     startTime.current = setTimeout(() => {
+      setCounter(10);
+      console.log(startCountDown);
       bluetooth.Start().then((result) => (startTimeDuration = result));
       setSizeOfSlice(400);
-      setStartCountDown(0);
-    }, [pendingTime]);
+    }, [pendingTime + delayTime]);
     endTime.current = setTimeout(() => {
+      setStartCountDown(0);
+      setCounter(5);
       bluetooth.Stop(startTimeDuration);
       setSizeOfSlice(-1);
-    }, [sampleTime + pendingTime]);
+    }, [sampleTime + pendingTime + delayTime]);
   };
 
   return (
@@ -148,6 +162,9 @@ const OximetryPage = () => {
               press
             </DiagramText>
             <DiagramButton onClick={startInput}>Start</DiagramButton>
+            <CircularContainer>
+              <Counter counter={counter} startCountDown={startCountDown} />
+            </CircularContainer>
           </Description>
           <DiagramContainer>
             <Diagram data={chartData} sizeOfSlice={sizeOfSlice} />
@@ -158,16 +175,18 @@ const OximetryPage = () => {
               <SimpleValue>{SPO2}</SimpleValue>
               <SimpleTitle>Quality Index %</SimpleTitle>
               <SimpleValue>{qualityIndex}</SimpleValue>
-              <CircularContainer>                
-                  <Counter startCountDown={startCountDown} />
-              </CircularContainer>
               <Button
                 style={filterButton}
                 onClick={() => setFilter(1 - filter)}
+                disabled={disable}
               >
                 {filter % 2 ? "filtered" : "main"} signal
               </Button>
-              <DropdownButton id="dropdown-basic-button" title="Choose signal">
+              <DropdownButton
+                id="dropdown-basic-button"
+                title="Choose signal"
+                disabled={disable}
+              >
                 <Dropdown.Item
                   onClick={() => setFilterActiveNum(0)}
                   active={filterActiveNum === 0 || filterActiveNum === 1}
@@ -192,6 +211,7 @@ const OximetryPage = () => {
         </DiagramWrapper>
       </div>
       <PageButtons
+        disable={disable}
         dataName="oximetryData"
         texts={[
           "Heart beat: " + heartBeat,

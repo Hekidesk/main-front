@@ -58,7 +58,7 @@ const DemoPage = () => {
       Red: "[" + RedData.toString() + "]",
       fs: bluetooth.GetFrequency()[0],
     };
-    let res = await axios.post("http://127.0.0.1:5000//PPG_signal", payload);
+    let res = await axios.post("https://api.hekidesk.com//PPG_signal", payload);
     console.log(res.data);
     if (!Number(res.data.Try_Again)) {
       setHeartBeat(res.data.HeartRate);

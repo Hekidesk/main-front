@@ -6,7 +6,7 @@ import { useEffect, useState, useRef, useContext } from "react";
 import { BluetoothContext } from "@/App";
 import {
   CircularContainer,
-  CircularValue,
+  // CircularValue,
   Description,
   DiagramButton,
   DiagramContainer,
@@ -46,6 +46,7 @@ const CardiogramPage = () => {
   const [filter, setFilter] = useState(1);
   const [chartData, setChartData] = useState();
   const [sizeOfSlice, setSizeOfSlice] = useState(-1);
+  const [disable, setDisable] = useState(1);
 
   const [heartBeat, setHeartBeat] = useState("-?-");
   const [qualityIndex, setQualityIndex] = useState("");
@@ -84,7 +85,7 @@ const CardiogramPage = () => {
       ECG: "[" + ecg.toString() + "]",
       fs: bluetooth.GetFrequency()[0],
     };
-    let res = await axios.post("http://127.0.0.1:5000//ECG_signal", payload);
+    let res = await axios.post("https://api.hekidesk.com//ECG_signal", payload);
     console.log(res.data);
     if (!Number(res.data.Try_Again)) {
       setHeartBeat(Number(res.data.HeartRate));
@@ -111,12 +112,13 @@ const CardiogramPage = () => {
         makeFilteredArray(dot, filtered_signal),
         makeArrayForChart(ecg),
       ]);
+      setDisable(0);
     } else {
       Swal.fire({
         icon: "error",
         title: "Something went wrong",
         text: "Please repeat procedure!",
-        confirmButtonColor: '#3085d6',
+        confirmButtonColor: "#3085d6",
       });
     }
   }
@@ -126,19 +128,20 @@ const CardiogramPage = () => {
   }, [filter]);
 
   const [startCountDown, setStartCountDown] = useState(0);
-
+  const [counter, setCounter] = useState(5);
+  
   const pendingTime = 5000;
   const sampleTime = 10000;
   const startTime = useRef(null);
   const endTime = useRef(null);
+  const delayTime = 30; 
 
-  
-
-  const startInput = () => {
-    let startTimeDuration = 0;
+  const flushData = () => {
+    setDisable(1);
+    setChartData([]);
     setStartCountDown(1);
     setSaved(0);
-    setHeartBeat("-");
+    setHeartBeat("-?-");
     setQualityIndex("");
     setPR_RR_Interval("-");
     setQRSDuration("-");
@@ -147,15 +150,22 @@ const CardiogramPage = () => {
     setHrvVal("-");
     setPQRST_ss([]);
     setArrythmiaType("");
+  }
+
+  const startInput = () => {
+    let startTimeDuration = 0;
+    flushData();
     startTime.current = setTimeout(() => {
       bluetooth.Start().then((result) => (startTimeDuration = result));
       setSizeOfSlice(400);
-      setStartCountDown(0);
-    }, [pendingTime]);
+      setCounter(10);
+    }, [pendingTime + delayTime]);
     endTime.current = setTimeout(() => {
+      setCounter(5);
+      setStartCountDown(0);
       bluetooth.Stop(startTimeDuration);
       setSizeOfSlice(-1);
-    }, [sampleTime + pendingTime]);
+    }, [sampleTime + pendingTime + delayTime]);
   };
 
   useEffect(() => {
@@ -194,7 +204,9 @@ const CardiogramPage = () => {
               press
             </DiagramText>
             <DiagramButton onClick={startInput}>Start</DiagramButton>
-            <Counter startCountDown = {startCountDown}/>
+            <CircularContainer>
+                <Counter counter = {counter} startCountDown={startCountDown} />
+            </CircularContainer>
           </Description>
           <DiagramContainer>
             <Diagram data={chartData} sizeOfSlice={sizeOfSlice} />
@@ -209,12 +221,11 @@ const CardiogramPage = () => {
               <SimpleValue>{hrvVal}</SimpleValue>
               <SimpleTitle>Arrythmia Type</SimpleTitle>
               <SmallSimpleValue>{types[ArrythmiaType]}</SmallSimpleValue>
-              <CircularContainer>
-                <CircularValue>{qualityIndex}</CircularValue>
-              </CircularContainer>
+              
               <Button
                 style={filterButton}
                 onClick={() => setFilter(1 - filter)}
+                disabled = {disable}
               >
                 {filter % 2 ? "filtered" : "main"} signal
               </Button>
@@ -232,6 +243,7 @@ const CardiogramPage = () => {
         </DiagramWrapper>
       </div>
       <PageButtons
+        disable = {disable}
         dataName="cardiogramData"
         texts={[
           "Heart beat: " + heartBeat,
