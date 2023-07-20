@@ -101,3 +101,10 @@ export const CountDownNumber = styled.div`
   margin-bottom: 0.5rem;
   margin-left: 2rem;
 `;
+export const DropdownButton = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-left: 10px;
+`;

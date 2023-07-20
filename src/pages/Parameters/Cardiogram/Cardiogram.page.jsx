@@ -20,6 +20,7 @@ import {
   SmallSimpleValue,
   filterButton,
   AbnormalityDiagramContainer,
+  DropdownButton,
 } from "./components/CSS";
 import PageButtons from "@/components/reusable/PageButtons";
 import axios from "axios";
@@ -29,7 +30,8 @@ import {
   makeArrayFormString,
   makeFilteredArray,
 } from "@/components/reusableDataFunc/DataFunc";
-import { Button } from "react-bootstrap";
+import { Button } from "primereact/button";
+import { Dropdown } from "primereact/dropdown";
 import { useAddToDB } from "@/database/AddToDB";
 import AbnormalityDetection from "./AbnormalityDetection";
 import Counter from "@/components/Counter/Counter";
@@ -85,9 +87,17 @@ const CardiogramPage = () => {
       ECG: "[" + ecg.toString() + "]",
       fs: bluetooth.GetFrequency()[0],
     };
-    let res = await axios.post("https://api.hekidesk.com//ECG_signal", payload);
-    console.log(res.data);
-    if (!Number(res.data.Try_Again)) {
+    let res = await axios
+      .post("https://api.hekidesk.com//ECG_signal", payload)
+      .catch(() => {
+        Swal.fire({
+          icon: "error",
+          title: "Something went wrong",
+          text: "Please repeat procedure!",
+          confirmButtonColor: "#3085d6",
+        });
+      });
+    if (!Number(res.data.Try_Again) && res.status < 400) {
       setHeartBeat(Number(res.data.HeartRate));
       setPR_RR_Interval(res.data.PR_RR);
       setQRSDuration(res.data.QRS_duration);
@@ -129,12 +139,12 @@ const CardiogramPage = () => {
 
   const [startCountDown, setStartCountDown] = useState(0);
   const [counter, setCounter] = useState(5);
-  
+  const [sampleTime, setSampleTime] = useState(10);
+
   const pendingTime = 5000;
-  const sampleTime = 10000;
   const startTime = useRef(null);
   const endTime = useRef(null);
-  const delayTime = 30; 
+  const delayTime = 30;
 
   const flushData = () => {
     setDisable(1);
@@ -150,22 +160,24 @@ const CardiogramPage = () => {
     setHrvVal("-");
     setPQRST_ss([]);
     setArrythmiaType(-1);
-  }
+  };
 
   const startInput = () => {
-    let startTimeDuration = 0;
-    flushData();
-    startTime.current = setTimeout(() => {
-      bluetooth.Start().then((result) => (startTimeDuration = result));
-      setSizeOfSlice(400);
-      setCounter(10);
-    }, [pendingTime + delayTime]);
-    endTime.current = setTimeout(() => {
-      setCounter(5);
-      setStartCountDown(0);
-      bluetooth.Stop(startTimeDuration);
-      setSizeOfSlice(-1);
-    }, [sampleTime + pendingTime + delayTime]);
+    if (bluetooth.CheckConnection()) {
+      let startTimeDuration = 0;
+      flushData();
+      startTime.current = setTimeout(() => {
+        bluetooth.Start().then((result) => (startTimeDuration = result));
+        setSizeOfSlice(400);
+        setCounter(sampleTime);
+      }, [pendingTime + delayTime]);
+      endTime.current = setTimeout(() => {
+        setCounter(5);
+        setStartCountDown(0);
+        bluetooth.Stop(startTimeDuration);
+        setSizeOfSlice(-1);
+      }, [sampleTime*1000 + pendingTime + delayTime]);
+    }
   };
 
   useEffect(() => {
@@ -204,8 +216,23 @@ const CardiogramPage = () => {
               press
             </DiagramText>
             <DiagramButton onClick={startInput}>Start</DiagramButton>
+            <DropdownButton>
+              <Dropdown
+                style={{ width: "100%" }}
+                value={sampleTime}
+                className="filter-btn"
+                onChange={(e) => setSampleTime(e.value)}
+                options={[
+                  { name: "Sample Time: 10s", value: 10 },
+                  { name: "Sample Time: 15s", value: 15 },
+                  { name: "Sample Time: 20s", value: 20 },
+                ]}
+                optionLabel="name"
+                placeholder={"sample time  ↓"}
+              />
+            </DropdownButton>
             <CircularContainer>
-                <Counter counter = {counter} startCountDown={startCountDown} />
+              <Counter counter={counter} startCountDown={startCountDown} />
             </CircularContainer>
           </Description>
           <DiagramContainer>
@@ -222,12 +249,15 @@ const CardiogramPage = () => {
               <SimpleTitle>Quality Index</SimpleTitle>
               <SimpleValue>{qualityIndex}</SimpleValue>
               <SimpleTitle>Arrythmia Type</SimpleTitle>
-              <SmallSimpleValue>{ArrythmiaType !== -1 ?  types[ArrythmiaType] : "-"}</SmallSimpleValue>
-              
+              <SmallSimpleValue>
+                {ArrythmiaType !== -1 ? types[ArrythmiaType] : "-"}
+              </SmallSimpleValue>
+
               <Button
                 style={filterButton}
+                className="filter-btn"
                 onClick={() => setFilter(1 - filter)}
-                disabled = {disable}
+                disabled={disable}
               >
                 {filter % 2 ? "filtered" : "main"} signal
               </Button>
@@ -245,7 +275,7 @@ const CardiogramPage = () => {
         </DiagramWrapper>
       </div>
       <PageButtons
-        disable = {disable}
+        disable={disable}
         dataName="cardiogramData"
         texts={[
           "Heart beat: " + heartBeat,

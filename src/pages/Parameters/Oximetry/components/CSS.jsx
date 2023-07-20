@@ -15,6 +15,7 @@ export const Description = styled.div`
 export const DiagramText = styled.h6`
   color: white;
   font-size: 1.2em;
+  padding-left: 0.5em;
 `;
 export const DiagramButton = styled.button`
   background: transparent;
@@ -24,7 +25,7 @@ export const DiagramButton = styled.button`
   font-weight: bold;
   margin-bottom: 0.5rem;
   margin-left: 0.5rem;
-  text-shadow : 1px 1px 1px #fff;
+  text-shadow: 1px 1px 1px #fff;
 `;
 export const DiagramContainer = styled.div`
   display: flex;
@@ -56,7 +57,7 @@ export const InfoContainer = styled.div`
 export const ImportantTitle = styled.h6`
   color: var(--important-color);
   font-weight: bold;
-  text-shadow : 1px 1px 10px var(--important-color);
+  text-shadow: 1px 1px 10px var(--important-color);
 `;
 
 export const ImportantValue = styled.h3`
@@ -64,13 +65,13 @@ export const ImportantValue = styled.h3`
   font-weight: bold;
   text-align: center;
   font-size: 50px;
-  text-shadow : 1px 1px 10px var(--important-color);
+  text-shadow: 1px 1px 10px var(--important-color);
 `;
 
 export const SimpleTitle = styled.h6`
   color: var(--main-green);
   font-weight: bold;
-  text-shadow : 1px 1px 10px var(--main-green);
+  text-shadow: 1px 1px 10px var(--main-green);
 `;
 
 export const SimpleValue = styled.h3`
@@ -78,7 +79,7 @@ export const SimpleValue = styled.h3`
   font-weight: bold;
   text-align: center;
   font-size: 50px;
-  text-shadow : 1px 1px 10px var(--main-green);
+  text-shadow: 1px 1px 10px var(--main-green);
 `;
 
 export const CircularValue = styled.div`
@@ -97,11 +98,17 @@ export const CircularContainer = styled.div`
   margin-left: 20px;
   margin-bottom: 20px;
 `;
-
+export const DropdownButton = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-left: 10px;
+`;
 export const filterButton = {
   margin: "20px auto",
   display: "block",
   alignItems: "center",
   backgroundColor: "var(--main-green)",
   border: "var(--main-green)",
-}
+};

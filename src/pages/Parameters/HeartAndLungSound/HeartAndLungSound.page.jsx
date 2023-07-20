@@ -20,6 +20,7 @@ import {
   SimpleTitle,
   SimpleValue,
   filterButton,
+  DropdownButton,
 } from "./components/CSS";
 import PageButtons from "@/components/reusable/PageButtons";
 import axios from "axios";
@@ -27,7 +28,8 @@ import {
   makeArrayForChart,
   makeArrayFormString,
 } from "@/components/reusableDataFunc/DataFunc";
-import { Button, Dropdown, DropdownButton, Image } from "react-bootstrap";
+import { Button } from "primereact/button";
+import { Dropdown } from "primereact/dropdown";
 import { RadioButton } from "primereact/radiobutton";
 import Counter from "@/components/Counter/Counter";
 
@@ -36,7 +38,7 @@ const HeartAndLungSoundPage = () => {
   const [chartData, setChartData] = useState();
   const [filteredArray, setFilteredArray] = useState(null);
   const [filter, setFilter] = useState(1);
-  const [filterActiveNum, setFilterActiveNum] = useState(0);
+  const [filterActiveNum, setFilterActiveNum] = useState(-1);
   const [sizeOfSlice, setSizeOfSlice] = useState(-1);
   const [disable, setDisable] = useState(1);
 
@@ -84,6 +86,10 @@ const HeartAndLungSoundPage = () => {
   }
 
   useEffect(() => {
+    console.log(filteredArray);
+  }, [filteredArray]);
+
+  useEffect(() => {
     console.log(filterActiveNum);
     console.log(filter);
     if (filteredArray) {
@@ -94,8 +100,18 @@ const HeartAndLungSoundPage = () => {
       );
       setChartData(
         filter
-          ? makeArrayForChart(filteredArray[filterActiveNum])
-          : makeArrayForChart(filteredArray[filterActiveNum + 1])
+          ? makeArrayForChart(
+              filteredArray[
+                filterActiveNum === -1 ? filterActiveNum + 1 : filterActiveNum
+              ]
+            )
+          : makeArrayForChart(
+              filteredArray[
+                filterActiveNum === -1
+                  ? filterActiveNum + 2
+                  : filterActiveNum + 1
+              ]
+            )
       );
     }
   }, [filterActiveNum, filter]);
@@ -124,9 +140,9 @@ const HeartAndLungSoundPage = () => {
 
   const [startCountDown, setStartCountDown] = useState(0);
   const [counter, setCounter] = useState(5);
+  const [sampleTime, setSampleTime] = useState(10);
 
   const pendingTime = 5000;
-  const sampleTime = 10000;
   const startTime = useRef(null);
   const endTime = useRef(null);
   const delayTime = 30;
@@ -139,23 +155,25 @@ const HeartAndLungSoundPage = () => {
     setHeartBeat("-?-");
     setRespirationRate("-?-");
     setQualityIndex(0);
-  }
+  };
 
   const startInput = () => {
-    flushData();
-    setCounter(5);
-    let startTimeDuration = 0;
-    startTime.current = setTimeout(() => {
-      bluetooth.Start().then((result) => (startTimeDuration = result));
-      setCounter(10);
-      setSizeOfSlice(10000);
-    }, [pendingTime + delayTime]);
-    endTime.current = setTimeout(() => {
+    if (bluetooth.CheckConnection()) {
+      flushData();
       setCounter(5);
-      setStartCountDown(0);
-      bluetooth.Stop(startTimeDuration);
-      setSizeOfSlice(-1);
-    }, [sampleTime + pendingTime + delayTime]);
+      let startTimeDuration = 0;
+      startTime.current = setTimeout(() => {
+        bluetooth.Start().then((result) => (startTimeDuration = result));
+        setCounter(sampleTime);
+        setSizeOfSlice(10000);
+      }, [pendingTime + delayTime]);
+      endTime.current = setTimeout(() => {
+        setCounter(5);
+        setStartCountDown(0);
+        bluetooth.Stop(startTimeDuration);
+        setSizeOfSlice(-1);
+      }, [sampleTime*1000 + pendingTime + delayTime]);
+    }
   };
 
   async function playAudio() {
@@ -227,6 +245,21 @@ const HeartAndLungSoundPage = () => {
               </label>
             </div>
             <DiagramButton onClick={startInput}>Start</DiagramButton>
+            <DropdownButton>
+              <Dropdown
+                style={{ width: "100%" }}
+                value={sampleTime}
+                className="filter-btn"
+                onChange={(e) => setSampleTime(e.value)}
+                options={[
+                  { name: "Sample Time: 10s", value: 10 },
+                  { name: "Sample Time: 15s", value: 15 },
+                  { name: "Sample Time: 20s", value: 20 },
+                ]}
+                optionLabel="name"
+                placeholder={"sample time  ↓"}
+              />
+            </DropdownButton>
             <CircularContainer>
               <Counter counter={counter} startCountDown={startCountDown} />
             </CircularContainer>
@@ -245,40 +278,32 @@ const HeartAndLungSoundPage = () => {
               >
                 {filter % 2 ? "filtered" : "main"} signal
               </Button>
-              <DropdownButton
-                id="dropdown-basic-button"
-                title="Choose signal"
-                disabled={disable}
-              >
-                <Dropdown.Item
-                  onClick={() => setFilterActiveNum(0)}
-                  active={filterActiveNum === 0 || filterActiveNum === 1}
-                >
-                  both
-                </Dropdown.Item>
-                <Dropdown.Item
-                  onClick={() => setFilterActiveNum(2)}
-                  active={filterActiveNum === 2 || filterActiveNum === 3}
-                >
-                  heart
-                </Dropdown.Item>
-                <Dropdown.Item
-                  onClick={() => setFilterActiveNum(4)}
-                  active={filterActiveNum === 4 || filterActiveNum === 5}
-                >
-                  lung
-                </Dropdown.Item>
+              <DropdownButton>
+                <Dropdown
+                  style={{ width: "80%" }}
+                  value={filterActiveNum}
+                  onChange={(e) => setFilterActiveNum(e.value)}
+                  options={[
+                    { name: "both", value: 0 },
+                    { name: "heart", value: 2 },
+                    { name: "lung", value: 4 },
+                  ]}
+                  optionLabel="name"
+                  placeholder="Choose Signal  ↓"
+                  disabled={disable}
+                />
               </DropdownButton>
               <Button
                 style={filterButton}
                 onClick={() => playAudio()}
+                className="filter-btn"
                 disabled={disable}
               >
                 <div style={{ fontSize: "15px", display: "inline" }}>
                   Play Sound
                 </div>{" "}
                 <div style={{ display: "inline" }}>
-                  <Image src={playSoundIcon} width={"20"} height={"20"} />
+                  <img src={playSoundIcon} width={"20"} height={"20"} />
                 </div>
               </Button>
             </InfoContainer>

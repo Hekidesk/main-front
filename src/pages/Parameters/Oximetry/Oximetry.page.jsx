@@ -1,3 +1,4 @@
+import "@/assets/styles/primereactStyle.css";
 import PageWrapper from "@/components/PageWrapper/PageWrapper";
 import Diagram from "@/components/Datagram/Diagram";
 import HeartIcon from "@/assets/icon/parameter/heart.svg";
@@ -16,10 +17,12 @@ import {
   SimpleTitle,
   SimpleValue,
   filterButton,
+  DropdownButton,
 } from "./components/CSS";
 import { BluetoothContext } from "@/App";
-import { Button, Dropdown, DropdownButton } from "react-bootstrap";
-// import "../../../assets/styles/measurement.css";
+import { Button } from "primereact/button";
+import { Dropdown } from "primereact/dropdown";
+// import { Dropdown, DropdownButton } from "react-bootstrap";
 import axios from "axios";
 import { useAddToDB } from "@/database/AddToDB";
 import PageButtons from "@/components/reusable/PageButtons";
@@ -43,7 +46,7 @@ const OximetryPage = () => {
   const [saved, setSaved] = useState(0);
 
   const [filteredArray, setFilteredArray] = useState([]);
-  const [filterActiveNum, setFilterActiveNum] = useState(0);
+  const [filterActiveNum, setFilterActiveNum] = useState(-1);
   const [filter, setFilter] = useState(1);
   const [disable, setDisable] = useState(1);
 
@@ -97,10 +100,17 @@ const OximetryPage = () => {
   }, [bluetooth]);
 
   useEffect(() => {
+    console.log("filter: " + filter);
+    console.log(filterActiveNum);
+    console.log(filteredArray);
     setChartData(
       filter
-        ? filteredArray[filterActiveNum]
-        : filteredArray[filterActiveNum + 1]
+        ? filteredArray[
+            filterActiveNum === -1 ? filterActiveNum + 1 : filterActiveNum
+          ]
+        : filteredArray[
+            filterActiveNum === -1 ? filterActiveNum + 2 : filterActiveNum + 1
+          ]
     );
   }, [filterActiveNum, filter]);
 
@@ -115,9 +125,10 @@ const OximetryPage = () => {
 
   const [startCountDown, setStartCountDown] = useState(0);
   const [counter, setCounter] = useState(5);
+  const [sampleTime, setSampleTime] = useState(10);
 
+  // const sampleTime = 10000;
   const pendingTime = 5000;
-  const sampleTime = 10000;
   const startTime = useRef(null);
   const endTime = useRef(null);
   const delayTime = 30;
@@ -131,23 +142,25 @@ const OximetryPage = () => {
     setSPO2("-");
     setQualityIndex("-");
     setCounter(5);
-  }
+  };
 
   const startInput = () => {
-    let startTimeDuration = 0;
-    flushData();
-    startTime.current = setTimeout(() => {
-      setCounter(10);
-      console.log(startCountDown);
-      bluetooth.Start().then((result) => (startTimeDuration = result));
-      setSizeOfSlice(400);
-    }, [pendingTime + delayTime]);
-    endTime.current = setTimeout(() => {
-      setStartCountDown(0);
-      setCounter(5);
-      bluetooth.Stop(startTimeDuration);
-      setSizeOfSlice(-1);
-    }, [sampleTime + pendingTime + delayTime]);
+    if (bluetooth.CheckConnection()) {
+      let startTimeDuration = 0;
+      flushData();
+      startTime.current = setTimeout(() => {
+        setCounter(sampleTime);
+        console.log(startCountDown);
+        bluetooth.Start().then((result) => (startTimeDuration = result));
+        setSizeOfSlice(400);
+      }, [pendingTime + delayTime]);
+      endTime.current = setTimeout(() => {
+        setStartCountDown(0);
+        setCounter(5);
+        bluetooth.Stop(startTimeDuration);
+        setSizeOfSlice(-1);
+      }, [sampleTime * 1000 + pendingTime + delayTime]);
+    }
   };
 
   return (
@@ -158,10 +171,25 @@ const OximetryPage = () => {
         <DiagramWrapper>
           <Description>
             <DiagramText>
-              Please put your right and left fingers on ECG sensors and then
+              Please put your right and left fingers on PPG sensors and then
               press
             </DiagramText>
             <DiagramButton onClick={startInput}>Start</DiagramButton>
+            <DropdownButton>
+              <Dropdown
+                style={{ width: "100%" }}
+                value={sampleTime}
+                className="filter-btn"
+                onChange={(e) => setSampleTime(e.value)}
+                options={[
+                  { name: "Sample Time: 10s", value: 10 },
+                  { name: "Sample Time: 15s", value: 15 },
+                  { name: "Sample Time: 20s", value: 20 },
+                ]}
+                optionLabel="name"
+                placeholder={"sample time  ↓"}
+              />
+            </DropdownButton>
             <CircularContainer>
               <Counter counter={counter} startCountDown={startCountDown} />
             </CircularContainer>
@@ -178,33 +206,25 @@ const OximetryPage = () => {
               <Button
                 style={filterButton}
                 onClick={() => setFilter(1 - filter)}
+                className="filter-btn"
                 disabled={disable}
               >
                 {filter % 2 ? "filtered" : "main"} signal
               </Button>
-              <DropdownButton
-                id="dropdown-basic-button"
-                title="Choose signal"
-                disabled={disable}
-              >
-                <Dropdown.Item
-                  onClick={() => setFilterActiveNum(0)}
-                  active={filterActiveNum === 0 || filterActiveNum === 1}
-                >
-                  ir
-                </Dropdown.Item>
-                <Dropdown.Item
-                  onClick={() => setFilterActiveNum(2)}
-                  active={filterActiveNum === 2 || filterActiveNum === 3}
-                >
-                  red
-                </Dropdown.Item>
-                <Dropdown.Item
-                  onClick={() => setFilterActiveNum(4)}
-                  active={filterActiveNum === 4 || filterActiveNum === 5}
-                >
-                  filtered ppg
-                </Dropdown.Item>
+              <DropdownButton>
+                <Dropdown
+                  style={{ width: "80%" }}
+                  value={filterActiveNum}
+                  onChange={(e) => setFilterActiveNum(e.value)}
+                  options={[
+                    { name: "ir", value: 0 },
+                    { name: "red", value: 2 },
+                    { name: "filtered ppg", value: 4 },
+                  ]}
+                  optionLabel="name"
+                  placeholder="Choose Signal  ↓"
+                  disabled={disable}
+                />
               </DropdownButton>
             </InfoContainer>
           </DiagramContainer>

@@ -16,20 +16,19 @@ export const Wrapper = styled.div`
     padding: 1em;
   }
 `;
-
 export const ProfileContainer = styled.span`
   position: absolute;
   top: 1em;
   right: 2em;
   display: flex;
-  width: 10em;
+  width: 20em;
 `;
 export const SidebarContainer = styled.div`
   margin-right: 40px;
 `;
 export const ChildContainer = styled.div`
   width: 100%;
-  padding-top: 4em;
+  padding-top: 5em;
   @media ${devices.tablet} {
     width: 95%;
   }

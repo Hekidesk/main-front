@@ -96,3 +96,10 @@ export const CircularContainer = styled.div`
   margin-left: 20px;
   margin-bottom: 20px;
 `;
+export const DropdownButton = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-left: 10px;
+`;

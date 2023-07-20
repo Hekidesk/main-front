@@ -14,12 +14,14 @@ import {
   ImportantTitle,
   ImportantValue,
   InfoContainer,
+  DropdownButton,
 } from "./components/CSS";
 import PageButtons from "@/components/reusable/PageButtons";
 import { useAddToDB } from "@/database/AddToDB";
 import { BluetoothContext } from "@/App";
 import { makeArrayForChart } from "@/components/reusableDataFunc/DataFunc";
 import Counter from "@/components/Counter/Counter";
+import { Dropdown } from "primereact/dropdown";
 
 const TemperaturePage = () => {
   const [data, setData] = useState([]);
@@ -50,7 +52,7 @@ const TemperaturePage = () => {
         setData(input.temperature);
       });
     if (bluetooth.finish) {
-      console.log("here?")
+      console.log("here?");
       calculateTemperature(data);
     }
     return bluetooth.turnOff;
@@ -66,9 +68,9 @@ const TemperaturePage = () => {
 
   const [startCountDown, setStartCountDown] = useState(0);
   const [counter, setCounter] = useState(5);
+  const [sampleTime, setSampleTime] = useState(10);
 
   const pendingTime = 5000;
-  const sampleTime = 10000;
   const startTime = useRef(null);
   const endTime = useRef(null);
   const delayTime = 30;
@@ -80,20 +82,22 @@ const TemperaturePage = () => {
     setCounter(5);
     setChartData([]);
     setDisable(1);
-  }
+  };
 
   const startInput = () => {
-    let startTimeDuration = 0;
-    flushData();
-    startTime.current = setTimeout(() => {
-      setCounter(10);
-      bluetooth.Start().then((result) => (startTimeDuration = result));
-    }, [pendingTime + delayTime]);
-    endTime.current = setTimeout(() => {
-      setStartCountDown(0);
-      setCounter(5);
-      bluetooth.Stop(startTimeDuration);
-    }, [sampleTime + pendingTime + delayTime]);
+    if (bluetooth.CheckConnection()) {
+      let startTimeDuration = 0;
+      flushData();
+      startTime.current = setTimeout(() => {
+        setCounter(sampleTime);
+        bluetooth.Start().then((result) => (startTimeDuration = result));
+      }, [pendingTime + delayTime]);
+      endTime.current = setTimeout(() => {
+        setStartCountDown(0);
+        setCounter(5);
+        bluetooth.Stop(startTimeDuration);
+      }, [sampleTime*1000 + pendingTime + delayTime]);
+    }
   };
 
   return (
@@ -108,9 +112,24 @@ const TemperaturePage = () => {
               press
             </DiagramText>
             <DiagramButton onClick={startInput}>Start</DiagramButton>
-              <CircularContainer>
-                <Counter counter = {counter} startCountDown={startCountDown} />
-              </CircularContainer>
+            <DropdownButton>
+              <Dropdown
+                style={{ width: "100%" }}
+                value={sampleTime}
+                className="filter-btn"
+                onChange={(e) => setSampleTime(e.value)}
+                options={[
+                  { name: "Sample Time: 10s", value: 10 },
+                  { name: "Sample Time: 15s", value: 15 },
+                  { name: "Sample Time: 20s", value: 20 },
+                ]}
+                optionLabel="name"
+                placeholder={"sample time  ↓"}
+              />
+            </DropdownButton>
+            <CircularContainer>
+              <Counter counter={counter} startCountDown={startCountDown} />
+            </CircularContainer>
           </Description>
           <DiagramContainer>
             <Diagram data={chartData} sizeOfSlice={-2} />
@@ -122,7 +141,7 @@ const TemperaturePage = () => {
         </DiagramWrapper>
       </div>
       <PageButtons
-        disable = {disable}
+        disable={disable}
         dataName="TemperatureData"
         texts={[
           "Temperature: " + temperature,

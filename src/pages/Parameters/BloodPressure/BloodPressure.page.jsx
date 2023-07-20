@@ -16,6 +16,7 @@ import {
   ImportantTitle,
   ImportantValue,
   InfoContainer,
+  DropdownButton,
 } from "./components/CSS";
 import PageButtons from "@/components/reusable/PageButtons";
 import axios from "axios";
@@ -24,6 +25,7 @@ import { useAddToDB } from "@/database/AddToDB";
 import { BluetoothContext } from "@/App";
 import { makeArrayForChart } from "@/components/reusableDataFunc/DataFunc";
 import Counter from "@/components/Counter/Counter";
+import { Dropdown } from "primereact/dropdown";
 
 const BloodPressurePage = () => {
   const [IrData, setIrData] = useState();
@@ -93,8 +95,9 @@ const BloodPressurePage = () => {
 
   const [startCountDown, setStartCountDown] = useState(0);
   const [counter, setCounter] = useState(5);
+  const [sampleTime, setSampleTime] = useState(10);
+  
   const pendingTime = 5000;
-  const sampleTime = 10000;
   const startTime = useRef(null);
   const endTime = useRef(null);
   const delayTime = 30;
@@ -107,22 +110,24 @@ const BloodPressurePage = () => {
     setDisable(1);
     setChartData([]);
     setStartCountDown(1);
-  }
+  };
 
   const startInput = () => {
-    let startTimeDuration = 0;
-    flushData();
-    startTime.current = setTimeout(() => {
-      bluetooth.Start().then((result) => (startTimeDuration = result));
-      setCounter(10);
-      setSizeOfSlice(400);
-    }, [pendingTime + delayTime]);
-    endTime.current = setTimeout(() => {
-      setCounter(5);
-      setSizeOfSlice(-1);
-      setStartCountDown(0);
-      bluetooth.Stop(startTimeDuration);
-    }, [sampleTime + pendingTime + delayTime]);
+    if (bluetooth.CheckConnection()) {
+      let startTimeDuration = 0;
+      flushData();
+      startTime.current = setTimeout(() => {
+        bluetooth.Start().then((result) => (startTimeDuration = result));
+        setCounter(sampleTime);
+        setSizeOfSlice(400);
+      }, [pendingTime + delayTime]);
+      endTime.current = setTimeout(() => {
+        setCounter(5);
+        setSizeOfSlice(-1);
+        setStartCountDown(0);
+        bluetooth.Stop(startTimeDuration);
+      }, [sampleTime*1000 + pendingTime + delayTime]);
+    }
   };
 
   return (
@@ -137,6 +142,21 @@ const BloodPressurePage = () => {
               press
             </DiagramText>
             <DiagramButton onClick={startInput}>Start</DiagramButton>
+            <DropdownButton>
+              <Dropdown
+                style={{ width: "100%" }}
+                value={sampleTime}
+                className="filter-btn"
+                onChange={(e) => setSampleTime(e.value)}
+                options={[
+                  { name: "Sample Time: 10s", value: 10 },
+                  { name: "Sample Time: 15s", value: 15 },
+                  { name: "Sample Time: 20s", value: 20 },
+                ]}
+                optionLabel="name"
+                placeholder={"sample time  ↓"}
+              />
+            </DropdownButton>
             <CircularContainer>
               <Counter counter={counter} startCountDown={startCountDown} />
             </CircularContainer>

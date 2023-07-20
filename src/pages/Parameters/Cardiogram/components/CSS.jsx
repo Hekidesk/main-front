@@ -114,7 +114,6 @@ export const CircularContainer = styled.div`
   margin-left: 20px;
   margin-bottom: 20px;
 `;
-
 export const filterButton = {
   margin: "20px auto",
   display: "block",
@@ -122,3 +121,10 @@ export const filterButton = {
   backgroundColor: "var(--main-green)",
   border: "var(--main-green)",
 };
+export const DropdownButton = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-left: 10px;
+`;
