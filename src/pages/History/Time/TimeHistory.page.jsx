@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Profile from "../../Profile/Profile";
+import Profile from "HEKIDESK/components/Profile/Profile";
 import { Col, Row, Pagination } from "react-bootstrap";
 import Sidebar from "HEKIDESK/components/Sidebar/Sidebar";
-import ProfileSection from "../../Profile/ProfileSection";
+import ProfileSection from "HEKIDESK/components/Profile/Profile";
 import BodyIcon from "HEKIDESK/assets/icon/history/bodyImg.svg";
 import upIcon from "HEKIDESK/assets/icon/history/upIcon.svg";
 import timeHistory from "HEKIDESK/assets/icon/history/time-history.svg";

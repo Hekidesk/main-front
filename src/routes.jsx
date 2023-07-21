@@ -20,7 +20,11 @@ function AppRoutes() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={process.env.REACT_APP_BASE_URL} element={null}>
+        <Route
+          // eslint-disable-next-line no-undef
+          path={process.env.REACT_APP_BASE_URL}
+          element={null}
+        >
           <Route index element={<HomePage />} />
           <Route path={"register-user"} element={<RegisterPage />} />
           <Route path={"register-device"} element={<RegisterDevicePage />} />
@@ -28,6 +32,7 @@ function AppRoutes() {
           <Route path={"connection"} element={<ConnectionPage />} />
         </Route>
         <Route
+          // eslint-disable-next-line no-undef
           path={process.env.REACT_APP_BASE_URL + "/history"}
           element={null}
         >
@@ -57,6 +62,7 @@ function AppRoutes() {
           />
         </Route>
         <Route
+          // eslint-disable-next-line no-undef
           path={process.env.REACT_APP_BASE_URL + "/measurement"}
           element={null}
         >

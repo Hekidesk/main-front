@@ -45,7 +45,7 @@ export const ButtonBackStyle = {
   marginLeft: "50px",
   width: "200px",
   padding: "0.4em 1em 0.4em 0.2em",
-};  
+};
 
 export const ButtonMeasurementStyle = {
   backgroundColor: "var(--title-color)",
@@ -69,4 +69,3 @@ export const ButtonHistoryStyle = {
   marginRight: "90px",
   width: "200px",
 };
-

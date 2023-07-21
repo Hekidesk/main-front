@@ -1,6 +1,6 @@
 import React from "react";
 import { Row, Col } from "react-bootstrap";
-import { Button } from "primereact/button"; 
+import { Button } from "primereact/button";
 import { Link } from "react-router-dom";
 import { ButtonMeasurementStyle } from "HEKIDESK/components/reusable/ButtonStyle";
 import backIcon from "HEKIDESK/assets/icon/measurement/back.svg";
@@ -25,7 +25,7 @@ const PageButtons = ({
           onClick={() => setSaved(1)}
           style={ButtonMeasurementStyle}
           className="page-btn d-flex justify-content-center"
-          disabled = {disable}
+          disabled={disable}
         >
           {saved ? (
             <img

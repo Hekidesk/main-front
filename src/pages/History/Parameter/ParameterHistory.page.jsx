@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from "HEKIDESK/components/Sidebar/Sidebar";
 import { Col, Row } from "react-bootstrap";
-import Profile from "../../Profile/Profile";
-import ProfileSection from "../../Profile/ProfileSection";
+import Profile from "HEKIDESK/components/Profile/Profile";
+import ProfileSection from "HEKIDESK/components/Profile/Profile";
 import ParameterPhotoIcon from "HEKIDESK/assets/icon/parameterHistory.svg";
 import HeartRateIcon from "HEKIDESK/assets/icon/history/heartRateIcon.svg";
 import Spo2Icon from "HEKIDESK/assets/icon/history/spo2Icon.svg";

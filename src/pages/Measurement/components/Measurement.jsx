@@ -1,5 +1,6 @@
 import { Col, Row, Card } from "react-bootstrap";
-import TopPhotoIcon from "HEKIDESK/assets/icon/measurement/doctorPhoto.svg";
+// temp remove
+// import TopPhotoIcon from "HEKIDESK/assets/icon/measurement/doctorPhoto.svg";
 import CarIcon from "HEKIDESK/assets/icon/measurement/cardiogramIcon.svg";
 import OxIcon from "HEKIDESK/assets/icon/measurement/oximetryIcon.svg";
 import SoundIcon from "HEKIDESK/assets/icon/measurement/heartLungSoundIcon.svg";
@@ -11,102 +12,52 @@ import { ButtonMyDeskStyle } from "HEKIDESK/components/reusable/ButtonStyle";
 import MyDeskIcon from "HEKIDESK/assets/icon/myDesk.svg";
 
 const Measurement = () => {
+  const routes = [
+    { route: "/cardiogram", icon: CarIcon, name: "Cardiogram" },
+    { route: "/oximetry", icon: OxIcon, name: "Oximetry" },
+    { route: "/blood-pressure", icon: BpIcon, name: "Blood Pressure" },
+    { route: "/temperature", icon: TemeperatureIcon, name: "Temperature" },
+    {
+      route: "/heart-and-lung-sound",
+      icon: SoundIcon,
+      name: "Heart Lung Sound",
+    },
+  ];
   return (
     <div>
       <Row>
         <Row>
           <h2 className="title-name">Measurement</h2>
         </Row>
+        {/* 
+        removed to improving ux score
         <Row>
           <img src={TopPhotoIcon} className="top-img" />
-        </Row>
+        </Row> */}
         <Row>
-          <Col lg={4} sm={6}>
-            <Link
-              // eslint-disable-next-line no-undef
-              to={process.env.REACT_APP_BASE_URL + "/measurement/cardiogram"}
-            >
-              <Card>
-                <Card.Body>
-                  <Card.Title>
-                    <img src={CarIcon} />
-                  </Card.Title>
-                  <div className="record-text">records of</div>
-                  <Card.Text>Cardiogram</Card.Text>
-                </Card.Body>
-              </Card>
-            </Link>
-          </Col>
-          <Col lg={4} sm={6}>
-            <Link 
-            // eslint-disable-next-line no-undef
-            to={process.env.REACT_APP_BASE_URL + "/measurement/oximetry"}>
-              <Card>
-                <Card.Body>
-                  <Card.Title>
-                    <img src={OxIcon} />
-                  </Card.Title>
-                  <div className="record-text">records of</div>
-                  <Card.Text>Oximetry</Card.Text>
-                </Card.Body>
-              </Card>
-            </Link>
-          </Col>
-          <Col lg={4} sm={6}>
-            <Link
-              to={
-                // eslint-disable-next-line no-undef
-                process.env.REACT_APP_BASE_URL +
-                "/measurement/heart-and-lung-sound"
-              }
-            >
-              <Card>
-                <Card.Body>
-                  <Card.Title>
-                    <img src={SoundIcon} />
-                  </Card.Title>
-                  <Card.Text>
-                    <div className="record-text">records of</div>
-                    <div>Heart Lung Sound</div>
-                  </Card.Text>
-                </Card.Body>
-              </Card>
-            </Link>
-          </Col>
-          <Col lg={4} sm={6}>
-            <Link
-              to={
-                // eslint-disable-next-line no-undef
-                process.env.REACT_APP_BASE_URL + "/measurement/blood-pressure"
-              }
-            >
-              <Card>
-                <Card.Body>
-                  <Card.Title>
-                    <img src={BpIcon} />
-                  </Card.Title>
-                  <div className="record-text">records of</div>
-                  <Card.Text>Blood Pressure</Card.Text>
-                </Card.Body>
-              </Card>
-            </Link>
-          </Col>
-          <Col lg={4} sm={6}>
-            <Link
-              // eslint-disable-next-line no-undef
-              to={process.env.REACT_APP_BASE_URL + "/measurement/temperature"}
-            >
-              <Card>
-                <Card.Body>
-                  <Card.Title>
-                    <img src={TemeperatureIcon} />
-                  </Card.Title>
-                  <div className="record-text">records of</div>
-                  <Card.Text>Temperature</Card.Text>
-                </Card.Body>
-              </Card>
-            </Link>
-          </Col>
+          {routes.map((item, i) => (
+            <Col lg={4} sm={6} key={i}>
+              <Link
+                to={
+                  // eslint-disable-next-line no-undef
+                  process.env.REACT_APP_BASE_URL + "/measurement/" + item.route
+                }
+              >
+                <Card>
+                  <Card.Body>
+                    <Card.Title>
+                      <img
+                        src={item.icon}
+                        style={{ height: "2em", width: "auto" }}
+                      />
+                    </Card.Title>
+                    <div className="record-text">measure of</div>
+                    <Card.Text>{item.name}</Card.Text>
+                  </Card.Body>
+                </Card>
+              </Link>
+            </Col>
+          ))}
         </Row>
       </Row>
       <Row className="d-flex justify-content-end">

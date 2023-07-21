@@ -6,7 +6,7 @@ import {
   ChildContainer,
 } from "./CSS";
 import Sidebar from "HEKIDESK/components/Sidebar/Sidebar";
-import Profile from "HEKIDESK/pages/Profile/Profile";
+import Profile from "HEKIDESK/components/Profile/Profile";
 
 const PageWrapper = (props) => {
   return (

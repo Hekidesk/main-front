@@ -8,48 +8,39 @@ import "../../assets/styles/Sidebar.css";
 import { Link } from "react-router-dom";
 
 const Sidebar = () => {
-  const [click, setClick] = React.useState(false);
+  const isActive = (url) => (url === window.location.pathname ? "active" : "");
+  const routes = [
+    { to: "/", icon: HomeIcon, name: "Home" },
+    { to: "/user-desk", icon: MyDeskIcon, name: "My Desk" },
+    { to: "/measurement", icon: MeasurementIcon, name: "Measurement" },
+    { to: "/history", icon: HistoryIcon, name: "History" },
+  ];
 
   return (
-    <div className={click ? "sidebar-container" : "sidebar-container expanded"}>
+    <div
+      className={
+        routes.filter((item) => isActive(item.to))
+          ? "sidebar-container"
+          : "sidebar-container expanded"
+      }
+    >
       <div className="SlickBar">
         <div className="logo">
           <img src={Logo} alt="logo" width="30" />
           <div className="logo-text">Hekidesk</div>
         </div>
         <div className="sidebar-item">
-          <Link
-            onClick={() => setClick(false)}
-            // eslint-disable-next-line no-undef
-            to={process.env.REACT_APP_BASE_URL + "/"}
-          >
-            <img src={HomeIcon} alt="logo" width="25" />
-            <div className="sidebar-text">Home</div>
-          </Link>
-          <Link
-            onClick={() => setClick(false)}
-            // eslint-disable-next-line no-undef
-            to={process.env.REACT_APP_BASE_URL + "/user-desk"}
-          >
-            <img src={MyDeskIcon} alt="logo" width="25" />
-            <div className="sidebar-text">My Desk</div>
-          </Link>
-          <Link
-            onClick={() => setClick(false)}
-            // eslint-disable-next-line no-undef
-            to={process.env.REACT_APP_BASE_URL + "/measurement"}
-          >
-            <img src={MeasurementIcon} alt="logo" width="25" />
-            <div className="sidebar-text">Measurement</div>
-          </Link>
-          <Link
-            onClick={() => setClick(false)}
-            // eslint-disable-next-line no-undef
-            to={process.env.REACT_APP_BASE_URL + "/history"}
-          >
-            <img src={HistoryIcon} alt="logo" width="25" />
-            <div className="sidebar-text">History</div>
-          </Link>
+          {routes.map((item, i) => (
+            <Link
+              key={i}
+              // eslint-disable-next-line no-undef
+              to={process.env.REACT_APP_BASE_URL + item.to}
+              className={isActive(item.to)}
+            >
+              <img src={item.icon} alt="logo" width="25" />
+              <div className="sidebar-text">{item.name}</div>
+            </Link>
+          ))}
         </div>
       </div>
     </div>
