@@ -245,7 +245,7 @@ const HeartAndLungSoundPage = () => {
               </label>
             </div>
             <DiagramButton onClick={startInput}>Start</DiagramButton>
-            <DropdownButton>
+            <DropdownButton style={{marginLeft: "15px"}}>
               <Dropdown
                 style={{ width: "100%" }}
                 value={sampleTime}
@@ -278,7 +278,7 @@ const HeartAndLungSoundPage = () => {
               >
                 {filter % 2 ? "filtered" : "main"} signal
               </Button>
-              <DropdownButton>
+              <DropdownButton >
                 <Dropdown
                   style={{ width: "80%" }}
                   value={filterActiveNum}
