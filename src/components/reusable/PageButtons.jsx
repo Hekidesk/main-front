@@ -2,12 +2,12 @@ import React from "react";
 import { Row, Col } from "react-bootstrap";
 import { Button } from "primereact/button"; 
 import { Link } from "react-router-dom";
-import { ButtonMeasurementStyle } from "@/components/reusable/ButtonStyle";
-import backIcon from "@/assets/icon/measurement/back.svg";
-import shareIcon from "@/assets/icon/measurement/shareIcon.svg";
-import saveIcon from "@/assets/icon/measurement/saveIcon.svg";
-import ckeckmarkIcon from "@/assets/icon/ckeckmarkIcon.svg";
-import { shareData } from "@/utilities/share/Share";
+import { ButtonMeasurementStyle } from "HEKIDESK/components/reusable/ButtonStyle";
+import backIcon from "HEKIDESK/assets/icon/measurement/back.svg";
+import shareIcon from "HEKIDESK/assets/icon/measurement/shareIcon.svg";
+import saveIcon from "HEKIDESK/assets/icon/measurement/saveIcon.svg";
+import ckeckmarkIcon from "HEKIDESK/assets/icon/ckeckmarkIcon.svg";
+import { shareData } from "HEKIDESK/utilities/share/Share";
 
 const PageButtons = ({
   disable,

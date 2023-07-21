@@ -1,14 +1,14 @@
 import { Col, Row, Card } from "react-bootstrap";
-import TopPhotoIcon from "@/assets/icon/measurement/doctorPhoto.svg";
-import CarIcon from "@/assets/icon/measurement/cardiogramIcon.svg";
-import OxIcon from "@/assets/icon/measurement/oximetryIcon.svg";
-import SoundIcon from "@/assets/icon/measurement/heartLungSoundIcon.svg";
-import TemeperatureIcon from "@/assets/icon/measurement/temeperatureIcon.svg";
-import BpIcon from "@/assets/icon/measurement/bloodPressureIcon.svg";
-import "@/assets/styles/Measurement.css";
+import TopPhotoIcon from "HEKIDESK/assets/icon/measurement/doctorPhoto.svg";
+import CarIcon from "HEKIDESK/assets/icon/measurement/cardiogramIcon.svg";
+import OxIcon from "HEKIDESK/assets/icon/measurement/oximetryIcon.svg";
+import SoundIcon from "HEKIDESK/assets/icon/measurement/heartLungSoundIcon.svg";
+import TemeperatureIcon from "HEKIDESK/assets/icon/measurement/temeperatureIcon.svg";
+import BpIcon from "HEKIDESK/assets/icon/measurement/bloodPressureIcon.svg";
+import "HEKIDESK/assets/styles/Measurement.css";
 import { Link } from "react-router-dom";
-import { ButtonMyDeskStyle } from "@/components/reusable/ButtonStyle";
-import MyDeskIcon from "@/assets/icon/myDesk.svg";
+import { ButtonMyDeskStyle } from "HEKIDESK/components/reusable/ButtonStyle";
+import MyDeskIcon from "HEKIDESK/assets/icon/myDesk.svg";
 
 const Measurement = () => {
   return (

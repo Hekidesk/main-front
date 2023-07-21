@@ -1,12 +1,12 @@
-import { Container } from "@/components/reusable/Container";
+import { Container } from "HEKIDESK/components/reusable/Container";
 import {
   Wrapper,
   ProfileContainer,
   SidebarContainer,
   ChildContainer,
 } from "./CSS";
-import Sidebar from "@/components/Sidebar/Sidebar";
-import Profile from "@/pages/Profile/Profile";
+import Sidebar from "HEKIDESK/components/Sidebar/Sidebar";
+import Profile from "HEKIDESK/pages/Profile/Profile";
 
 const PageWrapper = (props) => {
   return (

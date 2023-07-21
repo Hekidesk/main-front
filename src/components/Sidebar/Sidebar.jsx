@@ -1,9 +1,9 @@
 import React from "react";
-import Logo from "@/assets/icon/logo.svg";
-import HomeIcon from "@/assets/icon/home.svg";
-import MyDeskIcon from "@/assets/icon/myDesk.svg";
-import HistoryIcon from "@/assets/icon/history.svg";
-import MeasurementIcon from "@/assets/icon/3D.svg";
+import Logo from "HEKIDESK/assets/icon/logo.svg";
+import HomeIcon from "HEKIDESK/assets/icon/home.svg";
+import MyDeskIcon from "HEKIDESK/assets/icon/myDesk.svg";
+import HistoryIcon from "HEKIDESK/assets/icon/history.svg";
+import MeasurementIcon from "HEKIDESK/assets/icon/3D.svg";
 import "../../assets/styles/Sidebar.css";
 import { Link } from "react-router-dom";
 

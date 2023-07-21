@@ -1,9 +1,9 @@
-import PageWrapper from "@/components/PageWrapper/PageWrapper";
-import Diagram from "@/components/Datagram/Diagram";
-import HeartIcon from "@/assets/icon/parameter/heart.svg";
-import HighlightTitle from "@/components/HighlightTitle/HighlightTitle";
+import PageWrapper from "HEKIDESK/components/PageWrapper/PageWrapper";
+import Diagram from "HEKIDESK/components/Datagram/Diagram";
+import HeartIcon from "HEKIDESK/assets/icon/parameter/heart.svg";
+import HighlightTitle from "HEKIDESK/components/HighlightTitle/HighlightTitle";
 import { useEffect, useState, useRef, useContext } from "react";
-import { BluetoothContext } from "@/App";
+import { BluetoothContext } from "HEKIDESK/App";
 import {
   CircularContainer,
   // CircularValue,
@@ -22,19 +22,19 @@ import {
   AbnormalityDiagramContainer,
   DropdownButton,
 } from "./components/CSS";
-import PageButtons from "@/components/reusable/PageButtons";
+import PageButtons from "HEKIDESK/components/reusable/PageButtons";
 import axios from "axios";
 import Swal from "sweetalert2";
 import {
   makeArrayForChart,
   makeArrayFormString,
   makeFilteredArray,
-} from "@/components/reusableDataFunc/DataFunc";
+} from "HEKIDESK/components/reusableDataFunc/DataFunc";
 import { Button } from "primereact/button";
 import { Dropdown } from "primereact/dropdown";
-import { useAddToDB } from "@/database/AddToDB";
+import { useAddToDB } from "HEKIDESK/database/AddToDB";
 import AbnormalityDetection from "./AbnormalityDetection";
-import Counter from "@/components/Counter/Counter";
+import Counter from "HEKIDESK/components/Counter/Counter";
 
 const CardiogramPage = () => {
   const COMMAND = 0x02;

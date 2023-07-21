@@ -1,7 +1,7 @@
 import { Button } from "primereact/button";
-import { ButtonStyle } from "@/components/reusable/ButtonStyle";
+import { ButtonStyle } from "HEKIDESK/components/reusable/ButtonStyle";
 import { useState } from "react";
-import { InputTextGroup } from "@/components/reusable/InputTextGroup";
+import { InputTextGroup } from "HEKIDESK/components/reusable/InputTextGroup";
 import { useNavigate } from "react-router-dom";
 import { Col, Container, Row } from "./CSS";
 

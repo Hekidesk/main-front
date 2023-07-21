@@ -1,10 +1,9 @@
-import React from "react";
 import { Col, Row } from "react-bootstrap";
-import ProfilePhotoIcon from "@/assets/icon/profile.svg";
-import { useEffect, useState, useContext } from "react";
-import deviceConnection from "@/assets/icon/deviceConnection.png";
+import ProfilePhotoIcon from "HEKIDESK/assets/icon/profile.svg";
+import React,{ useEffect, useState, useContext } from "react";
+import deviceConnection from "HEKIDESK/assets/icon/deviceConnection.png";
 import { Button } from "primereact/button";
-import { BluetoothContext } from "@/App";
+import { BluetoothContext } from "HEKIDESK/App";
 import { ButtonProfile } from "./components/CSS";
 import { Link } from "react-router-dom";
 

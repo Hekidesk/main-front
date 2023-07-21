@@ -1,6 +1,6 @@
 import { useIndexedDB } from "react-indexed-db";
 
-import { GetCurrentDateTimeDB } from "@/utilities/time/time";
+import { GetCurrentDateTimeDB } from "HEKIDESK/utilities/time/time";
 
 export const useAddToDB = (DBName) => {
   const { update: updateParameterHistory } = useIndexedDB(DBName);

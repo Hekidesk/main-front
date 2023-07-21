@@ -1,7 +1,7 @@
-import FormWrapper from "@/components/FormWrapper/FormWrapper";
+import FormWrapper from "HEKIDESK/components/FormWrapper/FormWrapper";
 import DeskInfo from "./components/Info";
 import DeskForm from "./components/Form";
-import { Container } from "@/components/reusable/Container";
+import { Container } from "HEKIDESK/components/reusable/Container";
 
 const DeskPage = () => {
   return (

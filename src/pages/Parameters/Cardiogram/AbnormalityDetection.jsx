@@ -1,8 +1,8 @@
-import React from "react";
 import { Row, Col } from "react-bootstrap";
-import CanvasJSReact from "@/components/Datagram/canvasjs.react";
-var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 import { AbnormalityDiagramTitleContainer } from "./components/CSS";
+import * as CanvasJS from "@canvasjs/charts";
+import React, { useEffect } from "react";
+import { DiagramWrapper } from "../../../components/Datagram/CSS";
 
 function AbnormalityDetection({
   heartBeat,
@@ -50,6 +50,7 @@ function AbnormalityDetection({
       animationEnabled: true,
       zoomEnabled: true,
       backgroundColor: "#C8E7F1",
+      position: "relative",
       toolTip: {
         animationEnabled: true,
       },
@@ -93,10 +94,26 @@ function AbnormalityDetection({
       ],
     };
   }
+  useEffect(() => {
+    const chart1 = new CanvasJS.Chart("chartContainer1", getOptions("hrv"));
+    chart1.render();
+    const chart2 = new CanvasJS.Chart(
+      "chartContainer2",
+      getOptions("singleSpike")
+    );
+    chart2.render();
+  }, []);
 
   return (
     <div>
-      <Row style={{backgroundColor: "#A5C2CB", width: "100%", marginLeft: "0.1px"}}>
+      <Row
+        style={{
+          backgroundColor: "#A5C2CB",
+          width: "100%",
+          marginLeft: "0.1px",
+          position: "relative",
+        }}
+      >
         <Col>
           <AbnormalityDiagramTitleContainer>
             HRV
@@ -109,38 +126,32 @@ function AbnormalityDetection({
         </Col>
       </Row>
       <Row>
-        <Col
-          style={{ marginRight: "50px", position: "relative" }}
-          id="chartContainerAbnormality1"
-        >
-          <CanvasJSChart options={getOptions("hrv")} />
+        <Col style={DiagramWrapper} id="chartContainerAbnormality1">
+          <div id="chartContainer1"></div>
           <div
             style={{
               width: "8em",
               position: "absolute",
-              bottom: "2px",
+              bottom: "25px",
               height: "16px",
               background: "#C8E7F1",
             }}
           >
-            <span style={{ color: "white" }}>.</span>{" "}
+            <span style={{ color: "white" }}> </span>
           </div>
         </Col>
-        <Col
-          style={{ marginLeft: "50px", position: "relative" }}
-          id="chartContainerAbnormality2"
-        >
-          <CanvasJSChart options={getOptions("singleSpike")} />
+        <Col style={DiagramWrapper} id="chartContainerAbnormality2">
+          <div id="chartContainer2"></div>
           <div
             style={{
               width: "8em",
-              position: "absolute",
-              bottom: "2px",
+              bottom: "25px",
               height: "16px",
+              position: "absolute",
               background: "#C8E7F1",
             }}
           >
-            <span style={{ color: "white" }}>.</span>{" "}
+            <span style={{ color: "white" }}> </span>
           </div>
         </Col>
       </Row>

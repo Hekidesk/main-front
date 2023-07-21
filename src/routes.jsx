@@ -1,20 +1,20 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import HomePage from "@/pages/Home/Home.page";
-import RegisterPage from "@/pages/RegisterUser/Register.page";
-import RegisterDevicePage from "@/pages/RegisterDevice/RegisterDevice.page";
-import DeskPage from "@/pages/UserDesk/UserDesk.page";
-import ConnectionPage from "@/pages/Connection/Connection.page";
-import ParameterHistoryPage from "@/pages/History/Parameter/ParameterHistory.page";
-import TimeHistoryPage from "@/pages/History/Time/TimeHistory.page";
-import MeasurementPage from "@/pages/Measurement/Measurement.page";
-import HistoryDeskPage from "@/pages/History/HistoryDesk/HistoryDesk.page";
-import CardiogramPage from "@/pages/Parameters/Cardiogram/Cardiogram.page";
-import OximetryPage from "@/pages/Parameters/Oximetry/Oximetry.page";
-import TemperaturePage from "@/pages/Parameters/Temperature/Temperature.page";
-import BloodPressurePage from "@/pages/Parameters/BloodPressure/BloodPressure.page";
-import HeartAndLungSoundPage from "@/pages/Parameters/HeartAndLungSound/HeartAndLungSound.page";
-import ProtectedRoute from "@/hooks/ProtectedRoute";
+import HomePage from "HEKIDESK/pages/Home/Home.page";
+import RegisterPage from "HEKIDESK/pages/RegisterUser/Register.page";
+import RegisterDevicePage from "HEKIDESK/pages/RegisterDevice/RegisterDevice.page";
+import DeskPage from "HEKIDESK/pages/UserDesk/UserDesk.page";
+import ConnectionPage from "HEKIDESK/pages/Connection/Connection.page";
+import ParameterHistoryPage from "HEKIDESK/pages/History/Parameter/ParameterHistory.page";
+import TimeHistoryPage from "HEKIDESK/pages/History/Time/TimeHistory.page";
+import MeasurementPage from "HEKIDESK/pages/Measurement/Measurement.page";
+import HistoryDeskPage from "HEKIDESK/pages/History/HistoryDesk/HistoryDesk.page";
+import CardiogramPage from "HEKIDESK/pages/Parameters/Cardiogram/Cardiogram.page";
+import OximetryPage from "HEKIDESK/pages/Parameters/Oximetry/Oximetry.page";
+import TemperaturePage from "HEKIDESK/pages/Parameters/Temperature/Temperature.page";
+import BloodPressurePage from "HEKIDESK/pages/Parameters/BloodPressure/BloodPressure.page";
+import HeartAndLungSoundPage from "HEKIDESK/pages/Parameters/HeartAndLungSound/HeartAndLungSound.page";
+import ProtectedRoute from "HEKIDESK/hooks/ProtectedRoute";
 
 function AppRoutes() {
   return (

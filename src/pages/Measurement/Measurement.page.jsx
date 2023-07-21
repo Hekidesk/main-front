@@ -1,5 +1,5 @@
 import React from "react";
-import PageWrapper from "@/components/PageWrapper/PageWrapper";
+import PageWrapper from "HEKIDESK/components/PageWrapper/PageWrapper";
 import Measurement from "./components/Measurement";
 
 const MeasurementPage = () => {

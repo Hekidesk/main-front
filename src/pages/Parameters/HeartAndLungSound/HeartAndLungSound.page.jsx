@@ -1,11 +1,11 @@
-import PageWrapper from "@/components/PageWrapper/PageWrapper";
-import Diagram from "@/components/Datagram/Diagram";
-import heartAndLungSound from "@/assets/icon/parameter/heartAndLungSound.svg";
-import playSoundIcon from "@/assets/icon/playSoundIcon.png";
-import HighlightTitle from "@/components/HighlightTitle/HighlightTitle";
+import PageWrapper from "HEKIDESK/components/PageWrapper/PageWrapper";
+import Diagram from "HEKIDESK/components/Datagram/Diagram";
+import heartAndLungSound from "HEKIDESK/assets/icon/parameter/heartAndLungSound.svg";
+import playSoundIcon from "HEKIDESK/assets/icon/playSoundIcon.png";
+import HighlightTitle from "HEKIDESK/components/HighlightTitle/HighlightTitle";
 import { useEffect, useState, useContext, useRef } from "react";
-import { BluetoothContext } from "@/App";
-import { useAddToDB } from "@/database/AddToDB";
+import { BluetoothContext } from "HEKIDESK/App";
+import { useAddToDB } from "HEKIDESK/database/AddToDB";
 import {
   CircularContainer,
   // CircularValue,
@@ -22,16 +22,16 @@ import {
   filterButton,
   DropdownButton,
 } from "./components/CSS";
-import PageButtons from "@/components/reusable/PageButtons";
+import PageButtons from "HEKIDESK/components/reusable/PageButtons";
 import axios from "axios";
 import {
   makeArrayForChart,
   makeArrayFormString,
-} from "@/components/reusableDataFunc/DataFunc";
+} from "HEKIDESK/components/reusableDataFunc/DataFunc";
 import { Button } from "primereact/button";
 import { Dropdown } from "primereact/dropdown";
 import { RadioButton } from "primereact/radiobutton";
-import Counter from "@/components/Counter/Counter";
+import Counter from "HEKIDESK/components/Counter/Counter";
 
 const HeartAndLungSoundPage = () => {
   const [data, setData] = useState();

@@ -1,11 +1,10 @@
-import PageWrapper from "@/components/PageWrapper/PageWrapper";
-import Diagram from "@/components/Datagram/Diagram";
-import bloodPressure from "@/assets/icon/parameter/bloodPressure.svg";
-import HighlightTitle from "@/components/HighlightTitle/HighlightTitle";
+import PageWrapper from "HEKIDESK/components/PageWrapper/PageWrapper";
+import Diagram from "HEKIDESK/components/Datagram/Diagram";
+import bloodPressure from "HEKIDESK/assets/icon/parameter/bloodPressure.svg";
+import HighlightTitle from "HEKIDESK/components/HighlightTitle/HighlightTitle";
 import { useEffect, useState, useContext, useRef } from "react";
 import {
   CircularContainer,
-  // CircularValue,
   SimpleValue,
   SimpleTitle,
   Description,
@@ -18,13 +17,13 @@ import {
   InfoContainer,
   DropdownButton,
 } from "./components/CSS";
-import PageButtons from "@/components/reusable/PageButtons";
+import PageButtons from "HEKIDESK/components/reusable/PageButtons";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { useAddToDB } from "@/database/AddToDB";
-import { BluetoothContext } from "@/App";
-import { makeArrayForChart } from "@/components/reusableDataFunc/DataFunc";
-import Counter from "@/components/Counter/Counter";
+import { useAddToDB } from "HEKIDESK/database/AddToDB";
+import { BluetoothContext } from "HEKIDESK/App";
+import { makeArrayForChart } from "HEKIDESK/components/reusableDataFunc/DataFunc";
+import Counter from "HEKIDESK/components/Counter/Counter";
 import { Dropdown } from "primereact/dropdown";
 
 const BloodPressurePage = () => {

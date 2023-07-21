@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import Profile from "../../Profile/Profile";
 import { Col, Row, Pagination } from "react-bootstrap";
-import Sidebar from "@/components/Sidebar/Sidebar";
+import Sidebar from "HEKIDESK/components/Sidebar/Sidebar";
 import ProfileSection from "../../Profile/ProfileSection";
-import BodyIcon from "@/assets/icon/history/bodyImg.svg";
-import upIcon from "@/assets/icon/history/upIcon.svg";
-import timeHistory from "@/assets/icon/history/time-history.svg";
-import { ButtonHistoryStyle } from "@/components/reusable/ButtonStyle";
+import BodyIcon from "HEKIDESK/assets/icon/history/bodyImg.svg";
+import upIcon from "HEKIDESK/assets/icon/history/upIcon.svg";
+import timeHistory from "HEKIDESK/assets/icon/history/time-history.svg";
+import { ButtonHistoryStyle } from "HEKIDESK/components/reusable/ButtonStyle";
 import { Link } from "react-router-dom";
 import { useIndexedDB } from "react-indexed-db";
-import { GetDateTimeDB, convertStringToDateDB } from "@/utilities/time/time";
+import { GetDateTimeDB, convertStringToDateDB } from "HEKIDESK/utilities/time/time";
 
 const TimeHistoryPage = () => {
   const [data, setData] = useState(null);

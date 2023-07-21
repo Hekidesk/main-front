@@ -3,7 +3,7 @@ import AppRoutes from "./routes";
 import { createContext, useMemo } from "react";
 import { useSignalFeed } from "./utilities/bluetooth";
 import { initDB } from "react-indexed-db";
-import {DBConfig} from "@/database/DBConfig"
+import {DBConfig} from "HEKIDESK/database/DBConfig"
 export const BluetoothContext = createContext({});
 
 initDB(DBConfig);

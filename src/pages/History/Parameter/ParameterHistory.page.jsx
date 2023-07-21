@@ -1,27 +1,27 @@
 import React, { useEffect, useState } from "react";
-import Sidebar from "@/components/Sidebar/Sidebar";
+import Sidebar from "HEKIDESK/components/Sidebar/Sidebar";
 import { Col, Row } from "react-bootstrap";
 import Profile from "../../Profile/Profile";
 import ProfileSection from "../../Profile/ProfileSection";
-import ParameterPhotoIcon from "@/assets/icon/parameterHistory.svg";
-import HeartRateIcon from "@/assets/icon/history/heartRateIcon.svg";
-import Spo2Icon from "@/assets/icon/history/spo2Icon.svg";
-import RespirationRateIcon from "@/assets/icon/history/respirationRateIcon.svg";
-import HeartAbnormalityIcon from "@/assets/icon/history/heartAbnormalityIcon.svg";
-import TemperatureIcon from "@/assets/icon/history/temperatureIcon.svg";
+import ParameterPhotoIcon from "HEKIDESK/assets/icon/parameterHistory.svg";
+import HeartRateIcon from "HEKIDESK/assets/icon/history/heartRateIcon.svg";
+import Spo2Icon from "HEKIDESK/assets/icon/history/spo2Icon.svg";
+import RespirationRateIcon from "HEKIDESK/assets/icon/history/respirationRateIcon.svg";
+import HeartAbnormalityIcon from "HEKIDESK/assets/icon/history/heartAbnormalityIcon.svg";
+import TemperatureIcon from "HEKIDESK/assets/icon/history/temperatureIcon.svg";
 
-import PR_RR_INTERVAL from "@/assets/icon/history/PR_RR_INTERVAL.svg";
-import QRS_Duration_Icon from "@/assets/icon/history/QRS_Duration.svg";
-import SYSDIAIcon from "@/assets/icon/history/bloodPressureIcon.svg";
+import PR_RR_INTERVAL from "HEKIDESK/assets/icon/history/PR_RR_INTERVAL.svg";
+import QRS_Duration_Icon from "HEKIDESK/assets/icon/history/QRS_Duration.svg";
+import SYSDIAIcon from "HEKIDESK/assets/icon/history/bloodPressureIcon.svg";
 
 import "../../../assets/styles/history.css";
 import "../../../assets/styles/profile.css";
 import HistoryChart from "../Chart/HistoryChart";
-import upIcon from "@/assets/icon/history/upIcon.svg";
-import { ButtonMyDeskStyle } from "@/components/reusable/ButtonStyle";
+import upIcon from "HEKIDESK/assets/icon/history/upIcon.svg";
+import { ButtonMyDeskStyle } from "HEKIDESK/components/reusable/ButtonStyle";
 import { Link } from "react-router-dom";
 import { useIndexedDB } from "react-indexed-db";
-import { GetDateTimeDB } from "@/utilities/time/time";
+import { GetDateTimeDB } from "HEKIDESK/utilities/time/time";
 
 const ParameterHistoryPage = () => {
   const { getAll: getAllOximetryData } = useIndexedDB("oximetryData");

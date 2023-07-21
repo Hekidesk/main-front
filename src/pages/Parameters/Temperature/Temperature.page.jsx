@@ -1,7 +1,7 @@
-import PageWrapper from "@/components/PageWrapper/PageWrapper";
-import Diagram from "@/components/Datagram/Diagram";
-import temperatureIcon from "@/assets/icon/parameter/temeperature.svg";
-import HighlightTitle from "@/components/HighlightTitle/HighlightTitle";
+import PageWrapper from "HEKIDESK/components/PageWrapper/PageWrapper";
+import Diagram from "HEKIDESK/components/Datagram/Diagram";
+import temperatureIcon from "HEKIDESK/assets/icon/parameter/temeperature.svg";
+import HighlightTitle from "HEKIDESK/components/HighlightTitle/HighlightTitle";
 import { useEffect, useState, useContext, useRef } from "react";
 import {
   CircularContainer,
@@ -16,11 +16,11 @@ import {
   InfoContainer,
   DropdownButton,
 } from "./components/CSS";
-import PageButtons from "@/components/reusable/PageButtons";
-import { useAddToDB } from "@/database/AddToDB";
-import { BluetoothContext } from "@/App";
-import { makeArrayForChart } from "@/components/reusableDataFunc/DataFunc";
-import Counter from "@/components/Counter/Counter";
+import PageButtons from "HEKIDESK/components/reusable/PageButtons";
+import { useAddToDB } from "HEKIDESK/database/AddToDB";
+import { BluetoothContext } from "HEKIDESK/App";
+import { makeArrayForChart } from "HEKIDESK/components/reusableDataFunc/DataFunc";
+import Counter from "HEKIDESK/components/Counter/Counter";
 import { Dropdown } from "primereact/dropdown";
 
 const TemperaturePage = () => {

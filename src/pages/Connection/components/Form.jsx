@@ -1,14 +1,14 @@
-import Heartbeat from "@/assets/gif/heartbeat.mp4";
+import Heartbeat from "HEKIDESK/assets/gif/heartbeat.mp4";
 import { Image } from "primereact/image";
-import { ContainerWithoutHeight } from "@/components/reusable/Container";
-import { Title } from "@/components/reusable/Title";
+import { ContainerWithoutHeight } from "HEKIDESK/components/reusable/Container";
+import { Title } from "HEKIDESK/components/reusable/Title";
 import {
   ButtonOutlineStyle,
   ButtonStyle,
-} from "@/components/reusable/ButtonStyle";
+} from "HEKIDESK/components/reusable/ButtonStyle";
 import { LogoRow } from "./CSS";
-import DisconnectIcon from "@/assets/icon/disconnect.svg";
-import { BluetoothContext } from "@/App";
+import DisconnectIcon from "HEKIDESK/assets/icon/disconnect.svg";
+import { BluetoothContext } from "HEKIDESK/App";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 

@@ -9,7 +9,7 @@ export default defineConfig({
   base: "",
   resolve: {
     alias: {
-      "@": path.resolve(path.dirname(fileURLToPath(import.meta.url)), "src"),
+      "HEKIDESK": path.resolve(path.dirname(fileURLToPath(import.meta.url)), "src"),
     },
   },
   define: {

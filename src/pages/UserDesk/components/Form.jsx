@@ -1,17 +1,17 @@
-import Icon from "@/assets/logo/hekidesk-green.svg";
+import Icon from "HEKIDESK/assets/logo/hekidesk-green.svg";
 import { Image } from "primereact/image";
 import { Link } from "react-router-dom";
-import { ContainerWithoutHeight } from "@/components/reusable/Container";
-import { Title } from "@/components/reusable/Title";
+import { ContainerWithoutHeight } from "HEKIDESK/components/reusable/Container";
+import { Title } from "HEKIDESK/components/reusable/Title";
 import {
   ButtonOutlineStyle,
   ButtonStyle,
-} from "@/components/reusable/ButtonStyle";
+} from "HEKIDESK/components/reusable/ButtonStyle";
 import { LogoRow } from "./CSS";
 import { useState } from "react";
-import HeartbeatIcon from "@/assets/icon/heartbeat.svg";
-import HistoryIcon from "@/assets/icon/history.svg";
-import HomeIcon from "@/assets/icon/home-green.svg";
+import HeartbeatIcon from "HEKIDESK/assets/icon/heartbeat.svg";
+import HistoryIcon from "HEKIDESK/assets/icon/history.svg";
+import HomeIcon from "HEKIDESK/assets/icon/home-green.svg";
 
 const DeskForm = () => {
   const [user] = useState(localStorage.getItem("user"));

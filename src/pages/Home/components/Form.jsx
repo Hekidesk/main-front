@@ -1,17 +1,17 @@
-import Icon from "@/assets/logo/hekidesk-green.svg";
-import PlusIcon from "@/assets/icon/plus.svg";
+import Icon from "HEKIDESK/assets/logo/hekidesk-green.svg";
+import PlusIcon from "HEKIDESK/assets/icon/plus.svg";
 import { Image } from "primereact/image";
 import { Link } from "react-router-dom";
-import { ContainerWithoutHeight } from "@/components/reusable/Container";
-import { Text } from "@/components/reusable/Text";
-import { Title } from "@/components/reusable/Title";
+import { ContainerWithoutHeight } from "HEKIDESK/components/reusable/Container";
+import { Text } from "HEKIDESK/components/reusable/Text";
+import { Title } from "HEKIDESK/components/reusable/Title";
 import { CustomDropdown, FlexContainer, FormTitle, LogoRow } from "./CSS";
 import { Dropdown } from "primereact/dropdown";
 import { useState, useEffect } from "react";
 import {
   ButtonOutlineStyle,
   ButtonStyle,
-} from "@/components/reusable/ButtonStyle";
+} from "HEKIDESK/components/reusable/ButtonStyle";
 import { useIndexedDB } from "react-indexed-db";
 
 const HomeForm = () => {

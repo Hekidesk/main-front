@@ -1,8 +1,8 @@
-import "@/assets/styles/primereactStyle.css";
-import PageWrapper from "@/components/PageWrapper/PageWrapper";
-import Diagram from "@/components/Datagram/Diagram";
-import HeartIcon from "@/assets/icon/parameter/heart.svg";
-import HighlightTitle from "@/components/HighlightTitle/HighlightTitle";
+import "HEKIDESK/assets/styles/primereactStyle.css";
+import PageWrapper from "HEKIDESK/components/PageWrapper/PageWrapper";
+import Diagram from "HEKIDESK/components/Datagram/Diagram";
+import HeartIcon from "HEKIDESK/assets/icon/parameter/heart.svg";
+import HighlightTitle from "HEKIDESK/components/HighlightTitle/HighlightTitle";
 import { useEffect, useState, useContext, useRef } from "react";
 import {
   CircularContainer,
@@ -19,18 +19,18 @@ import {
   filterButton,
   DropdownButton,
 } from "./components/CSS";
-import { BluetoothContext } from "@/App";
+import { BluetoothContext } from "HEKIDESK/App";
 import { Button } from "primereact/button";
 import { Dropdown } from "primereact/dropdown";
 import axios from "axios";
-import { useAddToDB } from "@/database/AddToDB";
-import PageButtons from "@/components/reusable/PageButtons";
+import { useAddToDB } from "HEKIDESK/database/AddToDB";
+import PageButtons from "HEKIDESK/components/reusable/PageButtons";
 import {
   makeArrayForChart,
   makeArrayFormString,
-} from "@/components/reusableDataFunc/DataFunc";
+} from "HEKIDESK/components/reusableDataFunc/DataFunc";
 import Swal from "sweetalert2";
-import Counter from "@/components/Counter/Counter";
+import Counter from "HEKIDESK/components/Counter/Counter";
 
 const OximetryPage = () => {
   const [IrData, setIrData] = useState();

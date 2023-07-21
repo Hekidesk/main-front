@@ -1,11 +1,11 @@
-import Icon from "@/assets/logo/hekidesk-green.svg";
+import Icon from "HEKIDESK/assets/logo/hekidesk-green.svg";
 import { Image } from "primereact/image";
 import { Button } from "primereact/button";
-import { ButtonStyle } from "@/components/reusable/ButtonStyle";
+import { ButtonStyle } from "HEKIDESK/components/reusable/ButtonStyle";
 import { useState } from "react";
 import { Dropdown } from "primereact/dropdown";
-import { InputTextGroup } from "@/components/reusable/InputTextGroup";
-import { ContainerWithoutHeight } from "@/components/reusable/Container";
+import { InputTextGroup } from "HEKIDESK/components/reusable/InputTextGroup";
+import { ContainerWithoutHeight } from "HEKIDESK/components/reusable/Container";
 import { useNavigate } from "react-router-dom";
 import { Col, LogoRow, Row, Title } from "./CSS";
 import { useIndexedDB } from "react-indexed-db";
