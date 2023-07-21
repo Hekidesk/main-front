@@ -92,7 +92,7 @@ const TemperaturePage = () => {
         setStartCountDown(0);
         setCounter(5);
         bluetooth.Stop(startTimeDuration);
-      }, [sampleTime*1000 + pendingTime + delayTime]);
+      }, [sampleTime * 1000 + pendingTime + delayTime]);
     }
   };
 
@@ -104,8 +104,7 @@ const TemperaturePage = () => {
         <DiagramWrapper>
           <Description>
             <DiagramText>
-              Please put your right and left fingers on ECG sensors and then
-              press
+              Please put your finger on Temperature sensor and then press
             </DiagramText>
             <DiagramButton onClick={startInput}>Start</DiagramButton>
             <DropdownButton>
@@ -115,9 +114,9 @@ const TemperaturePage = () => {
                 className="filter-btn"
                 onChange={(e) => setSampleTime(e.value)}
                 options={[
-                  { name: "Sample Time: 10s", value: 10 },
-                  { name: "Sample Time: 15s", value: 15 },
-                  { name: "Sample Time: 20s", value: 20 },
+                  { name: "10s", value: 10 },
+                  { name: "20s", value: 20 },
+                  { name: "30s", value: 30 },
                 ]}
                 optionLabel="name"
                 placeholder={"sample time  ↓"}

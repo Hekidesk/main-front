@@ -159,7 +159,7 @@ const HeartAndLungSoundPage = () => {
         setStartCountDown(0);
         bluetooth.Stop(startTimeDuration);
         setSizeOfSlice(-1);
-      }, [sampleTime*1000 + pendingTime + delayTime]);
+      }, [sampleTime * 1000 + pendingTime + delayTime]);
     }
   };
 
@@ -231,16 +231,16 @@ const HeartAndLungSoundPage = () => {
               </label>
             </div>
             <DiagramButton onClick={startInput}>Start</DiagramButton>
-            <DropdownButton style={{marginLeft: "15px"}}>
+            <DropdownButton style={{ marginLeft: "15px" }}>
               <Dropdown
                 style={{ width: "100%" }}
                 value={sampleTime}
                 className="filter-btn"
                 onChange={(e) => setSampleTime(e.value)}
                 options={[
-                  { name: "Sample Time: 10s", value: 10 },
-                  { name: "Sample Time: 15s", value: 15 },
-                  { name: "Sample Time: 20s", value: 20 },
+                  { name: "10s", value: 10 },
+                  { name: "30s", value: 30 },
+                  { name: "30s", value: 30 },
                 ]}
                 optionLabel="name"
                 placeholder={"sample time  ↓"}
@@ -264,7 +264,7 @@ const HeartAndLungSoundPage = () => {
               >
                 {filter % 2 ? "filtered" : "main"} signal
               </Button>
-              <DropdownButton >
+              <DropdownButton>
                 <Dropdown
                   style={{ width: "80%" }}
                   value={filterActiveNum}
