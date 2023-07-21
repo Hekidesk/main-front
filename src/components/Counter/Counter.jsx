@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 
-function Counter({ counter, startCountDown }) {
+function Counter({ counter, startCountDown, size = 50 }) {
 
   const [key, setKey] = useState(0);
 
@@ -17,7 +17,7 @@ function Counter({ counter, startCountDown }) {
         isPlaying = {startCountDown}
         key = {key}
         duration={counter}
-        size={50}
+        size={size}
         strokeWidth={5}
         colors={ counter == 5 ? ["#1cb5bd", "#fe5558"] : ["#28acd8", "#28acd8"]}
         colorsTime={[4, 0]}
