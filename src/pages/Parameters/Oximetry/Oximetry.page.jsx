@@ -174,7 +174,7 @@ const OximetryPage = () => {
               press
             </DiagramText>
             <DiagramButton onClick={startInput}>Start</DiagramButton>
-            <DropdownButton>
+            <DropdownButton style={{marginLeft: "15px"}}>
               <Dropdown
                 style={{ width: "100%" }}
                 value={sampleTime}

@@ -41,12 +41,11 @@ export const DiagramContainer = styled.div`
 
 export const InfoContainer = styled.div`
   background: #c8e7f1;
-  border: 3px solid;
-  border-image: linear-gradient(to bottom, var(--main-green), var(--main-green))
-    0 1;
-  border-radius: 10px;
+  border-left: 2px solid var(--main-green);
+  border-right: 2px solid var(--main-green);
+  border-radius: 30px ;
   width: 100%;
-  margin: 0 1em;
+  margin: 1em;
   padding: 1em;
   @media ${devices.tablet} {
     width: 30%;
@@ -91,7 +90,6 @@ export const CircularContainer = styled.div`
   margin-left: 20px;
   margin-bottom: 20px;
 `;
-
 export const CountDownNumber = styled.div`
   background: transparent;
   color: var(--main-green);
@@ -106,5 +104,5 @@ export const DropdownButton = styled.div`
   align-items: center;
   justify-content: center;
   text-align: center;
-  margin-left: 10px;
+  margin-left: 15px;
 `;
