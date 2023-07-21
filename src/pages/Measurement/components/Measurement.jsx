@@ -34,7 +34,7 @@ const Measurement = () => {
         <Row>
           <img src={TopPhotoIcon} className="top-img" />
         </Row> */}
-        <Row>
+        <Row style={{ minHeight: "40vh" }}>
           {routes.map((item, i) => (
             <Col lg={4} sm={6} key={i}>
               <Link

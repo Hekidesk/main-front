@@ -11,7 +11,6 @@ const Profile = () => {
   const [username, setUsername] = useState("");
   const bluetooth = useContext(BluetoothContext);
 
-
   useEffect(() => {
     setUsername(localStorage.getItem("user"));
   }, []);
@@ -23,7 +22,12 @@ const Profile = () => {
           to={process.env.REACT_APP_BASE_URL + "/connection"}
         >
           <Button style={ButtonProfile} className="profile-btn">
-            <div style={{ fontSize: "15px" }}>
+            <div
+              style={{
+                fontSize: "15px",
+                color: bluetooth.isConnected ? "green" : "red",
+              }}
+            >
               {bluetooth.isConnected ? "Connected" : "Disconnected"}
             </div>
             <div style={{ marginLeft: "15px", marginBottom: "12px" }}>
