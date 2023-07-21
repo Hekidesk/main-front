@@ -24,32 +24,26 @@ const TimeHistoryPage = () => {
 
   useEffect(() => {
     getAllData().then((dataFromDB) => {
-      console.log(dataFromDB);
       const result = dataFromDB.filter(
         (temp) => temp.userId === localStorage.getItem("id")
       );
-      console.log(result);
       let dateAndIds = result.map((d) => d.dateAndId);
       const result2 = dateAndIds.map((d) => GetDateTimeDB(String(d)));
-      console.log(result2);
       setDates(result2);
       setData(result);
     });
   }, []);
 
   useEffect(() => {
-    console.log(currentDate);
     if (data && data.length) retrieveDate(currentDate);
   }, [data]);
 
   const retrieveDate = (currentDate) => {
-    console.log(currentDate);
     setActiveIndex(currentDate);
     const dateAndId = parseInt(
       convertStringToDateDB(dates[currentDate], localStorage.getItem("id"))
     );
     const result = data.filter((temp) => temp.dateAndId === dateAndId);
-    console.log("result: " + JSON.stringify(result));
     setParameter(result[0].parameters);
   };
 

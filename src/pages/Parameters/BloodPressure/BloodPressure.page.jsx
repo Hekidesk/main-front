@@ -45,18 +45,13 @@ const BloodPressurePage = () => {
   const COMMAND = 0x01;
 
   async function calculate(irData, forceData) {
-    console.log(irData);
-    console.log(forceData);
     let payload = {
       IR: "[" + irData.toString() + "]",
       force: "[" + forceData.toString() + "]",
       fs: bluetooth.GetFrequency()[0],
     };
     let res = await axios.post("https://api.hekidesk.com//bp_signal", payload);
-    console.log(res);
     if (res.status < 400 && !Number(res.data.Try_Again)) {
-      console.log(SYS);
-      console.log(DIA);
       setSYS(res.data.Diastolic);
       setDIA(res.data.Systolic);
       setQualityIndex(res.data.Quality_index);

@@ -20,7 +20,6 @@ const RegisterForm = () => {
     height: "",
     gender: 0,
   });
-  console.log("🚀 ~ file: Form.jsx:23 ~ RegisterForm ~ form:", form);
   const onChangeValue = (n, v) => setForm({ ...form, [n]: v });
 
   const history = useNavigate();
@@ -33,7 +32,6 @@ const RegisterForm = () => {
     localStorage.setItem("user", form.username);
     add({ ...form }).then(
       (event) => {
-        console.log("Data added: ", event);
         localStorage.setItem("id", event);
         history("/");
       },

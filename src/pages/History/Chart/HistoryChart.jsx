@@ -6,9 +6,6 @@ const HistoryChart = ({ color, data, name }) => {
   const [chartOptions, setChartOptions] = useState({});
 
   useEffect(() => {
-    console.log(data)
-    console.log(name)
-
     const documentStyle = getComputedStyle(document.documentElement);
     const textColorSecondary = documentStyle.getPropertyValue(
       "--text-color-secondary"

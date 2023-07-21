@@ -8,45 +8,27 @@ export const useAddToDB = (DBName) => {
 
   const currentDate = GetCurrentDateTimeDB();
   const id = parseInt(String(currentDate + localStorage.getItem("id")));
-  console.log(id);
 
   const updateHistory = (timeData) => {
     updateParameterHistory({
       dateAndId: id,
       userId: localStorage.getItem("id"),
       ...timeData,
-    }).then(
-      (event) => {
-        console.log(DBName + " updated: ", event);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+    });
 
     var newParameter = timeData;
     getByID(id)
       .then((data) => {
         var newData = {};
-        if (typeof data !== 'undefined')
-          newData = data.parameters;
-          console.log("old: " + JSON.stringify(newData));
-          newParameter = { ...newData, ...timeData };
-          console.log("new: " + JSON.stringify(newParameter));
+        if (typeof data !== "undefined") newData = data.parameters;
+        newParameter = { ...newData, ...timeData };
       })
       .then(() => {
         updateTimeHistory({
           dateAndId: id,
           userId: localStorage.getItem("id"),
           parameters: newParameter,
-        }).then(
-          (event) => {
-            console.log("timeData updated: ", event);
-          },
-          (error) => {
-            console.log(error);
-          }
-        );
+        });
       });
   };
 

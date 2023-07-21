@@ -54,19 +54,16 @@ const OximetryPage = () => {
   const COMMAND = 0x01;
 
   async function calculateBeatPerMinuteAPI(irData, RedData) {
-    console.log(bluetooth.GetFrequency()[0]);
     let payload = {
       IR: "[" + irData.toString() + "]",
       Red: "[" + RedData.toString() + "]",
       fs: bluetooth.GetFrequency()[0],
     };
     let res = await axios.post("https://api.hekidesk.com//PPG_signal", payload);
-    console.log(res.data);
     if (!Number(res.data.Try_Again)) {
       setHeartBeat(res.data.HeartRate);
       setSPO2(res.data.SpO2);
       setQualityIndex(res.data.Quality_index);
-      console.log(makeArrayFormString(res.data.clear_IR));
       setFilteredArray([
         makeArrayForChart(irData),
         makeArrayForChart(makeArrayFormString(res.data.clear_IR)),
@@ -99,9 +96,6 @@ const OximetryPage = () => {
   }, [bluetooth]);
 
   useEffect(() => {
-    console.log("filter: " + filter);
-    console.log(filterActiveNum);
-    console.log(filteredArray);
     setChartData(
       filter
         ? filteredArray[
@@ -149,7 +143,6 @@ const OximetryPage = () => {
       flushData();
       startTime.current = setTimeout(() => {
         setCounter(sampleTime);
-        console.log(startCountDown);
         bluetooth.Start().then((result) => (startTimeDuration = result));
         setSizeOfSlice(400);
       }, [pendingTime + delayTime]);

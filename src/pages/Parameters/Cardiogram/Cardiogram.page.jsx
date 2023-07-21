@@ -77,12 +77,10 @@ const CardiogramPage = () => {
     for (const r of rs) newArr.push({ x: Number(r), color: "black" });
     for (const s of ss) newArr.push({ x: Number(s), color: "white" });
     for (const t of ts) newArr.push({ x: Number(t), color: "orange" });
-    // console.log("newParr: " + JSON.stringify(newArr));
     return newArr;
   }
 
   async function calculateBeatPerMinuteAPI(ecg) {
-    console.log("data: " + ecg);
     let payload = {
       ECG: "[" + ecg.toString() + "]",
       fs: bluetooth.GetFrequency()[0],

@@ -67,9 +67,7 @@ const HeartAndLungSoundPage = () => {
   }
 
   async function calculateBeatPerMinuteAPI(pcg) {
-    console.log(pcg);
     return getDataAPI(pcg, bluetooth.GetFrequency()[0]).then((res) => {
-      console.log(res);
       setHeartBeat(res.heart_rate);
       setRespirationRate(res.respiration_rate);
       setQualityIndex(res.lung_quality_ind);
@@ -85,19 +83,9 @@ const HeartAndLungSoundPage = () => {
     });
   }
 
-  useEffect(() => {
-    console.log(filteredArray);
-  }, [filteredArray]);
 
   useEffect(() => {
-    console.log(filterActiveNum);
-    console.log(filter);
     if (filteredArray) {
-      console.log(
-        filter
-          ? filteredArray[filterActiveNum]
-          : filteredArray[filterActiveNum + 1]
-      );
       setChartData(
         filter
           ? makeArrayForChart(
@@ -124,7 +112,6 @@ const HeartAndLungSoundPage = () => {
       });
     if (bluetooth.finish) {
       calculateBeatPerMinuteAPI(data);
-      console.log(filteredArray);
     }
     return bluetooth.turnOff;
   }, [bluetooth]);
@@ -180,7 +167,6 @@ const HeartAndLungSoundPage = () => {
     const finalSound = filter
       ? filteredArray[filterActiveNum]
       : filteredArray[filterActiveNum + 1];
-    console.log(finalSound);
     let payload = {
       sound: "[" + finalSound.toString() + "]",
       fs: bluetooth.GetFrequency()[0],

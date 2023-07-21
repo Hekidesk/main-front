@@ -36,9 +36,7 @@ const TemperaturePage = () => {
 
   const COMMAND = 0x04;
   function calculateTemperature(data) {
-    console.log(data);
     const average = data.reduce((a, b) => a + b, 0) / data.length;
-    console.log(Number(average).toFixed(2));
     setTemperature(Number(average).toFixed(2));
     setQualityIndex(100);
     setDisable(0);
@@ -47,12 +45,10 @@ const TemperaturePage = () => {
   useEffect(() => {
     if (bluetooth)
       bluetooth.SendCommand(COMMAND, (input) => {
-        console.log(input.temperature);
         setChartData(makeArrayForChart(input.temperature));
         setData(input.temperature);
       });
     if (bluetooth.finish) {
-      console.log("here?");
       calculateTemperature(data);
     }
     return bluetooth.turnOff;

@@ -23,17 +23,12 @@ const HomeForm = () => {
 
   useEffect(() => {
     getAll().then((usersFromDB) => {
-      console.log(usersFromDB);
       setUsers(usersFromDB);
     });
-    console.log("here 1 " + localStorage.getItem("user"));
   }, []);
 
   useEffect(() =>{
     if(localStorage.getItem("user") !== null){
-      console.log("here");
-      console.log(users);
-      console.log(localStorage.getItem("user"));
       const foundUser = users.find(user => user.username === localStorage.getItem("user"));
       if (foundUser) {
         setSelectedUser(foundUser);
@@ -55,7 +50,6 @@ const HomeForm = () => {
   ]);
 
   const selectUser = (user) => {
-    console.log(users.indexOf(user));
     setSelectedUser(user);
     localStorage.setItem("user", user.username);
     localStorage.setItem("id", users.indexOf(user) + 1);
@@ -63,7 +57,6 @@ const HomeForm = () => {
 
   return (
     <ContainerWithoutHeight>
-      {console.log(selectedUser)}
       <LogoRow>
         <Image src={Icon} alt="icon" width="60px" />
         <Title>Hekidesk</Title>

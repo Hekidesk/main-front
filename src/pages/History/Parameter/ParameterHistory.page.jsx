@@ -47,8 +47,6 @@ const ParameterHistoryPage = () => {
   const [respirationRate, setRespirationRate] = useState([]);
 
   useEffect(() => {
-    // console.log("in parameter diagram" + localStorage.getItem("id"));
-
     getAllOximetryData().then((dataFromDB) => {
       const result = dataFromDB.filter(
         (temp) => temp.userId === localStorage.getItem("id")
