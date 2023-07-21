@@ -1,5 +1,6 @@
 import React from "react";
-import { Image, Row, Col, Button } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
+import { Button } from "primereact/button"; 
 import { Link } from "react-router-dom";
 import { ButtonMeasurementStyle } from "@/components/reusable/ButtonStyle";
 import backIcon from "@/assets/icon/measurement/back.svg";
@@ -9,6 +10,7 @@ import ckeckmarkIcon from "@/assets/icon/ckeckmarkIcon.svg";
 import { shareData } from "@/utilities/share/Share";
 
 const PageButtons = ({
+  disable,
   dataName,
   texts,
   saved,
@@ -22,17 +24,18 @@ const PageButtons = ({
         <Button
           onClick={() => setSaved(1)}
           style={ButtonMeasurementStyle}
-          className="d-flex justify-content-center"
+          className="page-btn d-flex justify-content-center"
+          disabled = {disable}
         >
           {saved ? (
-            <Image
+            <img
               src={ckeckmarkIcon}
               alt="Image"
               width="16px"
               style={{ margin: "0em 0.6em" }}
             />
           ) : (
-            <Image
+            <img
               src={saveIcon}
               alt="Image"
               width="16px"
@@ -46,9 +49,9 @@ const PageButtons = ({
         <Button
           onClick={() => shareData(dataName, texts, extraChartName, extraText)}
           style={ButtonMeasurementStyle}
-          className="d-flex justify-content-center"
+          className="page-btn d-flex justify-content-center"
         >
-          <Image
+          <img
             src={shareIcon}
             alt="Image"
             width="16px"
@@ -59,14 +62,15 @@ const PageButtons = ({
       </Col>
       <Col>
         <Link
+          // eslint-disable-next-line no-undef
           to={process.env.REACT_APP_BASE_URL + "/measurement"}
           className="d-flex justify-content-center"
         >
           <Button
             style={ButtonMeasurementStyle}
-            className="d-flex justify-content-center"
+            className="page-btn d-flex justify-content-center"
           >
-            <Image
+            <img
               src={backIcon}
               alt="Image"
               width="8px"

@@ -5,7 +5,7 @@ import HighlightTitle from "@/components/HighlightTitle/HighlightTitle";
 import { useEffect, useState, useContext, useRef } from "react";
 import {
   CircularContainer,
-  CircularValue,
+  // CircularValue,
   Description,
   DiagramButton,
   DiagramContainer,
@@ -14,47 +14,52 @@ import {
   ImportantTitle,
   ImportantValue,
   InfoContainer,
+  DropdownButton,
 } from "./components/CSS";
 import PageButtons from "@/components/reusable/PageButtons";
 import { useAddToDB } from "@/database/AddToDB";
 import { BluetoothContext } from "@/App";
 import { makeArrayForChart } from "@/components/reusableDataFunc/DataFunc";
 import Counter from "@/components/Counter/Counter";
+import { Dropdown } from "primereact/dropdown";
 
 const TemperaturePage = () => {
   const [data, setData] = useState([]);
   const [chartData, setChartData] = useState([]);
 
-  const [temperature, setTemperature] = useState("-");
+  const [temperature, setTemperature] = useState("- ? -");
   const [qualityIndex, setQualityIndex] = useState(100);
   const [saved, setSaved] = useState(0);
   const dbFunc = useAddToDB("TemperatureData");
   const bluetooth = useContext(BluetoothContext);
+  const [disable, setDisable] = useState(1);
 
   const COMMAND = 0x04;
-  function calculateTemperature(data){
+  function calculateTemperature(data) {
     console.log(data);
     const average = data.reduce((a, b) => a + b, 0) / data.length;
-    console.log(Number(average).toFixed(2))
+    console.log(Number(average).toFixed(2));
     setTemperature(Number(average).toFixed(2));
     setQualityIndex(100);
+    setDisable(0);
   }
 
   useEffect(() => {
     if (bluetooth)
       bluetooth.SendCommand(COMMAND, (input) => {
-        console.log(input.temperature)
+        console.log(input.temperature);
         setChartData(makeArrayForChart(input.temperature));
         setData(input.temperature);
       });
     if (bluetooth.finish) {
+      console.log("here?");
       calculateTemperature(data);
     }
     return bluetooth.turnOff;
   }, [bluetooth]);
 
   useEffect(() => {
-    if(saved){
+    if (saved) {
       var dataParameter = {};
       dataParameter["temperature"] = temperature;
       dbFunc.updateHistory(dataParameter);
@@ -62,25 +67,37 @@ const TemperaturePage = () => {
   }, [saved]);
 
   const [startCountDown, setStartCountDown] = useState(0);
-
+  const [counter, setCounter] = useState(5);
+  const [sampleTime, setSampleTime] = useState(10);
 
   const pendingTime = 5000;
-  const sampleTime = 10000;
   const startTime = useRef(null);
   const endTime = useRef(null);
+  const delayTime = 30;
 
-  const startInput = () => {
-    let startTimeDuration = 0;
+  const flushData = () => {
     setStartCountDown(1);
     setSaved(0);
-    setTemperature("-")
-    startTime.current = setTimeout(() => {
-      bluetooth.Start().then((result) => startTimeDuration = result);
-      setStartCountDown(0);
-    }, [pendingTime]);
-    endTime.current = setTimeout(() => {
-      bluetooth.Stop(startTimeDuration);
-    }, [sampleTime + pendingTime]);
+    setTemperature("- ? -");
+    setCounter(5);
+    setChartData([]);
+    setDisable(1);
+  };
+
+  const startInput = () => {
+    if (bluetooth.CheckConnection()) {
+      let startTimeDuration = 0;
+      flushData();
+      startTime.current = setTimeout(() => {
+        setCounter(sampleTime);
+        bluetooth.Start().then((result) => (startTimeDuration = result));
+      }, [pendingTime + delayTime]);
+      endTime.current = setTimeout(() => {
+        setStartCountDown(0);
+        setCounter(5);
+        bluetooth.Stop(startTimeDuration);
+      }, [sampleTime*1000 + pendingTime + delayTime]);
+    }
   };
 
   return (
@@ -95,28 +112,43 @@ const TemperaturePage = () => {
               press
             </DiagramText>
             <DiagramButton onClick={startInput}>Start</DiagramButton>
-            <Counter startCountDown = {startCountDown}/>
+            <DropdownButton>
+              <Dropdown
+                style={{ width: "100%" }}
+                value={sampleTime}
+                className="filter-btn"
+                onChange={(e) => setSampleTime(e.value)}
+                options={[
+                  { name: "Sample Time: 10s", value: 10 },
+                  { name: "Sample Time: 15s", value: 15 },
+                  { name: "Sample Time: 20s", value: 20 },
+                ]}
+                optionLabel="name"
+                placeholder={"sample time  ↓"}
+              />
+            </DropdownButton>
+            <CircularContainer>
+              <Counter counter={counter} startCountDown={startCountDown} />
+            </CircularContainer>
           </Description>
           <DiagramContainer>
             <Diagram data={chartData} sizeOfSlice={-2} />
             <InfoContainer>
-              <ImportantTitle>Temperature</ImportantTitle>
-              <ImportantValue>-{temperature}-</ImportantValue>
-              <CircularContainer>
-                <CircularValue>100</CircularValue>
-              </CircularContainer>
+              <ImportantTitle>Temperature (°C)</ImportantTitle>
+              <ImportantValue>{temperature}</ImportantValue>
             </InfoContainer>
           </DiagramContainer>
         </DiagramWrapper>
       </div>
       <PageButtons
+        disable={disable}
         dataName="TemperatureData"
         texts={[
           "Temperature: " + temperature,
           "Quality index: " + qualityIndex,
         ]}
-        saved = {saved}
-        setSaved = {setSaved}
+        saved={saved}
+        setSaved={setSaved}
       />
     </PageWrapper>
   );

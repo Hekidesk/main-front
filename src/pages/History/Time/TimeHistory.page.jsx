@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Profile from "../../Profile/Profile";
-import { Col, Row, Image, Pagination } from "react-bootstrap";
+import { Col, Row, Pagination } from "react-bootstrap";
 import Sidebar from "@/components/Sidebar/Sidebar";
 import ProfileSection from "../../Profile/ProfileSection";
 import BodyIcon from "@/assets/icon/history/bodyImg.svg";
 import upIcon from "@/assets/icon/history/upIcon.svg";
+import timeHistory from "@/assets/icon/history/time-history.svg";
 import { ButtonHistoryStyle } from "@/components/reusable/ButtonStyle";
 import { Link } from "react-router-dom";
 import { useIndexedDB } from "react-indexed-db";
@@ -99,7 +100,7 @@ const TimeHistoryPage = () => {
                 <ProfileSection />
               </Row>
               <Row>
-                <Image src={BodyIcon} alt="body" className="cropped-image" />
+                <img src={BodyIcon} alt="body" className="cropped-img" />
               </Row>
               <Row
                 style={{
@@ -223,10 +224,14 @@ const TimeHistoryPage = () => {
               </Row>
               <Row>
                 <Col>
-                  <div className="bg-gray"></div>
+                  <div>
+                    <img src={timeHistory} />
+                  </div>
                 </Col>
                 <Col>
-                  <div className="bg-gray"></div>
+                  <div>
+                    <img src={timeHistory} />
+                  </div>
                 </Col>
               </Row>
             </Col>
@@ -235,10 +240,11 @@ const TimeHistoryPage = () => {
       </Row>
       <Row className="d-flex justify-content-end">
         <Link
+          // eslint-disable-next-line no-undef
           to={process.env.REACT_APP_BASE_URL + "/history"}
           style={ButtonHistoryStyle}
         >
-          <Image
+          <img
             src={upIcon}
             alt="Image"
             width="16px"

@@ -1,5 +1,5 @@
 import React from "react";
-import { Col, Row, Image } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import ProfilePhotoIcon from "@/assets/icon/profile.svg";
 import "../../assets/styles/profile.css";
 import { useEffect, useState } from "react";
@@ -24,7 +24,7 @@ const ProfileSection = () => {
     <div className="profile-section">
       <Row className="text-right">
         <Col>
-          <Image
+          <img
             src={ProfilePhotoIcon}
             className="profile-photo"
             alt="profile"

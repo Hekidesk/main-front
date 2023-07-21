@@ -1,23 +1,32 @@
-import React from 'react'
-import { useEffect, useState} from "react";
-import { CountDownNumber } from './style/CSS';
-const Counter = ({startCountDown}) => {
-    const [counter, setCounter] = useState(5);
+import React from "react";
+import { useState } from "react";
+import { CountdownCircleTimer } from "react-countdown-circle-timer";
 
-    useEffect(() => {
-      const timer =
-        startCountDown && counter >= 0 && setInterval(() => setCounter(counter - 1), 1000);
-      console.log("counter is: " + counter)
-      if(!startCountDown)
-        setCounter(5);
-      return () => clearInterval(timer);
-    }, [counter, startCountDown]);
+function Counter({ counter, startCountDown }) {
+
+  const [key, setKey] = useState(0);
+
+  const circleStyle = {
+    fontSize: "20px",
+    textShadow: "2px 2px 15px var(--main-green)",
+  };
 
   return (
-    <div>
-        <CountDownNumber>{startCountDown ? counter : ""}</CountDownNumber>
+    <div style={{marginTop: "15px"}}>
+      <CountdownCircleTimer
+        isPlaying = {startCountDown}
+        key = {key}
+        duration={counter}
+        size={50}
+        strokeWidth={5}
+        colors={ counter == 5 ? ["#1cb5bd", "#fe5558"] : ["#28acd8", "#28acd8"]}
+        colorsTime={[4, 0]}
+        onComplete= {() => setKey((prevKey) => prevKey + 1)}
+        >
+        {({ remainingTime }) => <div style = {{...circleStyle, color: "black"}}>{remainingTime}</div>}
+      </CountdownCircleTimer>
     </div>
-  )
+  );
 }
 
-export default Counter
+export default Counter;

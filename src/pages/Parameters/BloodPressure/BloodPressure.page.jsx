@@ -5,7 +5,9 @@ import HighlightTitle from "@/components/HighlightTitle/HighlightTitle";
 import { useEffect, useState, useContext, useRef } from "react";
 import {
   CircularContainer,
-  CircularValue,
+  // CircularValue,
+  SimpleValue,
+  SimpleTitle,
   Description,
   DiagramButton,
   DiagramContainer,
@@ -14,6 +16,7 @@ import {
   ImportantTitle,
   ImportantValue,
   InfoContainer,
+  DropdownButton,
 } from "./components/CSS";
 import PageButtons from "@/components/reusable/PageButtons";
 import axios from "axios";
@@ -22,6 +25,7 @@ import { useAddToDB } from "@/database/AddToDB";
 import { BluetoothContext } from "@/App";
 import { makeArrayForChart } from "@/components/reusableDataFunc/DataFunc";
 import Counter from "@/components/Counter/Counter";
+import { Dropdown } from "primereact/dropdown";
 
 const BloodPressurePage = () => {
   const [IrData, setIrData] = useState();
@@ -34,6 +38,7 @@ const BloodPressurePage = () => {
   const [DIA, setDIA] = useState(0);
   const [qualityIndex, setQualityIndex] = useState(0);
   const [saved, setSaved] = useState(0);
+  const [disable, setDisable] = useState(1);
 
   const bluetooth = useContext(BluetoothContext);
 
@@ -47,20 +52,21 @@ const BloodPressurePage = () => {
       force: "[" + forceData.toString() + "]",
       fs: bluetooth.GetFrequency()[0],
     };
-    let res = await axios.post("http://127.0.0.1:5000//bp_signal", payload);
+    let res = await axios.post("https://api.hekidesk.com//bp_signal", payload);
     console.log(res);
-    if ( res.status < 400 && !Number(res.data.Try_Again)) {
+    if (res.status < 400 && !Number(res.data.Try_Again)) {
       console.log(SYS);
       console.log(DIA);
       setSYS(res.data.Diastolic);
       setDIA(res.data.Systolic);
       setQualityIndex(res.data.Quality_index);
+      setDisable(0);
     } else {
       Swal.fire({
         icon: "error",
         title: "Something went wrong",
         text: "Please repeat procedure!",
-        confirmButtonColor: '#3085d6',
+        confirmButtonColor: "#3085d6",
       });
     }
   }
@@ -88,28 +94,40 @@ const BloodPressurePage = () => {
   }, [saved]);
 
   const [startCountDown, setStartCountDown] = useState(0);
-
+  const [counter, setCounter] = useState(5);
+  const [sampleTime, setSampleTime] = useState(10);
+  
   const pendingTime = 5000;
-  const sampleTime = 10000;
   const startTime = useRef(null);
   const endTime = useRef(null);
+  const delayTime = 30;
 
-  const startInput = () => {
-    let startTimeDuration = 0;
-    setStartCountDown(1);
-    setSaved(0);
+  const flushData = () => {
     setSYS("-");
     setDIA("-");
     setQualityIndex(0);
-    startTime.current = setTimeout(() => {
-      bluetooth.Start().then((result) => (startTimeDuration = result));
-      setSizeOfSlice(400);
-      setStartCountDown(0);
-    }, [pendingTime]);
-    endTime.current = setTimeout(() => {
-      bluetooth.Stop(startTimeDuration);
-      setSizeOfSlice(-1);
-    }, [sampleTime + pendingTime]);
+    setSaved(0);
+    setDisable(1);
+    setChartData([]);
+    setStartCountDown(1);
+  };
+
+  const startInput = () => {
+    if (bluetooth.CheckConnection()) {
+      let startTimeDuration = 0;
+      flushData();
+      startTime.current = setTimeout(() => {
+        bluetooth.Start().then((result) => (startTimeDuration = result));
+        setCounter(sampleTime);
+        setSizeOfSlice(400);
+      }, [pendingTime + delayTime]);
+      endTime.current = setTimeout(() => {
+        setCounter(5);
+        setSizeOfSlice(-1);
+        setStartCountDown(0);
+        bluetooth.Stop(startTimeDuration);
+      }, [sampleTime*1000 + pendingTime + delayTime]);
+    }
   };
 
   return (
@@ -124,7 +142,24 @@ const BloodPressurePage = () => {
               press
             </DiagramText>
             <DiagramButton onClick={startInput}>Start</DiagramButton>
-            <Counter startCountDown = {startCountDown}/>
+            <DropdownButton>
+              <Dropdown
+                style={{ width: "100%" }}
+                value={sampleTime}
+                className="filter-btn"
+                onChange={(e) => setSampleTime(e.value)}
+                options={[
+                  { name: "Sample Time: 10s", value: 10 },
+                  { name: "Sample Time: 15s", value: 15 },
+                  { name: "Sample Time: 20s", value: 20 },
+                ]}
+                optionLabel="name"
+                placeholder={"sample time  ↓"}
+              />
+            </DropdownButton>
+            <CircularContainer>
+              <Counter counter={counter} startCountDown={startCountDown} />
+            </CircularContainer>
           </Description>
           <DiagramContainer>
             <Diagram data={chartData} sizeOfSlice={sizeOfSlice} />
@@ -133,14 +168,14 @@ const BloodPressurePage = () => {
               <ImportantValue>
                 {SYS}/{DIA}
               </ImportantValue>
-              <CircularContainer>
-                <CircularValue>{qualityIndex}</CircularValue>
-              </CircularContainer>
+              <SimpleTitle>Quality Index</SimpleTitle>
+              <SimpleValue>{qualityIndex}</SimpleValue>
             </InfoContainer>
           </DiagramContainer>
         </DiagramWrapper>
       </div>
       <PageButtons
+        disable={disable}
         dataName="BloodPressureData"
         texts={["SYS/DIA " + ""]}
         saved={saved}

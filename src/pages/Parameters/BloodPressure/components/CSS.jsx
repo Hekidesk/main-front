@@ -18,7 +18,8 @@ export const DiagramText = styled.h6`
 `;
 export const DiagramButton = styled.button`
   background: transparent;
-  color: var(--main-green);
+  color: var(--gray);
+  text-shadow : 1px 1px 1px #fff;
   border: none;
   font-size: 1.4em;
   font-weight: bold;
@@ -87,9 +88,8 @@ export const CircularValue = styled.div`
   font-weight: bold;
 `;
 export const CircularContainer = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: center;
+  margin-left: 20px;
+  margin-bottom: 20px;
 `;
 
 export const CountDownNumber = styled.div`
@@ -100,4 +100,11 @@ export const CountDownNumber = styled.div`
   font-weight: 1500px;
   margin-bottom: 0.5rem;
   margin-left: 2rem;
+`;
+export const DropdownButton = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-left: 10px;
 `;

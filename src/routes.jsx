@@ -15,7 +15,6 @@ import TemperaturePage from "@/pages/Parameters/Temperature/Temperature.page";
 import BloodPressurePage from "@/pages/Parameters/BloodPressure/BloodPressure.page";
 import HeartAndLungSoundPage from "@/pages/Parameters/HeartAndLungSound/HeartAndLungSound.page";
 import ProtectedRoute from "@/hooks/ProtectedRoute";
-import DemoPage from "@/pages/Demo/Demo.page";
 
 function AppRoutes() {
   return (
@@ -27,7 +26,6 @@ function AppRoutes() {
           <Route path={"register-device"} element={<RegisterDevicePage />} />
           <Route path={"user-desk"} element={<DeskPage />} />
           <Route path={"connection"} element={<ConnectionPage />} />
-          <Route path={"demo"} element={<DemoPage />} />
         </Route>
         <Route
           path={process.env.REACT_APP_BASE_URL + "/history"}

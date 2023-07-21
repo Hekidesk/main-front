@@ -1,3 +1,4 @@
+import "@/assets/styles/primereactStyle.css";
 import PageWrapper from "@/components/PageWrapper/PageWrapper";
 import Diagram from "@/components/Datagram/Diagram";
 import HeartIcon from "@/assets/icon/parameter/heart.svg";
@@ -5,7 +6,6 @@ import HighlightTitle from "@/components/HighlightTitle/HighlightTitle";
 import { useEffect, useState, useContext, useRef } from "react";
 import {
   CircularContainer,
-  CircularValue,
   Description,
   DiagramButton,
   DiagramContainer,
@@ -17,10 +17,11 @@ import {
   SimpleTitle,
   SimpleValue,
   filterButton,
+  DropdownButton,
 } from "./components/CSS";
 import { BluetoothContext } from "@/App";
-import { Button, Dropdown, DropdownButton } from "react-bootstrap";
-// import "../../../assets/styles/measurement.css";
+import { Button } from "primereact/button";
+import { Dropdown } from "primereact/dropdown";
 import axios from "axios";
 import { useAddToDB } from "@/database/AddToDB";
 import PageButtons from "@/components/reusable/PageButtons";
@@ -31,21 +32,22 @@ import {
 import Swal from "sweetalert2";
 import Counter from "@/components/Counter/Counter";
 
-const DemoPage = () => {
+const OximetryPage = () => {
   const [IrData, setIrData] = useState();
   const [RedData, setRedData] = useState();
   const [chartData, setChartData] = useState();
   const [sizeOfSlice, setSizeOfSlice] = useState(-1);
   const dbFunc = useAddToDB("oximetryData");
 
-  const [heartBeat, setHeartBeat] = useState("-");
+  const [heartBeat, setHeartBeat] = useState("- ? -");
   const [SPO2, setSPO2] = useState("-");
-  const [qualityIndex, setQualityIndex] = useState(0);
+  const [qualityIndex, setQualityIndex] = useState("-");
   const [saved, setSaved] = useState(0);
 
   const [filteredArray, setFilteredArray] = useState([]);
-  const [filterActiveNum, setFilterActiveNum] = useState(0);
+  const [filterActiveNum, setFilterActiveNum] = useState(-1);
   const [filter, setFilter] = useState(1);
+  const [disable, setDisable] = useState(1);
 
   const bluetooth = useContext(BluetoothContext);
 
@@ -58,7 +60,7 @@ const DemoPage = () => {
       Red: "[" + RedData.toString() + "]",
       fs: bluetooth.GetFrequency()[0],
     };
-    let res = await axios.post("http://127.0.0.1:5000//PPG_signal", payload);
+    let res = await axios.post("https://api.hekidesk.com//PPG_signal", payload);
     console.log(res.data);
     if (!Number(res.data.Try_Again)) {
       setHeartBeat(res.data.HeartRate);
@@ -73,6 +75,7 @@ const DemoPage = () => {
         makeArrayForChart(makeArrayFormString(res.data.PPG_clear)),
         makeArrayForChart(makeArrayFormString(res.data.PPG_clear)),
       ]);
+      setDisable(0);
     } else
       Swal.fire({
         icon: "error",
@@ -96,10 +99,17 @@ const DemoPage = () => {
   }, [bluetooth]);
 
   useEffect(() => {
+    console.log("filter: " + filter);
+    console.log(filterActiveNum);
+    console.log(filteredArray);
     setChartData(
       filter
-        ? filteredArray[filterActiveNum]
-        : filteredArray[filterActiveNum + 1]
+        ? filteredArray[
+            filterActiveNum === -1 ? filterActiveNum + 1 : filterActiveNum
+          ]
+        : filteredArray[
+            filterActiveNum === -1 ? filterActiveNum + 2 : filterActiveNum + 1
+          ]
     );
   }, [filterActiveNum, filter]);
 
@@ -113,28 +123,43 @@ const DemoPage = () => {
   }, [saved]);
 
   const [startCountDown, setStartCountDown] = useState(0);
+  const [counter, setCounter] = useState(5);
+  const [sampleTime, setSampleTime] = useState(10);
 
+  // const sampleTime = 10000;
   const pendingTime = 5000;
-  const sampleTime = 10000;
   const startTime = useRef(null);
   const endTime = useRef(null);
+  const delayTime = 30;
 
-  const startInput = () => {
-    let startTimeDuration = 0;
+  const flushData = () => {
     setStartCountDown(1);
     setSaved(0);
-    setHeartBeat("-");
+    setDisable(1);
+    setChartData([]);
+    setHeartBeat("- ? -");
     setSPO2("-");
-    setQualityIndex("");
-    startTime.current = setTimeout(() => {
-      bluetooth.Start().then((result) => (startTimeDuration = result));
-      setSizeOfSlice(400);
-      setStartCountDown(0);
-    }, [pendingTime]);
-    endTime.current = setTimeout(() => {
-      bluetooth.Stop(startTimeDuration);
-      setSizeOfSlice(-1);
-    }, [sampleTime + pendingTime]);
+    setQualityIndex("-");
+    setCounter(5);
+  };
+
+  const startInput = () => {
+    if (bluetooth.CheckConnection()) {
+      let startTimeDuration = 0;
+      flushData();
+      startTime.current = setTimeout(() => {
+        setCounter(sampleTime);
+        console.log(startCountDown);
+        bluetooth.Start().then((result) => (startTimeDuration = result));
+        setSizeOfSlice(400);
+      }, [pendingTime + delayTime]);
+      endTime.current = setTimeout(() => {
+        setStartCountDown(0);
+        setCounter(5);
+        bluetooth.Stop(startTimeDuration);
+        setSizeOfSlice(-1);
+      }, [sampleTime * 1000 + pendingTime + delayTime]);
+    }
   };
 
   return (
@@ -145,53 +170,67 @@ const DemoPage = () => {
         <DiagramWrapper>
           <Description>
             <DiagramText>
-              Please put your right and left fingers on ECG sensors and then
+              Please put your right and left fingers on PPG sensors and then
               press
             </DiagramText>
             <DiagramButton onClick={startInput}>Start</DiagramButton>
-            <Counter startCountDown={startCountDown} />
+            <DropdownButton>
+              <Dropdown
+                style={{ width: "100%" }}
+                value={sampleTime}
+                className="filter-btn"
+                onChange={(e) => setSampleTime(e.value)}
+                options={[
+                  { name: "Sample Time: 10s", value: 10 },
+                  { name: "Sample Time: 15s", value: 15 },
+                  { name: "Sample Time: 20s", value: 20 },
+                ]}
+                optionLabel="name"
+                placeholder={"sample time  ↓"}
+              />
+            </DropdownButton>
+            <CircularContainer>
+              <Counter counter={counter} startCountDown={startCountDown} />
+            </CircularContainer>
           </Description>
           <DiagramContainer>
             <Diagram data={chartData} sizeOfSlice={sizeOfSlice} />
             <InfoContainer>
-              <ImportantTitle>bpmHr</ImportantTitle>
-              <ImportantValue>-{heartBeat}-</ImportantValue>
-              <SimpleTitle>SPO2</SimpleTitle>
+              <ImportantTitle>Heart Rate (bpm)</ImportantTitle>
+              <ImportantValue>{heartBeat}</ImportantValue>
+              <SimpleTitle>SPO2 %</SimpleTitle>
               <SimpleValue>{SPO2}</SimpleValue>
-              <CircularContainer>
-                <CircularValue>{qualityIndex}</CircularValue>
-              </CircularContainer>
+              <SimpleTitle>Quality Index %</SimpleTitle>
+              <SimpleValue>{qualityIndex}</SimpleValue>
               <Button
                 style={filterButton}
                 onClick={() => setFilter(1 - filter)}
+                className="filter-btn"
+                disabled={disable}
               >
                 {filter % 2 ? "filtered" : "main"} signal
               </Button>
-              <DropdownButton id="dropdown-basic-button" title="Choose signal">
-                <Dropdown.Item
-                  onClick={() => setFilterActiveNum(0)}
-                  active={filterActiveNum === 0 || filterActiveNum === 1}
-                >
-                  ir
-                </Dropdown.Item>
-                <Dropdown.Item
-                  onClick={() => setFilterActiveNum(2)}
-                  active={filterActiveNum === 2 || filterActiveNum === 3}
-                >
-                  red
-                </Dropdown.Item>
-                <Dropdown.Item
-                  onClick={() => setFilterActiveNum(4)}
-                  active={filterActiveNum === 4 || filterActiveNum === 5}
-                >
-                  filtered ppg
-                </Dropdown.Item>
+              <DropdownButton>
+                <Dropdown
+                  style={{ width: "80%" }}
+                  value={filterActiveNum}
+                  onChange={(e) => setFilterActiveNum(e.value)}
+                  options={[
+                    { name: "ir", value: 0 },
+                    { name: "red", value: 2 },
+                    { name: "filtered ppg", value: 4 },
+                  ]}
+                  optionLabel="name"
+                  placeholder="Choose Signal  ↓"
+                  disabled={disable}
+                />
               </DropdownButton>
             </InfoContainer>
           </DiagramContainer>
         </DiagramWrapper>
       </div>
       <PageButtons
+        disable={disable}
         dataName="oximetryData"
         texts={[
           "Heart beat: " + heartBeat,
@@ -205,4 +244,4 @@ const DemoPage = () => {
   );
 };
 
-export default DemoPage;
+export default OximetryPage;

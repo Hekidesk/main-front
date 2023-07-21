@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from "@/components/Sidebar/Sidebar";
-import { Col, Row, Image } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import Profile from "../../Profile/Profile";
 import ProfileSection from "../../Profile/ProfileSection";
 import ParameterPhotoIcon from "@/assets/icon/parameterHistory.svg";
@@ -186,7 +186,7 @@ const ParameterHistoryPage = () => {
               <ProfileSection />
             </Col>
             <Col lg={7} md={12}>
-              <Image
+              <img
                 src={ParameterPhotoIcon}
                 className="top-history-img"
                 alt="time-history-photo"
@@ -196,7 +196,7 @@ const ParameterHistoryPage = () => {
           <Row>
             <Col md={6}>
               <div className="parameter-section">
-                <Image src={HeartRateIcon} alt="time-history-photo" />
+                <img src={HeartRateIcon} alt="time-history-photo" />
                 <div>Heart Rate (bpm) - ppg</div>
                 <HistoryChart
                   color="red"
@@ -207,7 +207,7 @@ const ParameterHistoryPage = () => {
             </Col>
             <Col md={6}>
               <div className="parameter-section">
-                <Image src={Spo2Icon} alt="time-history-photo" />
+                <img src={Spo2Icon} alt="time-history-photo" />
                 <div>SpO2 (%)</div>
                 <HistoryChart color="#8CCD47" data={[SPO2]} name={["SPO2"]} />
               </div>
@@ -216,7 +216,7 @@ const ParameterHistoryPage = () => {
           <Row>
             <Col md={6}>
               <div className="parameter-section">
-                <Image src={HeartRateIcon} alt="time-history-photo" />
+                <img src={HeartRateIcon} alt="time-history-photo" />
                 <div>Heart Rate (bpm) - ecg</div>
                 <HistoryChart
                   color="#43a5d6"
@@ -227,7 +227,7 @@ const ParameterHistoryPage = () => {
             </Col>
             <Col md={6}>
               <div className="parameter-section">
-                <Image src={PR_RR_INTERVAL} alt="time-history-photo" />
+                <img src={PR_RR_INTERVAL} alt="time-history-photo" />
                 <div>PR/RR Interval (msec)</div>
                 <HistoryChart
                   color="orange"
@@ -240,7 +240,7 @@ const ParameterHistoryPage = () => {
           <Row>
             <Col md={6}>
               <div className="parameter-section">
-                <Image src={QRS_Duration_Icon} alt="time-history-photo" />
+                <img src={QRS_Duration_Icon} alt="time-history-photo" />
                 <div>QRS Duration (msec)</div>
                 <HistoryChart
                   color="black"
@@ -251,7 +251,7 @@ const ParameterHistoryPage = () => {
             </Col>
             <Col md={6}>
               <div className="parameter-section">
-                <Image alt="hr" src={SYSDIAIcon} />
+                <img alt="hr" src={SYSDIAIcon} />
                 <div>HR Variation</div>
                 <HistoryChart color="green" data={[hrvVal]} name={["hrv"]} />
               </div>
@@ -260,7 +260,7 @@ const ParameterHistoryPage = () => {
           <Row>
             <Col md={6}>
               <div className="parameter-section">
-                <Image src={SYSDIAIcon} alt="time-history-photo" />
+                <img src={SYSDIAIcon} alt="time-history-photo" />
                 <div>SYS/DIA(mmHg)</div>
                 <HistoryChart
                   color="yellow"
@@ -271,7 +271,7 @@ const ParameterHistoryPage = () => {
             </Col>
             <Col md={6}>
               <div className="parameter-section">
-                <Image src={TemperatureIcon} alt="time-history-photo" />
+                <img src={TemperatureIcon} alt="time-history-photo" />
                 <div>Temperature</div>
                 <HistoryChart
                   color="purple"
@@ -284,7 +284,7 @@ const ParameterHistoryPage = () => {
           <Row>
             <Col md={6}>
               <div className="parameter-section">
-                <Image src={RespirationRateIcon} alt="time-history-photo" />
+                <img src={RespirationRateIcon} alt="time-history-photo" />
                 <div>Respiration Rate (bpm)</div>
                 <HistoryChart
                   color="#43a5d6"
@@ -295,7 +295,7 @@ const ParameterHistoryPage = () => {
             </Col>
             <Col md={6}>
               <div className="parameter-section">
-                <Image src={HeartAbnormalityIcon} alt="time-history-photo" />
+                <img src={HeartAbnormalityIcon} alt="time-history-photo" />
                 <div>Heart Rate - sound</div>
                 <HistoryChart
                   color="black"
@@ -309,10 +309,11 @@ const ParameterHistoryPage = () => {
       </Row>
       <Row className="d-flex justify-content-end">
         <Link
+          // eslint-disable-next-line no-undef
           to={process.env.REACT_APP_BASE_URL + "/history"}
           style={ButtonMyDeskStyle}
         >
-          <Image
+          <img
             src={upIcon}
             alt="Image"
             width="16px"

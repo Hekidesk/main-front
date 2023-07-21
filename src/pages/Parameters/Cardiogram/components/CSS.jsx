@@ -18,7 +18,8 @@ export const DiagramText = styled.h6`
 `;
 export const DiagramButton = styled.button`
   background: transparent;
-  color: var(--main-green);
+  color: var(--gray);
+  text-shadow: 1px 1px 1px #fff;
   border: none;
   font-size: 1.4em;
   font-weight: bold;
@@ -32,16 +33,24 @@ export const DiagramContainer = styled.div`
   background: #c8e7f1;
   width: 100%;
   flex-direction: column;
-  box-shadow: -1px -1px 50px -12px rgba(0, 0, 0, 0.82);
-  margin-bottom: 50px;
+  box-shadow: -1px -1px 10px -12px rgba(0, 0, 0, 0.82);
+  margin-bottom: 10px;
   @media ${devices.tablet} {
     flex-direction: row;
   }
 `;
 export const AbnormalityDiagramContainer = styled.div`
-  background: #c8e7f1;
+  background-color: #c8e7f1;
   flex-direction: column;
-  box-shadow: -1px -1px 50px -12px rgba(0, 0, 0, 0.82);
+  box-shadow: -1px -1px 10px -12px rgba(0, 0, 0, 0.82);
+`;
+export const AbnormalityDiagramTitleContainer = styled.div`
+  height: 50px;
+  text-align: center;
+  text-shadow: 1px 1px 1px #fff;
+  font-size: 1em;
+  font-weight: bold;
+  margin-top: 10px;
 `;
 export const InfoContainer = styled.div`
   background: #c8e7f1;
@@ -59,29 +68,33 @@ export const InfoContainer = styled.div`
 
 export const ImportantTitle = styled.h6`
   color: var(--important-color);
-  font-weight: bold;
+  text-shadow: 1px 1px 10px var(--important-color);
 `;
 
 export const ImportantValue = styled.h3`
   color: var(--important-color);
-  font-weight: bold;
   text-align: center;
+  font-size: 50px;
+  font-weight: bold;
+  text-shadow: 1px 1px 10px var(--important-color);
 `;
 
 export const SimpleTitle = styled.h6`
   color: var(--main-green);
-  font-weight: bold;
+  text-shadow: 1px 1px 10px var(--main-green);
 `;
 
 export const SimpleValue = styled.h3`
   color: var(--main-green);
-  font-weight: bold;
   text-align: center;
+  font-size: 30px;
+  text-shadow: 1px 1px 10px var(--main-green);
 `;
 
 export const SmallSimpleValue = styled.h5`
   color: var(--main-green);
   font-weight: bold;
+  font-size: 12px;
   text-align: center;
 `;
 
@@ -98,16 +111,20 @@ export const CircularValue = styled.div`
   font-weight: bold;
 `;
 export const CircularContainer = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: center;
+  margin-left: 20px;
+  margin-bottom: 20px;
 `;
-
 export const filterButton = {
   margin: "20px auto",
   display: "block",
   alignItems: "center",
   backgroundColor: "var(--main-green)",
   border: "var(--main-green)",
-}
-
+};
+export const DropdownButton = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-left: 10px;
+`;

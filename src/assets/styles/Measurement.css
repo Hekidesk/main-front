@@ -51,46 +51,7 @@
   font-size: 12.8px;
 }
 
-.dropdown {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 0;
-}
 
-.dropdown button {
-  background-color: var(--main-green);
-  border: var(--main-green);
-}
 
-.dropdown button:hover {
-  background-color: var(--nav-color-top);
-  border: var(--main-green);
-}
 
-.dropdown button:active {
-  background-color: var(--nav-color-top) !important;
-  border: var(--main-green);
-}
 
-.dropdown button:disabled {
-  background-color: var(--main-green) !important;
-  border: var(--main-green);
-}
-
-.btn:hover {
-  background-color: var(--nav-color-top) !important;
-}
-
-.p-radiobutton .p-radiobutton-box.p-highlight {
-  background: var(--main-green) !important;
-  border: var(--main-green) !important;
-}
-
-.p-radiobutton .p-radiobutton-box {
-  border: none !important;
-}
-
-.p-inputtext {
-  color: rgb(249, 249, 249) !important;
-}
