@@ -9,7 +9,10 @@ import timeHistory from "HEKIDESK/assets/icon/history/time-history.svg";
 import { ButtonHistoryStyle } from "HEKIDESK/components/reusable/ButtonStyle";
 import { Link } from "react-router-dom";
 import { useIndexedDB } from "react-indexed-db";
-import { GetDateTimeDB, convertStringToDateDB } from "HEKIDESK/utilities/time/time";
+import {
+  GetDateTimeDB,
+  convertStringToDateDB,
+} from "HEKIDESK/utilities/time/time";
 
 const TimeHistoryPage = () => {
   const [data, setData] = useState(null);
@@ -35,7 +38,7 @@ const TimeHistoryPage = () => {
   }, []);
 
   useEffect(() => {
-    if (data && data.length) retrieveDate(currentDate);
+    if (data?.length) retrieveDate(currentDate);
   }, [data]);
 
   const retrieveDate = (currentDate) => {
@@ -48,23 +51,16 @@ const TimeHistoryPage = () => {
   };
 
   const decCurrentUser = () => {
-    currentDate - 1 >= 0
-      ? setCurrentDate(currentDate - 1)
-      : setCurrentDate(currentDate);
+    if (currentDate - 1 >= 0) setCurrentDate(currentDate - 1);
 
-    activeIndex - 1 >= 0
-      ? setActiveIndex(activeIndex - 1)
-      : setActiveIndex(activeIndex);
+    if (activeIndex - 1 >= 0) setActiveIndex(activeIndex - 1);
   };
 
   const incCurrentUser = () => {
-    currentDate + 1 < dates.length && activeIndex % 5 == 4
-      ? setCurrentDate(currentDate + 1)
-      : setCurrentDate(currentDate);
+    if (currentDate + 1 < dates.length && activeIndex % 5 == 4)
+      setCurrentDate(currentDate + 1);
 
-    activeIndex + 1 < dates.length
-      ? setActiveIndex(activeIndex + 1)
-      : setActiveIndex(activeIndex);
+    if (activeIndex + 1 < dates.length) setActiveIndex(activeIndex + 1);
   };
 
   const firstDate = () => {

@@ -52,6 +52,7 @@ export function downloadSVGAsPNG(e, dataKey, texts) {
 }
 
 export function downloadPDFAsPNG(e, dataKey, texts) {
+  // build error
   // var dataURL = prepareURLFile(texts);
   // const fileName = dataKey + ".pdf";
   // const doc = new jsPDF();

@@ -120,7 +120,6 @@ const OximetryPage = () => {
   const [counter, setCounter] = useState(5);
   const [sampleTime, setSampleTime] = useState(10);
 
-  // const sampleTime = 10000;
   const pendingTime = 5000;
   const startTime = useRef(null);
   const endTime = useRef(null);
@@ -167,7 +166,7 @@ const OximetryPage = () => {
               press
             </DiagramText>
             <DiagramButton onClick={startInput}>Start</DiagramButton>
-            <DropdownButton style={{marginLeft: "15px"}}>
+            <DropdownButton style={{ marginLeft: "15px" }}>
               <Dropdown
                 style={{ width: "100%" }}
                 value={sampleTime}

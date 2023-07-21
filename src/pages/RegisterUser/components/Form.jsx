@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { Col, LogoRow, Row, Title } from "./CSS";
 import { useIndexedDB } from "react-indexed-db";
 import { Calendar } from "primereact/calendar";
+// temporary removed
 // import "../../../assets/styles/measurement.css";
 
 const RegisterForm = () => {

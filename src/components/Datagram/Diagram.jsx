@@ -36,7 +36,6 @@ const Diagram = ({ data, sizeOfSlice = -1 }) => {
     },
     axisY: {
       lineThickness: 0,
-      // interval: 50,
       tickLength: 0,
       gridColor: "#1CB5BDb1",
       gridThickness: 0.5,
@@ -49,7 +48,6 @@ const Diagram = ({ data, sizeOfSlice = -1 }) => {
       {
         type: "line",
         color: "#1CB5BD",
-        // dataPoints: data,
         dataPoints:
           data && sizeOfSlice > 0 && data.length - sizeOfSlice > 0
             ? data.slice(data.length - sizeOfSlice)
