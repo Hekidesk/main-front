@@ -1,4 +1,4 @@
-import Heartbeat from "@/assets/gif/life-heart.mp4";
+import Heartbeat from "@/assets/gif/heartbeat.mp4";
 import { Image } from "primereact/image";
 import { ContainerWithoutHeight } from "@/components/reusable/Container";
 import { Title } from "@/components/reusable/Title";
@@ -32,7 +32,7 @@ const ConnectionForm = () => {
         </div>
       )}
       {bluetooth.loading && (
-        <video autoPlay>
+        <video width={150} autoPlay>
           <source src={Heartbeat} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
@@ -40,6 +40,7 @@ const ConnectionForm = () => {
       <br />
       {bluetooth.isConnected && !bluetooth.loading && (
         <Link
+          // eslint-disable-next-line no-undef
           to={process.env.REACT_APP_BASE_URL + "/measurement"}
           style={ButtonStyle}
         >

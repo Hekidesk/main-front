@@ -22,7 +22,6 @@ import {
 import { BluetoothContext } from "@/App";
 import { Button } from "primereact/button";
 import { Dropdown } from "primereact/dropdown";
-// import { Dropdown, DropdownButton } from "react-bootstrap";
 import axios from "axios";
 import { useAddToDB } from "@/database/AddToDB";
 import PageButtons from "@/components/reusable/PageButtons";

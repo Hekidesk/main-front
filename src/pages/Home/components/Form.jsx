@@ -80,6 +80,7 @@ const HomeForm = () => {
         <Dropdown
           value={selectedDevice}
           onChange={(e) => setSelectedDevice(e.value)}
+          className = "home-dropdown"
           options={devices}
           optionLabel="name"
           placeholder={"Select a device"}
@@ -98,6 +99,7 @@ const HomeForm = () => {
         <Dropdown
           value={selectedUser}
           onChange={(e) => selectUser(e.value)}
+          className = "home-dropdown"
           options={users}
           optionLabel="username"
           placeholder={"Select a user"}

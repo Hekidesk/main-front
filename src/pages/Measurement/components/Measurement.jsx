@@ -1,4 +1,4 @@
-import { Col, Row, Card, Image } from "react-bootstrap";
+import { Col, Row, Card } from "react-bootstrap";
 import TopPhotoIcon from "@/assets/icon/measurement/doctorPhoto.svg";
 import CarIcon from "@/assets/icon/measurement/cardiogramIcon.svg";
 import OxIcon from "@/assets/icon/measurement/oximetryIcon.svg";
@@ -18,7 +18,7 @@ const Measurement = () => {
           <h2 className="title-name">Measurement</h2>
         </Row>
         <Row>
-          <Image src={TopPhotoIcon} className="top-img" />
+          <img src={TopPhotoIcon} className="top-img" />
         </Row>
         <Row>
           <Col lg={4} sm={6}>
@@ -29,7 +29,7 @@ const Measurement = () => {
               <Card>
                 <Card.Body>
                   <Card.Title>
-                    <Image src={CarIcon} />
+                    <img src={CarIcon} />
                   </Card.Title>
                   <div className="record-text">records of</div>
                   <Card.Text>Cardiogram</Card.Text>
@@ -44,7 +44,7 @@ const Measurement = () => {
               <Card>
                 <Card.Body>
                   <Card.Title>
-                    <Image src={OxIcon} />
+                    <img src={OxIcon} />
                   </Card.Title>
                   <div className="record-text">records of</div>
                   <Card.Text>Oximetry</Card.Text>
@@ -63,7 +63,7 @@ const Measurement = () => {
               <Card>
                 <Card.Body>
                   <Card.Title>
-                    <Image src={SoundIcon} />
+                    <img src={SoundIcon} />
                   </Card.Title>
                   <Card.Text>
                     <div className="record-text">records of</div>
@@ -83,7 +83,7 @@ const Measurement = () => {
               <Card>
                 <Card.Body>
                   <Card.Title>
-                    <Image src={BpIcon} />
+                    <img src={BpIcon} />
                   </Card.Title>
                   <div className="record-text">records of</div>
                   <Card.Text>Blood Pressure</Card.Text>
@@ -99,7 +99,7 @@ const Measurement = () => {
               <Card>
                 <Card.Body>
                   <Card.Title>
-                    <Image src={TemeperatureIcon} />
+                    <img src={TemeperatureIcon} />
                   </Card.Title>
                   <div className="record-text">records of</div>
                   <Card.Text>Temperature</Card.Text>
@@ -115,7 +115,7 @@ const Measurement = () => {
           to={process.env.REACT_APP_BASE_URL + "/user-desk"}
           style={ButtonMyDeskStyle}
         >
-          <Image
+          <img
             src={MyDeskIcon}
             alt="Image"
             width="16px"

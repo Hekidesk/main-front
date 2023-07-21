@@ -1,10 +1,14 @@
 
 .filter-btn:hover {
-    background-color: var(--nav-color-top) !important;
+  background-color: var(--nav-color-top) !important;
 }
 
 .p-button:focus {
   box-shadow: none !important;
+}
+
+.page-btn:hover {
+  background-color: var(--nav-color-top) !important;
 }
 
 .p-inputtext {
@@ -30,7 +34,6 @@
 }
 
 .p-component:hover{
-  border: var(--nav-color-top) !important;
   box-shadow: none !important;
 }
 
@@ -50,3 +53,19 @@
 .filter-btn > .p-dropdown-label:hover {
   background-color: gray !important;
 }
+
+.home-dropdown > .p-dropdown-label{
+  background-color: var(--title-color) !important;
+  border: none !important;
+}
+
+.p-radiobutton .p-radiobutton-box.p-highlight {
+  background: var(--main-green) !important;
+  border: var(--main-green) !important;
+}
+
+.p-radiobutton .p-radiobutton-box {
+  border: none !important;
+}
+
+

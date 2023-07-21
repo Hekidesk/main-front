@@ -52,18 +52,6 @@
 }
 
 
-.p-radiobutton .p-radiobutton-box.p-highlight {
-  background: var(--main-green) !important;
-  border: var(--main-green) !important;
-}
-
-.p-radiobutton .p-radiobutton-box {
-  border: none !important;
-}
-
-.btn:hover {
-  background-color: var(--nav-color-top) !important;
-}
 
 
 
