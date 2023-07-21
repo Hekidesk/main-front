@@ -170,28 +170,24 @@ const OximetryPage = () => {
         <DiagramWrapper>
           <Description>
             <DiagramText>
-              Please put your right and left fingers on PPG sensors and then
-              press
+              Please put your finger on PPG sensor and then press
             </DiagramText>
             <DiagramButton onClick={startInput}>Start</DiagramButton>
-            <DropdownButton style={{marginLeft: "15px"}}>
+            <DropdownButton style={{ marginLeft: "15px" }}>
               <Dropdown
                 style={{ width: "100%" }}
                 value={sampleTime}
                 className="filter-btn"
                 onChange={(e) => setSampleTime(e.value)}
                 options={[
-                  { name: "Sample Time: 10s", value: 10 },
-                  { name: "Sample Time: 15s", value: 15 },
-                  { name: "Sample Time: 20s", value: 20 },
+                  { name: "10s", value: 10 },
+                  { name: "20s", value: 20 },
+                  { name: "30s", value: 30 },
                 ]}
                 optionLabel="name"
                 placeholder={"sample time  ↓"}
               />
             </DropdownButton>
-            <CircularContainer>
-              <Counter counter={counter} startCountDown={startCountDown} />
-            </CircularContainer>
           </Description>
           <DiagramContainer>
             <Diagram data={chartData} sizeOfSlice={sizeOfSlice} />
@@ -225,6 +221,9 @@ const OximetryPage = () => {
                   disabled={disable}
                 />
               </DropdownButton>
+              <CircularContainer>
+                <Counter counter={counter} startCountDown={startCountDown} size = {75}/>
+              </CircularContainer>
             </InfoContainer>
           </DiagramContainer>
         </DiagramWrapper>

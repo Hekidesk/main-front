@@ -176,7 +176,7 @@ const CardiogramPage = () => {
         setStartCountDown(0);
         bluetooth.Stop(startTimeDuration);
         setSizeOfSlice(-1);
-      }, [sampleTime*1000 + pendingTime + delayTime]);
+      }, [sampleTime * 1000 + pendingTime + delayTime]);
     }
   };
 
@@ -223,9 +223,9 @@ const CardiogramPage = () => {
                 className="filter-btn"
                 onChange={(e) => setSampleTime(e.value)}
                 options={[
-                  { name: "Sample Time: 10s", value: 10 },
-                  { name: "Sample Time: 15s", value: 15 },
-                  { name: "Sample Time: 20s", value: 20 },
+                  { name: "10s", value: 10 },
+                  { name: "20s", value: 20 },
+                  { name: "30s", value: 30 },
                 ]}
                 optionLabel="name"
                 placeholder={"sample time  ↓"}

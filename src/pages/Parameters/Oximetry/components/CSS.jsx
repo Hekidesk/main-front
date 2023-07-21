@@ -94,8 +94,10 @@ export const CircularValue = styled.div`
   font-weight: bold;
 `;
 export const CircularContainer = styled.div`
-  margin-left: 20px;
-  margin-bottom: 20px;
+  display: flex;
+  position: relative;
+  justify-content: center;
+  text-align: center;
 `;
 export const DropdownButton = styled.div`
   display: flex;

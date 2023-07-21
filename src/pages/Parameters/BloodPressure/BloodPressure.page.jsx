@@ -26,11 +26,13 @@ import { BluetoothContext } from "@/App";
 import { makeArrayForChart } from "@/components/reusableDataFunc/DataFunc";
 import Counter from "@/components/Counter/Counter";
 import { Dropdown } from "primereact/dropdown";
+import { Row, Col } from "react-bootstrap";
 
 const BloodPressurePage = () => {
   const [IrData, setIrData] = useState();
   const [forceData, setforceData] = useState();
-  const [chartData, setChartData] = useState();
+  const [IRChartData, setIRChartData] = useState();
+  const [forceChartData, setForceChartData] = useState();
   const [sizeOfSlice, setSizeOfSlice] = useState(-1);
   const dbFunc = useAddToDB("BPData");
 
@@ -74,9 +76,11 @@ const BloodPressurePage = () => {
   useEffect(() => {
     if (bluetooth)
       bluetooth.SendCommand(COMMAND, (input) => {
-        setChartData(makeArrayForChart(input.ir));
+        setIRChartData(makeArrayForChart(input.ir));
+        setForceChartData(makeArrayForChart(input.force));
         setIrData(input.ir);
         setforceData(input.force);
+        console.log(input.force)
       });
     if (bluetooth.finish) {
       calculate(IrData, forceData);
@@ -96,7 +100,7 @@ const BloodPressurePage = () => {
   const [startCountDown, setStartCountDown] = useState(0);
   const [counter, setCounter] = useState(5);
   const [sampleTime, setSampleTime] = useState(10);
-  
+
   const pendingTime = 5000;
   const startTime = useRef(null);
   const endTime = useRef(null);
@@ -108,7 +112,7 @@ const BloodPressurePage = () => {
     setQualityIndex(0);
     setSaved(0);
     setDisable(1);
-    setChartData([]);
+    setIRChartData([]);
     setStartCountDown(1);
   };
 
@@ -126,7 +130,7 @@ const BloodPressurePage = () => {
         setSizeOfSlice(-1);
         setStartCountDown(0);
         bluetooth.Stop(startTimeDuration);
-      }, [sampleTime*1000 + pendingTime + delayTime]);
+      }, [sampleTime * 1000 + pendingTime + delayTime]);
     }
   };
 
@@ -138,8 +142,7 @@ const BloodPressurePage = () => {
         <DiagramWrapper>
           <Description>
             <DiagramText>
-              Please put your right and left fingers on ECG sensors and then
-              press
+              Please put your finger on PPG sensors and then press it slowly
             </DiagramText>
             <DiagramButton onClick={startInput}>Start</DiagramButton>
             <DropdownButton>
@@ -149,9 +152,9 @@ const BloodPressurePage = () => {
                 className="filter-btn"
                 onChange={(e) => setSampleTime(e.value)}
                 options={[
-                  { name: "Sample Time: 10s", value: 10 },
-                  { name: "Sample Time: 15s", value: 15 },
-                  { name: "Sample Time: 20s", value: 20 },
+                  { name: "10s", value: 10 },
+                  { name: "20s", value: 20 },
+                  { name: "30s", value: 30 },
                 ]}
                 optionLabel="name"
                 placeholder={"sample time  ↓"}
@@ -162,15 +165,20 @@ const BloodPressurePage = () => {
             </CircularContainer>
           </Description>
           <DiagramContainer>
-            <Diagram data={chartData} sizeOfSlice={sizeOfSlice} />
-            <InfoContainer>
-              <ImportantTitle>SYS/DIA</ImportantTitle>
-              <ImportantValue>
-                {SYS}/{DIA}
-              </ImportantValue>
-              <SimpleTitle>Quality Index</SimpleTitle>
-              <SimpleValue>{qualityIndex}</SimpleValue>
-            </InfoContainer>
+              <Col md = {4} style={{ marginRight: "50px", position: "relative" }}>
+                <Diagram data={IRChartData} sizeOfSlice={sizeOfSlice} />
+              </Col>
+              <Col md = {4} style={{ marginLeft: "50px", position: "relative" }}>
+                <Diagram data={forceChartData} sizeOfSlice={sizeOfSlice} />
+              </Col>
+              <InfoContainer>
+                <ImportantTitle>SYS/DIA</ImportantTitle>
+                <ImportantValue>
+                  {SYS}/{DIA}
+                </ImportantValue>
+                <SimpleTitle>Quality Index</SimpleTitle>
+                <SimpleValue>{qualityIndex}</SimpleValue>
+              </InfoContainer>
           </DiagramContainer>
         </DiagramWrapper>
       </div>
