@@ -34,7 +34,6 @@ export const DiagramContainer = styled.div`
   background: #c8e7f1;
   width: 100%;
   flex-direction: column;
-  box-shadow: -1px -1px 50px -12px rgba(0, 0, 0, 0.82);
   @media ${devices.tablet} {
     flex-direction: row;
   }

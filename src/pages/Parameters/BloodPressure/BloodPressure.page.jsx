@@ -25,7 +25,7 @@ import { BluetoothContext } from "HEKIDESK/App";
 import { makeArrayForChart } from "HEKIDESK/components/reusableDataFunc/DataFunc";
 import Counter from "HEKIDESK/components/Counter/Counter";
 import { Dropdown } from "primereact/dropdown";
-import { Row, Col } from "react-bootstrap";
+import { Col } from "react-bootstrap";
 
 const BloodPressurePage = () => {
   const [IrData, setIrData] = useState();
@@ -33,6 +33,7 @@ const BloodPressurePage = () => {
   const [IRChartData, setIRChartData] = useState();
   const [forceChartData, setForceChartData] = useState();
   const [sizeOfSlice, setSizeOfSlice] = useState(-1);
+  const [sizeOfSliceForce, setSizeOfSliceForce] = useState(-1);
   const dbFunc = useAddToDB("BPData");
 
   const [SYS, setSYS] = useState(0);
@@ -118,10 +119,12 @@ const BloodPressurePage = () => {
         bluetooth.Start().then((result) => (startTimeDuration = result));
         setCounter(sampleTime);
         setSizeOfSlice(400);
+        setSizeOfSliceForce(1500);
       }, [pendingTime + delayTime]);
       endTime.current = setTimeout(() => {
         setCounter(5);
         setSizeOfSlice(-1);
+        setSizeOfSliceForce(-1);
         setStartCountDown(0);
         bluetooth.Stop(startTimeDuration);
       }, [sampleTime * 1000 + pendingTime + delayTime]);
@@ -163,7 +166,7 @@ const BloodPressurePage = () => {
                 <Diagram data={IRChartData} sizeOfSlice={sizeOfSlice} />
               </Col>
               <Col md = {4} style={{ marginLeft: "50px", position: "relative" }}>
-                <Diagram data={forceChartData} sizeOfSlice={sizeOfSlice} />
+                <Diagram data={forceChartData} sizeOfSlice={sizeOfSliceForce} />
               </Col>
               <InfoContainer>
                 <ImportantTitle>SYS/DIA</ImportantTitle>
