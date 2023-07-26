@@ -1,13 +1,12 @@
 import { Col, Row, Card } from "react-bootstrap";
-// temp remove
-// import TopPhotoIcon from "HEKIDESK/assets/icon/measurement/doctorPhoto.svg";
+import { Link } from "react-router-dom";
+
 import CarIcon from "HEKIDESK/assets/icon/measurement/cardiogramIcon.svg";
 import OxIcon from "HEKIDESK/assets/icon/measurement/oximetryIcon.svg";
 import SoundIcon from "HEKIDESK/assets/icon/measurement/heartLungSoundIcon.svg";
 import TemeperatureIcon from "HEKIDESK/assets/icon/measurement/temeperatureIcon.svg";
 import BpIcon from "HEKIDESK/assets/icon/measurement/bloodPressureIcon.svg";
 import "HEKIDESK/assets/styles/Measurement.css";
-import { Link } from "react-router-dom";
 import { ButtonMyDeskStyle } from "HEKIDESK/components/reusable/ButtonStyle";
 import MyDeskIcon from "HEKIDESK/assets/icon/myDesk.svg";
 
@@ -29,18 +28,13 @@ const Measurement = () => {
         <Row>
           <h2 className="title-name">Measurement</h2>
         </Row>
-        {/* 
-        removed to improving ux score
-        <Row>
-          <img src={TopPhotoIcon} className="top-img" />
-        </Row> */}
         <Row style={{ minHeight: "40vh" }}>
           {routes.map((item, i) => (
             <Col lg={4} sm={6} key={i}>
               <Link
                 to={
                   // eslint-disable-next-line no-undef
-                  process.env.REACT_APP_BASE_URL + "/measurement/" + item.route
+                  process.env.REACT_APP_BASE_URL + "/measurement" + item.route
                 }
               >
                 <Card>

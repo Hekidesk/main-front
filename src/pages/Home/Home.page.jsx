@@ -1,7 +1,8 @@
 import FormWrapper from "HEKIDESK/components/FormWrapper/FormWrapper";
+import { Container } from "HEKIDESK/components/reusable/Container";
+
 import InfoHome from "./components/Info";
 import HomeForm from "./components/Form";
-import { Container } from "HEKIDESK/components/reusable/Container";
 
 const HomePage = () => {
   return (
