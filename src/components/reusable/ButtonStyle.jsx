@@ -12,21 +12,22 @@ const btn = {
 };
 
 export const ButtonStyle = {
-  backgroundColor: "var(--title-color)",
-  borderColor: "var(--title-color)",
+  backgroundColor: "var(--green-color)",
+  borderColor: "var(--green-color)",
   color: "white",
   ...btn,
 };
 
 export const ButtonOutlineStyle = {
-  color: "var(--title-color)",
-  border: "1px solid var(--title-color)",
+  color: "var(--green-color)",
+  border: "1px solid var(--green-color)",
+  backgroundColor: "transparent",
   ...btn,
 };
 
 export const ButtonMyDeskStyle = {
-  backgroundColor: "var(--title-color)",
-  borderColor: "var(--title-color)",
+  backgroundColor: "var(--green-color)",
+  borderColor: "var(--green-color)",
   color: "white",
   alignItems: "right",
   ...btn,
@@ -36,8 +37,8 @@ export const ButtonMyDeskStyle = {
 };
 
 export const ButtonBackStyle = {
-  backgroundColor: "var(--title-color)",
-  borderColor: "var(--title-color)",
+  backgroundColor: "var(--green-color)",
+  borderColor: "var(--green-color)",
   color: "white",
   alignItems: "right",
   ...btn,
@@ -48,8 +49,8 @@ export const ButtonBackStyle = {
 };
 
 export const ButtonMeasurementStyle = {
-  backgroundColor: "var(--title-color)",
-  borderColor: "var(--title-color)",
+  backgroundColor: "var(--green-color)",
+  borderColor: "var(--green-color)",
   color: "white",
   alignItems: "right",
   ...btn,
@@ -61,8 +62,8 @@ export const ButtonMeasurementStyle = {
 };
 
 export const ButtonHistoryStyle = {
-  backgroundColor: "var(--title-color)",
-  borderColor: "var(--title-color)",
+  backgroundColor: "var(--green-color)",
+  borderColor: "var(--green-color)",
   color: "white",
   alignItems: "right",
   ...btn,

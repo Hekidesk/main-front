@@ -1,11 +1,14 @@
+// PRIME REACT
 import { Image } from "primereact/image";
 
+// SVG
 import Icon from "HEKIDESK/assets/logo/hekidesk-transparent.svg";
 import HeartbeatIcon from "HEKIDESK/assets/icon/heartbeat.svg";
 import StethoscopeIcon from "HEKIDESK/assets/icon/stethoscope.svg";
 import BluetoothIcon from "HEKIDESK/assets/icon/bluetooth.svg";
 import SearchIcon from "HEKIDESK/assets/icon/question.svg";
 
+// HEKIDESK
 import { Text } from "HEKIDESK/components/reusable/Text";
 import { List, ListItems } from "HEKIDESK/components/reusable/List";
 import {

@@ -1,8 +1,16 @@
-import { Button } from "primereact/button";
-import { ButtonStyle } from "HEKIDESK/components/reusable/ButtonStyle";
 import { useState } from "react";
-import { InputTextGroup } from "HEKIDESK/components/reusable/InputTextGroup";
+
+// Third party
 import { useNavigate } from "react-router-dom";
+import { Button } from "primereact/button";
+
+// HEKIDESK
+import {
+  ButtonOutlineStyle,
+  ButtonStyle,
+} from "HEKIDESK/components/reusable/ButtonStyle";
+import { InputTextGroup } from "HEKIDESK/components/reusable/InputTextGroup";
+
 import { Col, Container, Row } from "./CSS";
 
 const RegisterForm = () => {
@@ -15,7 +23,6 @@ const RegisterForm = () => {
 
   // todo
   // add information of device after confirmation
-
   const submitRegisteryCode = () => {
     // todo
     // implement registery
@@ -31,20 +38,19 @@ const RegisterForm = () => {
         setState={(v) => onChangeValue("serial", v)}
         label={"Serial number"}
       />
-
       <Row>
         <Col>
-          <Button style={ButtonStyle} onClick={() => history(-1)}>
+          <Button style={ButtonOutlineStyle} onClick={() => history(-1)}>
             back
           </Button>
         </Col>
         <Col>
           <Button
-            disabled={form.serial < 1000000}
+            disabled={form.serial.length === 0}
             style={ButtonStyle}
             onClick={submitRegisteryCode}
           >
-            Continue {">"}
+            {"Continue >"}
           </Button>
         </Col>
       </Row>

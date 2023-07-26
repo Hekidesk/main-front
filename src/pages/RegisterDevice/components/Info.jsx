@@ -1,8 +1,12 @@
-import { Text } from "HEKIDESK/components/reusable/Text";
+// PRIME REACT
 import { Image } from "primereact/image";
+
+// HEKIDESK
+import { Text } from "HEKIDESK/components/reusable/Text";
 import Icon from "HEKIDESK/assets/logo/hekidesk-transparent.svg";
-import { SNBox, SubText } from "./CSS";
 import { ImageWrapper } from "HEKIDESK/components/reusable/ImageWrapper";
+
+import { SNBox, SubText } from "./CSS";
 
 const RegisterInfo = () => {
   return (

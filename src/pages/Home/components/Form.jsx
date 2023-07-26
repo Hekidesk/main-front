@@ -1,14 +1,18 @@
 import { Fragment , useState, useEffect } from "react";
+
+// Third party
 import { useIndexedDB } from "react-indexed-db";
 import { Link, useNavigate } from "react-router-dom";
+
+// PRIME REACT
 import { Image } from "primereact/image";
 import { Dropdown } from "primereact/dropdown";
 
-
+// SVG
 import Icon from "HEKIDESK/assets/logo/hekidesk-green.svg";
 import PlusIcon from "HEKIDESK/assets/icon/plus.svg";
 
-
+// HEKIDESK
 import { ContainerWithoutHeight } from "HEKIDESK/components/reusable/Container";
 import { Text } from "HEKIDESK/components/reusable/Text";
 import { Title } from "HEKIDESK/components/reusable/Title";
