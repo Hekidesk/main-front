@@ -1,20 +1,53 @@
+import React from "react";
+
+// Third party
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import HomePage from "HEKIDESK/pages/Home/Home.page";
-import RegisterPage from "HEKIDESK/pages/RegisterUser/Register.page";
-import RegisterDevicePage from "HEKIDESK/pages/RegisterDevice/RegisterDevice.page";
-import DeskPage from "HEKIDESK/pages/UserDesk/UserDesk.page";
-import ConnectionPage from "HEKIDESK/pages/Connection/Connection.page";
-import ParameterHistoryPage from "HEKIDESK/pages/History/Parameter/ParameterHistory.page";
-import TimeHistoryPage from "HEKIDESK/pages/History/Time/TimeHistory.page";
-import MeasurementPage from "HEKIDESK/pages/Measurement/Measurement.page";
-import HistoryDeskPage from "HEKIDESK/pages/History/HistoryDesk/HistoryDesk.page";
-import CardiogramPage from "HEKIDESK/pages/Parameters/Cardiogram/Cardiogram.page";
-import OximetryPage from "HEKIDESK/pages/Parameters/Oximetry/Oximetry.page";
-import TemperaturePage from "HEKIDESK/pages/Parameters/Temperature/Temperature.page";
-import BloodPressurePage from "HEKIDESK/pages/Parameters/BloodPressure/BloodPressure.page";
-import HeartAndLungSoundPage from "HEKIDESK/pages/Parameters/HeartAndLungSound/HeartAndLungSound.page";
+// HEKIDESK
 import ProtectedRoute from "HEKIDESK/hooks/ProtectedRoute";
+
+// Routes
+const HomePage = React.lazy(() => import("HEKIDESK/pages/Home/Home.page"));
+const RegisterPage = React.lazy(() =>
+  import("HEKIDESK/pages/RegisterUser/Register.page")
+);
+const RegisterDevicePage = React.lazy(() =>
+  import("HEKIDESK/pages/RegisterDevice/RegisterDevice.page")
+);
+const DeskPage = React.lazy(() =>
+  import("HEKIDESK/pages/UserDesk/UserDesk.page")
+);
+const ConnectionPage = React.lazy(() =>
+  import("HEKIDESK/pages/Connection/Connection.page")
+);
+const ParameterHistoryPage = React.lazy(() =>
+  import("HEKIDESK/pages/History/Parameter/ParameterHistory.page")
+);
+const TimeHistoryPage = React.lazy(() =>
+  import("HEKIDESK/pages/History/Time/TimeHistory.page")
+);
+const MeasurementPage = React.lazy(() =>
+  import("HEKIDESK/pages/Measurement/Measurement.page")
+);
+const HistoryDeskPage = React.lazy(() =>
+  import("HEKIDESK/pages/History/HistoryDesk/HistoryDesk.page")
+);
+const CardiogramPage = React.lazy(() =>
+  import("HEKIDESK/pages/Parameters/Cardiogram/Cardiogram.page")
+);
+
+const OximetryPage = React.lazy(() =>
+  import("HEKIDESK/pages/Parameters/Oximetry/Oximetry.page")
+);
+const TemperaturePage = React.lazy(() =>
+  import("HEKIDESK/pages/Parameters/Temperature/Temperature.page")
+);
+const BloodPressurePage = React.lazy(() =>
+  import("HEKIDESK/pages/Parameters/BloodPressure/BloodPressure.page")
+);
+const HeartAndLungSoundPage = React.lazy(() =>
+  import("HEKIDESK/pages/Parameters/HeartAndLungSound/HeartAndLungSound.page")
+);
 
 function AppRoutes() {
   return (
