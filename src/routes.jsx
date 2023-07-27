@@ -49,102 +49,106 @@ const HeartAndLungSoundPage = React.lazy(() =>
   import("HEKIDESK/pages/Parameters/HeartAndLungSound/HeartAndLungSound.page")
 );
 
+const loading = <div className="pt-3 text-center"></div>;
+
 function AppRoutes() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route
-          // eslint-disable-next-line no-undef
-          path={process.env.REACT_APP_BASE_URL}
-          element={null}
-        >
-          <Route index element={<HomePage />} />
-          <Route path={"register-user"} element={<RegisterPage />} />
-          <Route path={"register-device"} element={<RegisterDevicePage />} />
-          <Route path={"user-desk"} element={<DeskPage />} />
-          <Route path={"connection"} element={<ConnectionPage />} />
-        </Route>
-        <Route
-          // eslint-disable-next-line no-undef
-          path={process.env.REACT_APP_BASE_URL + "/history"}
-          element={null}
-        >
+      <React.Suspense fallback={loading}>
+        <Routes>
           <Route
-            index
-            element={
-              <ProtectedRoute>
-                <HistoryDeskPage />
-              </ProtectedRoute>
-            }
-          />
+            // eslint-disable-next-line no-undef
+            path={process.env.REACT_APP_BASE_URL}
+            element={null}
+          >
+            <Route index element={<HomePage />} />
+            <Route path={"register-user"} element={<RegisterPage />} />
+            <Route path={"register-device"} element={<RegisterDevicePage />} />
+            <Route path={"user-desk"} element={<DeskPage />} />
+            <Route path={"connection"} element={<ConnectionPage />} />
+          </Route>
           <Route
-            path={"parameter"}
-            element={
-              <ProtectedRoute>
-                <ParameterHistoryPage />
-              </ProtectedRoute>
-            }
-          />
+            // eslint-disable-next-line no-undef
+            path={process.env.REACT_APP_BASE_URL + "/history"}
+            element={null}
+          >
+            <Route
+              index
+              element={
+                <ProtectedRoute>
+                  <HistoryDeskPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path={"parameter"}
+              element={
+                <ProtectedRoute>
+                  <ParameterHistoryPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path={"time"}
+              element={
+                <ProtectedRoute>
+                  <TimeHistoryPage />
+                </ProtectedRoute>
+              }
+            />
+          </Route>
           <Route
-            path={"time"}
-            element={
-              <ProtectedRoute>
-                <TimeHistoryPage />
-              </ProtectedRoute>
-            }
-          />
-        </Route>
-        <Route
-          // eslint-disable-next-line no-undef
-          path={process.env.REACT_APP_BASE_URL + "/measurement"}
-          element={null}
-        >
-          <Route
-            index
-            element={
-              <ProtectedRoute needsDevice>
-                <MeasurementPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path={"cardiogram"}
-            element={
-              <ProtectedRoute needsDevice>
-                <CardiogramPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path={"oximetry"}
-            element={
-              <ProtectedRoute needsDevice>
-                <OximetryPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path={"blood-pressure"}
-            element={
-              <ProtectedRoute needsDevice>
-                <BloodPressurePage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path={"temperature"}
-            element={
-              <ProtectedRoute needsDevice>
-                <TemperaturePage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path={"heart-and-lung-sound"}
-            element={<HeartAndLungSoundPage />}
-          />
-        </Route>
-      </Routes>
+            // eslint-disable-next-line no-undef
+            path={process.env.REACT_APP_BASE_URL + "/measurement"}
+            element={null}
+          >
+            <Route
+              index
+              element={
+                <ProtectedRoute needsDevice>
+                  <MeasurementPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path={"cardiogram"}
+              element={
+                <ProtectedRoute needsDevice>
+                  <CardiogramPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path={"oximetry"}
+              element={
+                <ProtectedRoute needsDevice>
+                  <OximetryPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path={"blood-pressure"}
+              element={
+                <ProtectedRoute needsDevice>
+                  <BloodPressurePage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path={"temperature"}
+              element={
+                <ProtectedRoute needsDevice>
+                  <TemperaturePage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path={"heart-and-lung-sound"}
+              element={<HeartAndLungSoundPage />}
+            />
+          </Route>
+        </Routes>
+      </React.Suspense>
     </BrowserRouter>
   );
 }
