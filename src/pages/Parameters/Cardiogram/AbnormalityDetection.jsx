@@ -49,7 +49,7 @@ function AbnormalityDetection({
     return {
       animationEnabled: true,
       zoomEnabled: true,
-      backgroundColor: "#C8E7F1",
+      backgroundColor: "#C8E7F1",// hex
       position: "relative",
       toolTip: {
         animationEnabled: true,
@@ -57,7 +57,7 @@ function AbnormalityDetection({
       axisY: {
         lineThickness: 0,
         tickLength: 0,
-        gridColor: "#1CB5BDb1",
+        gridColor: "#1CB5BDb1",// hex
         gridThickness: 0,
         labelFormatter: function () {
           return "";
@@ -74,7 +74,7 @@ function AbnormalityDetection({
       axisX: {
         lineThickness: 0,
         tickLength: 0,
-        gridColor: "#1CB5BDb1",
+        gridColor: "#1CB5BDb1",// hex
         gridThickness: 0,
         labelFormatter: function () {
           return "";
@@ -85,8 +85,8 @@ function AbnormalityDetection({
       data: [
         {
           type: data === "hrv" ? "rangeColumn" : "line",
-          lineColor: "#1CB5BD",
-          color: "#1CB5BD",
+          lineColor: "#1CB5BD",// hex
+          color: "#1CB5BD",// hex
           lineThickness: 0,
           dataPoints:
             data === "hrv" ? [...getHrvSteam()] : getSingleSpikeSteam(),
@@ -108,7 +108,7 @@ function AbnormalityDetection({
     <div>
       <Row
         style={{
-          backgroundColor: "#A5C2CB",
+          backgroundColor: "#A5C2CB",// hex
           width: "100%",
           marginLeft: "0.1px",
           position: "relative",
@@ -134,8 +134,8 @@ function AbnormalityDetection({
               position: "absolute",
               bottom: "25px",
               height: "16px",
-              background: "#C8E7F1",
-            }}
+              background: "#C8E7F1",// hex
+            }} // hex
           >
             <span style={{ color: "white" }}> </span>
           </div>
@@ -148,7 +148,7 @@ function AbnormalityDetection({
               bottom: "25px",
               height: "16px",
               position: "absolute",
-              background: "#C8E7F1",
+              background: "#C8E7F1", // hex
             }}
           >
             <span style={{ color: "white" }}> </span>

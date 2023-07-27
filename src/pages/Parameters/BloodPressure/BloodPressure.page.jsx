@@ -63,7 +63,7 @@ const BloodPressurePage = () => {
         icon: "error",
         title: "Something went wrong",
         text: "Please repeat procedure!",
-        confirmButtonColor: "#3085d6",
+        confirmButtonColor: "#3085d6",// hex
       });
     }
   }

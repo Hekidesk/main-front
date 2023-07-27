@@ -21,7 +21,7 @@ export default function Particle() {
               },
             },
             color: {
-              value: "#fff",
+              value: "#fff", // hex
             },
             opacity: {
               value: 0.75,

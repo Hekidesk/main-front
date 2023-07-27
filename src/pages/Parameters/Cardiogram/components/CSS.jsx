@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { devices } from "../../../../assets/styles/size";
+import { devices } from "HEKIDESK/assets/styles/size";
 
 export const DiagramWrapper = styled.div`
   width: 100%;
@@ -19,7 +19,7 @@ export const DiagramText = styled.h6`
 export const DiagramButton = styled.button`
   background: transparent;
   color: var(--gray);
-  text-shadow: 1px 1px 1px #fff;
+  text-shadow: 1px 1px 1px #fff; // hex
   border: none;
   font-size: 1.4em;
   font-weight: bold;
@@ -30,30 +30,30 @@ export const DiagramContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #c8e7f1;
+  background: #c8e7f1; // hex
   width: 100%;
   flex-direction: column;
-  box-shadow: -1px -1px 10px -12px rgba(0, 0, 0, 0.82);
+  box-shadow: -1px -1px 10px -12px rgba(0, 0, 0, 0.82); // hex
   margin-bottom: 10px;
   @media ${devices.tablet} {
     flex-direction: row;
   }
 `;
 export const AbnormalityDiagramContainer = styled.div`
-  background-color: #c8e7f1;
+  background-color: #c8e7f1; // hex
   flex-direction: column;
-  box-shadow: -1px -1px 10px -12px rgba(0, 0, 0, 0.82);
+  box-shadow: -1px -1px 10px -12px rgba(0, 0, 0, 0.82); // hex
 `;
 export const AbnormalityDiagramTitleContainer = styled.div`
   height: 50px;
   text-align: center;
-  text-shadow: 1px 1px 1px #fff;
+  text-shadow: 1px 1px 1px #fff; // hex
   font-size: 1em;
   font-weight: bold;
   margin-top: 10px;
 `;
 export const InfoContainer = styled.div`
-  background: #c8e7f1;
+  background: #c8e7f1; // hex
   border-left: 2px solid var(--main-green);
   border-right: 2px solid var(--main-green);
   border-radius: 30px;

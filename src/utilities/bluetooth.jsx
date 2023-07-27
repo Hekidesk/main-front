@@ -102,7 +102,7 @@ export const useSignalFeed = () => {
       Swal.fire({
         title: "Your device is disconnected",
         showCancelButton: true,
-        confirmButtonColor: "#3085d6",
+        confirmButtonColor: "#3085d6",// hex
         confirmButtonText: "Connect Your Device",
       }).then((result) => {
         if (result.isConfirmed) {
@@ -177,7 +177,7 @@ export const useSignalFeed = () => {
       Swal.fire({
         title: "Your device is disconnected",
         showCancelButton: true,
-        confirmButtonColor: "#3085d6",
+        confirmButtonColor: "#3085d6", // hex
         confirmButtonText: "Connect Your Device",
       }).then((result) => {
         if (result.isConfirmed) {

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { devices } from "../../../../assets/styles/size";
+import { devices } from "HEKIDESK/assets/styles/size";
 
 export const DiagramWrapper = styled.div`
   width: 100%;
@@ -25,13 +25,13 @@ export const DiagramButton = styled.button`
   font-weight: bold;
   margin-bottom: 0.5rem;
   margin-left: 0.5rem;
-  text-shadow: 1px 1px 1px #fff;
-`;
+  text-shadow: 1px 1px 1px #fff; // hex 
+`; 
 export const DiagramContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #c8e7f1;
+  background: #c8e7f1; // hex
   width: 100%;
   flex-direction: column;
   @media ${devices.tablet} {
@@ -40,7 +40,7 @@ export const DiagramContainer = styled.div`
 `;
 
 export const InfoContainer = styled.div`
-  background: #c8e7f1;
+  background: #c8e7f1; // hex
   border-left: 2px solid var(--main-green);
   border-right: 2px solid var(--main-green);
   border-radius: 30px ;

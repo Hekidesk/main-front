@@ -18,7 +18,7 @@ function Counter({ counter, startCountDown, size = 50 }) {
         duration={counter}
         size={size}
         strokeWidth={5}
-        colors={counter == 5 ? ["#1cb5bd", "#fe5558"] : ["#28acd8", "#28acd8"]}
+        colors={counter == 5 ? ["#1cb5bd", "#fe5558"] : ["#28acd8", "#28acd8"]} // hex
         colorsTime={[4, 0]}
         onComplete={() => setKey((prevKey) => prevKey + 1)}
       >

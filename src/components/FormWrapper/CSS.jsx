@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { devices, wrapperWidth } from "../../assets/styles/size";
+import { devices, wrapperWidth } from "HEKIDESK/assets/styles/size";
 
 export const Wrapper = styled.div`
   width: ${wrapperWidth};
@@ -16,7 +16,7 @@ export const Wrapper = styled.div`
 `;
 
 export const InfoSection = styled.div`
-  background: linear-gradient(157deg, #0295d3 1.06%, #92ece6 100%);
+  background: linear-gradient(157deg, #0295d3 1.06%, #92ece6 100%); // hex
   padding: 3em;
   width: 100%;
   height: 100%;

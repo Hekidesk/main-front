@@ -45,12 +45,12 @@
 }
 
 .filter-btn > .p-dropdown-label {
-  background-color: #8fa7af !important;
+  background-color: #8fa7af !important;/* hex*/
   border: none !important;
 }
 
 .filter-btn > .p-dropdown-label:hover {
-  background-color: gray !important;
+  background-color: gray !important;/* hex*/
 }
 
 .home-dropdown > .p-dropdown-label {

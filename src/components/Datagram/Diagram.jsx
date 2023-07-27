@@ -6,14 +6,14 @@ const Diagram = ({ data, sizeOfSlice = -1 }) => {
   const options = {
     animationEnabled: true,
     zoomEnabled: true,
-    backgroundColor: "#C8E7F1",
+    backgroundColor: "#C8E7F1", // hex
     toolTip: {
       animationEnabled: true,
     },
     axisX: {
       lineThickness: 0,
       tickLength: 0,
-      gridColor: "#1CB5BDb1",
+      gridColor: "#1CB5BDb1", // hex
       gridThickness: 1,
       ticksLimit: 2,
       minimum:
@@ -37,7 +37,7 @@ const Diagram = ({ data, sizeOfSlice = -1 }) => {
     axisY: {
       lineThickness: 0,
       tickLength: 0,
-      gridColor: "#1CB5BDb1",
+      gridColor: "#1CB5BDb1", // hex
       gridThickness: 0.5,
       labelFormatter: function () {
         return "";
@@ -47,7 +47,7 @@ const Diagram = ({ data, sizeOfSlice = -1 }) => {
     data: [
       {
         type: "line",
-        color: "#1CB5BD",
+        color: "#1CB5BD", // hex
         dataPoints:
           data && sizeOfSlice > 0 && data.length - sizeOfSlice > 0
             ? data.slice(data.length - sizeOfSlice)
@@ -67,7 +67,7 @@ const Diagram = ({ data, sizeOfSlice = -1 }) => {
       <div id="chartContainer" style={DiagramS}></div>
       <div
         style={{
-          background: "#C8E7F1",
+          background: "#C8E7F1", // hex
           heigth: "2em",
           width: "8em",
           position: "absolute",

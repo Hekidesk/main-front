@@ -1,5 +1,5 @@
 .bg-gray {
-  background-color: #e8f0f4;
+  background-color: #e8f0f4;/* hex*/
   height: 350px;
   border-radius: 15px;
   padding-left: 50px;
@@ -7,13 +7,13 @@
 }
 
 .parameter-section {
-  background-color: #e8f0f4;
+  background-color: #e8f0f4;/* hex*/
   height: 300px;
   border-radius: 9px;
   padding: 1rem;
   font-weight: 600;
   font-size: 24px;
-  color: #576367;
+  color: #576367;/* hex*/
   margin-top: 20px;
 }
 
@@ -34,5 +34,5 @@
   font-weight: 400 !important;
   font-size: 15px;
   line-height: 40px;
-  color: #576367;
+  color: #576367;/* hex*/
 }
