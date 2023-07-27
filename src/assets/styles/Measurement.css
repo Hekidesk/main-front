@@ -17,16 +17,3 @@
 .chart {
   height: 225px;
 }
-
-.card-text {
-  font-style: normal;
-  font-weight: 700;
-  font-size: 20px !important;
-  line-height: 27px;
-  align-items: center;
-}
-
-.record-text {
-  color: #68767a;/* hex*/
-  font-size: 12.8px;
-}
