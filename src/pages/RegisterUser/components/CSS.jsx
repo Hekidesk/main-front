@@ -15,6 +15,7 @@ export const Row = styled.div`
   display: flex;
   width: 100%;
   gap: 20px;
+  margin-top: 2em;
 `;
 
 export const Col = styled.div`

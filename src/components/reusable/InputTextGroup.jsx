@@ -1,6 +1,12 @@
 import { InputText } from "primereact/inputtext";
 
-export const InputTextGroup = ({ state, setState, label, placeHolder }) => {
+export const InputTextGroup = ({
+  state,
+  setState,
+  label,
+  placeHolder,
+  type,
+}) => {
   return (
     <div
       style={{
@@ -15,6 +21,7 @@ export const InputTextGroup = ({ state, setState, label, placeHolder }) => {
       </label>
       <InputText
         id={label}
+        type={type}
         aria-describedby={label}
         style={{ width: "100%" }}
         value={state}

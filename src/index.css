@@ -88,8 +88,3 @@ a {
     color-stop(0.86, rgb(70, 99, 187))
   );
 }
-
-.p-datepicker {
-  left: 0 !important;
-  top: 0 !important;
-}

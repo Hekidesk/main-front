@@ -1,17 +1,28 @@
-import Icon from "HEKIDESK/assets/logo/hekidesk-green.svg";
-import { Image } from "primereact/image";
-import { Button } from "primereact/button";
-import { ButtonStyle } from "HEKIDESK/components/reusable/ButtonStyle";
 import { useState } from "react";
-import { Dropdown } from "primereact/dropdown";
+
+// Third party
+import { useIndexedDB } from "react-indexed-db";
+import { useNavigate } from "react-router-dom";
+
+// PRIME REACT
+import { Button } from "primereact/button";
+import { Calendar } from "primereact/calendar";
+import { RadioButton } from "primereact/radiobutton";
+import { Image } from "primereact/image";
+
+// HEKIDESK
+import {
+  ButtonStyle,
+  ButtonOutlineStyle,
+} from "HEKIDESK/components/reusable/ButtonStyle";
 import { InputTextGroup } from "HEKIDESK/components/reusable/InputTextGroup";
 import { ContainerWithoutHeight } from "HEKIDESK/components/reusable/Container";
-import { useNavigate } from "react-router-dom";
+
+// SVG
+import Icon from "HEKIDESK/assets/logo/hekidesk-green.svg";
+
+
 import { Col, LogoRow, Row, Title } from "./CSS";
-import { useIndexedDB } from "react-indexed-db";
-import { Calendar } from "primereact/calendar";
-// temporary removed
-// import "../../../assets/styles/measurement.css";
 
 const RegisterForm = () => {
   const [form, setForm] = useState({
@@ -21,14 +32,13 @@ const RegisterForm = () => {
     height: "",
     gender: 0,
   });
+
   const onChangeValue = (n, v) => setForm({ ...form, [n]: v });
 
   const history = useNavigate();
 
   const { add } = useIndexedDB("users");
 
-  // todo --> done
-  // add register user
   function addUser() {
     localStorage.setItem("user", form.username);
     add({ ...form }).then(
@@ -54,21 +64,7 @@ const RegisterForm = () => {
         label="Name"
         setState={(v) => onChangeValue("username", v)}
       />
-      {/* <InputTextGroup
-        state={form.dateOfBirth}
-        label={"Date of birth"}
-        placeHolder={"YYYY-MM-DD"}
-        setState={(v) => onChangeValue("dateOfBirth", v)}
-      /> */}
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          width: "100%",
-          margin: "0.5em 0",
-          position: "relative",
-        }}
-      >
+      <div className="d-flex flex-column w-100 my-1">
         <label htmlFor={"dob"}>Date of Birth</label>
         <Calendar
           value={form.dateOfBirth}
@@ -76,43 +72,57 @@ const RegisterForm = () => {
           placeholder={"YYYY-MM-DD"}
           dateFormat="dd/mm/yy"
           showIcon
+          touchUI
         />
       </div>
-      <InputTextGroup
-        state={form.weight}
-        label={"Weight"}
-        placeHolder={"Weight (kg)"}
-        setState={(v) => onChangeValue("weight", v)}
-      />
-      <InputTextGroup
-        state={form.height}
-        label={"Height"}
-        placeHolder={"Height (cm)"}
-        setState={(v) => onChangeValue("height", v)}
-      />
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          width: "100%",
-          margin: "0.5em 0",
-        }}
-      >
-        <label htmlFor={"gender"}>Gender</label>
-        <Dropdown
-          value={form.gender}
-          onChange={(v) => onChangeValue("gender", v.value)}
-          options={[
-            { name: "Male", value: 1 },
-            { name: "Female", value: 0 },
-          ]}
-          optionLabel="name"
-          placeholder="Select a gender"
+      <div className="w-100 d-flex flex-row gap-3">
+        <InputTextGroup
+          state={form.weight}
+          type={"number"}
+          label={"Weight"}
+          placeHolder={"Weight (kg)"}
+          setState={(v) => onChangeValue("weight", v)}
         />
+        <InputTextGroup
+          state={form.height}
+          label={"Height"}
+          type={"number"}
+          placeHolder={"Height (cm)"}
+          setState={(v) => onChangeValue("height", v)}
+        />
+      </div>
+      <div className="d-flex flex-wrap gap-3 w-100">
+        <p className="m-2">Gender</p>
+        <div className="flex align-items-center">
+          <RadioButton
+            inputId="gender1"
+            className="m-2"
+            name="Male"
+            value={1}
+            onChange={(e) => onChangeValue("gender", e.value)}
+            checked={form.gender === 1}
+          />
+          <label htmlFor="gender1" className="m-2">
+            Male
+          </label>
+        </div>
+        <div className="flex align-items-center">
+          <RadioButton
+            className="m-2"
+            inputId="gender2"
+            name="Female"
+            value={0}
+            onChange={(e) => onChangeValue("gender", e.value)}
+            checked={form.gender === 0}
+          />
+          <label htmlFor="gender2" className="m-2">
+            Female
+          </label>
+        </div>
       </div>
       <Row>
         <Col>
-          <Button style={ButtonStyle} onClick={() => history(-1)}>
+          <Button style={ButtonOutlineStyle} onClick={() => history(-1)}>
             back
           </Button>
         </Col>
