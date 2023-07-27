@@ -13,6 +13,7 @@ import {
   GetDateTimeDB,
   convertStringToDateDB,
 } from "HEKIDESK/utilities/time/time";
+import { Title2 } from "HEKIDESK/components/reusable/Title";
 
 const TimeHistoryPage = () => {
   const [data, setData] = useState(null);
@@ -82,7 +83,7 @@ const TimeHistoryPage = () => {
         </Col>
         <Col md={7} lg={9}>
           <Row>
-            <h2 className="title-name">Time History</h2>
+            <Title2>Time History</Title2>
           </Row>
           <Row>
             <Col md={3} style={{ marginRight: "20px" }}>
@@ -94,7 +95,7 @@ const TimeHistoryPage = () => {
               </Row>
               <Row
                 style={{
-                  backgroundColor: "#E8F0F4",
+                  backgroundColor: "#E8F0F4",// hex
                   paddingTop: "20px",
                   paddingLeft: "10px",
                 }}

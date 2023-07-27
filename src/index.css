@@ -7,6 +7,7 @@
   --bg-color: #d7ecf8;
   --green-color: #2cafa4;
   --white: #fff;
+  --dirty-white: #e8f0f4;
   --nav-color-top: #28acd8;
   --light-blue: #adc7e5;
   --gray-green: #a5c2cb;
@@ -27,6 +28,11 @@ body {
 }
 
 /*custom primereact styles*/
+
+.p-card .p-card-body,
+.p-card .p-card-content {
+  padding: 10px !important;
+}
 
 .p-dropdown .p-dropdown-label.p-placeholder {
   color: white !important;

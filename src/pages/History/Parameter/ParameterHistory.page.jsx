@@ -22,6 +22,7 @@ import { ButtonMyDeskStyle } from "HEKIDESK/components/reusable/ButtonStyle";
 import { Link } from "react-router-dom";
 import { useIndexedDB } from "react-indexed-db";
 import { GetDateTimeDB } from "HEKIDESK/utilities/time/time";
+import { Title2 } from "HEKIDESK/components/reusable/Title";
 
 const ParameterHistoryPage = () => {
   const { getAll: getAllOximetryData } = useIndexedDB("oximetryData");
@@ -177,7 +178,7 @@ const ParameterHistoryPage = () => {
         </Col>
         <Col md={7} lg={9}>
           <Row>
-            <h2 className="title-name">Parameters</h2>
+            <Title2>Parameters</Title2>
           </Row>
           <Row>
             <Col lg={4} md={12}>
@@ -207,7 +208,8 @@ const ParameterHistoryPage = () => {
               <div className="parameter-section">
                 <img src={Spo2Icon} alt="time-history-photo" />
                 <div>SpO2 (%)</div>
-                <HistoryChart color="#8CCD47" data={[SPO2]} name={["SPO2"]} />
+                <HistoryChart color="#8CCD47" // hex
+                 data={[SPO2]} name={["SPO2"]} />
               </div>
             </Col>
           </Row>
@@ -217,7 +219,7 @@ const ParameterHistoryPage = () => {
                 <img src={HeartRateIcon} alt="time-history-photo" />
                 <div>Heart Rate (bpm) - ecg</div>
                 <HistoryChart
-                  color="#43a5d6"
+                  color="#43a5d6" // hex
                   data={[heartBeatECG]}
                   name={["heartbeat ecg"]}
                 />
@@ -285,7 +287,7 @@ const ParameterHistoryPage = () => {
                 <img src={RespirationRateIcon} alt="time-history-photo" />
                 <div>Respiration Rate (bpm)</div>
                 <HistoryChart
-                  color="#43a5d6"
+                  color="#43a5d6" // hex
                   data={[respirationRate]}
                   name={["Rrespiration Rate"]}
                 />
