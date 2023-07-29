@@ -106,8 +106,8 @@ export const useSignalFeed = () => {
         confirmButtonText: "Connect Your Device",
       }).then((result) => {
         if (result.isConfirmed) {
-          window.location.pathname = "/connection";
-        }
+          // eslint-disable-next-line no-undef
+          window.location.pathname = process.env.REACT_APP_BASE_URL + "/connection";        }
       });
     }
     return false;
@@ -182,8 +182,8 @@ export const useSignalFeed = () => {
         confirmButtonText: "Connect Your Device",
       }).then((result) => {
         if (result.isConfirmed) {
-          window.location.pathname = "/connection";
-        }
+          // eslint-disable-next-line no-undef
+          window.location.pathname = process.env.REACT_APP_BASE_URL + "/connection";        }
       });
     }
   };
