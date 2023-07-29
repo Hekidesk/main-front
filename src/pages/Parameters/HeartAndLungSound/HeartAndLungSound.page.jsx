@@ -165,7 +165,7 @@ const HeartAndLungSoundPage = () => {
       startTime.current = setTimeout(() => {
         bluetooth.Start().then((result) => (startTimeDuration = result));
         setCounter(sampleTime);
-        setSizeOfSlice(10000);
+        setSizeOfSlice(40000);
       }, [pendingTime + delayTime]);
       endTime.current = setTimeout(() => {
         setCounter(5);
