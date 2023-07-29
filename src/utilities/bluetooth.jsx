@@ -107,7 +107,7 @@ export const useSignalFeed = () => {
       }).then((result) => {
         if (result.isConfirmed) {
           // eslint-disable-next-line no-undef
-          window.location.pathname = process.env.REACT_APP_BASE_URL + "/connection";        }
+          window.location.href  = process.env.REACT_APP_BASE_URL + "/connection";        }
       });
     }
     return false;
@@ -183,7 +183,7 @@ export const useSignalFeed = () => {
       }).then((result) => {
         if (result.isConfirmed) {
           // eslint-disable-next-line no-undef
-          window.location.pathname = process.env.REACT_APP_BASE_URL + "/connection";        }
+          window.location.href  = process.env.REACT_APP_BASE_URL + "/connection";        }
       });
     }
   };
