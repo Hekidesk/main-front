@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import Swal from "sweetalert2";
+import { useNavigate } from 'react-router-dom';
 
 const ServiceUUID = "4fafc201-1fb5-459e-8fcc-c5c9c331914b";
 const ReadCharistristicUUID = "beb5483e-36e1-4688-b7f5-ea07361b26a8";
@@ -106,8 +107,8 @@ export const useSignalFeed = () => {
         confirmButtonText: "Connect Your Device",
       }).then((result) => {
         if (result.isConfirmed) {
-          // eslint-disable-next-line no-undef
-          window.location.href  = process.env.REACT_APP_BASE_URL + "/connection";        }
+          window.location.assign(process.env.REACT_APP_BASE_URL + "/connection");
+        }
       });
     }
     return false;
@@ -182,8 +183,10 @@ export const useSignalFeed = () => {
         confirmButtonText: "Connect Your Device",
       }).then((result) => {
         if (result.isConfirmed) {
-          // eslint-disable-next-line no-undef
-          window.location.href  = process.env.REACT_APP_BASE_URL + "/connection";        }
+          window.location.assign(process.env.REACT_APP_BASE_URL + "/connection");
+
+          // window.location.pathname = "/connection";
+        }
       });
     }
   };
