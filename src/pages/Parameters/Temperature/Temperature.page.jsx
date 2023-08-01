@@ -85,7 +85,6 @@ const TemperaturePage = () => {
   };
 
   const startInput = () => {
-    if (bluetooth.CheckConnection()) {
       let startTimeDuration = 0;
       flushData();
       startTime.current = setTimeout(() => {
@@ -97,7 +96,6 @@ const TemperaturePage = () => {
         setCounter(5);
         bluetooth.Stop(startTimeDuration);
       }, [sampleTime * 1000 + pendingTime + delayTime]);
-    }
   };
 
   return (
@@ -118,9 +116,9 @@ const TemperaturePage = () => {
                 className="filter-btn"
                 onChange={(e) => setSampleTime(e.value)}
                 options={[
-                  { name: "10s", value: 10 },
-                  { name: "20s", value: 20 },
-                  { name: "30s", value: 30 },
+                  { name: "10s ↓", value: 10 },
+                  { name: "20s ↓", value: 20 },
+                  { name: "30s ↓", value: 30 },
                 ]}
                 optionLabel="name"
                 placeholder={"sample time  ↓"}

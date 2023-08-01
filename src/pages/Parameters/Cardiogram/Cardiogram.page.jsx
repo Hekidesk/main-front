@@ -163,7 +163,6 @@ const CardiogramPage = () => {
   };
 
   const startInput = () => {
-    if (bluetooth.CheckConnection()) {
       let startTimeDuration = 0;
       flushData();
       startTime.current = setTimeout(() => {
@@ -177,7 +176,6 @@ const CardiogramPage = () => {
         bluetooth.Stop(startTimeDuration);
         setSizeOfSlice(-1);
       }, [sampleTime * 1000 + pendingTime + delayTime]);
-    }
   };
 
   useEffect(() => {
@@ -223,9 +221,9 @@ const CardiogramPage = () => {
                 className="filter-btn"
                 onChange={(e) => setSampleTime(e.value)}
                 options={[
-                  { name: "10s", value: 10 },
-                  { name: "20s", value: 20 },
-                  { name: "30s", value: 30 },
+                  { name: "10s ↓", value: 10 },
+                  { name: "20s ↓", value: 20 },
+                  { name: "30s ↓", value: 30 },
                 ]}
                 optionLabel="name"
                 placeholder={"sample time  ↓"}

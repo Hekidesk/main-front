@@ -81,7 +81,7 @@ const BloodPressurePage = () => {
         setForceChartData(makeArrayForChart(input.force));
         setIrData(input.ir);
         setforceData(input.force);
-        console.log(input.force)
+        console.log(input.force);
       });
     if (bluetooth.finish) {
       calculate(IrData, forceData);
@@ -117,8 +117,7 @@ const BloodPressurePage = () => {
     setStartCountDown(1);
   };
 
-  const startInput = () => {
-    if (bluetooth.CheckConnection()) {
+  const startInput = () => { 
       let startTimeDuration = 0;
       flushData();
       startTime.current = setTimeout(() => {
@@ -134,7 +133,6 @@ const BloodPressurePage = () => {
         setStartCountDown(0);
         bluetooth.Stop(startTimeDuration);
       }, [sampleTime * 1000 + pendingTime + delayTime]);
-    }
   };
 
   return (
@@ -155,9 +153,9 @@ const BloodPressurePage = () => {
                 className="filter-btn"
                 onChange={(e) => setSampleTime(e.value)}
                 options={[
-                  { name: "10s", value: 10 },
-                  { name: "20s", value: 20 },
-                  { name: "30s", value: 30 },
+                  { name: "10s ↓", value: 10 },
+                  { name: "20s ↓", value: 20 },
+                  { name: "30s ↓", value: 30 },
                 ]}
                 optionLabel="name"
                 placeholder={"sample time  ↓"}
@@ -168,20 +166,20 @@ const BloodPressurePage = () => {
             </CircularContainer>
           </Description>
           <DiagramContainer>
-              <Col md = {4} style={{ marginRight: "50px", position: "relative" }}>
-                <Diagram data={IRChartData} sizeOfSlice={sizeOfSlice} />
-              </Col>
-              <Col md = {4} style={{ marginLeft: "50px", position: "relative" }}>
-                <Diagram data={forceChartData} sizeOfSlice={sizeOfSliceForce} />
-              </Col>
-              <InfoContainer>
-                <ImportantTitle>SYS/DIA</ImportantTitle>
-                <ImportantValue>
-                  {SYS}/{DIA}
-                </ImportantValue>
-                <SimpleTitle>Quality Index</SimpleTitle>
-                <SimpleValue>{qualityIndex}</SimpleValue>
-              </InfoContainer>
+            <Col md={4} style={{ marginRight: "50px", position: "relative" }}>
+              <Diagram data={IRChartData} sizeOfSlice={sizeOfSlice} />
+            </Col>
+            <Col md={4} style={{ marginLeft: "50px", position: "relative" }}>
+              <Diagram data={forceChartData} sizeOfSlice={sizeOfSliceForce} />
+            </Col>
+            <InfoContainer>
+              <ImportantTitle>SYS/DIA</ImportantTitle>
+              <ImportantValue>
+                {SYS}/{DIA}
+              </ImportantValue>
+              <SimpleTitle>Quality Index</SimpleTitle>
+              <SimpleValue>{qualityIndex}</SimpleValue>
+            </InfoContainer>
           </DiagramContainer>
         </DiagramWrapper>
       </div>
