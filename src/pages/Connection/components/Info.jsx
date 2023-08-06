@@ -1,10 +1,17 @@
+// PRIME REACT
+import { Image } from "primereact/image";
+
+// HEKIDESK
+import { Text } from "HEKIDESK/components/reusable/Text";
+import { List, ListItems } from "HEKIDESK/components/reusable/List";
+
+// SVG
 import Icon from "HEKIDESK/assets/logo/hekidesk-transparent.svg";
 import BluetoothIcon from "HEKIDESK/assets/icon/bluetooth.svg";
 import OffIcon from "HEKIDESK/assets/icon/off.svg";
 import SearchIcon from "HEKIDESK/assets/icon/question.svg";
-import { Image } from "primereact/image";
-import { Text } from "HEKIDESK/components/reusable/Text";
-import { List, ListItems } from "HEKIDESK/components/reusable/List";
+
+
 import {
   ImageWrapper,
   QuestionWrapper,

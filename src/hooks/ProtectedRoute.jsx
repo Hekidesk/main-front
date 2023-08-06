@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
-import React, { useContext,useNavigate } from "react";
-import { Navigate } from "react-router-dom";
-import { BluetoothContext } from "@/App";
+import React, { useContext } from "react";
+import { Navigate ,useNavigate} from "react-router-dom";
+import { BluetoothContext } from "HEKIDESK/App";
 import Swal from "sweetalert2";
 
 const devMode = true;

@@ -1,7 +1,9 @@
+// HEKIDESK
 import FormWrapper from "HEKIDESK/components/FormWrapper/FormWrapper";
+import { Container } from "HEKIDESK/components/reusable/Container";
+
 import ConnectionInfo from "./components/Info";
 import ConnectionForm from "./components/Form";
-import { Container } from "HEKIDESK/components/reusable/Container";
 
 const ConnectionPage = () => {
   return (

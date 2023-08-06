@@ -1,19 +1,32 @@
-import Heartbeat from "HEKIDESK/assets/gif/heartbeat.mp4";
+import { useContext } from "react";
+
+// Third party
+import { Link } from "react-router-dom";
+
+// PRIME REACT
 import { Image } from "primereact/image";
+
+// MEDIA
+import Heartbeat from "HEKIDESK/assets/gif/heartbeat.mp4";
+
+// SVG
+import DisconnectIcon from "HEKIDESK/assets/icon/disconnect.svg";
+
+// HEKIDESK
 import { ContainerWithoutHeight } from "HEKIDESK/components/reusable/Container";
 import { Title } from "HEKIDESK/components/reusable/Title";
 import {
   ButtonOutlineStyle,
   ButtonStyle,
 } from "HEKIDESK/components/reusable/ButtonStyle";
-import { LogoRow } from "./CSS";
-import DisconnectIcon from "HEKIDESK/assets/icon/disconnect.svg";
 import { BluetoothContext } from "HEKIDESK/App";
-import { useContext } from "react";
-import { Link } from "react-router-dom";
+
+
+import { LogoRow } from "./CSS";
 
 const ConnectionForm = () => {
   const bluetooth = useContext(BluetoothContext);
+  
   return (
     <ContainerWithoutHeight>
       <LogoRow>

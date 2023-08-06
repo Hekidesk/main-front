@@ -17,7 +17,7 @@ import TemeperatureIcon from "HEKIDESK/assets/icon/measurement/temeperatureIcon.
 import BpIcon from "HEKIDESK/assets/icon/measurement/bloodPressureIcon.svg";
 
 // Style
-import { CardStyle } from "./CSS";
+import { CardStyle, TitleOfCard } from "./CSS";
 
 const Measurement = () => {
   const routes = [
@@ -39,7 +39,7 @@ const Measurement = () => {
         </div>
         <div className="row">
           {routes.map((item, i) => (
-            <div className="col-4" key={i}>
+            <div className="col-lg-4 col-xs-12 col-sm-6" key={i}>
               <Link
                 to={
                   // eslint-disable-next-line no-undef
@@ -59,7 +59,7 @@ const Measurement = () => {
                   }
                   style={CardStyle}
                 >
-                  <dispatchEvent>measure of</dispatchEvent>
+                  <TitleOfCard>measure of</TitleOfCard>
                   <h4 className="fw-bold">{item.name}</h4>
                 </Card>
               </Link>
