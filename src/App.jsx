@@ -6,7 +6,9 @@ import { initDB } from "react-indexed-db";
 import { DBConfig } from "HEKIDESK/database/DBConfig";
 export const BluetoothContext = createContext({});
 
+
 initDB(DBConfig);
+
 
 function App() {
   const connection = useSignalFeed();

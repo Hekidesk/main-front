@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React from "react";
 
 // Third party
@@ -57,7 +58,6 @@ function AppRoutes() {
       <React.Suspense fallback={loading}>
         <Routes>
           <Route
-            // eslint-disable-next-line no-undef
             path={process.env.REACT_APP_BASE_URL}
             element={null}
           >
@@ -68,7 +68,6 @@ function AppRoutes() {
             <Route path={"connection"} element={<ConnectionPage />} />
           </Route>
           <Route
-            // eslint-disable-next-line no-undef
             path={process.env.REACT_APP_BASE_URL + "/history"}
             element={null}
           >

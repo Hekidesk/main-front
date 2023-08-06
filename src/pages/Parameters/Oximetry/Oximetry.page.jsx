@@ -29,7 +29,7 @@ import PageButtons from "HEKIDESK/components/reusable/PageButtons";
 import {
   makeArrayForChart,
   makeArrayFormString,
-} from "HEKIDESK/components/reusableDataFunc/DataFunc";
+} from "HEKIDESK/utilities/convertors";
 import Swal from "sweetalert2";
 import Counter from "HEKIDESK/components/Counter/Counter";
 

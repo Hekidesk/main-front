@@ -30,7 +30,7 @@ import {
   makeArrayForChart,
   makeArrayFormString,
   makeFilteredArray,
-} from "HEKIDESK/components/reusableDataFunc/DataFunc";
+} from "HEKIDESK/utilities/convertors";
 import { Button } from "primereact/button";
 import { Dropdown } from "primereact/dropdown";
 import { useAddToDB } from "HEKIDESK/database/AddToDB";

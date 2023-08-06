@@ -21,7 +21,7 @@ import upIcon from "HEKIDESK/assets/icon/history/upIcon.svg";
 import { ButtonMyDeskStyle } from "HEKIDESK/components/reusable/ButtonStyle";
 import { Link } from "react-router-dom";
 import { useIndexedDB } from "react-indexed-db";
-import { GetDateTimeDB } from "HEKIDESK/utilities/time/time";
+import { GetDateTimeDB } from "HEKIDESK/utilities/time";
 import { Title2 } from "HEKIDESK/components/reusable/Title";
 
 const ParameterHistoryPage = () => {

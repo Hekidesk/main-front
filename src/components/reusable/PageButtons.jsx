@@ -7,7 +7,7 @@ import backIcon from "HEKIDESK/assets/icon/measurement/back.svg";
 import shareIcon from "HEKIDESK/assets/icon/measurement/shareIcon.svg";
 import saveIcon from "HEKIDESK/assets/icon/measurement/saveIcon.svg";
 import ckeckmarkIcon from "HEKIDESK/assets/icon/ckeckmarkIcon.svg";
-import { shareData } from "HEKIDESK/utilities/share/Share";
+import { shareData } from "HEKIDESK/utilities/share";
 
 const PageButtons = ({
   disable,

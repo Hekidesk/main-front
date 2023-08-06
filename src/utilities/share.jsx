@@ -1,7 +1,7 @@
 import {
   GetCurrentDateTime,
   GetCurrentDateTimeForFileName,
-} from "../time/time";
+} from "./time";
 import { prepareURLFile } from "./downloadFile";
 
 

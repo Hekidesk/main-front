@@ -1,4 +1,3 @@
-
 export function prepareURLFile(texts, extraChart = [], extraText = []) {
   var oldCanvas = document.querySelector("#chartContainer canvas");
   var newCanvas = document.createElement("canvas");
@@ -35,26 +34,4 @@ export function prepareURLFile(texts, extraChart = [], extraText = []) {
 
   var dataURL = newCanvas.toDataURL("image/jpeg", 1.0);
   return dataURL;
-}
-
-function downloadImage(data, filename = "untitled.jpeg") {
-  var a = document.createElement("a");
-  a.href = data;
-  a.download = filename;
-  document.body.appendChild(a);
-  a.click();
-}
-
-export function downloadSVGAsPNG(e, dataKey, texts) {
-  var dataURL = prepareURLFile(texts);
-  const fileName = dataKey + ".png";
-  downloadImage(dataURL, fileName);
-}
-
-export function downloadPDFAsPNG(e, dataKey, texts) {
-  // build error
-  // var dataURL = prepareURLFile(texts);
-  // const fileName = dataKey + ".pdf";
-  // const doc = new jsPDF();
-  // doc.addImage(dataURL, "png", 0, 10, 200, 100).save(fileName);
 }

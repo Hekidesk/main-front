@@ -28,7 +28,7 @@ import axios from "axios";
 import {
   makeArrayForChart,
   makeArrayFormString,
-} from "HEKIDESK/components/reusableDataFunc/DataFunc";
+} from "HEKIDESK/utilities/convertors";
 import { Button } from "primereact/button";
 import { Dropdown } from "primereact/dropdown";
 import { RadioButton } from "primereact/radiobutton";

@@ -73,7 +73,6 @@ export const useSignalFeed = () => {
   const Start = async () => {
     console.log("start");
     setFinish(0);
-    console.log("start " + performance.now());
     setSafe(initialState);
     return performance.now();
   };
@@ -140,7 +139,6 @@ export const useSignalFeed = () => {
             temp[key] = [...temp[key], ...recieved[key]];
             return "";
           });
-          // console.log("temp: " + JSON.stringify(temp))
           setSafe(temp);
           callBack({
             red: temp.red,

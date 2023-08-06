@@ -12,7 +12,7 @@ import { useIndexedDB } from "react-indexed-db";
 import {
   GetDateTimeDB,
   convertStringToDateDB,
-} from "HEKIDESK/utilities/time/time";
+} from "HEKIDESK/utilities/time";
 import { Title2 } from "HEKIDESK/components/reusable/Title";
 
 const TimeHistoryPage = () => {

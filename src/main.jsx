@@ -1,8 +1,7 @@
 import React from "react";
+
+// Third party
 import ReactDOM from "react-dom/client";
-import App from "./App";
-import "./index.css";
-import Particle from "HEKIDESK/components/PageWrapper/Particle";
 
 //theme
 import "primereact/resources/themes/lara-light-indigo/theme.css";
@@ -15,11 +14,14 @@ import "primeicons/primeicons.css";
 
 import PrimeReact from "primereact/api";
 
+import App from "./App";
+import "./index.css";
+
+
 PrimeReact.appendTo = "self";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <Particle />
     <App />
   </React.StrictMode>
 );

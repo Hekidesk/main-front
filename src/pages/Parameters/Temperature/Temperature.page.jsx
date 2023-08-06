@@ -19,7 +19,7 @@ import {
 import PageButtons from "HEKIDESK/components/reusable/PageButtons";
 import { useAddToDB } from "HEKIDESK/database/AddToDB";
 import { BluetoothContext } from "HEKIDESK/App";
-import { makeArrayForChart } from "HEKIDESK/components/reusableDataFunc/DataFunc";
+import { makeArrayForChart } from "HEKIDESK/utilities/convertors";
 import Counter from "HEKIDESK/components/Counter/Counter";
 import { Dropdown } from "primereact/dropdown";
 
