@@ -11,7 +11,6 @@ import BluetoothIcon from "HEKIDESK/assets/icon/bluetooth.svg";
 import OffIcon from "HEKIDESK/assets/icon/off.svg";
 import SearchIcon from "HEKIDESK/assets/icon/question.svg";
 
-
 import {
   ImageWrapper,
   QuestionWrapper,
@@ -27,17 +26,12 @@ const ConnectionInfo = () => {
             src={BluetoothIcon}
             alt="Image"
             width="16px"
-            style={{ margin: "0em 1em" }}
+            className="mx-2"
           />
           Turn on bluetooth on this device
         </ListItems>
         <ListItems>
-          <Image
-            src={OffIcon}
-            alt="Image"
-            width="16px"
-            style={{ margin: "0em 1em" }}
-          />
+          <Image src={OffIcon} alt="Image" width="16px" className="mx-2" />
           Turn on the Hekidesk
         </ListItems>
       </List>

@@ -25,7 +25,7 @@ const InfoHome = () => (
           src={StethoscopeIcon}
           alt="Image"
           width="16px"
-          style={{ margin: "0em 1em", textTransform: "uppercase" }}
+          className="mx-1 text-uppercase"
         />
         AMAZING AUSCULTATION EXPERIENCE
       </ListItems>
@@ -34,7 +34,7 @@ const InfoHome = () => (
           src={HeartbeatIcon}
           alt="Image"
           width="16px"
-          style={{ margin: "0em 1em", textTransform: "uppercase" }}
+          className="mx-1 text-uppercase"
         />
         PERSONAL HEALTH MONITORING
       </ListItems>
@@ -43,7 +43,7 @@ const InfoHome = () => (
           src={BluetoothIcon}
           alt="Image"
           width="10px"
-          style={{ margin: "0em 1em", textTransform: "uppercase" }}
+          className="mx-1 text-uppercase"
         />
         BLUETOOTH CONNECTION
       </ListItems>

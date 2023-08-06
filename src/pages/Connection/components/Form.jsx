@@ -21,12 +21,11 @@ import {
 } from "HEKIDESK/components/reusable/ButtonStyle";
 import { BluetoothContext } from "HEKIDESK/App";
 
-
 import { LogoRow } from "./CSS";
 
 const ConnectionForm = () => {
   const bluetooth = useContext(BluetoothContext);
-  
+
   return (
     <ContainerWithoutHeight>
       <LogoRow>
@@ -39,7 +38,7 @@ const ConnectionForm = () => {
             src={DisconnectIcon}
             alt="Image"
             width="16px"
-            style={{ margin: "0em 0.2em" }}
+            className="mx-2"
           />
           Connect
         </div>
@@ -66,7 +65,7 @@ const ConnectionForm = () => {
             src={DisconnectIcon}
             alt="Image"
             width="16px"
-            style={{ margin: "0em 0.2em" }}
+            className="mx-2"
           />
           Disconnect
         </div>
