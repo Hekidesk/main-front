@@ -9,11 +9,17 @@ export default defineConfig({
   base: "",
   resolve: {
     alias: {
-      "HEKIDESK": path.resolve(path.dirname(fileURLToPath(import.meta.url)), "src"),
+      HEKIDESK: path.resolve(
+        path.dirname(fileURLToPath(import.meta.url)),
+        "src"
+      ),
     },
   },
   define: {
-    "process.env": { REACT_APP_BASE_URL: "" },
+    "process.env": {
+      REACT_APP_BASE_URL: "",
+      REACT_APP_SITE_TOKEN: "https://api.hekidesk.com/",
+    },
   },
   build: {
     rollupOptions: {

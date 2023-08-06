@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import PageWrapper from "HEKIDESK/components/PageWrapper/PageWrapper";
 import Diagram from "HEKIDESK/components/Datagram/Diagram";
 import bloodPressure from "HEKIDESK/assets/icon/parameter/bloodPressure.svg";
@@ -52,7 +53,10 @@ const BloodPressurePage = () => {
       force: "[" + forceData.toString() + "]",
       fs: bluetooth.GetFrequency()[0],
     };
-    let res = await axios.post("https://api.hekidesk.com//bp_signal", payload);
+    let res = await axios.post(
+      process.REACT_APP_SITE_TOKEN + "/bp_signal",
+      payload
+    );
     if (res.status < 400 && !Number(res.data.Try_Again)) {
       setSYS(res.data.Diastolic);
       setDIA(res.data.Systolic);
@@ -63,7 +67,7 @@ const BloodPressurePage = () => {
         icon: "error",
         title: "Something went wrong",
         text: "Please repeat procedure!",
-        confirmButtonColor: "#3085d6",// hex
+        confirmButtonColor: "#3085d6", // hex
       });
     }
   }
@@ -111,22 +115,22 @@ const BloodPressurePage = () => {
     setStartCountDown(1);
   };
 
-  const startInput = () => { 
-      let startTimeDuration = 0;
-      flushData();
-      startTime.current = setTimeout(() => {
-        bluetooth.Start().then((result) => (startTimeDuration = result));
-        setCounter(sampleTime);
-        setSizeOfSlice(400);
-        setSizeOfSliceForce(1500);
-      }, [pendingTime + delayTime]);
-      endTime.current = setTimeout(() => {
-        setCounter(5);
-        setSizeOfSlice(-1);
-        setSizeOfSliceForce(-1);
-        setStartCountDown(0);
-        bluetooth.Stop(startTimeDuration);
-      }, [sampleTime * 1000 + pendingTime + delayTime]);
+  const startInput = () => {
+    let startTimeDuration = 0;
+    flushData();
+    startTime.current = setTimeout(() => {
+      bluetooth.Start().then((result) => (startTimeDuration = result));
+      setCounter(sampleTime);
+      setSizeOfSlice(400);
+      setSizeOfSliceForce(1500);
+    }, [pendingTime + delayTime]);
+    endTime.current = setTimeout(() => {
+      setCounter(5);
+      setSizeOfSlice(-1);
+      setSizeOfSliceForce(-1);
+      setStartCountDown(0);
+      bluetooth.Stop(startTimeDuration);
+    }, [sampleTime * 1000 + pendingTime + delayTime]);
   };
 
   return (

@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import "HEKIDESK/assets/styles/primereactStyle.css";
 import PageWrapper from "HEKIDESK/components/PageWrapper/PageWrapper";
 import Diagram from "HEKIDESK/components/Datagram/Diagram";
@@ -59,7 +60,10 @@ const OximetryPage = () => {
       Red: "[" + RedData.toString() + "]",
       fs: bluetooth.GetFrequency()[0],
     };
-    let res = await axios.post("https://api.hekidesk.com//PPG_signal", payload);
+    let res = await axios.post(
+      process.REACT_APP_SITE_TOKEN + "/PPG_signal",
+      payload
+    );
     if (!Number(res.data.Try_Again)) {
       setHeartBeat(res.data.HeartRate);
       setSPO2(res.data.SpO2);
@@ -78,7 +82,7 @@ const OximetryPage = () => {
         icon: "error",
         title: "Something went wrong",
         text: "Please repeat procedure!",
-        confirmButtonColor: "#3085d6",// hex
+        confirmButtonColor: "#3085d6", // hex
       });
   }
 
@@ -136,20 +140,20 @@ const OximetryPage = () => {
     setCounter(5);
   };
 
-  const startInput = () => { 
-      let startTimeDuration = 0;
-      flushData();
-      startTime.current = setTimeout(() => {
-        setCounter(sampleTime);
-        bluetooth.Start().then((result) => (startTimeDuration = result));
-        setSizeOfSlice(400);
-      }, [pendingTime + delayTime]);
-      endTime.current = setTimeout(() => {
-        setStartCountDown(0);
-        setCounter(5);
-        bluetooth.Stop(startTimeDuration);
-        setSizeOfSlice(-1);
-      }, [sampleTime * 1000 + pendingTime + delayTime]);
+  const startInput = () => {
+    let startTimeDuration = 0;
+    flushData();
+    startTime.current = setTimeout(() => {
+      setCounter(sampleTime);
+      bluetooth.Start().then((result) => (startTimeDuration = result));
+      setSizeOfSlice(400);
+    }, [pendingTime + delayTime]);
+    endTime.current = setTimeout(() => {
+      setStartCountDown(0);
+      setCounter(5);
+      bluetooth.Stop(startTimeDuration);
+      setSizeOfSlice(-1);
+    }, [sampleTime * 1000 + pendingTime + delayTime]);
   };
 
   return (

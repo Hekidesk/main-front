@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import PageWrapper from "HEKIDESK/components/PageWrapper/PageWrapper";
 import Diagram from "HEKIDESK/components/Datagram/Diagram";
 import heartAndLungSound from "HEKIDESK/assets/icon/parameter/heartAndLungSound.svg";
@@ -59,10 +60,8 @@ const HeartAndLungSoundPage = () => {
       fs: fs,
     };
     let addr =
-      position === "heart"
-        ? "https://api.hekidesk.com//PCG_signal/heart"
-        : "https://api.hekidesk.com//PCG_signal/optional";
-    let res = await axios.post(addr, payload);
+      position === "heart" ? "/PCG_signal/heart" : "/PCG_signal/optional";
+    let res = await axios.post(process.REACT_APP_SITE_TOKEN + addr, payload);
     return res.data;
   }
 
@@ -82,7 +81,6 @@ const HeartAndLungSoundPage = () => {
       setDisable(0);
     });
   }
-
 
   useEffect(() => {
     if (filteredArray) {
@@ -145,20 +143,20 @@ const HeartAndLungSoundPage = () => {
   };
 
   const startInput = () => {
-      flushData();
+    flushData();
+    setCounter(5);
+    let startTimeDuration = 0;
+    startTime.current = setTimeout(() => {
+      bluetooth.Start().then((result) => (startTimeDuration = result));
+      setCounter(sampleTime);
+      setSizeOfSlice(40000);
+    }, [pendingTime + delayTime]);
+    endTime.current = setTimeout(() => {
       setCounter(5);
-      let startTimeDuration = 0;
-      startTime.current = setTimeout(() => {
-        bluetooth.Start().then((result) => (startTimeDuration = result));
-        setCounter(sampleTime);
-        setSizeOfSlice(40000);
-      }, [pendingTime + delayTime]);
-      endTime.current = setTimeout(() => {
-        setCounter(5);
-        setStartCountDown(0);
-        bluetooth.Stop(startTimeDuration);
-        setSizeOfSlice(-1);
-      }, [sampleTime * 1000 + pendingTime + delayTime]);
+      setStartCountDown(0);
+      bluetooth.Stop(startTimeDuration);
+      setSizeOfSlice(-1);
+    }, [sampleTime * 1000 + pendingTime + delayTime]);
   };
 
   async function playAudio() {
@@ -169,14 +167,20 @@ const HeartAndLungSoundPage = () => {
       sound: "[" + finalSound.toString() + "]",
       fs: bluetooth.GetFrequency()[0],
     };
-    let res = await axios.post("https://api.hekidesk.com//rcv_audio", payload);
+    let res = await axios.post(
+      process.REACT_APP_SITE_TOKEN + "/rcv_audio",
+      payload
+    );
     if (res.statusText === "OK") {
-      const { data } = await axios.get("https://api.hekidesk.com//snd_audio", {
-        responseType: "arraybuffer",
-        headers: {
-          "Content-Type": "audio/x-wav",
-        },
-      });
+      const { data } = await axios.get(
+        process.REACT_APP_SITE_TOKEN + "/snd_audio",
+        {
+          responseType: "arraybuffer",
+          headers: {
+            "Content-Type": "audio/x-wav",
+          },
+        }
+      );
       const blob = new Blob([data], {
         type: "audio/x-wav",
       });

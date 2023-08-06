@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import PageWrapper from "HEKIDESK/components/PageWrapper/PageWrapper";
 import Diagram from "HEKIDESK/components/Datagram/Diagram";
 import HeartIcon from "HEKIDESK/assets/icon/parameter/heart.svg";
@@ -71,10 +72,7 @@ const CardiogramPage = () => {
     "Multifocul Atrial Tachycardia (MAT)",
   ];
 
-  const types2 = [
-    "َّAF",
-    "Normal",
-  ];
+  const types2 = ["َّAF", "Normal"];
 
   function makePQRST(ps, qs, rs, ss, ts) {
     let newArr = [];
@@ -92,7 +90,7 @@ const CardiogramPage = () => {
       fs: bluetooth.GetFrequency()[0],
     };
     let res = await axios
-      .post("https://api.hekidesk.com//ECG_signal", payload)
+      .post(process.REACT_APP_SITE_TOKEN + "/ECG_signal", payload)
       .catch(() => {
         Swal.fire({
           icon: "error",
@@ -169,19 +167,19 @@ const CardiogramPage = () => {
   };
 
   const startInput = () => {
-      let startTimeDuration = 0;
-      flushData();
-      startTime.current = setTimeout(() => {
-        bluetooth.Start().then((result) => (startTimeDuration = result));
-        setSizeOfSlice(400);
-        setCounter(sampleTime);
-      }, [pendingTime + delayTime]);
-      endTime.current = setTimeout(() => {
-        setCounter(5);
-        setStartCountDown(0);
-        bluetooth.Stop(startTimeDuration);
-        setSizeOfSlice(-1);
-      }, [sampleTime * 1000 + pendingTime + delayTime]);
+    let startTimeDuration = 0;
+    flushData();
+    startTime.current = setTimeout(() => {
+      bluetooth.Start().then((result) => (startTimeDuration = result));
+      setSizeOfSlice(400);
+      setCounter(sampleTime);
+    }, [pendingTime + delayTime]);
+    endTime.current = setTimeout(() => {
+      setCounter(5);
+      setStartCountDown(0);
+      bluetooth.Stop(startTimeDuration);
+      setSizeOfSlice(-1);
+    }, [sampleTime * 1000 + pendingTime + delayTime]);
   };
 
   useEffect(() => {
