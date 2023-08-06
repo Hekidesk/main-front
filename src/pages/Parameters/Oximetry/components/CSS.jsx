@@ -43,7 +43,7 @@ export const InfoContainer = styled.div`
   background: #c8e7f1; // hex
   border-left: 2px solid var(--main-green);
   border-right: 2px solid var(--main-green);
-  border-radius: 30px ;
+  border-radius: 30px;
   width: 100%;
   margin: 1em;
   padding: 1em;
@@ -93,10 +93,8 @@ export const CircularValue = styled.div`
   font-weight: bold;
 `;
 export const CircularContainer = styled.div`
-  display: flex;
-  position: relative;
-  justify-content: center;
-  text-align: center;
+  margin-left: 20px;
+  margin-bottom: 20px;
 `;
 export const DropdownButton = styled.div`
   display: flex;

@@ -136,8 +136,7 @@ const OximetryPage = () => {
     setCounter(5);
   };
 
-  const startInput = () => {
-    if (bluetooth.CheckConnection()) {
+  const startInput = () => { 
       let startTimeDuration = 0;
       flushData();
       startTime.current = setTimeout(() => {
@@ -151,7 +150,6 @@ const OximetryPage = () => {
         bluetooth.Stop(startTimeDuration);
         setSizeOfSlice(-1);
       }, [sampleTime * 1000 + pendingTime + delayTime]);
-    }
   };
 
   return (
@@ -172,14 +170,17 @@ const OximetryPage = () => {
                 className="filter-btn"
                 onChange={(e) => setSampleTime(e.value)}
                 options={[
-                  { name: "10s", value: 10 },
-                  { name: "20s", value: 20 },
-                  { name: "30s", value: 30 },
+                  { name: "10s ↓", value: 10 },
+                  { name: "20s ↓", value: 20 },
+                  { name: "30s ↓", value: 30 },
                 ]}
                 optionLabel="name"
                 placeholder={"sample time  ↓"}
               />
             </DropdownButton>
+            <CircularContainer>
+              <Counter counter={counter} startCountDown={startCountDown} />
+            </CircularContainer>
           </Description>
           <DiagramContainer>
             <Diagram data={chartData} sizeOfSlice={sizeOfSlice} />
@@ -213,9 +214,6 @@ const OximetryPage = () => {
                   disabled={disable}
                 />
               </DropdownButton>
-              <CircularContainer>
-                <Counter counter={counter} startCountDown={startCountDown} size = {75}/>
-              </CircularContainer>
             </InfoContainer>
           </DiagramContainer>
         </DiagramWrapper>

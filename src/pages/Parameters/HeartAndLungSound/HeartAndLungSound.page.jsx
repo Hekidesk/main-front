@@ -145,7 +145,6 @@ const HeartAndLungSoundPage = () => {
   };
 
   const startInput = () => {
-    if (bluetooth.CheckConnection()) {
       flushData();
       setCounter(5);
       let startTimeDuration = 0;
@@ -160,7 +159,6 @@ const HeartAndLungSoundPage = () => {
         bluetooth.Stop(startTimeDuration);
         setSizeOfSlice(-1);
       }, [sampleTime * 1000 + pendingTime + delayTime]);
-    }
   };
 
   async function playAudio() {
@@ -238,9 +236,9 @@ const HeartAndLungSoundPage = () => {
                 className="filter-btn"
                 onChange={(e) => setSampleTime(e.value)}
                 options={[
-                  { name: "10s", value: 10 },
-                  { name: "30s", value: 30 },
-                  { name: "30s", value: 30 },
+                  { name: "10s ↓", value: 10 },
+                  { name: "30s ↓", value: 30 },
+                  { name: "30s ↓", value: 30 },
                 ]}
                 optionLabel="name"
                 placeholder={"sample time  ↓"}

@@ -60,6 +60,7 @@ const CardiogramPage = () => {
   const [singleSpike, setSingleSpike] = useState([]);
   const [PQRST_ss, setPQRST_ss] = useState([]);
   const [ArrythmiaType, setArrythmiaType] = useState(-1);
+  const [ArrythmiaType2, setArrythmiaType2] = useState(-1);
 
   const types = [
     "Normal",
@@ -68,6 +69,11 @@ const CardiogramPage = () => {
     "Premature Atrial Contrature (PAC)",
     "Paroxysmal Atrial Tachycardia (PAT)",
     "Multifocul Atrial Tachycardia (MAT)",
+  ];
+
+  const types2 = [
+    "َّAF",
+    "Normal",
   ];
 
   function makePQRST(ps, qs, rs, ss, ts) {
@@ -114,6 +120,8 @@ const CardiogramPage = () => {
       setHrv(makeArrayFormString(res.data.hrv));
       setHrvVal(res.data.hrv_val);
       setArrythmiaType(parseInt(res.data.arrhythmia_type_PQRST));
+      console.log(res.data);
+      setArrythmiaType2(parseInt(res.data.Pred_Label));
       let filtered_signal = makeArrayFormString(res.data.ECG_filtered);
       setFilteredArray(makeFilteredArray(dot, filtered_signal));
       setFilteredArray([
@@ -161,7 +169,6 @@ const CardiogramPage = () => {
   };
 
   const startInput = () => {
-    if (bluetooth.CheckConnection()) {
       let startTimeDuration = 0;
       flushData();
       startTime.current = setTimeout(() => {
@@ -175,7 +182,6 @@ const CardiogramPage = () => {
         bluetooth.Stop(startTimeDuration);
         setSizeOfSlice(-1);
       }, [sampleTime * 1000 + pendingTime + delayTime]);
-    }
   };
 
   useEffect(() => {
@@ -221,9 +227,9 @@ const CardiogramPage = () => {
                 className="filter-btn"
                 onChange={(e) => setSampleTime(e.value)}
                 options={[
-                  { name: "10s", value: 10 },
-                  { name: "20s", value: 20 },
-                  { name: "30s", value: 30 },
+                  { name: "10s ↓", value: 10 },
+                  { name: "20s ↓", value: 20 },
+                  { name: "30s ↓", value: 30 },
                 ]}
                 optionLabel="name"
                 placeholder={"sample time  ↓"}
@@ -250,7 +256,10 @@ const CardiogramPage = () => {
               <SmallSimpleValue>
                 {ArrythmiaType !== -1 ? types[ArrythmiaType] : "-"}
               </SmallSimpleValue>
-
+              <SimpleTitle>Arrythmia Type 2 </SimpleTitle>
+              <SmallSimpleValue>
+                {ArrythmiaType !== -1 ? types2[ArrythmiaType2] : "-"}
+              </SmallSimpleValue>
               <Button
                 style={filterButton}
                 className="filter-btn"
