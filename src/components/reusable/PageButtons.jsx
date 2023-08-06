@@ -49,6 +49,7 @@ const PageButtons = ({
         <Button
           onClick={() => shareData(dataName, texts, extraChartName, extraText)}
           style={ButtonMeasurementStyle}
+          disabled = {disable}
           className="page-btn d-flex justify-content-center"
         >
           <img
