@@ -33,15 +33,18 @@ const TemperaturePage = () => {
   const dbFunc = useAddToDB("TemperatureData");
   const bluetooth = useContext(BluetoothContext);
   const [disable, setDisable] = useState(1);
+  const [sizeOfSlice, setSizeOfSlice] = useState(-1);
 
   const COMMAND = 0x04;
   function calculateTemperature(data) {
     console.log(data);
-    const average = data.reduce((a, b) => a + b, 0) / data.length;
-    console.log(Number(average).toFixed(2));
-    setTemperature(Number(average).toFixed(2));
-    setQualityIndex(100);
-    setDisable(0);
+    if (data != []) {
+      const average = data.reduce((a, b) => a + b, 0) / data.length;
+      console.log(Number(average).toFixed(2));
+      setTemperature(Number(average).toFixed(2));
+      setQualityIndex(100);
+      setDisable(0);
+    }
   }
 
   useEffect(() => {
@@ -85,17 +88,19 @@ const TemperaturePage = () => {
   };
 
   const startInput = () => {
-      let startTimeDuration = 0;
-      flushData();
-      startTime.current = setTimeout(() => {
-        setCounter(sampleTime);
-        bluetooth.Start().then((result) => (startTimeDuration = result));
-      }, [pendingTime + delayTime]);
-      endTime.current = setTimeout(() => {
-        setStartCountDown(0);
-        setCounter(5);
-        bluetooth.Stop(startTimeDuration);
-      }, [sampleTime * 1000 + pendingTime + delayTime]);
+    let startTimeDuration = 0;
+    flushData();
+    startTime.current = setTimeout(() => {
+      setCounter(sampleTime);
+      bluetooth.Start().then((result) => (startTimeDuration = result));
+      setSizeOfSlice(10);
+    }, [pendingTime + delayTime]);
+    endTime.current = setTimeout(() => {
+      setStartCountDown(0);
+      setCounter(5);
+      bluetooth.Stop(startTimeDuration);
+      setSizeOfSlice(sampleTime);
+    }, [sampleTime * 1000 + pendingTime + delayTime]);
   };
 
   return (
@@ -129,7 +134,7 @@ const TemperaturePage = () => {
             </CircularContainer>
           </Description>
           <DiagramContainer>
-            <Diagram data={chartData} sizeOfSlice={-2} />
+            <Diagram data={chartData} sizeOfSlice={sizeOfSlice} />
             <InfoContainer>
               <ImportantTitle>Temperature (°C)</ImportantTitle>
               <ImportantValue>{temperature}</ImportantValue>

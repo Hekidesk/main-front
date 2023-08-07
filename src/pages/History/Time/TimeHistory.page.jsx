@@ -10,17 +10,28 @@ import { ButtonHistoryStyle } from "@/components/reusable/ButtonStyle";
 import { Link } from "react-router-dom";
 import { useIndexedDB } from "react-indexed-db";
 import { GetDateTimeDB, convertStringToDateDB } from "@/utilities/time/time";
+import { Knob } from 'primereact/knob';
 
 const TimeHistoryPage = () => {
   const [data, setData] = useState(null);
   const [parameter, setParameter] = useState({});
 
+  const [heartBeat, setHeartBeat] = useState(0);
   //pagination
   const [dates, setDates] = useState([]);
   const [currentDate, setCurrentDate] = useState(0);
   const [activeIndex, setActiveIndex] = useState(0);
 
   const { getAll: getAllData } = useIndexedDB("time");
+
+  const types = [
+    "Normal",
+    "Sinus Tachicardia",
+    "Sinus Bradicardia",
+    "Premature Atrial Contrature (PAC)",
+    "Paroxysmal Atrial Tachycardia (PAT)",
+    "Multifocul Atrial Tachycardia (MAT)",
+  ];
 
   useEffect(() => {
     getAllData().then((dataFromDB) => {
@@ -42,15 +53,24 @@ const TimeHistoryPage = () => {
     if (data && data.length) retrieveDate(currentDate);
   }, [data]);
 
+  useEffect(() => {
+    console.log(currentDate);
+    if (data && data.length) retrieveDate(activeIndex);
+  }, [activeIndex]);
+
   const retrieveDate = (currentDate) => {
     console.log(currentDate);
     setActiveIndex(currentDate);
     const dateAndId = parseInt(
       convertStringToDateDB(dates[currentDate], localStorage.getItem("id"))
     );
-    const result = data.filter((temp) => temp.dateAndId === dateAndId);
-    console.log("result: " + JSON.stringify(result));
-    setParameter(result[0].parameters);
+    const tempResult = data.filter((temp) => temp.dateAndId === dateAndId);
+    console.log("result: " + JSON.stringify(tempResult));
+    const result = tempResult[0].parameters;
+    setParameter(result);
+    setHeartBeat(result.heartBeatECG ? result.heartBeatECG : 
+                 result.heartBeatPPG ? result.heartBeatPPG : 
+                 result.heartBeatSound ? result.heartBeatSound : 0);
   };
 
   const decCurrentUser = () => {
@@ -64,7 +84,7 @@ const TimeHistoryPage = () => {
   };
 
   const incCurrentUser = () => {
-    currentDate + 1 < dates.length && activeIndex % 5 == 4
+    currentDate + 1 < dates.length && (activeIndex % 5 == 4 || currentDate != 0)
       ? setCurrentDate(currentDate + 1)
       : setCurrentDate(currentDate);
 
@@ -206,7 +226,7 @@ const TimeHistoryPage = () => {
                           fontWeight: parameter.ArrythmiaType ? "bold" : "",
                         }}
                       >
-                        Arrythmia Type: {parameter.ArrythmiaType}
+                        Arrythmia Type: {types[parameter.ArrythmiaType]}
                       </Col>
                     </Row>
                     <Row>
@@ -223,10 +243,13 @@ const TimeHistoryPage = () => {
                 </Col>
               </Row>
               <Row>
-                <Col>
-                  <div>
-                    <img src={timeHistory} />
+                <Col className="bg-gray">
+                  <div style={{fontWeight: "bold"}}> Chart </div>
+                  <div style={{fontSize: "13px"}}> Heart Rate (bpm) </div>
+                  <div className="knob-container" style={{marginTop: "1rem"}}>
+                    <Knob value={heartBeat} size={220} valueColor={heartBeat < 60 || heartBeat > 90 ? "red" : "green"} textColor = {"black"}/>
                   </div>
+                  <div style={{marginLeft: "6rem", fontWeight: "bold", marginBottom:"5rem"}}> {heartBeat < 60 || heartBeat > 90 ? "Dangerous" : "Good"} </div>
                 </Col>
                 <Col>
                   <div>

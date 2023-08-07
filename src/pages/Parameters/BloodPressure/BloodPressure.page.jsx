@@ -106,7 +106,7 @@ const BloodPressurePage = () => {
   const startTime = useRef(null);
   const endTime = useRef(null);
   const delayTime = 30;
-
+  const fs = 130;
   const flushData = () => {
     setSYS("-");
     setDIA("-");
@@ -167,10 +167,10 @@ const BloodPressurePage = () => {
           </Description>
           <DiagramContainer>
             <Col md={4} style={{ marginRight: "50px", position: "relative" }}>
-              <Diagram data={IRChartData} sizeOfSlice={sizeOfSlice} />
+              <Diagram data={IRChartData} sizeOfSlice={-1} maximumNum = {sampleTime*fs}/>
             </Col>
-            <Col md={4} style={{ marginLeft: "50px", position: "relative" }}>
-              <Diagram data={forceChartData} sizeOfSlice={sizeOfSliceForce} />
+            <Col id = "forceDiagram" md={4} style={{ marginLeft: "50px", position: "relative" }}>
+              <Diagram data={forceChartData} sizeOfSlice={-1} maximumNum = {sampleTime*fs}/>
             </Col>
             <InfoContainer>
               <ImportantTitle>SYS/DIA</ImportantTitle>
@@ -186,7 +186,13 @@ const BloodPressurePage = () => {
       <PageButtons
         disable={disable}
         dataName="BloodPressureData"
-        texts={["SYS/DIA " + ""]}
+        texts={["SYS/DIA " + SYS + "/" + DIA]}
+        extraChartName={[
+          "#forceDiagram #chartContainer canvas",
+        ]}
+        extraText = {[
+          [""],
+        ]}
         saved={saved}
         setSaved={setSaved}
       />

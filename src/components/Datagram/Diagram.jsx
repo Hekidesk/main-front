@@ -4,7 +4,7 @@ import {  DiagramWrapper } from "./CSS";
 import CanvasJSReact from "./canvasjs.react";
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
-const Diagram = ({ data, sizeOfSlice = -1 }) => {
+const Diagram = ({ data, sizeOfSlice = -1, maximumNum = -1 }) => {
 
   const options = {
       animationEnabled: true,
@@ -20,7 +20,7 @@ const Diagram = ({ data, sizeOfSlice = -1 }) => {
         gridThickness: 1,
         ticksLimit: 2,
         minimum: sizeOfSlice > 0 && data ? (data.length - sizeOfSlice > 0 ? data.length - sizeOfSlice : 0) : null,
-        maximum: sizeOfSlice > 0 && data ? (data.length < sizeOfSlice ? sizeOfSlice : data.length)  : (sizeOfSlice == -2 ? 10 : null),
+        maximum: sizeOfSlice > 0 && data && maximumNum < 0 ? (data.length < sizeOfSlice ? sizeOfSlice : data.length) : maximumNum > 0 ? maximumNum: null,
          labelFormatter: function () {
           return "";
         },

@@ -119,10 +119,11 @@ const HeartAndLungSoundPage = () => {
   useEffect(() => {
     if (bluetooth)
       bluetooth.SendCommand(COMMAND, (input) => {
-        setChartData(makeArrayForChart(input.pcg));
+        setChartData(makeArrayForChart(input.pcg.length - sizeOfSlice > 0 ? input.pcg.slice(input.pcg.length - sizeOfSlice) : input.pcg));
         setData(input.pcg);
       });
     if (bluetooth.finish) {
+      setChartData(makeArrayForChart(data));
       calculateBeatPerMinuteAPI(data);
       console.log(filteredArray);
     }
@@ -251,7 +252,7 @@ const HeartAndLungSoundPage = () => {
                 onChange={(e) => setSampleTime(e.value)}
                 options={[
                   { name: "10s ↓", value: 10 },
-                  { name: "30s ↓", value: 30 },
+                  { name: "20s ↓", value: 20 },
                   { name: "30s ↓", value: 30 },
                 ]}
                 optionLabel="name"

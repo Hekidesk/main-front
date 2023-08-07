@@ -297,7 +297,8 @@ const CardiogramPage = () => {
         ]}
         extraText={[
           ["hrv: " + hrvVal],
-          ["Arrythmia Type: " + types[ArrythmiaType]],
+          ["Arrythmia Type: " + types[ArrythmiaType], 
+          "Arrythmia Type 2: " + types2[ArrythmiaType2]],
         ]}
         saved={saved}
         setSaved={setSaved}

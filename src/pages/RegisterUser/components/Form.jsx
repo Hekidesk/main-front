@@ -55,12 +55,6 @@ const RegisterForm = () => {
         label="Name"
         setState={(v) => onChangeValue("username", v)}
       />
-      {/* <InputTextGroup
-        state={form.dateOfBirth}
-        label={"Date of birth"}
-        placeHolder={"YYYY-MM-DD"}
-        setState={(v) => onChangeValue("dateOfBirth", v)}
-      /> */}
       <div
         style={{
           display: "flex",

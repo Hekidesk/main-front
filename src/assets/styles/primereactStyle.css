@@ -12,7 +12,7 @@
 }
 
 .p-inputtext {
-  color: rgb(249, 249, 249) !important;
+  color: rgb(9, 9, 9) !important;
 }
 
 .p-dropdown {
@@ -67,5 +67,10 @@
 .p-radiobutton .p-radiobutton-box {
   border: none !important;
 }
+
+.p-knob	 {
+  color: linear-gradient(to right, rgb(245, 24, 8), rgb(0, 0, 0)) !important;
+}
+
 
 
