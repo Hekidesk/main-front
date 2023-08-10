@@ -34,7 +34,7 @@ import { RadioButton } from "primereact/radiobutton";
 import Counter from "@/components/Counter/Counter";
 
 const HeartAndLungSoundPage = () => {
-  const [data, setData] = useState();
+  const [data, setData] = useState([]);
   const [chartData, setChartData] = useState();
   const [filteredArray, setFilteredArray] = useState(null);
   const [filter, setFilter] = useState(1);
@@ -123,9 +123,11 @@ const HeartAndLungSoundPage = () => {
         setData(input.pcg);
       });
     if (bluetooth.finish) {
-      setChartData(makeArrayForChart(data));
-      calculateBeatPerMinuteAPI(data);
-      console.log(filteredArray);
+      if(data.length){
+        setChartData(makeArrayForChart(data));
+        calculateBeatPerMinuteAPI(data);
+        console.log(filteredArray);
+      }
     }
     return bluetooth.turnOff;
   }, [bluetooth]);
@@ -151,6 +153,7 @@ const HeartAndLungSoundPage = () => {
   const flushData = () => {
     setStartCountDown(1);
     setDisable(1);
+    setData([]);
     setChartData([]);
     setSaved(0);
     setHeartBeat("-?-");

@@ -17,6 +17,7 @@ import {
   ImportantValue,
   InfoContainer,
   DropdownButton,
+  ForceDataContainer,
 } from "./components/CSS";
 import PageButtons from "@/components/reusable/PageButtons";
 import axios from "axios";
@@ -26,7 +27,8 @@ import { BluetoothContext } from "@/App";
 import { makeArrayForChart } from "@/components/reusableDataFunc/DataFunc";
 import Counter from "@/components/Counter/Counter";
 import { Dropdown } from "primereact/dropdown";
-import { Col } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
+import ForceDiagram from "@/pages/Parameters/BloodPressure/ForceDiagram"
 
 const BloodPressurePage = () => {
   const [IrData, setIrData] = useState();
@@ -166,12 +168,10 @@ const BloodPressurePage = () => {
             </CircularContainer>
           </Description>
           <DiagramContainer>
-            <Col md={4} style={{ marginRight: "50px", position: "relative" }}>
-              <Diagram data={IRChartData} sizeOfSlice={-1} maximumNum = {sampleTime*fs}/>
-            </Col>
-            <Col id = "forceDiagram" md={4} style={{ marginLeft: "50px", position: "relative" }}>
+            <Diagram data={IRChartData} sizeOfSlice={-1} maximumNum = {sampleTime*fs}/>
+            {/* <Col id = "forceDiagram" md={4} style={{ marginLeft: "50px", position: "relative" }}>
               <Diagram data={forceChartData} sizeOfSlice={-1} maximumNum = {sampleTime*fs}/>
-            </Col>
+            </Col> */}
             <InfoContainer>
               <ImportantTitle>SYS/DIA</ImportantTitle>
               <ImportantValue>
@@ -181,6 +181,10 @@ const BloodPressurePage = () => {
               <SimpleValue>{qualityIndex}</SimpleValue>
             </InfoContainer>
           </DiagramContainer>
+          <ForceDataContainer>
+            <ForceDiagram forceChartData = {forceChartData} maximumNum = {sampleTime*fs} />
+          </ForceDataContainer>
+
         </DiagramWrapper>
       </div>
       <PageButtons

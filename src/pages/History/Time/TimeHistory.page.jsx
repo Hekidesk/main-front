@@ -5,18 +5,19 @@ import Sidebar from "@/components/Sidebar/Sidebar";
 import ProfileSection from "../../Profile/ProfileSection";
 import BodyIcon from "@/assets/icon/history/bodyImg.svg";
 import upIcon from "@/assets/icon/history/upIcon.svg";
-import timeHistory from "@/assets/icon/history/time-history.svg";
+// import timeHistory from "@/assets/icon/history/time-history.svg";
 import { ButtonHistoryStyle } from "@/components/reusable/ButtonStyle";
 import { Link } from "react-router-dom";
 import { useIndexedDB } from "react-indexed-db";
 import { GetDateTimeDB, convertStringToDateDB } from "@/utilities/time/time";
-import { Knob } from 'primereact/knob';
+import { Knob } from "primereact/knob";
 
 const TimeHistoryPage = () => {
   const [data, setData] = useState(null);
   const [parameter, setParameter] = useState({});
 
   const [heartBeat, setHeartBeat] = useState(0);
+  const [temperature, setTemperature] = useState(0);
   //pagination
   const [dates, setDates] = useState([]);
   const [currentDate, setCurrentDate] = useState(0);
@@ -68,9 +69,16 @@ const TimeHistoryPage = () => {
     console.log("result: " + JSON.stringify(tempResult));
     const result = tempResult[0].parameters;
     setParameter(result);
-    setHeartBeat(result.heartBeatECG ? result.heartBeatECG : 
-                 result.heartBeatPPG ? result.heartBeatPPG : 
-                 result.heartBeatSound ? result.heartBeatSound : 0);
+    setHeartBeat(
+      result.heartBeatECG
+        ? result.heartBeatECG
+        : result.heartBeatPPG
+        ? result.heartBeatPPG
+        : result.heartBeatSound
+        ? result.heartBeatSound
+        : 0
+    );
+    setTemperature(result.temperature ? result.temperature : 0);
   };
 
   const decCurrentUser = () => {
@@ -212,7 +220,7 @@ const TimeHistoryPage = () => {
                           fontWeight: parameter.temperature ? "bold" : "",
                         }}
                       >
-                        Temperature(C): {parameter.temperature}
+                        Temperature(°C): {parameter.temperature}
                       </Col>
                       <Col style={{ fontWeight: parameter.SYS ? "bold" : "" }}>
                         SYS/DIA(mmHg): {parameter.SYS}{" "}
@@ -244,16 +252,62 @@ const TimeHistoryPage = () => {
               </Row>
               <Row>
                 <Col className="bg-gray">
-                  <div style={{fontWeight: "bold"}}> Chart </div>
-                  <div style={{fontSize: "13px"}}> Heart Rate (bpm) </div>
-                  <div className="knob-container" style={{marginTop: "1rem"}}>
-                    <Knob value={heartBeat} size={220} valueColor={heartBeat < 60 || heartBeat > 90 ? "red" : "green"} textColor = {"black"}/>
+                  <div style={{ fontWeight: "bold" }}> Chart </div>
+                  <div style={{ fontSize: "13px" }}> Heart Rate (bpm) </div>
+                  <div className="knob-container" style={{ marginTop: "1rem" }}>
+                    <Knob
+                      value={heartBeat}
+                      size={220}
+                      valueColor={
+                        heartBeat < 60 || heartBeat > 90 ? "red" : "green"
+                      }
+                      textColor={"black"}
+                    />
                   </div>
-                  <div style={{marginLeft: "6rem", fontWeight: "bold", marginBottom:"5rem"}}> {heartBeat < 60 || heartBeat > 90 ? "Dangerous" : "Good"} </div>
+                  <div
+                    style={{
+                      marginLeft: "6rem",
+                      fontWeight: "bold",
+                      marginBottom: "5rem",
+                    }}
+                  >
+                    {" "}
+                    {heartBeat === 0 ?  " " : 
+                    (heartBeat < 60 || heartBeat > 90)
+                      ? "Dangerous"
+                      : "Good"}{" "}
+                  </div>
                 </Col>
-                <Col>
+                <Col className="bg-gray" style={{marginLeft: "10px"}}>
                   <div>
-                    <img src={timeHistory} />
+                    <div style={{ fontWeight: "bold" }}> Chart </div>
+                    <div style={{ fontSize: "13px" }}> Temperature (°C) </div>
+                    <div
+                      className="knob-container"
+                      style={{ marginTop: "1rem" }}
+                    >
+                      <Knob
+                        value={temperature}
+                        size={220}
+                        valueColor={
+                          temperature < 30 || temperature > 38 ? "red" : "green"
+                        }
+                        textColor={"black"}
+                      />
+                    </div>
+                    <div
+                      style={{
+                        marginLeft: "6rem",
+                        fontWeight: "bold",
+                        marginBottom: "5rem",
+                      }}
+                    >
+                      {" "}
+                      {temperature === 0 ? " " :
+                      (temperature < 30 || temperature > 38)
+                        ? "Dangerous"
+                        : "Good"}{" "}
+                    </div>
                   </div>
                 </Col>
               </Row>

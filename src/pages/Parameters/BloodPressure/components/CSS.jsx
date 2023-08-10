@@ -105,3 +105,16 @@ export const DropdownButton = styled.div`
   text-align: center;
   margin-left: 15px;
 `;
+export const TitleContainer = styled.div`
+  height: 50px;
+  text-align: center;
+  text-shadow: 1px 1px 1px #fff;
+  font-size: 1em;
+  font-weight: bold;
+  margin-top: 10px;
+`;
+export const ForceDataContainer = styled.div`
+background-color: #c8e7f1;
+flex-direction: column;
+box-shadow: -1px -1px 10px -12px rgba(0, 0, 0, 0.82);
+`;
