@@ -50,7 +50,7 @@ const Diagram = ({ data, sizeOfSlice = -1, maximumNum = -1, type = "" }) => {
           type: "line",
           dataPoints: type == "force" ? [
             { x: 110, y: 2 },
-            { x: 2500, y: 13 },
+            { x: 4000, y: 19.9 },
           ] : [],
           color: "#1CB5BD"
         },
@@ -58,7 +58,7 @@ const Diagram = ({ data, sizeOfSlice = -1, maximumNum = -1, type = "" }) => {
           type: "line",
           dataPoints: type == "force" ? [
             { x: 110, y: 0.9 },
-            { x: 2800, y: 10.7 },
+            { x: 4000, y: 15.07 },
           ] : [],
           color:"#1CB5BD"
         }
