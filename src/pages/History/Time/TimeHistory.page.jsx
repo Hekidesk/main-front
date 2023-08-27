@@ -5,7 +5,6 @@ import Sidebar from "@/components/Sidebar/Sidebar";
 import ProfileSection from "../../Profile/ProfileSection";
 import BodyIcon from "@/assets/icon/history/bodyImg.svg";
 import upIcon from "@/assets/icon/history/upIcon.svg";
-// import timeHistory from "@/assets/icon/history/time-history.svg";
 import { ButtonHistoryStyle } from "@/components/reusable/ButtonStyle";
 import { Link } from "react-router-dom";
 import { useIndexedDB } from "react-indexed-db";
@@ -14,10 +13,11 @@ import { Knob } from "primereact/knob";
 
 const TimeHistoryPage = () => {
   const [data, setData] = useState(null);
-  const [parameter, setParameter] = useState({});
+  const [parameter, setParameter] = useState();
 
   const [heartBeat, setHeartBeat] = useState(0);
   const [temperature, setTemperature] = useState(0);
+
   //pagination
   const [dates, setDates] = useState([]);
   const [currentDate, setCurrentDate] = useState(0);
@@ -34,6 +34,11 @@ const TimeHistoryPage = () => {
     "Multifocul Atrial Tachycardia (MAT)",
   ];
 
+  const types2 = [
+    "َّAF",
+    "Normal",
+  ];
+
   useEffect(() => {
     getAllData().then((dataFromDB) => {
       console.log(dataFromDB);
@@ -42,25 +47,22 @@ const TimeHistoryPage = () => {
       );
       console.log(result);
       let dateAndIds = result.map((d) => d.dateAndId);
-      const result2 = dateAndIds.map((d) => GetDateTimeDB(String(d)));
-      console.log(result2);
-      setDates(result2);
+      const tempResult = dateAndIds.map((d) => GetDateTimeDB(String(d)));
+      console.log(tempResult);
+      setDates(tempResult);
       setData(result);
     });
   }, []);
 
   useEffect(() => {
-    console.log(currentDate);
     if (data && data.length) retrieveDate(currentDate);
   }, [data]);
 
   useEffect(() => {
-    console.log(currentDate);
     if (data && data.length) retrieveDate(activeIndex);
   }, [activeIndex]);
 
   const retrieveDate = (currentDate) => {
-    console.log(currentDate);
     setActiveIndex(currentDate);
     const dateAndId = parseInt(
       convertStringToDateDB(dates[currentDate], localStorage.getItem("id"))
@@ -68,7 +70,19 @@ const TimeHistoryPage = () => {
     const tempResult = data.filter((temp) => temp.dateAndId === dateAndId);
     console.log("result: " + JSON.stringify(tempResult));
     const result = tempResult[0].parameters;
-    setParameter(result);
+    setParameter([
+      {text: "Heart Rate ECG (bpm):" , value: result.heartBeatECG}, 
+      {text: "Heart Rate PPG (bpm):" , value: result.heartBeatPPG}, 
+      {text: "PR/RR Interval (msec):" , value: result.PR_RR_Interval}, 
+      {text: "QRS Duration (msec):" , value: result.QRS_Duration}, 
+      {text: "HR Variation:" , value: result.hrvVal}, 
+      {text: "SpO2 (%):" , value: result.SPO2}, 
+      {text: "Temperature(°C):" , value: result.temperature}, 
+      {text: "SYS/DIA(mmHg):", value: result.SYS ? result.SYS + "/" + result.DIA : null }, 
+      {text: "Arrythmia Type:", value: types[result.ArrythmiaType]}, 
+      {text: "Heart Rate sound (bpm):", value: result.heartBeatSound}, 
+      {text: "Respiration Rate:", value: result.respirationRate}, 
+    ]);
     setHeartBeat(
       result.heartBeatECG
         ? result.heartBeatECG
@@ -79,6 +93,7 @@ const TimeHistoryPage = () => {
         : 0
     );
     setTemperature(result.temperature ? result.temperature : 0);
+    console.log(parameter)
   };
 
   const decCurrentUser = () => {
@@ -127,9 +142,9 @@ const TimeHistoryPage = () => {
               <Row>
                 <ProfileSection />
               </Row>
-              <Row>
+              {/* <Row>
                 <img src={BodyIcon} alt="body" className="cropped-img" />
-              </Row>
+              </Row> */}
               <Row
                 style={{
                   backgroundColor: "#E8F0F4",
@@ -173,80 +188,20 @@ const TimeHistoryPage = () => {
                       Rates:
                     </Row>
                     <Row>
-                      <Col
-                        style={{
-                          fontWeight: parameter.heartBeatECG ? "bold" : "",
-                        }}
-                      >
-                        Heart Rate ECG (bpm): {parameter.heartBeatECG}
-                      </Col>
-                      <Col
-                        style={{
-                          fontWeight: parameter.heartBeatPPG ? "bold" : "",
-                        }}
-                      >
-                        Heart Rate PPG (bpm): {parameter.heartBeatPPG}
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col
-                        style={{
-                          fontWeight: parameter.PR_RR_Interval ? "bold" : "",
-                        }}
-                      >
-                        PR/RR Interval (msec): {parameter.PR_RR_Interval}
-                      </Col>
-                      <Col
-                        style={{
-                          fontWeight: parameter.QRS_Duration ? "bold" : "",
-                        }}
-                      >
-                        QRS Duration (msec): {parameter.QRS_Duration}
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col
-                        style={{ fontWeight: parameter.hrvVal ? "bold" : "" }}
-                      >
-                        HR Variation: {parameter.hrvVal}
-                      </Col>
-                      <Col style={{ fontWeight: parameter.SPO2 ? "bold" : "" }}>
-                        SpO2 (%): {parameter.SPO2}
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col
-                        style={{
-                          fontWeight: parameter.temperature ? "bold" : "",
-                        }}
-                      >
-                        Temperature(°C): {parameter.temperature}
-                      </Col>
-                      <Col style={{ fontWeight: parameter.SYS ? "bold" : "" }}>
-                        SYS/DIA(mmHg): {parameter.SYS}{" "}
-                        {parameter.SYS ? "/" : ""} {parameter.DIA}
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col>Lung Abnormality:</Col>
-                      <Col
-                        style={{
-                          fontWeight: parameter.ArrythmiaType ? "bold" : "",
-                        }}
-                      >
-                        Arrythmia Type: {types[parameter.ArrythmiaType]}
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col
-                        style={{
-                          fontWeight: parameter.heartBeatSound ? "bold" : "",
-                        }}
-                      >
-                        Heart Rate sound (bpm): {parameter.heartBeatSound}{" "}
-                      </Col>
-                      <Col>Heart Abnormality:</Col>
-                    </Row>
+                      {parameter && parameter.map((p, i) => {
+                        return(
+                          <Col
+                            style={{
+                              fontWeight: p.value ? "bold" : "",
+                            }}
+                            md = {6}
+                            key={i}
+                          >
+                            {p.text} {p.value ? p.value : ""}
+                          </Col>
+                        )
+                      })}
+                    </Row>              
                   </div>
                 </Col>
               </Row>
