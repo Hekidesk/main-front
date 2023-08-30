@@ -11,8 +11,8 @@ function ProtectedRoute(props) {
   const isDeviceRegistered = localStorage.getItem("device") !== null;
   const navigate = useNavigate();
 
-  // if (!bluetooth.isConnected && props.needsDevice && props.children.type.name === "MeasurementPage") 
-  //   return (<Navigate to={process.env.REACT_APP_BASE_URL + "/connection"} replace />);
+  if (!bluetooth.isConnected && props.needsDevice && props.children.type.name === "MeasurementPage") 
+    return (<Navigate to={process.env.REACT_APP_BASE_URL + "/connection"} replace />);
   if (!bluetooth.isConnected && props.needsDevice) {
     Swal.fire({
       title: "Your device is disconnected",

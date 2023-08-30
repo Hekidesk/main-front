@@ -1,4 +1,7 @@
 // import { jsPDF } from "jspdf";
+import {
+  GetCurrentDateTimeForFileName,
+} from "../time/time";
 
 export function prepareURLFile(texts, extraChart = [], extraText = []) {
   var oldCanvas = document.querySelector("#chartContainer canvas");
@@ -48,15 +51,16 @@ function downloadImage(data, filename = "untitled.jpeg") {
   a.click();
 }
 
-export function downloadSVGAsPNG(e, dataKey, texts) {
-  var dataURL = prepareURLFile(texts);
-  const fileName = dataKey + ".png";
+export function downloadSVGAsPNG(dataKey, texts, extraChart = [], extraText = []) {
+  var dataURL = prepareURLFile(texts, extraChart, extraText);
+  const showTime = GetCurrentDateTimeForFileName();
+  const fileName = showTime + "-" + dataKey + ".png";
   downloadImage(dataURL, fileName);
 }
 
-export function downloadPDFAsPNG(e, dataKey, texts) {
+// export function downloadPDFAsPNG(e, dataKey, texts) {
   // var dataURL = prepareURLFile(texts);
   // const fileName = dataKey + ".pdf";
   // const doc = new jsPDF();
   // doc.addImage(dataURL, "png", 0, 10, 200, 100).save(fileName);
-}
+// }

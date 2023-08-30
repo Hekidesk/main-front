@@ -7,7 +7,7 @@ import backIcon from "@/assets/icon/measurement/back.svg";
 import shareIcon from "@/assets/icon/measurement/shareIcon.svg";
 import saveIcon from "@/assets/icon/measurement/saveIcon.svg";
 import ckeckmarkIcon from "@/assets/icon/ckeckmarkIcon.svg";
-import { shareData } from "@/utilities/share/Share";
+import { downloadSVGAsPNG } from "@/utilities/share/downloadFile";
 
 const PageButtons = ({
   disable,
@@ -47,7 +47,7 @@ const PageButtons = ({
       </Col>
       <Col>
         <Button
-          onClick={() => shareData(dataName, texts, extraChartName, extraText)}
+          onClick={() => downloadSVGAsPNG(dataName, texts, extraChartName, extraText)}
           style={ButtonMeasurementStyle}
           disabled = {disable}
           className="page-btn d-flex justify-content-center"
@@ -58,7 +58,7 @@ const PageButtons = ({
             width="16px"
             style={{ margin: "0em 0.6em" }}
           />
-          <span>Share</span>
+          <span>Download</span>
         </Button>
       </Col>
       <Col>

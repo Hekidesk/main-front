@@ -17,9 +17,6 @@ import SYSDIAIcon from "@/assets/icon/history/bloodPressureIcon.svg";
 import "@/assets/styles/history.css";
 import "@/assets/styles/profile.css";
 import HistoryChart from "../Chart/HistoryChart";
-import upIcon from "@/assets/icon/history/upIcon.svg";
-import { ButtonMyDeskStyle } from "@/components/reusable/ButtonStyle";
-import { Link } from "react-router-dom";
 import { useIndexedDB } from "react-indexed-db";
 import { GetDateTimeDB } from "@/utilities/time/time";
 
@@ -308,21 +305,6 @@ const ParameterHistoryPage = () => {
             </Col>
           </Row>
         </Col>
-      </Row>
-      <Row className="d-flex justify-content-end">
-        <Link
-          // eslint-disable-next-line no-undef
-          to={process.env.REACT_APP_BASE_URL + "/history"}
-          style={ButtonMyDeskStyle}
-        >
-          <img
-            src={upIcon}
-            alt="Image"
-            width="16px"
-            style={{ margin: "0em 0.2em" }}
-          />
-          Up
-        </Link>
       </Row>
     </div>
   );

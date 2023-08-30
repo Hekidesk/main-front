@@ -3,10 +3,6 @@ import Profile from "../../Profile/Profile";
 import { Col, Row, Pagination } from "react-bootstrap";
 import Sidebar from "@/components/Sidebar/Sidebar";
 import ProfileSection from "../../Profile/ProfileSection";
-import BodyIcon from "@/assets/icon/history/bodyImg.svg";
-import upIcon from "@/assets/icon/history/upIcon.svg";
-import { ButtonHistoryStyle } from "@/components/reusable/ButtonStyle";
-import { Link } from "react-router-dom";
 import { useIndexedDB } from "react-indexed-db";
 import { GetDateTimeDB, convertStringToDateDB } from "@/utilities/time/time";
 import { Knob } from "primereact/knob";
@@ -269,21 +265,6 @@ const TimeHistoryPage = () => {
             </Col>
           </Row>
         </Col>
-      </Row>
-      <Row className="d-flex justify-content-end">
-        <Link
-          // eslint-disable-next-line no-undef
-          to={process.env.REACT_APP_BASE_URL + "/history"}
-          style={ButtonHistoryStyle}
-        >
-          <img
-            src={upIcon}
-            alt="Image"
-            width="16px"
-            style={{ margin: "0em 0.2em" }}
-          />
-          Up
-        </Link>
       </Row>
     </div>
   );
