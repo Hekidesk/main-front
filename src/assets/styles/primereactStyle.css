@@ -15,7 +15,7 @@
   color: rgb(9, 9, 9) !important;
 }
 
-.p-dropdown {
+.p-dropdown:not(.register-dropdown) {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -33,12 +33,22 @@
   background-color: var(--nav-color-top) !important;
 }
 
+.register-dropdown > .p-dropdown-label {
+  color: black !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+.register-dropdown > .p-dropdown-label:hover {
+  background-color: rgb(255, 255, 255) !important;
+}
+
 .p-component:hover{
   box-shadow: none !important;
 }
 
-.p-dropdown:focus,
-.p-dropdown:focus-within,
+.p-dropdown:focus:not(.register-dropdown),
+.p-dropdown:focus-within:not(.register-dropdown),
 .p-dropdown .p-dropdown-label:focus,
 .p-dropdown .p-dropdown-items:focus {
   border: none !important;

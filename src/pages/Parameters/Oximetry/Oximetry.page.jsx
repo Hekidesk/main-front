@@ -95,7 +95,7 @@ const OximetryPage = () => {
     if (bluetooth.finish) {
       calculateBeatPerMinuteAPI(IrData, RedData);
     }
-    return bluetooth.turnOff;
+    return bluetooth.TurnOff;
   }, [bluetooth]);
 
   useEffect(() => {
@@ -143,21 +143,21 @@ const OximetryPage = () => {
     setCounter(5);
   };
 
-  const startInput = () => { 
-      let startTimeDuration = 0;
-      flushData();
-      startTime.current = setTimeout(() => {
-        setCounter(sampleTime);
-        console.log(startCountDown);
-        bluetooth.Start().then((result) => (startTimeDuration = result));
-        setSizeOfSlice(400);
-      }, [pendingTime + delayTime]);
-      endTime.current = setTimeout(() => {
-        setStartCountDown(0);
-        setCounter(5);
-        bluetooth.Stop(startTimeDuration);
-        setSizeOfSlice(-1);
-      }, [sampleTime * 1000 + pendingTime + delayTime]);
+  const startInput = () => {
+    let startTimeDuration = 0;
+    flushData();
+    startTime.current = setTimeout(() => {
+      setCounter(sampleTime);
+      console.log(startCountDown);
+      bluetooth.Start().then((result) => (startTimeDuration = result));
+      setSizeOfSlice(400);
+    }, [pendingTime + delayTime]);
+    endTime.current = setTimeout(() => {
+      setStartCountDown(0);
+      setCounter(5);
+      bluetooth.Stop(startTimeDuration);
+      setSizeOfSlice(-1);
+    }, [sampleTime * 1000 + pendingTime + delayTime]);
   };
 
   return (

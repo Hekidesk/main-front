@@ -7,8 +7,6 @@ import TemeperatureIcon from "@/assets/icon/measurement/temeperatureIcon.svg";
 import BpIcon from "@/assets/icon/measurement/bloodPressureIcon.svg";
 import "@/assets/styles/Measurement.css";
 import { Link } from "react-router-dom";
-import { ButtonMyDeskStyle } from "@/components/reusable/ButtonStyle";
-import MyDeskIcon from "@/assets/icon/myDesk.svg";
 
 const Measurement = () => {
   return (
@@ -108,21 +106,6 @@ const Measurement = () => {
             </Link>
           </Col>
         </Row>
-      </Row>
-      <Row className="d-flex justify-content-end">
-        <Link
-          // eslint-disable-next-line no-undef
-          to={process.env.REACT_APP_BASE_URL + "/user-desk"}
-          style={ButtonMyDeskStyle}
-        >
-          <img
-            src={MyDeskIcon}
-            alt="Image"
-            width="16px"
-            style={{ margin: "0em 0.2em" }}
-          />
-          My Desk
-        </Link>
       </Row>
     </div>
   );

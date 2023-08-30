@@ -207,8 +207,8 @@ const TimeHistoryPage = () => {
               </Row>
               <Row>
                 <Col className="bg-gray">
-                  <div style={{ fontWeight: "bold" }}> Chart </div>
-                  <div style={{ fontSize: "13px" }}> Heart Rate (bpm) </div>
+                  <div style={{ fontWeight: "bold" }}> Heart Rate </div>
+                  <div style={{ fontSize: "13px" }}> (bpm) </div>
                   <div className="knob-container" style={{ marginTop: "1rem" }}>
                     <Knob
                       value={heartBeat}
@@ -235,8 +235,8 @@ const TimeHistoryPage = () => {
                 </Col>
                 <Col className="bg-gray" style={{marginLeft: "10px"}}>
                   <div>
-                    <div style={{ fontWeight: "bold" }}> Chart </div>
-                    <div style={{ fontSize: "13px" }}> Temperature (°C) </div>
+                    <div style={{ fontWeight: "bold" }}> Temperature </div>
+                    <div style={{ fontSize: "13px" }}> (°C) </div>
                     <div
                       className="knob-container"
                       style={{ marginTop: "1rem" }}

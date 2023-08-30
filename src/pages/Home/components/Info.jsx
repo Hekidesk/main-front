@@ -2,13 +2,13 @@ import Icon from "@/assets/logo/hekidesk-transparent.svg";
 import HeartbeatIcon from "@/assets/icon/heartbeat.svg";
 import StethoscopeIcon from "@/assets/icon/stethoscope.svg";
 import BluetoothIcon from "@/assets/icon/bluetooth.svg";
-import SearchIcon from "@/assets/icon/question.svg";
+// import SearchIcon from "@/assets/icon/question.svg";
 import { Image } from "primereact/image";
 import { Text } from "@/components/reusable/Text";
 import { List, ListItems } from "@/components/reusable/List";
 import {
   ImageWrapper,
-  QuestionWrapper,
+  // QuestionWrapper,
 } from "@/components/reusable/ImageWrapper";
 
 const InfoHome = () => {
@@ -47,9 +47,9 @@ const InfoHome = () => {
       <ImageWrapper>
         <Image src={Icon} alt="icon" width="100%" />
       </ImageWrapper>
-      <QuestionWrapper>
+      {/* <QuestionWrapper>
         <Image src={SearchIcon} alt="search" width="100%" />
-      </QuestionWrapper>
+      </QuestionWrapper> */}
     </span>
   );
 };

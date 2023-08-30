@@ -1,6 +1,6 @@
 import { InputText } from "primereact/inputtext";
 
-export const InputTextGroup = ({ state, setState, label, placeHolder }) => {
+export const InputTextGroup = ({ state, setState, label, placeHolder, warning, necessary = false }) => {
   return (
     <div
       style={{
@@ -11,7 +11,8 @@ export const InputTextGroup = ({ state, setState, label, placeHolder }) => {
       }}
     >
       <label htmlFor={label} style={{ marginBottom: "0.4em" }}>
-        {label}
+        {label} 
+        {necessary && <div style = {{display: "inline" , color: "red"}}>{" "}*</div>}
       </label>
       <InputText
         id={label}
@@ -20,6 +21,7 @@ export const InputTextGroup = ({ state, setState, label, placeHolder }) => {
         value={state}
         onChange={(e) => setState(e.target.value)}
         placeholder={placeHolder}
+        className = {warning ? "p-invalid" : {}}
       />
     </div>
   );

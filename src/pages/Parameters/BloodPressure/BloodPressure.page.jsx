@@ -28,7 +28,7 @@ import { makeArrayForChart } from "@/components/reusableDataFunc/DataFunc";
 import Counter from "@/components/Counter/Counter";
 import { Dropdown } from "primereact/dropdown";
 import { Row, Col } from "react-bootstrap";
-import ForceDiagram from "@/pages/Parameters/BloodPressure/ForceDiagram"
+import ForceDiagram from "@/pages/Parameters/BloodPressure/ForceDiagram";
 
 const BloodPressurePage = () => {
   const [IrData, setIrData] = useState();
@@ -88,7 +88,7 @@ const BloodPressurePage = () => {
     if (bluetooth.finish) {
       calculate(IrData, forceData);
     }
-    return bluetooth.turnOff;
+    return bluetooth.TurnOff;
   }, [bluetooth]);
 
   useEffect(() => {
@@ -119,22 +119,22 @@ const BloodPressurePage = () => {
     setStartCountDown(1);
   };
 
-  const startInput = () => { 
-      let startTimeDuration = 0;
-      flushData();
-      startTime.current = setTimeout(() => {
-        bluetooth.Start().then((result) => (startTimeDuration = result));
-        setCounter(sampleTime);
-        setSizeOfSlice(400);
-        setSizeOfSliceForce(1500);
-      }, [pendingTime + delayTime]);
-      endTime.current = setTimeout(() => {
-        setCounter(5);
-        setSizeOfSlice(-1);
-        setSizeOfSliceForce(-1);
-        setStartCountDown(0);
-        bluetooth.Stop(startTimeDuration);
-      }, [sampleTime * 1000 + pendingTime + delayTime]);
+  const startInput = () => {
+    let startTimeDuration = 0;
+    flushData();
+    startTime.current = setTimeout(() => {
+      bluetooth.Start().then((result) => (startTimeDuration = result));
+      setCounter(sampleTime);
+      setSizeOfSlice(400);
+      setSizeOfSliceForce(1500);
+    }, [pendingTime + delayTime]);
+    endTime.current = setTimeout(() => {
+      setCounter(5);
+      setSizeOfSlice(-1);
+      setSizeOfSliceForce(-1);
+      setStartCountDown(0);
+      bluetooth.Stop(startTimeDuration);
+    }, [sampleTime * 1000 + pendingTime + delayTime]);
   };
 
   return (
@@ -168,7 +168,11 @@ const BloodPressurePage = () => {
             </CircularContainer>
           </Description>
           <DiagramContainer>
-            <Diagram data={IRChartData} sizeOfSlice={-1} maximumNum = {sampleTime*fs}/>
+            <Diagram
+              data={IRChartData}
+              sizeOfSlice={-1}
+              maximumNum={sampleTime * fs}
+            />
             {/* <Col id = "forceDiagram" md={4} style={{ marginLeft: "50px", position: "relative" }}>
               <Diagram data={forceChartData} sizeOfSlice={-1} maximumNum = {sampleTime*fs}/>
             </Col> */}
@@ -182,21 +186,19 @@ const BloodPressurePage = () => {
             </InfoContainer>
           </DiagramContainer>
           <ForceDataContainer>
-            <ForceDiagram forceChartData = {forceChartData} maximumNum = {sampleTime*fs} />
+            <ForceDiagram
+              forceChartData={forceChartData}
+              maximumNum={sampleTime * fs}
+            />
           </ForceDataContainer>
-
         </DiagramWrapper>
       </div>
       <PageButtons
         disable={disable}
         dataName="BloodPressureData"
         texts={["SYS/DIA " + SYS + "/" + DIA]}
-        extraChartName={[
-          "#forceDiagram #chartContainer canvas",
-        ]}
-        extraText = {[
-          [""],
-        ]}
+        extraChartName={["#forceDiagram #chartContainer canvas"]}
+        extraText={[[""]]}
         saved={saved}
         setSaved={setSaved}
       />

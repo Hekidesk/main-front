@@ -58,7 +58,7 @@ const TemperaturePage = () => {
       console.log("here?");
       calculateTemperature(data);
     }
-    return bluetooth.turnOff;
+    return bluetooth.TurnOff;
   }, [bluetooth]);
 
   useEffect(() => {

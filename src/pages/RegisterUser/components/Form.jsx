@@ -26,10 +26,16 @@ const RegisterForm = () => {
   const history = useNavigate();
 
   const { add } = useIndexedDB("users");
+  const [warning, setWarning] = useState(false);
 
   // todo --> done
   // add register user
   function addUser() {
+    console.log(form.username)
+    if(!form.username){
+      setWarning(true);
+      return;
+    }
     localStorage.setItem("user", form.username);
     add({ ...form }).then(
       (event) => {
@@ -52,9 +58,12 @@ const RegisterForm = () => {
       <InputTextGroup
         state={form.username}
         placeHolder={"Name"}
-        label="Name"
+        label="Name" 
         setState={(v) => onChangeValue("username", v)}
+        warning = {warning}
+        necessary = {true}
       />
+      <div style = {{textAlign: "left" }}>{warning && <div style = {{color : "red", fontSize: "12px", float: "left" }}> Name connot be empty </div>}</div>
       <div
         style={{
           display: "flex",
@@ -97,6 +106,7 @@ const RegisterForm = () => {
         <Dropdown
           value={form.gender}
           onChange={(v) => onChangeValue("gender", v.value)}
+          className="register-dropdown"
           options={[
             { name: "Male", value: 1 },
             { name: "Female", value: 0 },

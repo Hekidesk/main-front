@@ -1,13 +1,13 @@
 import Icon from "@/assets/logo/hekidesk-transparent.svg";
 import HistoryIcon from "@/assets/icon/history.svg";
 import AddIcon from "@/assets/icon/add.svg";
-import SearchIcon from "@/assets/icon/question.svg";
+// import SearchIcon from "@/assets/icon/question.svg";
 import { Image } from "primereact/image";
 import { Text } from "@/components/reusable/Text";
 import { List, ListItems } from "@/components/reusable/List";
 import {
   ImageWrapper,
-  QuestionWrapper,
+  // QuestionWrapper,
 } from "@/components/reusable/ImageWrapper";
 
 const DeskInfo = () => {
@@ -37,9 +37,9 @@ const DeskInfo = () => {
       <ImageWrapper>
         <Image src={Icon} alt="icon" width="100%" />
       </ImageWrapper>
-      <QuestionWrapper>
+      {/* <QuestionWrapper>
         <Image src={SearchIcon} alt="search" width="100%" />
-      </QuestionWrapper>
+      </QuestionWrapper> */}
     </span>
   );
 };

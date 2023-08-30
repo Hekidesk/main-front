@@ -71,10 +71,7 @@ const CardiogramPage = () => {
     "Multifocul Atrial Tachycardia (MAT)",
   ];
 
-  const types2 = [
-    "َّAF",
-    "Normal",
-  ];
+  const types2 = ["َّAF", "Normal"];
 
   function makePQRST(ps, qs, rs, ss, ts) {
     let newArr = [];
@@ -171,19 +168,19 @@ const CardiogramPage = () => {
   };
 
   const startInput = () => {
-      let startTimeDuration = 0;
-      flushData();
-      startTime.current = setTimeout(() => {
-        bluetooth.Start().then((result) => (startTimeDuration = result));
-        setSizeOfSlice(400);
-        setCounter(sampleTime);
-      }, [pendingTime + delayTime]);
-      endTime.current = setTimeout(() => {
-        setCounter(5);
-        setStartCountDown(0);
-        bluetooth.Stop(startTimeDuration);
-        setSizeOfSlice(-1);
-      }, [sampleTime * 1000 + pendingTime + delayTime]);
+    let startTimeDuration = 0;
+    flushData();
+    startTime.current = setTimeout(() => {
+      bluetooth.Start().then((result) => (startTimeDuration = result));
+      setSizeOfSlice(400);
+      setCounter(sampleTime);
+    }, [pendingTime + delayTime]);
+    endTime.current = setTimeout(() => {
+      setCounter(5);
+      setStartCountDown(0);
+      bluetooth.Stop(startTimeDuration);
+      setSizeOfSlice(-1);
+    }, [sampleTime * 1000 + pendingTime + delayTime]);
   };
 
   useEffect(() => {
@@ -195,7 +192,7 @@ const CardiogramPage = () => {
     if (bluetooth.finish) {
       calculateBeatPerMinuteAPI(data);
     }
-    return bluetooth.turnOff;
+    return bluetooth.TurnOff;
   }, [bluetooth]);
 
   useEffect(() => {
@@ -297,8 +294,10 @@ const CardiogramPage = () => {
         ]}
         extraText={[
           ["hrv: " + hrvVal],
-          ["Arrythmia Type: " + types[ArrythmiaType], 
-          "Arrythmia Type 2: " + types2[ArrythmiaType2]],
+          [
+            "Arrythmia Type: " + types[ArrythmiaType],
+            "Arrythmia Type 2: " + types2[ArrythmiaType2],
+          ],
         ]}
         saved={saved}
         setSaved={setSaved}

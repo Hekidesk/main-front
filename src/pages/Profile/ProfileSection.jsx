@@ -54,14 +54,6 @@ const ProfileSection = () => {
             <div className="profile-info-value">{user.weight}</div>
           </Row>
         </Col>
-        <Col lg={3} md={12} className="profile-info">
-          <Row>
-            <div className="profile-info-title">Blood</div>
-          </Row>
-          <Row>
-            <div className="profile-info-value">O+</div>
-          </Row>
-        </Col>
       </Row>
     </div>
   );

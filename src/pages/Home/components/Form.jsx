@@ -18,44 +18,36 @@ const HomeForm = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [selectedDevice, setSelectedDevice] = useState(null);
 
-  const { getAll } = useIndexedDB("users");
+  const { getAll: getAllUsers } = useIndexedDB("users");
+  const { getAll: getAllDevices } = useIndexedDB("devices");
   const [users, setUsers] = useState([]);
+  const [devices, setDevices] = useState([]);
 
   useEffect(() => {
-    getAll().then((usersFromDB) => {
-      console.log(usersFromDB);
+    getAllUsers().then((usersFromDB) => {
       setUsers(usersFromDB);
     });
-    console.log("here 1 " + localStorage.getItem("user"));
+    getAllDevices().then((deviceFromDB) => {
+      setDevices(deviceFromDB);
+    });
   }, []);
 
-  useEffect(() =>{
-    if(localStorage.getItem("user") !== null){
-      console.log("here");
-      console.log(users);
-      console.log(localStorage.getItem("user"));
-      const foundUser = users.find(user => user.username === localStorage.getItem("user"));
-      if (foundUser) {
-        setSelectedUser(foundUser);
+  useEffect(() => {
+    if (localStorage.getItem("user") !== null) {
+      const foundUser = users.find(
+        (user) => user.username === localStorage.getItem("user")
+      );
+      if (foundUser) setSelectedUser(foundUser);
+      if (localStorage.getItem("device") !== null) {
+        const foundDevice = devices.find(
+          (device) => device.name === localStorage.getItem("device")
+        );
+        if (foundDevice) setSelectedDevice(foundDevice);
+      }
     }
-  }
-  }, [users]);
-
-  // todo
-  // read from db "devices" and add data
-  const [devices] = useState([
-    { name: "Test1", code: "Ts1" },
-    { name: "Test2", code: "Ts2" },
-    { name: "Test3", code: "Ts3" },
-    { name: "Test4", code: "Ts4" },
-    { name: "Test5", code: "Ts5" },
-    { name: "Test6", code: "Ts6" },
-    { name: "Test7", code: "Ts7" },
-    { name: "Test8", code: "Ts8" },
-  ]);
+  }, [users, devices]);
 
   const selectUser = (user) => {
-    console.log(users.indexOf(user));
     setSelectedUser(user);
     localStorage.setItem("user", user.username);
     localStorage.setItem("id", users.indexOf(user) + 1);
@@ -63,7 +55,6 @@ const HomeForm = () => {
 
   return (
     <ContainerWithoutHeight>
-      {console.log(selectedUser)}
       <LogoRow>
         <Image src={Icon} alt="icon" width="60px" />
         <Title>Hekidesk</Title>
@@ -80,7 +71,7 @@ const HomeForm = () => {
         <Dropdown
           value={selectedDevice}
           onChange={(e) => setSelectedDevice(e.value)}
-          className = "home-dropdown"
+          className="home-dropdown"
           options={devices}
           optionLabel="name"
           placeholder={"Select a device"}
@@ -99,7 +90,7 @@ const HomeForm = () => {
         <Dropdown
           value={selectedUser}
           onChange={(e) => selectUser(e.value)}
-          className = "home-dropdown"
+          className="home-dropdown"
           options={users}
           optionLabel="username"
           placeholder={"Select a user"}
@@ -107,8 +98,8 @@ const HomeForm = () => {
         />
       </FlexContainer>
       <Link
-          // eslint-disable-next-line no-undef
-          to={process.env.REACT_APP_BASE_URL + "/user-desk"}
+        // eslint-disable-next-line no-undef
+        to={process.env.REACT_APP_BASE_URL + "/user-desk"}
         style={ButtonOutlineStyle}
       >
         OK

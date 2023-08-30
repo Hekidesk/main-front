@@ -17,7 +17,10 @@ const ConnectionForm = () => {
   return (
     <ContainerWithoutHeight>
       <LogoRow>
-        <Title>Connect to the device</Title>
+      {!bluetooth.isConnected ? <Title>Connect to the device</Title> :
+      bluetooth.loading ? <Title>Device is connecting...</Title> :
+      <Title>Device is connected</Title>
+    }
       </LogoRow>
       <br />
       {!bluetooth.isConnected && (

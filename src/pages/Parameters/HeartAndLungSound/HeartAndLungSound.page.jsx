@@ -119,17 +119,23 @@ const HeartAndLungSoundPage = () => {
   useEffect(() => {
     if (bluetooth)
       bluetooth.SendCommand(COMMAND, (input) => {
-        setChartData(makeArrayForChart(input.pcg.length - sizeOfSlice > 0 ? input.pcg.slice(input.pcg.length - sizeOfSlice) : input.pcg));
+        setChartData(
+          makeArrayForChart(
+            input.pcg.length - sizeOfSlice > 0
+              ? input.pcg.slice(input.pcg.length - sizeOfSlice)
+              : input.pcg
+          )
+        );
         setData(input.pcg);
       });
     if (bluetooth.finish) {
-      if(data.length){
+      if (data.length) {
         setChartData(makeArrayForChart(data));
         calculateBeatPerMinuteAPI(data);
         console.log(filteredArray);
       }
     }
-    return bluetooth.turnOff;
+    return bluetooth.TurnOff;
   }, [bluetooth]);
 
   useEffect(() => {
@@ -162,20 +168,20 @@ const HeartAndLungSoundPage = () => {
   };
 
   const startInput = () => {
-      flushData();
+    flushData();
+    setCounter(5);
+    let startTimeDuration = 0;
+    startTime.current = setTimeout(() => {
+      bluetooth.Start().then((result) => (startTimeDuration = result));
+      setCounter(sampleTime);
+      setSizeOfSlice(40000);
+    }, [pendingTime + delayTime]);
+    endTime.current = setTimeout(() => {
       setCounter(5);
-      let startTimeDuration = 0;
-      startTime.current = setTimeout(() => {
-        bluetooth.Start().then((result) => (startTimeDuration = result));
-        setCounter(sampleTime);
-        setSizeOfSlice(40000);
-      }, [pendingTime + delayTime]);
-      endTime.current = setTimeout(() => {
-        setCounter(5);
-        setStartCountDown(0);
-        bluetooth.Stop(startTimeDuration);
-        setSizeOfSlice(-1);
-      }, [sampleTime * 1000 + pendingTime + delayTime]);
+      setStartCountDown(0);
+      bluetooth.Stop(startTimeDuration);
+      setSizeOfSlice(-1);
+    }, [sampleTime * 1000 + pendingTime + delayTime]);
   };
 
   async function playAudio() {

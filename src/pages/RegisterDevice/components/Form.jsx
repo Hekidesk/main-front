@@ -4,22 +4,43 @@ import { useState } from "react";
 import { InputTextGroup } from "@/components/reusable/InputTextGroup";
 import { useNavigate } from "react-router-dom";
 import { Col, Container, Row } from "./CSS";
+import { useIndexedDB } from "react-indexed-db";
+import Swal from "sweetalert2";
 
 const RegisterForm = () => {
+
+  const [deviceNames] = useState({'name': "HekiDesk_v1.2", 'code' : '123456'})
+
   const [form, setForm] = useState({
     serial: "",
   });
   const onChangeValue = (n, v) => setForm({ ...form, [n]: v });
 
   const history = useNavigate();
-
-  // todo
-  // add information of device after confirmation
+  const { add } = useIndexedDB("devices");
 
   const submitRegisteryCode = () => {
-    // todo
-    // implement registery
-    history("/?is_valid=true"); // or false
+    console.log(Object.values(deviceNames).includes(form.serial))
+    if (Object.values(deviceNames).includes(form.serial)) {
+      localStorage.setItem("device", deviceNames['name'])
+      add({ name: deviceNames['name'], serial: deviceNames['serial'] }).then(
+        (event) => {
+          console.log("Device added: ", event);
+          history("/");
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+      history("/?is_valid=true");
+    }
+    else 
+      Swal.fire({
+        icon: "error",
+        title: "This serial code is invalid",
+        text: "Please repeat procedure!",
+        confirmButtonColor: "#3085d6",
+      });
   };
 
   return (
@@ -40,7 +61,7 @@ const RegisterForm = () => {
         </Col>
         <Col>
           <Button
-            disabled={form.serial < 1000000}
+            disabled={form.serial < 100000}
             style={ButtonStyle}
             onClick={submitRegisteryCode}
           >

@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import HomePage from "@/pages/Home/Home.page";

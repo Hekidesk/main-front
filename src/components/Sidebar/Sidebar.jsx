@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import Logo from "@/assets/icon/logo.svg";
 import HomeIcon from "@/assets/icon/home.svg";
 import MyDeskIcon from "@/assets/icon/myDesk.svg";
@@ -6,9 +6,15 @@ import HistoryIcon from "@/assets/icon/history.svg";
 import MeasurementIcon from "@/assets/icon/3D.svg";
 import "../../assets/styles/Sidebar.css";
 import { Link } from "react-router-dom";
+import { useLocation } from 'react-router-dom'
 
 const Sidebar = () => {
-  const [click, setClick] = React.useState(false);
+  const [click, setClick] = useState(false);
+  const location = useLocation();
+  console.log(location.pathname);
+
+  const [showMeasurement] = useState(location.pathname.includes('/measurement') && location.pathname !== '/measurement')
+  const [showHistory] = useState(location.pathname.includes('/history'))
 
   return (
     <div className={click ? "sidebar-container" : "sidebar-container expanded"}>
@@ -25,7 +31,7 @@ const Sidebar = () => {
           >
             <img src={HomeIcon} alt="logo" width="25" />
             <div className="sidebar-text">Home</div>
-          </Link>
+          </Link> 
           <Link
             onClick={() => setClick(false)}
             // eslint-disable-next-line no-undef
@@ -34,22 +40,22 @@ const Sidebar = () => {
             <img src={MyDeskIcon} alt="logo" width="25" />
             <div className="sidebar-text">My Desk</div>
           </Link>
-          <Link
+          {showMeasurement ? <Link
             onClick={() => setClick(false)}
             // eslint-disable-next-line no-undef
             to={process.env.REACT_APP_BASE_URL + "/measurement"}
           >
             <img src={MeasurementIcon} alt="logo" width="25" />
             <div className="sidebar-text">Measurement</div>
-          </Link>
-          <Link
+          </Link> : <></>}
+          {showHistory ? <Link
             onClick={() => setClick(false)}
             // eslint-disable-next-line no-undef
             to={process.env.REACT_APP_BASE_URL + "/history"}
           >
             <img src={HistoryIcon} alt="logo" width="25" />
             <div className="sidebar-text">History</div>
-          </Link>
+          </Link> : <></>}
         </div>
       </div>
     </div>
