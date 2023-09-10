@@ -1,18 +1,23 @@
 /* eslint-disable no-undef */
 import React, { useContext } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { BluetoothContext } from "@/App";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
 
 function ProtectedRoute(props) {
   const bluetooth = useContext(BluetoothContext);
   const isSignedIn = localStorage.getItem("user") !== null;
-  const isDeviceRegistered = localStorage.getItem("device") !== null;
+  const isDeviceRegistered = true ||  localStorage.getItem("device") !== null;
   const navigate = useNavigate();
 
-  if (!bluetooth.isConnected && props.needsDevice && props.children.type.name === "MeasurementPage") 
-    return (<Navigate to={process.env.REACT_APP_BASE_URL + "/connection"} replace />);
+  if (
+    !bluetooth.isConnected &&
+    props.needsDevice &&
+    props.children.type.name === "MeasurementPage"
+  )
+    return (
+      <Navigate to={process.env.REACT_APP_BASE_URL + "/connection"} replace />
+    );
   if (!bluetooth.isConnected && props.needsDevice) {
     Swal.fire({
       title: "Your device is disconnected",
