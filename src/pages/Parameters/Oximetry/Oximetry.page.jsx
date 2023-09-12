@@ -56,8 +56,8 @@ const OximetryPage = () => {
   async function calculateBeatPerMinuteAPI(irData, RedData) {
     console.log(bluetooth.GetFrequency()[0]);
     let payload = {
-      IR: "[" + irData.toString() + "]",
-      Red: "[" + RedData.toString() + "]",
+      IR: "[" + irData?.toString() + "]",
+      Red: "[" + RedData?.toString() + "]",
       fs: bluetooth.GetFrequency()[0],
     };
     let res = await axios.post("https://api.hekidesk.com//PPG_signal", payload);

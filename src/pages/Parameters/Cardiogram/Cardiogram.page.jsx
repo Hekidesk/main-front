@@ -6,7 +6,6 @@ import { useEffect, useState, useRef, useContext } from "react";
 import { BluetoothContext } from "@/App";
 import {
   CircularContainer,
-  // CircularValue,
   Description,
   DiagramButton,
   DiagramContainer,
@@ -87,7 +86,7 @@ const CardiogramPage = () => {
   async function calculateBeatPerMinuteAPI(ecg) {
     console.log("data: " + ecg);
     let payload = {
-      ECG: "[" + ecg.toString() + "]",
+      ECG: "[" + ecg?.toString() + "]",
       fs: bluetooth.GetFrequency()[0],
     };
     let res = await axios

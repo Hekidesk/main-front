@@ -140,7 +140,6 @@ export const useSignalFeed = () => {
             temp[key] = [...temp[key], ...recieved[key]];
             return "";
           });
-          // console.log("temp: " + JSON.stringify(temp))
           setSafe(temp);
           callBack({
             red: temp.red,

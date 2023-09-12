@@ -53,8 +53,8 @@ const BloodPressurePage = () => {
     console.log(irData);
     console.log(forceData);
     let payload = {
-      IR: "[" + irData.toString() + "]",
-      force: "[" + forceData.toString() + "]",
+      IR: "[" + irData?.toString() + "]",
+      force: "[" + forceData?.toString() + "]",
       fs: bluetooth.GetFrequency()[0],
     };
     let res = await axios.post("https://api.hekidesk.com//bp_signal", payload);

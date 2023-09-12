@@ -55,7 +55,7 @@ const HeartAndLungSoundPage = () => {
 
   async function getDataAPI(data, fs) {
     let payload = {
-      pcg: "[" + data.toString() + "]",
+      pcg: "[" + data?.toString() + "]",
       fs: fs,
     };
     let addr =
@@ -190,7 +190,7 @@ const HeartAndLungSoundPage = () => {
       : filteredArray[filterActiveNum + 1];
     console.log(finalSound);
     let payload = {
-      sound: "[" + finalSound.toString() + "]",
+      sound: "[" + finalSound?.toString() + "]",
       fs: bluetooth.GetFrequency()[0],
     };
     let res = await axios.post("https://api.hekidesk.com//rcv_audio", payload);
