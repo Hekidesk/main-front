@@ -99,7 +99,7 @@ const CardiogramPage = () => {
           confirmButtonColor: "#3085d6",
         });
       });
-    if (!Number(res.data.Try_Again) && res.status < 400) {
+    if (!Number(res?.data.Try_Again) && res?.status < 400) {
       setHeartBeat(Number(res.data.HeartRate));
       setPR_RR_Interval(res.data.PR_RR);
       setQRSDuration(res.data.QRS_duration);
@@ -183,15 +183,18 @@ const CardiogramPage = () => {
   };
 
   useEffect(() => {
-    if (bluetooth)
-      bluetooth.SendCommand(COMMAND, (input) => {
-        setChartData(makeArrayForChart(input.ecg));
-        setData(input.ecg);
-      });
+    bluetooth.SendCommand(COMMAND, (input) => {
+      setChartData(makeArrayForChart(input.ecg));
+      setData(input.ecg);
+    });
+
+    return bluetooth.TurnOff;
+  }, []);
+
+  useEffect(() => {
     if (bluetooth.finish) {
       calculateBeatPerMinuteAPI(data);
     }
-    return bluetooth.TurnOff;
   }, [bluetooth]);
 
   useEffect(() => {

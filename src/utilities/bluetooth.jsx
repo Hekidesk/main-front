@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useState } from "react";
 
 const ServiceUUID = "4fafc201-1fb5-459e-8fcc-c5c9c331914b";
 const ReadCharistristicUUID = "beb5483e-36e1-4688-b7f5-ea07361b26a8";
@@ -21,7 +21,7 @@ export const useSignalFeed = () => {
   const [isConnected, setIsConnected] = useState(false);
   const [finish, setFinish] = useState(false);
 
-  const [safe, setSafe] = useState(initialState);
+  let safe = initialState;
 
   const Connect = () => {
     console.log("connect");
@@ -60,21 +60,14 @@ export const useSignalFeed = () => {
     setCharastircticR(null);
   };
 
-  const isFirstRender = useRef(true);
-
-  useEffect(() => {
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
-      return; // 👈️🤣 return early if initial render
-    }
-    read_charastirctic?.startNotifications();
-  }, [safe]);
 
   const Start = async () => {
     console.log("start");
     setFinish(0);
     console.log("start " + performance.now());
-    setSafe(initialState);
+    safe = initialState;
+    read_charastirctic?.startNotifications();
+
     return performance.now();
   };
 
@@ -135,12 +128,13 @@ export const useSignalFeed = () => {
             pcg,
             temperature,
           };
+          console.log("🚀 ~ file: bluetooth.jsx:131 ~ SendCommand ~ recieved.pcg:", recieved.pcg)
           let temp = safe;
           KEYS.map((key) => {
             temp[key] = [...temp[key], ...recieved[key]];
             return "";
           });
-          setSafe(temp);
+          safe = temp;
           callBack({
             red: temp.red,
             ecg: temp.ecg,
@@ -156,6 +150,7 @@ export const useSignalFeed = () => {
   const TurnOff = () => {
     if (isConnected && device.gatt.connected) {
       write_charastirctic.writeValue(new Uint8Array([0x000]).buffer);
+      setFinish(0);
     }
   };
 

@@ -60,22 +60,25 @@ const OximetryPage = () => {
       Red: "[" + RedData?.toString() + "]",
       fs: bluetooth.GetFrequency()[0],
     };
-    let res = await axios.post("https://api.hekidesk.com//PPG_signal", payload);
-    console.log(res.data);
-    if (!Number(res.data.Try_Again)) {
-      setHeartBeat(res.data.HeartRate);
-      setSPO2(res.data.SpO2);
-      setQualityIndex(res.data.Quality_index);
-      console.log(makeArrayFormString(res.data.clear_IR));
-      setFilteredArray([
-        makeArrayForChart(irData),
-        makeArrayForChart(makeArrayFormString(res.data.clear_IR)),
-        makeArrayForChart(RedData),
-        makeArrayForChart(makeArrayFormString(res.data.clear_Red)),
-        makeArrayForChart(makeArrayFormString(res.data.PPG_clear)),
-        makeArrayForChart(makeArrayFormString(res.data.PPG_clear)),
-      ]);
-      setDisable(0);
+    let res = await axios
+      .post("https://api.hekidesk.com//PPG_signal", payload)
+      .catch(console.log);
+    if (res?.data) {
+      if (!Number(res?.data.Try_Again)) {
+        setHeartBeat(res.data.HeartRate);
+        setSPO2(res.data.SpO2);
+        setQualityIndex(res.data.Quality_index);
+        console.log(makeArrayFormString(res.data.clear_IR));
+        setFilteredArray([
+          makeArrayForChart(irData),
+          makeArrayForChart(makeArrayFormString(res.data.clear_IR)),
+          makeArrayForChart(RedData),
+          makeArrayForChart(makeArrayFormString(res.data.clear_Red)),
+          makeArrayForChart(makeArrayFormString(res.data.PPG_clear)),
+          makeArrayForChart(makeArrayFormString(res.data.PPG_clear)),
+        ]);
+        setDisable(0);
+      }
     } else
       Swal.fire({
         icon: "error",
@@ -86,16 +89,19 @@ const OximetryPage = () => {
   }
 
   useEffect(() => {
-    if (bluetooth)
-      bluetooth.SendCommand(COMMAND, (input) => {
-        setChartData(makeArrayForChart(input.ir));
-        setIrData(input.ir);
-        setRedData(input.red);
-      });
+    bluetooth.SendCommand(COMMAND, (input) => {
+      setChartData(makeArrayForChart(input.ir));
+      setIrData(input.ir);
+      setRedData(input.red);
+    });
+
+    return bluetooth.TurnOff;
+  }, []);
+
+  useEffect(() => {
     if (bluetooth.finish) {
       calculateBeatPerMinuteAPI(IrData, RedData);
     }
-    return bluetooth.TurnOff;
   }, [bluetooth]);
 
   useEffect(() => {

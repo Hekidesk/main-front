@@ -27,7 +27,6 @@ import { BluetoothContext } from "@/App";
 import { makeArrayForChart } from "@/components/reusableDataFunc/DataFunc";
 import Counter from "@/components/Counter/Counter";
 import { Dropdown } from "primereact/dropdown";
-import { Row, Col } from "react-bootstrap";
 import ForceDiagram from "@/pages/Parameters/BloodPressure/ForceDiagram";
 
 const BloodPressurePage = () => {
@@ -35,8 +34,6 @@ const BloodPressurePage = () => {
   const [forceData, setforceData] = useState();
   const [IRChartData, setIRChartData] = useState();
   const [forceChartData, setForceChartData] = useState();
-  const [sizeOfSlice, setSizeOfSlice] = useState(-1);
-  const [sizeOfSliceForce, setSizeOfSliceForce] = useState(-1);
   const dbFunc = useAddToDB("BPData");
 
   const [SYS, setSYS] = useState(0);
@@ -57,9 +54,11 @@ const BloodPressurePage = () => {
       force: "[" + forceData?.toString() + "]",
       fs: bluetooth.GetFrequency()[0],
     };
-    let res = await axios.post("https://api.hekidesk.com//bp_signal", payload);
+    let res = await axios
+      .post("https://api.hekidesk.com//bp_signal", payload)
+      .catch(console.log);
     console.log(res);
-    if (res.status < 400 && !Number(res.data.Try_Again)) {
+    if (res?.status < 400 && !Number(res.data.Try_Again)) {
       console.log(SYS);
       console.log(DIA);
       setSYS(res.data.Diastolic);
@@ -77,18 +76,21 @@ const BloodPressurePage = () => {
   }
 
   useEffect(() => {
-    if (bluetooth)
-      bluetooth.SendCommand(COMMAND, (input) => {
-        setIRChartData(makeArrayForChart(input.ir));
-        setForceChartData(makeArrayForChart(input.force));
-        setIrData(input.ir);
-        setforceData(input.force);
-        console.log(input.force);
-      });
+    bluetooth.SendCommand(COMMAND, (input) => {
+      setIRChartData(makeArrayForChart(input.ir));
+      setForceChartData(makeArrayForChart(input.force));
+      setIrData(input.ir);
+      setforceData(input.force);
+      console.log(input.force);
+    });
+
+    return bluetooth.TurnOff;
+  }, []);
+
+  useEffect(() => {
     if (bluetooth.finish) {
       calculate(IrData, forceData);
     }
-    return bluetooth.TurnOff;
   }, [bluetooth]);
 
   useEffect(() => {
@@ -125,13 +127,10 @@ const BloodPressurePage = () => {
     startTime.current = setTimeout(() => {
       bluetooth.Start().then((result) => (startTimeDuration = result));
       setCounter(sampleTime);
-      setSizeOfSlice(400);
-      setSizeOfSliceForce(1500);
     }, [pendingTime + delayTime]);
     endTime.current = setTimeout(() => {
       setCounter(5);
-      setSizeOfSlice(-1);
-      setSizeOfSliceForce(-1);
+
       setStartCountDown(0);
       bluetooth.Stop(startTimeDuration);
     }, [sampleTime * 1000 + pendingTime + delayTime]);
