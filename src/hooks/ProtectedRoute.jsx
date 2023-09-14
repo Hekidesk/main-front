@@ -25,14 +25,14 @@ function ProtectedRoute(props) {
     }
   }, [bluetooth]);
 
-  if (
-    !bluetooth.isConnected &&
-    props.needsDevice &&
-    props.children.type.name === "MeasurementPage"
-  )
-    return (
-      <Navigate to={process.env.REACT_APP_BASE_URL + "/connection"} replace />
-    );
+  // if (
+  //   !bluetooth.isConnected &&
+  //   props.needsDevice &&
+  //   props.children.type.name === "MeasurementPage"
+  // )
+  //   return (
+  //     <Navigate to={process.env.REACT_APP_BASE_URL + "/connection"} replace />
+  //   );
 
   if (!isSignedIn || !isDeviceRegistered) {
     return <Navigate to={process.env.REACT_APP_BASE_URL + "/"} replace />;
