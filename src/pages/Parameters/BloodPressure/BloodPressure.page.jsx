@@ -27,6 +27,7 @@ import { makeArrayForChart } from "@/components/reusableDataFunc/DataFunc";
 import Counter from "@/components/Counter/Counter";
 import { Dropdown } from "primereact/dropdown";
 import ForceDiagram from "@/pages/Parameters/BloodPressure/ForceDiagram";
+import { Row, Col } from "react-bootstrap";
 
 const BloodPressurePage = () => {
   const [IrData, setIrData] = useState();
