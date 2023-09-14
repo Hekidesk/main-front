@@ -1,6 +1,5 @@
 export const DiagramWrapper = {
   width: "100%",
-  height: "60vh",
   position: "relative",
   zIndex: "2",
 };

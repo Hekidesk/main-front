@@ -17,7 +17,6 @@ import {
   InfoContainer,
   SimpleTitle,
   SimpleValue,
-  SmallSimpleValue,
   filterButton,
   AbnormalityDiagramContainer,
   DropdownButton,
@@ -247,18 +246,10 @@ const CardiogramPage = () => {
               <SimpleValue>{PR_RR_Interval}</SimpleValue>
               <SimpleTitle>QRS Duration</SimpleTitle>
               <SimpleValue>{QRS_Duration}</SimpleValue>
-              <SimpleTitle>hrv</SimpleTitle>
-              <SimpleValue>{hrvVal}</SimpleValue>
+              {/* <SimpleTitle>hrv</SimpleTitle>
+                <SimpleValue>{hrvVal}</SimpleValue> */}
               <SimpleTitle>Quality Index</SimpleTitle>
               <SimpleValue>{qualityIndex}</SimpleValue>
-              <SimpleTitle>Arrythmia Type</SimpleTitle>
-              <SmallSimpleValue>
-                {ArrythmiaType !== -1 ? types[ArrythmiaType] : "-"}
-              </SmallSimpleValue>
-              <SimpleTitle>Arrythmia Type 2 </SimpleTitle>
-              <SmallSimpleValue>
-                {ArrythmiaType !== -1 ? types2[ArrythmiaType2] : "-"}
-              </SmallSimpleValue>
               <Button
                 style={filterButton}
                 className="filter-btn"
@@ -272,7 +263,10 @@ const CardiogramPage = () => {
           <AbnormalityDiagramContainer>
             <AbnormalityDetection
               heartBeat={heartBeat}
+              ArrythmiaType = {ArrythmiaType !== -1 ? types[ArrythmiaType] : "-"}
+              ArrythmiaType2 = {ArrythmiaType2 !== -1 ? types2[ArrythmiaType2] : "-"}
               hrv={hrv}
+              hrvVal = {hrvVal}
               ssTime={ssTime}
               singleSpike={singleSpike}
               PQRST_ss={PQRST_ss}

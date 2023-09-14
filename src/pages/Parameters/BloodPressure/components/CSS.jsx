@@ -19,7 +19,7 @@ export const DiagramText = styled.h6`
 export const DiagramButton = styled.button`
   background: transparent;
   color: var(--gray);
-  text-shadow : 1px 1px 1px #fff;
+  text-shadow: 1px 1px 1px #fff;
   border: none;
   font-size: 1.4em;
   font-weight: bold;
@@ -33,6 +33,7 @@ export const DiagramContainer = styled.div`
   background: #c8e7f1;
   width: 100%;
   flex-direction: column;
+  overflow: hidden;
   @media ${devices.tablet} {
     flex-direction: row;
   }
@@ -42,13 +43,11 @@ export const InfoContainer = styled.div`
   background: #c8e7f1;
   border-left: 2px solid var(--main-green);
   border-right: 2px solid var(--main-green);
-  border-radius: 30px ;
+  border-radius: 30px;
   width: 100%;
+  height: 400px;
   margin: 1em;
   padding: 1em;
-  @media ${devices.tablet} {
-    width: 30%;
-  }
 `;
 
 export const ImportantTitle = styled.h6`
@@ -59,18 +58,24 @@ export const ImportantTitle = styled.h6`
 export const ImportantValue = styled.h3`
   color: var(--important-color);
   font-weight: bold;
+  font-size: 50px;
   text-align: center;
+  margin-top: 20px;
+  text-shadow : 1px 1px 10px var(--important-color);
 `;
 
 export const SimpleTitle = styled.h6`
   color: var(--main-green);
   font-weight: bold;
+  margin-top: 120px;
 `;
 
 export const SimpleValue = styled.h3`
   color: var(--main-green);
   font-weight: bold;
   text-align: center;
+  font-size: 40px;
+  text-shadow : 1px 1px 10px var(--main-green);
 `;
 
 export const CircularValue = styled.div`
@@ -106,15 +111,17 @@ export const DropdownButton = styled.div`
   margin-left: 15px;
 `;
 export const TitleContainer = styled.div`
-  height: 50px;
-  text-align: center;
-  text-shadow: 1px 1px 1px #fff;
-  font-size: 1em;
-  font-weight: bold;
-  margin-top: 10px;
-`;
+  height: 40px;
+  width: 98%;
+  color: white;
+  background-color: #a5c2cb;
+  font-size: 1.2em;
+  padding-top: 3px;
+  padding-left: 2em;
+  border-radius: 0 5px 5px 0;`
+  ;
 export const ForceDataContainer = styled.div`
-background-color: #c8e7f1;
-flex-direction: column;
-box-shadow: -1px -1px 10px -12px rgba(0, 0, 0, 0.82);
+  background-color: #c8e7f1;
+  flex-direction: column;
+  box-shadow: -1px -1px 10px -12px rgba(0, 0, 0, 0.82);
 `;

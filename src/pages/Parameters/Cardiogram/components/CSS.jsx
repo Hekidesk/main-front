@@ -34,7 +34,6 @@ export const DiagramContainer = styled.div`
   width: 100%;
   flex-direction: column;
   box-shadow: -1px -1px 10px -12px rgba(0, 0, 0, 0.82);
-  margin-bottom: 10px;
   @media ${devices.tablet} {
     flex-direction: row;
   }
@@ -46,11 +45,18 @@ export const AbnormalityDiagramContainer = styled.div`
 `;
 export const AbnormalityDiagramTitleContainer = styled.div`
   height: 50px;
-  text-align: center;
-  text-shadow: 1px 1px 1px #fff;
-  font-size: 1em;
-  font-weight: bold;
-  margin-top: 10px;
+  padding:10px;
+  text-align: left;
+  color: white;
+  font-size: 20px;
+  box-shadow: -7px 0 5px -5px gray;
+`;
+export const LeftAbnormalityDiagramTitleContainer = styled.div`
+  height: 50px;
+  padding:10px;
+  text-align: left;
+  color: white;
+  font-size: 20px;
 `;
 export const InfoContainer = styled.div`
   background: #c8e7f1;
@@ -64,7 +70,16 @@ export const InfoContainer = styled.div`
     width: 30%;
   }
 `;
-
+export const InfoAbnormalityContainer = styled.div`
+  background: #c8e7f1;
+  border-left: 2px solid var(--main-green);
+  border-right: 2px solid var(--main-green);
+  border-radius: 30px;
+  width: 90%;
+  margin: 1em;
+  margin-left:0;
+  padding: 1em;
+`;
 export const ImportantTitle = styled.h6`
   color: var(--important-color);
   text-shadow: 1px 1px 10px var(--important-color);

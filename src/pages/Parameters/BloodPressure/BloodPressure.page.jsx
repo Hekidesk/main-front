@@ -17,7 +17,6 @@ import {
   ImportantValue,
   InfoContainer,
   DropdownButton,
-  ForceDataContainer,
 } from "./components/CSS";
 import PageButtons from "@/components/reusable/PageButtons";
 import axios from "axios";
@@ -39,9 +38,9 @@ const BloodPressurePage = () => {
   const [sizeOfSliceForce, setSizeOfSliceForce] = useState(-1);
   const dbFunc = useAddToDB("BPData");
 
-  const [SYS, setSYS] = useState(0);
-  const [DIA, setDIA] = useState(0);
-  const [qualityIndex, setQualityIndex] = useState(0);
+  const [SYS, setSYS] = useState("-");
+  const [DIA, setDIA] = useState("-");
+  const [qualityIndex, setQualityIndex] = useState("-");
   const [saved, setSaved] = useState(0);
   const [disable, setDisable] = useState(1);
 
@@ -112,7 +111,7 @@ const BloodPressurePage = () => {
   const flushData = () => {
     setSYS("-");
     setDIA("-");
-    setQualityIndex(0);
+    setQualityIndex("-");
     setSaved(0);
     setDisable(1);
     setIRChartData([]);
@@ -168,29 +167,30 @@ const BloodPressurePage = () => {
             </CircularContainer>
           </Description>
           <DiagramContainer>
-            <Diagram
-              data={IRChartData}
-              sizeOfSlice={-1}
-              maximumNum={sampleTime * fs}
-            />
-            {/* <Col id = "forceDiagram" md={4} style={{ marginLeft: "50px", position: "relative" }}>
-              <Diagram data={forceChartData} sizeOfSlice={-1} maximumNum = {sampleTime*fs}/>
-            </Col> */}
-            <InfoContainer>
-              <ImportantTitle>SYS/DIA</ImportantTitle>
-              <ImportantValue>
-                {SYS}/{DIA}
-              </ImportantValue>
-              <SimpleTitle>Quality Index</SimpleTitle>
-              <SimpleValue>{qualityIndex}</SimpleValue>
-            </InfoContainer>
+            <Col md={9}>
+              <Row>
+                <Col>
+                  <Diagram
+                    data={IRChartData}
+                    sizeOfSlice={-1}
+                    maximumNum={sampleTime * fs}
+                    type = "ppg"
+                  />
+                </Col>
+              </Row>
+              <ForceDiagram forceChartData = {forceChartData} maximumNum = {sampleTime*fs} />
+            </Col>
+            <Col md={2} style={{alignSelf: "flex-start", marginTop: "2em"}}>
+              <InfoContainer>
+                <ImportantTitle>SYS/DIA (mmHg)</ImportantTitle>
+                <ImportantValue>
+                  {SYS}/{DIA}
+                </ImportantValue>
+                <SimpleTitle>Quality Index (%)</SimpleTitle>
+                <SimpleValue>{qualityIndex} {qualityIndex != "-" ? "%" : ""}</SimpleValue>
+              </InfoContainer>
+            </Col>
           </DiagramContainer>
-          <ForceDataContainer>
-            <ForceDiagram
-              forceChartData={forceChartData}
-              maximumNum={sampleTime * fs}
-            />
-          </ForceDataContainer>
         </DiagramWrapper>
       </div>
       <PageButtons

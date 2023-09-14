@@ -7,6 +7,7 @@ var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 const Diagram = ({ data, sizeOfSlice = -1, maximumNum = -1, type = "" }) => {
 
   const options = {
+      height: type == "force" || type == "ppg" ? 250 : null,
       animationEnabled: true,
       zoomEnabled: true,
       backgroundColor: "#C8E7F1",
@@ -75,7 +76,7 @@ const Diagram = ({ data, sizeOfSlice = -1, maximumNum = -1, type = "" }) => {
         style={{
           width: "8em",
           position: "absolute",
-          bottom: "22px",
+          bottom: "2px",
           height: "16px",
           background: "#C8E7F1",
         }}
