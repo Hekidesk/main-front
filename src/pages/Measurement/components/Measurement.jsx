@@ -36,9 +36,10 @@ const Measurement = () => {
             </Link>
           </Col>
           <Col lg={4} sm={6}>
-            <Link 
-            // eslint-disable-next-line no-undef
-            to={process.env.REACT_APP_BASE_URL + "/measurement/oximetry"}>
+            <Link
+              // eslint-disable-next-line no-undef
+              to={process.env.REACT_APP_BASE_URL + "/measurement/oximetry"}
+            >
               <Card>
                 <Card.Body>
                   <Card.Title>

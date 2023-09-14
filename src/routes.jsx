@@ -103,7 +103,11 @@ function AppRoutes() {
           />
           <Route
             path={"heart-and-lung-sound"}
-            element={<HeartAndLungSoundPage />}
+            element={
+              <ProtectedRoute needsDevice>
+                <HeartAndLungSoundPage />
+              </ProtectedRoute>
+            }
           />
         </Route>
       </Routes>

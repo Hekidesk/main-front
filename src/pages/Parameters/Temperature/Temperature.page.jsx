@@ -48,17 +48,20 @@ const TemperaturePage = () => {
   }
 
   useEffect(() => {
-    if (bluetooth)
-      bluetooth.SendCommand(COMMAND, (input) => {
-        console.log(input.temperature);
-        setChartData(makeArrayForChart(input.temperature));
-        setData(input.temperature);
-      });
+    bluetooth.SendCommand(COMMAND, (input) => {
+      console.log(input.temperature);
+      setChartData(makeArrayForChart(input.temperature));
+      setData(input.temperature);
+    });
+
+    return bluetooth.TurnOff;
+  }, []);
+
+  useEffect(() => {
     if (bluetooth.finish) {
       console.log("here?");
       calculateTemperature(data);
     }
-    return bluetooth.TurnOff;
   }, [bluetooth]);
 
   useEffect(() => {

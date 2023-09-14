@@ -18,8 +18,8 @@ import PrimeReact from "primereact/api";
 PrimeReact.appendTo = "self";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
+  <>
     <Particle />
     <App />
-  </React.StrictMode>
+  </>
 );

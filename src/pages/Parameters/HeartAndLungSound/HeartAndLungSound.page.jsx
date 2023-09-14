@@ -55,20 +55,21 @@ const HeartAndLungSoundPage = () => {
 
   async function getDataAPI(data, fs) {
     let payload = {
-      pcg: "[" + data.toString() + "]",
+      pcg: "[" + data?.toString() + "]",
       fs: fs,
     };
     let addr =
       position === "heart"
         ? "https://api.hekidesk.com//PCG_signal/heart"
         : "https://api.hekidesk.com//PCG_signal/optional";
-    let res = await axios.post(addr, payload);
-    return res.data;
+    let res = await axios.post(addr, payload).catch(console.log);
+    return res?.data;
   }
 
   async function calculateBeatPerMinuteAPI(pcg) {
     console.log(pcg);
-    return getDataAPI(pcg, bluetooth.GetFrequency()[0]).then((res) => {
+    getDataAPI(pcg, bluetooth.GetFrequency()[0]).then((res) => {
+      if (!res) return;
       console.log(res);
       setHeartBeat(res.heart_rate);
       setRespirationRate(res.respiration_rate);
@@ -84,10 +85,6 @@ const HeartAndLungSoundPage = () => {
       setDisable(0);
     });
   }
-
-  useEffect(() => {
-    console.log(filteredArray);
-  }, [filteredArray]);
 
   useEffect(() => {
     console.log(filterActiveNum);
@@ -117,17 +114,15 @@ const HeartAndLungSoundPage = () => {
   }, [filterActiveNum, filter]);
 
   useEffect(() => {
-    if (bluetooth)
-      bluetooth.SendCommand(COMMAND, (input) => {
-        setChartData(
-          makeArrayForChart(
-            input.pcg.length - sizeOfSlice > 0
-              ? input.pcg.slice(input.pcg.length - sizeOfSlice)
-              : input.pcg
-          )
-        );
-        setData(input.pcg);
-      });
+    bluetooth.SendCommand(COMMAND, (input) => {
+      setChartData(makeArrayForChart(input.pcg));
+      setData(input.pcg);
+    });
+
+    return bluetooth.TurnOff;
+  }, []);
+
+  useEffect(() => {
     if (bluetooth.finish) {
       if (data.length) {
         setChartData(makeArrayForChart(data));
@@ -135,7 +130,6 @@ const HeartAndLungSoundPage = () => {
         console.log(filteredArray);
       }
     }
-    return bluetooth.TurnOff;
   }, [bluetooth]);
 
   useEffect(() => {
@@ -174,7 +168,7 @@ const HeartAndLungSoundPage = () => {
     startTime.current = setTimeout(() => {
       bluetooth.Start().then((result) => (startTimeDuration = result));
       setCounter(sampleTime);
-      setSizeOfSlice(40000);
+      setSizeOfSlice(15000);
     }, [pendingTime + delayTime]);
     endTime.current = setTimeout(() => {
       setCounter(5);
@@ -190,10 +184,12 @@ const HeartAndLungSoundPage = () => {
       : filteredArray[filterActiveNum + 1];
     console.log(finalSound);
     let payload = {
-      sound: "[" + finalSound.toString() + "]",
+      sound: "[" + finalSound?.toString() + "]",
       fs: bluetooth.GetFrequency()[0],
     };
-    let res = await axios.post("https://api.hekidesk.com//rcv_audio", payload);
+    let res = await axios
+      .post("https://api.hekidesk.com//rcv_audio", payload)
+      .catch(console.log);
     if (res.statusText === "OK") {
       const { data } = await axios.get("https://api.hekidesk.com//snd_audio", {
         responseType: "arraybuffer",

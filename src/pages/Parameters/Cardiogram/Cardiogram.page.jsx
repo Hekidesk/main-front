@@ -6,7 +6,6 @@ import { useEffect, useState, useRef, useContext } from "react";
 import { BluetoothContext } from "@/App";
 import {
   CircularContainer,
-  // CircularValue,
   Description,
   DiagramButton,
   DiagramContainer,
@@ -86,7 +85,7 @@ const CardiogramPage = () => {
   async function calculateBeatPerMinuteAPI(ecg) {
     console.log("data: " + ecg);
     let payload = {
-      ECG: "[" + ecg.toString() + "]",
+      ECG: "[" + ecg?.toString() + "]",
       fs: bluetooth.GetFrequency()[0],
     };
     let res = await axios
@@ -99,7 +98,7 @@ const CardiogramPage = () => {
           confirmButtonColor: "#3085d6",
         });
       });
-    if (!Number(res.data.Try_Again) && res.status < 400) {
+    if (!Number(res?.data.Try_Again) && res?.status < 400) {
       setHeartBeat(Number(res.data.HeartRate));
       setPR_RR_Interval(res.data.PR_RR);
       setQRSDuration(res.data.QRS_duration);
@@ -183,15 +182,18 @@ const CardiogramPage = () => {
   };
 
   useEffect(() => {
-    if (bluetooth)
-      bluetooth.SendCommand(COMMAND, (input) => {
-        setChartData(makeArrayForChart(input.ecg));
-        setData(input.ecg);
-      });
+    bluetooth.SendCommand(COMMAND, (input) => {
+      setChartData(makeArrayForChart(input.ecg));
+      setData(input.ecg);
+    });
+
+    return bluetooth.TurnOff;
+  }, []);
+
+  useEffect(() => {
     if (bluetooth.finish) {
       calculateBeatPerMinuteAPI(data);
     }
-    return bluetooth.TurnOff;
   }, [bluetooth]);
 
   useEffect(() => {
