@@ -154,15 +154,16 @@ const HeartAndLungSoundPage = () => {
 
   const startInput = () => {
     flushData();
+
+    bluetooth.SendCommand(COMMAND, (input) => {
+      setChartData(makeArrayForChart(input.pcg));
+      setData(input.pcg);
+    });
+
     setCounter(5);
     let startTimeDuration = 0;
     startTime.current = setTimeout(() => {
-      bluetooth
-        .Start(COMMAND, (input) => {
-          setChartData(makeArrayForChart(input.pcg));
-          setData(input.pcg);
-        })
-        .then(() => (startTimeDuration = performance.now()));
+      bluetooth.Start().then((result) => (startTimeDuration = result));
       setCounter(sampleTime);
       setSizeOfSlice(15000);
     }, [pendingTime + delayTime]);

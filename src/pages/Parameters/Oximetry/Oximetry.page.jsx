@@ -142,16 +142,17 @@ const OximetryPage = () => {
   const startInput = () => {
     let startTimeDuration = 0;
     flushData();
+
+    bluetooth.SendCommand(COMMAND, (input) => {
+      setChartData(makeArrayForChart(input.ir));
+      setIrData(input.ir);
+      setRedData(input.red);
+    });
+    
     startTime.current = setTimeout(() => {
       setCounter(sampleTime);
       console.log(startCountDown);
-      bluetooth
-        .Start(COMMAND, (input) => {
-          setChartData(makeArrayForChart(input.ir));
-          setIrData(input.ir);
-          setRedData(input.red);
-        })
-        .then(() => (startTimeDuration = performance.now()));
+      bluetooth.Start().then((result) => (startTimeDuration = result));
       setSizeOfSlice(400);
     }, [pendingTime + delayTime]);
     endTime.current = setTimeout(() => {

@@ -78,6 +78,7 @@ const CardiogramPage = () => {
     for (const r of rs) newArr.push({ x: Number(r), color: "black" });
     for (const s of ss) newArr.push({ x: Number(s), color: "white" });
     for (const t of ts) newArr.push({ x: Number(t), color: "orange" });
+    // console.log("newParr: " + JSON.stringify(newArr));
     return newArr;
   }
 
@@ -167,13 +168,14 @@ const CardiogramPage = () => {
   const startInput = () => {
     let startTimeDuration = 0;
     flushData();
+
+    bluetooth.SendCommand(COMMAND, (input) => {
+      setChartData(makeArrayForChart(input.ecg));
+      setData(input.ecg);
+    });
+    
     startTime.current = setTimeout(() => {
-      bluetooth
-        .Start(COMMAND, (input) => {
-          setChartData(makeArrayForChart(input.ecg));
-          setData(input.ecg);
-        })
-        .then(() => (startTimeDuration = performance.now()));
+      bluetooth.Start().then((result) => (startTimeDuration = result));
       setSizeOfSlice(400);
       setCounter(sampleTime);
     }, [pendingTime + delayTime]);
@@ -260,12 +262,10 @@ const CardiogramPage = () => {
           <AbnormalityDiagramContainer>
             <AbnormalityDetection
               heartBeat={heartBeat}
-              ArrythmiaType={ArrythmiaType !== -1 ? types[ArrythmiaType] : "-"}
-              ArrythmiaType2={
-                ArrythmiaType2 !== -1 ? types2[ArrythmiaType2] : "-"
-              }
+              ArrythmiaType = {ArrythmiaType !== -1 ? types[ArrythmiaType] : "-"}
+              ArrythmiaType2 = {ArrythmiaType2 !== -1 ? types2[ArrythmiaType2] : "-"}
               hrv={hrv}
-              hrvVal={hrvVal}
+              hrvVal = {hrvVal}
               ssTime={ssTime}
               singleSpike={singleSpike}
               PQRST_ss={PQRST_ss}

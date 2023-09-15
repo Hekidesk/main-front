@@ -83,15 +83,15 @@ const TemperaturePage = () => {
   const startInput = () => {
     let startTimeDuration = 0;
     flushData();
+
+    bluetooth.SendCommand(COMMAND, (input) => {
+      console.log(input.temperature);
+      setChartData(makeArrayForChart(input.temperature));
+      setData(input.temperature);
+    });
     startTime.current = setTimeout(() => {
       setCounter(sampleTime);
-      bluetooth
-        .Start(COMMAND, (input) => {
-          console.log(input.temperature);
-          setChartData(makeArrayForChart(input.temperature));
-          setData(input.temperature);
-        })
-        .then(() => (startTimeDuration = performance.now()));
+      bluetooth.Start().then((result) => (startTimeDuration = result));
       setSizeOfSlice(10);
     }, [pendingTime + delayTime]);
     endTime.current = setTimeout(() => {

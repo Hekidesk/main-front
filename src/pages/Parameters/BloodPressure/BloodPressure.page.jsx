@@ -47,6 +47,8 @@ const BloodPressurePage = () => {
   const COMMAND = 0x01;
 
   async function calculate(irData, forceData) {
+    console.log(irData);
+    console.log(forceData);
     let payload = {
       IR: "[" + irData?.toString() + "]",
       force: "[" + forceData?.toString() + "]",
@@ -55,7 +57,10 @@ const BloodPressurePage = () => {
     let res = await axios
       .post("https://api.hekidesk.com//bp_signal", payload)
       .catch(console.log);
+    console.log(res);
     if (res?.status < 400 && !Number(res.data.Try_Again)) {
+      console.log(SYS);
+      console.log(DIA);
       setSYS(res.data.Diastolic);
       setDIA(res.data.Systolic);
       setQualityIndex(res.data.Quality_index);
@@ -107,16 +112,17 @@ const BloodPressurePage = () => {
   const startInput = () => {
     let startTimeDuration = 0;
     flushData();
+
+    bluetooth.SendCommand(COMMAND, (input) => {
+      setIRChartData(makeArrayForChart(input.ir));
+      setForceChartData(makeArrayForChart(input.force));
+      setIrData(input.ir);
+      setforceData(input.force);
+      console.log(input.force);
+    });
+
     startTime.current = setTimeout(() => {
-      bluetooth
-        .Start(COMMAND, (input) => {
-          setIRChartData(makeArrayForChart(input.ir));
-          setForceChartData(makeArrayForChart(input.force));
-          setIrData(input.ir);
-          setforceData(input.force);
-          console.log(input.force);
-        })
-        .then(() => (startTimeDuration = performance.now()));
+      bluetooth.Start().then((result) => (startTimeDuration = result));
       setCounter(sampleTime);
     }, [pendingTime + delayTime]);
     endTime.current = setTimeout(() => {
