@@ -21,7 +21,6 @@ export const makeFilteredArray = (dots, filteredArray) => {
         };
       });
 
-    console.log(dots)
     if (dots.length > 0) {
         newFilteredArray = newFilteredArray.map((item, e) => {
         for (const element of dots) {
@@ -31,7 +30,5 @@ export const makeFilteredArray = (dots, filteredArray) => {
         return item;
       });
     }
-    console.log("heyyy")
-    console.log(newFilteredArray);
     return newFilteredArray;
 }

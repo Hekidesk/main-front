@@ -89,16 +89,6 @@ const OximetryPage = () => {
   }
 
   useEffect(() => {
-    bluetooth.SendCommand(COMMAND, (input) => {
-      setChartData(makeArrayForChart(input.ir));
-      setIrData(input.ir);
-      setRedData(input.red);
-    });
-
-    return bluetooth.TurnOff;
-  }, []);
-
-  useEffect(() => {
     if (bluetooth.finish) {
       calculateBeatPerMinuteAPI(IrData, RedData);
     }
@@ -155,7 +145,13 @@ const OximetryPage = () => {
     startTime.current = setTimeout(() => {
       setCounter(sampleTime);
       console.log(startCountDown);
-      bluetooth.Start().then((result) => (startTimeDuration = result));
+      bluetooth
+        .Start(COMMAND, (input) => {
+          setChartData(makeArrayForChart(input.ir));
+          setIrData(input.ir);
+          setRedData(input.red);
+        })
+        .then(() => (startTimeDuration = performance.now()));
       setSizeOfSlice(400);
     }, [pendingTime + delayTime]);
     endTime.current = setTimeout(() => {

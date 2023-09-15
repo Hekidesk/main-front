@@ -60,15 +60,14 @@ export const useSignalFeed = () => {
     setCharastircticR(null);
   };
 
-
-  const Start = async () => {
-    console.log("start");
-    setFinish(0);
-    console.log("start " + performance.now());
-    safe = initialState;
-    read_charastirctic?.startNotifications();
-
-    return performance.now();
+  const Start = async (command, callBack) => {
+    SendCommand(command, callBack).then(() => {
+      console.log("start");
+      setFinish(0);
+      console.log("start " + performance.now());
+      safe = initialState;
+      read_charastirctic?.startNotifications();
+    });
   };
 
   const Stop = async (startTime) => {
@@ -76,6 +75,7 @@ export const useSignalFeed = () => {
     setDuration(performance.now() - startTime);
     setFinish(1);
     read_charastirctic?.stopNotifications();
+    TurnOff();
   };
 
   const GetFrequency = () => {
@@ -128,7 +128,10 @@ export const useSignalFeed = () => {
             pcg,
             temperature,
           };
-          console.log("🚀 ~ file: bluetooth.jsx:131 ~ SendCommand ~ recieved.pcg:", recieved.pcg)
+          console.log(
+            "🚀 ~ file: bluetooth.jsx:131 ~ SendCommand ~ recieved.pcg:",
+            recieved.pcg
+          );
           let temp = safe;
           KEYS.map((key) => {
             temp[key] = [...temp[key], ...recieved[key]];
@@ -161,11 +164,9 @@ export const useSignalFeed = () => {
     isChannelExits: !!read_charastirctic,
     Connect,
     Disconnect,
-    SendCommand,
     loading,
     GetFrequency,
     finish,
-    TurnOff,
   };
 };
 

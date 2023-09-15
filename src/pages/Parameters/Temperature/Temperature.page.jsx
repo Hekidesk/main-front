@@ -48,16 +48,6 @@ const TemperaturePage = () => {
   }
 
   useEffect(() => {
-    bluetooth.SendCommand(COMMAND, (input) => {
-      console.log(input.temperature);
-      setChartData(makeArrayForChart(input.temperature));
-      setData(input.temperature);
-    });
-
-    return bluetooth.TurnOff;
-  }, []);
-
-  useEffect(() => {
     if (bluetooth.finish) {
       console.log("here?");
       calculateTemperature(data);
@@ -95,7 +85,13 @@ const TemperaturePage = () => {
     flushData();
     startTime.current = setTimeout(() => {
       setCounter(sampleTime);
-      bluetooth.Start().then((result) => (startTimeDuration = result));
+      bluetooth
+        .Start(COMMAND, (input) => {
+          console.log(input.temperature);
+          setChartData(makeArrayForChart(input.temperature));
+          setData(input.temperature);
+        })
+        .then(() => (startTimeDuration = performance.now()));
       setSizeOfSlice(10);
     }, [pendingTime + delayTime]);
     endTime.current = setTimeout(() => {

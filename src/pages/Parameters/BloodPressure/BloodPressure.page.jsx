@@ -47,8 +47,6 @@ const BloodPressurePage = () => {
   const COMMAND = 0x01;
 
   async function calculate(irData, forceData) {
-    console.log(irData);
-    console.log(forceData);
     let payload = {
       IR: "[" + irData?.toString() + "]",
       force: "[" + forceData?.toString() + "]",
@@ -57,10 +55,7 @@ const BloodPressurePage = () => {
     let res = await axios
       .post("https://api.hekidesk.com//bp_signal", payload)
       .catch(console.log);
-    console.log(res);
     if (res?.status < 400 && !Number(res.data.Try_Again)) {
-      console.log(SYS);
-      console.log(DIA);
       setSYS(res.data.Diastolic);
       setDIA(res.data.Systolic);
       setQualityIndex(res.data.Quality_index);
@@ -74,18 +69,6 @@ const BloodPressurePage = () => {
       });
     }
   }
-
-  useEffect(() => {
-    bluetooth.SendCommand(COMMAND, (input) => {
-      setIRChartData(makeArrayForChart(input.ir));
-      setForceChartData(makeArrayForChart(input.force));
-      setIrData(input.ir);
-      setforceData(input.force);
-      console.log(input.force);
-    });
-
-    return bluetooth.TurnOff;
-  }, []);
 
   useEffect(() => {
     if (bluetooth.finish) {
@@ -125,7 +108,15 @@ const BloodPressurePage = () => {
     let startTimeDuration = 0;
     flushData();
     startTime.current = setTimeout(() => {
-      bluetooth.Start().then((result) => (startTimeDuration = result));
+      bluetooth
+        .Start(COMMAND, (input) => {
+          setIRChartData(makeArrayForChart(input.ir));
+          setForceChartData(makeArrayForChart(input.force));
+          setIrData(input.ir);
+          setforceData(input.force);
+          console.log(input.force);
+        })
+        .then(() => (startTimeDuration = performance.now()));
       setCounter(sampleTime);
     }, [pendingTime + delayTime]);
     endTime.current = setTimeout(() => {
@@ -174,20 +165,25 @@ const BloodPressurePage = () => {
                     data={IRChartData}
                     sizeOfSlice={-1}
                     maximumNum={sampleTime * fs}
-                    type = "ppg"
+                    type="ppg"
                   />
                 </Col>
               </Row>
-              <ForceDiagram forceChartData = {forceChartData} maximumNum = {sampleTime*fs} />
+              <ForceDiagram
+                forceChartData={forceChartData}
+                maximumNum={sampleTime * fs}
+              />
             </Col>
-            <Col md={2} style={{alignSelf: "flex-start", marginTop: "2em"}}>
+            <Col md={2} style={{ alignSelf: "flex-start", marginTop: "2em" }}>
               <InfoContainer>
                 <ImportantTitle>SYS/DIA (mmHg)</ImportantTitle>
                 <ImportantValue>
                   {SYS}/{DIA}
                 </ImportantValue>
                 <SimpleTitle>Quality Index (%)</SimpleTitle>
-                <SimpleValue>{qualityIndex} {qualityIndex != "-" ? "%" : ""}</SimpleValue>
+                <SimpleValue>
+                  {qualityIndex} {qualityIndex != "-" ? "%" : ""}
+                </SimpleValue>
               </InfoContainer>
             </Col>
           </DiagramContainer>

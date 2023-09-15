@@ -37,14 +37,11 @@ const TimeHistoryPage = () => {
 
   useEffect(() => {
     getAllData().then((dataFromDB) => {
-      console.log(dataFromDB);
       const result = dataFromDB.filter(
         (temp) => temp.userId === localStorage.getItem("id")
       );
-      console.log(result);
       let dateAndIds = result.map((d) => d.dateAndId);
       const tempResult = dateAndIds.map((d) => GetDateTimeDB(String(d)));
-      console.log(tempResult);
       setDates(tempResult);
       setData(result);
     });
@@ -64,7 +61,6 @@ const TimeHistoryPage = () => {
       convertStringToDateDB(dates[currentDate], localStorage.getItem("id"))
     );
     const tempResult = data.filter((temp) => temp.dateAndId === dateAndId);
-    console.log("result: " + JSON.stringify(tempResult));
     const result = tempResult[0].parameters;
     setParameter([
       {text: "Heart Rate ECG (bpm):" , value: result.heartBeatECG}, 
@@ -89,7 +85,6 @@ const TimeHistoryPage = () => {
         : 0
     );
     setTemperature(result.temperature ? result.temperature : 0);
-    console.log(parameter)
   };
 
   const decCurrentUser = () => {

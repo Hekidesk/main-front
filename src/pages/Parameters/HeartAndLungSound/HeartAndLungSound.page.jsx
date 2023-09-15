@@ -114,15 +114,6 @@ const HeartAndLungSoundPage = () => {
   }, [filterActiveNum, filter]);
 
   useEffect(() => {
-    bluetooth.SendCommand(COMMAND, (input) => {
-      setChartData(makeArrayForChart(input.pcg));
-      setData(input.pcg);
-    });
-
-    return bluetooth.TurnOff;
-  }, []);
-
-  useEffect(() => {
     if (bluetooth.finish) {
       if (data.length) {
         setChartData(makeArrayForChart(data));
@@ -166,7 +157,12 @@ const HeartAndLungSoundPage = () => {
     setCounter(5);
     let startTimeDuration = 0;
     startTime.current = setTimeout(() => {
-      bluetooth.Start().then((result) => (startTimeDuration = result));
+      bluetooth
+        .Start(COMMAND, (input) => {
+          setChartData(makeArrayForChart(input.pcg));
+          setData(input.pcg);
+        })
+        .then(() => (startTimeDuration = performance.now()));
       setCounter(sampleTime);
       setSizeOfSlice(15000);
     }, [pendingTime + delayTime]);
