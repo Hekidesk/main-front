@@ -5,7 +5,7 @@ import { useSignalFeed } from "./utilities/bluetooth";
 import { initDB } from "react-indexed-db";
 import { DBConfig } from "@/database/DBConfig";
 import axios from "axios";
-import "@/assets/styles/measurement.css";
+import "@/assets/styles/Measurement.css";
 
 export const BluetoothContext = createContext({});
 

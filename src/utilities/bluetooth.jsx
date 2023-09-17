@@ -20,8 +20,7 @@ export const useSignalFeed = () => {
   const [duration, setDuration] = useState(0);
   const [isConnected, setIsConnected] = useState(false);
   const [finish, setFinish] = useState(false);
-
-  let safe = initialState;
+  const [deviceData, setData] = useState(initialState);
 
   const Connect = () => {
     console.log("connect");
@@ -64,7 +63,7 @@ export const useSignalFeed = () => {
     console.log("start");
     setFinish(0);
     console.log("start " + performance.now());
-    safe = initialState;
+    setData(initialState);
     read_charastirctic?.startNotifications();
 
     return performance.now();
@@ -80,9 +79,9 @@ export const useSignalFeed = () => {
 
   const GetFrequency = () => {
     const length = Math.max(
-      safe.force.length,
-      safe.pcg.length,
-      safe.temperature.length
+      deviceData.force.length,
+      deviceData.pcg.length,
+      deviceData.temperature.length
     );
     return [Math.ceil(length / Math.ceil(duration / 1000)), duration];
   };
@@ -128,12 +127,13 @@ export const useSignalFeed = () => {
             pcg,
             temperature,
           };
-          let temp = safe;
+          let temp = deviceData;
+
           KEYS.map((key) => {
             temp[key] = [...temp[key], ...recieved[key]];
             return "";
           });
-          safe = temp;
+          setData(temp);
           callBack({
             red: temp.red,
             ecg: temp.ecg,
