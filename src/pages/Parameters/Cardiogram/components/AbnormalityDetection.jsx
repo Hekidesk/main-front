@@ -8,7 +8,7 @@ import {
   InfoAbnormalityContainer,
   SimpleTitle,
   SimpleValue,
-} from "./components/CSS";
+} from "./CSS";
 
 function AbnormalityDetection({
   heartBeat,
@@ -20,7 +20,6 @@ function AbnormalityDetection({
   singleSpike,
   PQRST_ss,
 }) {
-
   const getHrvSteam = () => {
     let steam = [...hrv].map((item, id) => {
       return {
@@ -119,12 +118,12 @@ function AbnormalityDetection({
             Single Spike
           </LeftAbnormalityDiagramTitleContainer>
         </Col>
-        <Col md={6}>
+        <Col md={4}>
           <AbnormalityDiagramTitleContainer>
             HRV
           </AbnormalityDiagramTitleContainer>
         </Col>
-        <Col md={3}>
+        <Col md={5}>
           <AbnormalityDiagramTitleContainer>
             Arrhyithmia type & hrv
           </AbnormalityDiagramTitleContainer>
@@ -170,17 +169,11 @@ function AbnormalityDetection({
         <Col>
           <InfoAbnormalityContainer>
             <SimpleTitle>Type 1</SimpleTitle>
-                <SimpleValue>
-                  {ArrythmiaType}
-                </SimpleValue>
-                <SimpleTitle>Type 2</SimpleTitle>
-                <SimpleValue>
-                  {ArrythmiaType2}
-                </SimpleValue>
-                <SimpleTitle>hrv</SimpleTitle>
-                <SimpleValue>
-                  {hrvVal}
-                </SimpleValue>
+            <SimpleValue>{ArrythmiaType}</SimpleValue>
+            <SimpleTitle>Type 2</SimpleTitle>
+            <SimpleValue>{ArrythmiaType2}</SimpleValue>
+            <SimpleTitle>hrv</SimpleTitle>
+            <SimpleValue>{hrvVal}</SimpleValue>
           </InfoAbnormalityContainer>
         </Col>
       </Row>

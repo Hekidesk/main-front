@@ -42,9 +42,9 @@ export const FormSection = styled.div`
 
   @media ${devices.tablet} {
     width: 50%;
-    padding: 5em;
+    padding: 2.5em;
   }
   @media ${devices.laptop} {
-    padding: 4em;
+    padding: 2em;
   }
 `;

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Profile from "../../Profile/Profile";
+import Profile from "@/components/Profile/Profile";
 import { Col, Row, Pagination } from "react-bootstrap";
 import Sidebar from "@/components/Sidebar/Sidebar";
-import ProfileSection from "../../Profile/ProfileSection";
+import ProfileSection from "@/components/Profile/ProfileSection";
 import { useIndexedDB } from "react-indexed-db";
 import { GetDateTimeDB, convertStringToDateDB } from "@/utilities/time/time";
 import { Knob } from "primereact/knob";
@@ -28,11 +28,6 @@ const TimeHistoryPage = () => {
     "Premature Atrial Contrature (PAC)",
     "Paroxysmal Atrial Tachycardia (PAT)",
     "Multifocul Atrial Tachycardia (MAT)",
-  ];
-
-  const types2 = [
-    "َّAF",
-    "Normal",
   ];
 
   useEffect(() => {
@@ -63,17 +58,20 @@ const TimeHistoryPage = () => {
     const tempResult = data.filter((temp) => temp.dateAndId === dateAndId);
     const result = tempResult[0].parameters;
     setParameter([
-      {text: "Heart Rate ECG (bpm):" , value: result.heartBeatECG}, 
-      {text: "Heart Rate PPG (bpm):" , value: result.heartBeatPPG}, 
-      {text: "PR/RR Interval (msec):" , value: result.PR_RR_Interval}, 
-      {text: "QRS Duration (msec):" , value: result.QRS_Duration}, 
-      {text: "HR Variation:" , value: result.hrvVal}, 
-      {text: "SpO2 (%):" , value: result.SPO2}, 
-      {text: "Temperature(°C):" , value: result.temperature}, 
-      {text: "SYS/DIA(mmHg):", value: result.SYS ? result.SYS + "/" + result.DIA : null }, 
-      {text: "Arrythmia Type:", value: types[result.ArrythmiaType]}, 
-      {text: "Heart Rate sound (bpm):", value: result.heartBeatSound}, 
-      {text: "Respiration Rate:", value: result.respirationRate}, 
+      { text: "Heart Rate ECG (bpm):", value: result.heartBeatECG },
+      { text: "Heart Rate PPG (bpm):", value: result.heartBeatPPG },
+      { text: "PR/RR Interval (msec):", value: result.PR_RR_Interval },
+      { text: "QRS Duration (msec):", value: result.QRS_Duration },
+      { text: "HR Variation:", value: result.hrvVal },
+      { text: "SpO2 (%):", value: result.SPO2 },
+      { text: "Temperature(°C):", value: result.temperature },
+      {
+        text: "SYS/DIA(mmHg):",
+        value: result.SYS ? result.SYS + "/" + result.DIA : null,
+      },
+      { text: "Arrythmia Type:", value: types[result.ArrythmiaType] },
+      { text: "Heart Rate sound (bpm):", value: result.heartBeatSound },
+      { text: "Respiration Rate:", value: result.respirationRate },
     ]);
     setHeartBeat(
       result.heartBeatECG
@@ -88,23 +86,19 @@ const TimeHistoryPage = () => {
   };
 
   const decCurrentUser = () => {
-    currentDate - 1 >= 0
-      ? setCurrentDate(currentDate - 1)
-      : setCurrentDate(currentDate);
+    if (currentDate - 1 >= 0) setCurrentDate(currentDate - 1);
 
-    activeIndex - 1 >= 0
-      ? setActiveIndex(activeIndex - 1)
-      : setActiveIndex(activeIndex);
+    if (activeIndex - 1 >= 0) setActiveIndex(activeIndex - 1);
   };
 
   const incCurrentUser = () => {
-    currentDate + 1 < dates.length && (activeIndex % 5 == 4 || currentDate != 0)
-      ? setCurrentDate(currentDate + 1)
-      : setCurrentDate(currentDate);
+    if (
+      currentDate + 1 < dates.length &&
+      (activeIndex % 5 == 4 || currentDate != 0)
+    )
+      setCurrentDate(currentDate + 1);
 
-    activeIndex + 1 < dates.length
-      ? setActiveIndex(activeIndex + 1)
-      : setActiveIndex(activeIndex);
+    if (activeIndex + 1 < dates.length) setActiveIndex(activeIndex + 1);
   };
 
   const firstDate = () => {
@@ -133,9 +127,6 @@ const TimeHistoryPage = () => {
               <Row>
                 <ProfileSection />
               </Row>
-              {/* <Row>
-                <img src={BodyIcon} alt="body" className="cropped-img" />
-              </Row> */}
               <Row
                 style={{
                   backgroundColor: "#E8F0F4",
@@ -179,20 +170,21 @@ const TimeHistoryPage = () => {
                       Rates:
                     </Row>
                     <Row>
-                      {parameter && parameter.map((p, i) => {
-                        return(
-                          <Col
-                            style={{
-                              fontWeight: p.value ? "bold" : "",
-                            }}
-                            md = {6}
-                            key={i}
-                          >
-                            {p.text} {p.value ? p.value : ""}
-                          </Col>
-                        )
-                      })}
-                    </Row>              
+                      {parameter &&
+                        parameter.map((p, i) => {
+                          return (
+                            <Col
+                              style={{
+                                fontWeight: p.value ? "bold" : "",
+                              }}
+                              md={6}
+                              key={i}
+                            >
+                              {p.text} {p.value ? p.value : ""}
+                            </Col>
+                          );
+                        })}
+                    </Row>
                   </div>
                 </Col>
               </Row>
@@ -218,13 +210,14 @@ const TimeHistoryPage = () => {
                     }}
                   >
                     {" "}
-                    {heartBeat === 0 ?  " " : 
-                    (heartBeat < 60 || heartBeat > 90)
+                    {heartBeat === 0
+                      ? " "
+                      : heartBeat < 60 || heartBeat > 90
                       ? "Dangerous"
                       : "Good"}{" "}
                   </div>
                 </Col>
-                <Col className="bg-gray" style={{marginLeft: "10px"}}>
+                <Col className="bg-gray" style={{ marginLeft: "10px" }}>
                   <div>
                     <div style={{ fontWeight: "bold" }}> Temperature </div>
                     <div style={{ fontSize: "13px" }}> (°C) </div>
@@ -249,8 +242,9 @@ const TimeHistoryPage = () => {
                       }}
                     >
                       {" "}
-                      {temperature === 0 ? " " :
-                      (temperature < 30 || temperature > 38)
+                      {temperature === 0
+                        ? " "
+                        : temperature < 30 || temperature > 38
                         ? "Dangerous"
                         : "Good"}{" "}
                     </div>

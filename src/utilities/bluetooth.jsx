@@ -60,7 +60,6 @@ export const useSignalFeed = () => {
     setCharastircticR(null);
   };
 
-
   const Start = async () => {
     console.log("start");
     setFinish(0);
@@ -76,7 +75,7 @@ export const useSignalFeed = () => {
     setDuration(performance.now() - startTime);
     setFinish(1);
     read_charastirctic?.stopNotifications();
-    TurnOff();
+    write_charastirctic.writeValue(new Uint8Array([0x000]).buffer);
   };
 
   const GetFrequency = () => {
@@ -148,10 +147,7 @@ export const useSignalFeed = () => {
   };
 
   const TurnOff = () => {
-    if (isConnected && device.gatt.connected) {
-      write_charastirctic.writeValue(new Uint8Array([0x000]).buffer);
-      setFinish(0);
-    }
+    setFinish(0);
   };
 
   return {
@@ -165,6 +161,7 @@ export const useSignalFeed = () => {
     loading,
     GetFrequency,
     finish,
+    TurnOff,
   };
 };
 

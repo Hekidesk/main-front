@@ -10,7 +10,6 @@ import { useNavigate } from "react-router-dom";
 import { Col, LogoRow, Row, Title } from "./CSS";
 import { useIndexedDB } from "react-indexed-db";
 import { Calendar } from "primereact/calendar";
-// import "../../../assets/styles/measurement.css";
 
 const RegisterForm = () => {
   const [form, setForm] = useState({
@@ -30,7 +29,6 @@ const RegisterForm = () => {
   // todo --> done
   // add register user
   function addUser() {
-    console.log(form.username)
     if(!form.username){
       setWarning(true);
       return;
@@ -38,7 +36,6 @@ const RegisterForm = () => {
     localStorage.setItem("user", form.username);
     add({ ...form }).then(
       (event) => {
-        console.log("Data added: ", event);
         localStorage.setItem("id", event);
         history("/");
       },

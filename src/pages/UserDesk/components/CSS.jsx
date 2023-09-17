@@ -7,7 +7,7 @@ export const LogoRow = styled.div`
 `;
 
 export const FormTitle = {
-  color: "var(--title-color)",
+  color: "var(--green-color)",
   fontSize: "16px",
   margin: "1em 0",
 };

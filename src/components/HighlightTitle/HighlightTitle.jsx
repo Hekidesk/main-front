@@ -7,7 +7,7 @@ const HighlightTitle = ({ title, icon }) => {
       <H6Wrapper>
         <H6>{title}</H6>
       </H6Wrapper>
-      <Image src={icon} alt="icon" width="80%" />
+      <Image src={icon} alt="icon" width="60%" />
     </TitleContainer>
   );
 };

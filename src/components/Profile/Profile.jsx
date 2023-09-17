@@ -37,13 +37,13 @@ const Profile = () => {
           </Button>
         </Link>
       </Col>
-      <Col className="profile-col">
-        <img src={ProfilePhotoIcon} alt="profile" width={60} />
-      </Col>
       <Col className="profile-col battery-container">
         <BatteryCharge charge={10} />
       </Col>
-      <Col className="profile-col" style={{ width: "10em" }}>
+      <Col className="profile-col">
+        <img src={ProfilePhotoIcon} alt="profile" width={60} />
+      </Col>
+      <Col className="profile-col" style={{ width: "25em" }}>
         <div className="hello-profile">hello</div>
         <div className="name-profile">{username}</div>
       </Col>

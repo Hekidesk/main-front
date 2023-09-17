@@ -5,7 +5,6 @@ import HighlightTitle from "@/components/HighlightTitle/HighlightTitle";
 import { useEffect, useState, useContext, useRef } from "react";
 import {
   CircularContainer,
-  // CircularValue,
   SimpleValue,
   SimpleTitle,
   Description,
@@ -16,7 +15,6 @@ import {
   ImportantTitle,
   ImportantValue,
   InfoContainer,
-  DropdownButton,
 } from "./components/CSS";
 import PageButtons from "@/components/reusable/PageButtons";
 import axios from "axios";
@@ -25,9 +23,10 @@ import { useAddToDB } from "@/database/AddToDB";
 import { BluetoothContext } from "@/App";
 import { makeArrayForChart } from "@/components/reusableDataFunc/DataFunc";
 import Counter from "@/components/Counter/Counter";
-import { Dropdown } from "primereact/dropdown";
-import ForceDiagram from "@/pages/Parameters/BloodPressure/ForceDiagram";
 import { Row, Col } from "react-bootstrap";
+import { COMMAND, delayTime, fs, pendingTime } from "./components/Constants";
+import { SampleTimeDropDown } from "@/components/SampleTimeDropDown";
+import ForceDiagram from "./components/ForceDiagram";
 
 const BloodPressurePage = () => {
   const [IrData, setIrData] = useState();
@@ -39,28 +38,18 @@ const BloodPressurePage = () => {
   const [SYS, setSYS] = useState("-");
   const [DIA, setDIA] = useState("-");
   const [qualityIndex, setQualityIndex] = useState("-");
-  const [saved, setSaved] = useState(0);
   const [disable, setDisable] = useState(1);
 
   const bluetooth = useContext(BluetoothContext);
 
-  const COMMAND = 0x01;
-
   async function calculate(irData, forceData) {
-    console.log(irData);
-    console.log(forceData);
     let payload = {
       IR: "[" + irData?.toString() + "]",
       force: "[" + forceData?.toString() + "]",
       fs: bluetooth.GetFrequency()[0],
     };
-    let res = await axios
-      .post("https://api.hekidesk.com//bp_signal", payload)
-      .catch(console.log);
-    console.log(res);
+    let res = await axios.post("/bp_signal", payload).catch(console.log);
     if (res?.status < 400 && !Number(res.data.Try_Again)) {
-      console.log(SYS);
-      console.log(DIA);
       setSYS(res.data.Diastolic);
       setDIA(res.data.Systolic);
       setQualityIndex(res.data.Quality_index);
@@ -79,31 +68,20 @@ const BloodPressurePage = () => {
     if (bluetooth.finish) {
       calculate(IrData, forceData);
     }
+    return bluetooth.TurnOff;
   }, [bluetooth]);
-
-  useEffect(() => {
-    if (saved) {
-      var dataParameter = {};
-      dataParameter["SYS"] = SYS;
-      dataParameter["DIA"] = DIA;
-      dbFunc.updateHistory(dataParameter);
-    }
-  }, [saved]);
 
   const [startCountDown, setStartCountDown] = useState(0);
   const [counter, setCounter] = useState(5);
   const [sampleTime, setSampleTime] = useState(10);
 
-  const pendingTime = 5000;
   const startTime = useRef(null);
   const endTime = useRef(null);
-  const delayTime = 30;
-  const fs = 130;
+
   const flushData = () => {
     setSYS("-");
     setDIA("-");
     setQualityIndex("-");
-    setSaved(0);
     setDisable(1);
     setIRChartData([]);
     setStartCountDown(1);
@@ -118,7 +96,6 @@ const BloodPressurePage = () => {
       setForceChartData(makeArrayForChart(input.force));
       setIrData(input.ir);
       setforceData(input.force);
-      console.log(input.force);
     });
 
     startTime.current = setTimeout(() => {
@@ -144,21 +121,10 @@ const BloodPressurePage = () => {
               Please put your finger on PPG sensors and then press it slowly
             </DiagramText>
             <DiagramButton onClick={startInput}>Start</DiagramButton>
-            <DropdownButton>
-              <Dropdown
-                style={{ width: "100%" }}
-                value={sampleTime}
-                className="filter-btn"
-                onChange={(e) => setSampleTime(e.value)}
-                options={[
-                  { name: "10s ↓", value: 10 },
-                  { name: "20s ↓", value: 20 },
-                  { name: "30s ↓", value: 30 },
-                ]}
-                optionLabel="name"
-                placeholder={"sample time  ↓"}
-              />
-            </DropdownButton>
+            <SampleTimeDropDown
+              sampleTime={sampleTime}
+              setSampleTime={setSampleTime}
+            />
             <CircularContainer>
               <Counter counter={counter} startCountDown={startCountDown} />
             </CircularContainer>
@@ -201,8 +167,12 @@ const BloodPressurePage = () => {
         texts={["SYS/DIA " + SYS + "/" + DIA]}
         extraChartName={["#forceDiagram #chartContainer canvas"]}
         extraText={[[""]]}
-        saved={saved}
-        setSaved={setSaved}
+        onClick={() => {
+          var dataParameter = {};
+          dataParameter["SYS"] = SYS;
+          dataParameter["DIA"] = DIA;
+          dbFunc.updateHistory(dataParameter);
+        }}
       />
     </PageWrapper>
   );

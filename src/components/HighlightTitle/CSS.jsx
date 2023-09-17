@@ -14,10 +14,10 @@ export const TitleContainer = styled.div`
   }
 `;
 export const H6 = styled.h6`
-  font-size: 1.8em;
+  font-size: 1.6em;
   font-weight: bold;
   @media ${devices.tablet} {
-    font-size: 2.8em;
+    font-size: 2.2em;
   }
 `;
 export const H6Wrapper = styled.span`

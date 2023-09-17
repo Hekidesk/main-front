@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from "@/components/Sidebar/Sidebar";
 import { Col, Row } from "react-bootstrap";
-import Profile from "../../Profile/Profile";
-import ProfileSection from "../../Profile/ProfileSection";
+import Profile from "@/components/Profile/Profile";
+import ProfileSection from "@/components/Profile/ProfileSection";
 import ParameterPhotoIcon from "@/assets/icon/parameterHistory.svg";
 import HeartRateIcon from "@/assets/icon/history/heartRateIcon.svg";
 import Spo2Icon from "@/assets/icon/history/spo2Icon.svg";

@@ -13,13 +13,13 @@ export const FlexContainer = styled.div`
   width: 100%;
 `;
 export const FormTitle = {
-  color: "var(--title-color)",
+  color: "var(--green-color)",
   fontSize: "16px",
   margin: "1em 0",
 };
 export const CustomDropdown = {
   width: "100%",
   textAlign: "center",
-  background: "var(--title-color)",
-  borderColor: "var(--title-color)",
+  background: "var(--green-color)",
+  borderColor: "var(--green-color)",
 };

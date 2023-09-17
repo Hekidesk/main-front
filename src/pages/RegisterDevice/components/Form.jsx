@@ -8,8 +8,7 @@ import { useIndexedDB } from "react-indexed-db";
 import Swal from "sweetalert2";
 
 const RegisterForm = () => {
-
-  const [deviceNames] = useState({'name': "HekiDesk_v1.2", 'code' : '123456'})
+  const [deviceNames] = useState({ name: "HekiDesk_v1.2", code: "123456" });
 
   const [form, setForm] = useState({
     serial: "",
@@ -20,25 +19,21 @@ const RegisterForm = () => {
   const { add } = useIndexedDB("devices");
 
   const submitRegisteryCode = () => {
-    console.log(Object.values(deviceNames).includes(form.serial))
     if (Object.values(deviceNames).includes(form.serial)) {
-      localStorage.setItem("device", deviceNames['name'])
-      add({ name: deviceNames['name'], serial: deviceNames['serial'] }).then(
-        (event) => {
-          console.log("Device added: ", event);
+      localStorage.setItem("device", deviceNames["name"]);
+      add({ name: deviceNames["name"], serial: deviceNames["serial"] }).then(
+        () => {
           history("/");
         },
         (error) => {
           console.log(error);
         }
       );
-      history("/?is_valid=true");
-    }
-    else 
+    } else
       Swal.fire({
         icon: "error",
         title: "This serial code is invalid",
-        text: "Please repeat procedure!",
+        text: "Please enter the correct code!",
         confirmButtonColor: "#3085d6",
       });
   };

@@ -1,4 +1,3 @@
-import React from "react";
 import { Col, Row } from "react-bootstrap";
 import ProfilePhotoIcon from "@/assets/icon/profile.svg";
 import "../../assets/styles/profile.css";
@@ -10,7 +9,7 @@ const ProfileSection = () => {
   const [age, setAge] = useState("");
 
   useEffect(() => {
-    getByID(localStorage.getItem('id')).then((user) => setUser(user));
+    getByID(localStorage.getItem("id")).then((user) => setUser(user));
   }, []);
 
   useEffect(() => {
@@ -18,17 +17,13 @@ const ProfileSection = () => {
     var today = new Date();
     const diffTime = Math.abs(today.getTime() - birthDate);
     const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24 * 30 * 12));
-    setAge(diffDays)
-  }, [user])
+    setAge(diffDays);
+  }, [user]);
   return (
     <div className="profile-section">
       <Row className="text-right">
         <Col>
-          <img
-            src={ProfilePhotoIcon}
-            className="profile-photo"
-            alt="profile"
-          />
+          <img src={ProfilePhotoIcon} className="profile-photo" alt="profile" />
         </Col>
       </Row>
       <Row>

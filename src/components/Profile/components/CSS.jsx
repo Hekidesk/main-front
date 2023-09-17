@@ -30,7 +30,7 @@ export const Bar = styled.div`
   display: inline-block;
   width: 0;
   border: solid thin rgb(168, 190, 197);
-  padding: 4px 2px;
+  padding: 5px 3px;
   height: 5px;
   background: transparent;
   transition: background 1s;

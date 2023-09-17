@@ -6,7 +6,7 @@ import {
   ChildContainer,
 } from "./CSS";
 import Sidebar from "@/components/Sidebar/Sidebar";
-import Profile from "@/pages/Profile/Profile";
+import Profile from "@/components/Profile/Profile";
 
 const PageWrapper = (props) => {
   return (
