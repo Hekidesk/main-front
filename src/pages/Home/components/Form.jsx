@@ -18,10 +18,11 @@ const HomeForm = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [selectedDevice, setSelectedDevice] = useState(null);
 
-  const { getAll: getAllUsers } = useIndexedDB("users");
-  const { getAll: getAllDevices } = useIndexedDB("devices");
   const [users, setUsers] = useState([]);
   const [devices, setDevices] = useState([]);
+
+  const { getAll: getAllUsers } = useIndexedDB("users");
+  const { getAll: getAllDevices } = useIndexedDB("devices");
 
   useEffect(() => {
     getAllUsers().then((usersFromDB) => {
@@ -59,50 +60,59 @@ const HomeForm = () => {
         <Image src={Icon} alt="icon" width="60px" />
         <Title>Hekidesk</Title>
       </LogoRow>
-      <Text style={FormTitle}>First, register your Hekidesk device.</Text>
-      <FlexContainer>
-        <Link
-          // eslint-disable-next-line no-undef
-          to={process.env.REACT_APP_BASE_URL + "/register-device"}
-          style={ButtonStyle}
-        >
-          <Image src={PlusIcon} alt="plus"></Image>
-        </Link>
-        <Dropdown
-          value={selectedDevice}
-          onChange={(e) => setSelectedDevice(e.value)}
-          className="home-dropdown"
-          options={devices}
-          optionLabel="name"
-          placeholder={"Select a device"}
-          style={{ ...CustomDropdown, margin: "1em 0" }}
-        />
-      </FlexContainer>
-      <Text style={FormTitle}>Then, sign up with your user.</Text>
-      <FlexContainer>
-        <Link
-          // eslint-disable-next-line no-undef
-          to={process.env.REACT_APP_BASE_URL + "/register-user"}
-          style={ButtonStyle}
-        >
-          <Image src={PlusIcon} alt="plus"></Image>
-        </Link>
-        <Dropdown
-          value={selectedUser}
-          onChange={(e) => selectUser(e.value)}
-          className="home-dropdown"
-          options={users}
-          optionLabel="username"
-          placeholder={"Select a user"}
-          style={{ ...CustomDropdown, margin: "1em 0", color: "white" }}
-        />
-      </FlexContainer>
+      {!selectedDevice && (
+        <>
+          <Text style={FormTitle}>Register your Hekidesk device.</Text>
+          <FlexContainer>
+            <Link
+              // eslint-disable-next-line no-undef
+              to={process.env.REACT_APP_BASE_URL + "/register-device"}
+              style={ButtonStyle}
+            >
+              <Image src={PlusIcon} alt="plus"></Image>
+            </Link>
+            <Dropdown
+              value={selectedDevice}
+              onChange={(e) => setSelectedDevice(e.value)}
+              className="home-dropdown"
+              options={devices}
+              optionLabel="name"
+              placeholder={"Select a device"}
+              style={{ ...CustomDropdown, margin: "1em 0" }}
+            />
+          </FlexContainer>
+        </>
+      )}
+      {!selectedUser && (
+        <>
+          <Text style={FormTitle}>Then, sign up with your user.</Text>
+          <FlexContainer>
+            <Link
+              // eslint-disable-next-line no-undef
+              to={process.env.REACT_APP_BASE_URL + "/register-user"}
+              style={ButtonStyle}
+            >
+              <Image src={PlusIcon} alt="plus"></Image>
+            </Link>
+            <Dropdown
+              value={selectedUser}
+              onChange={(e) => selectUser(e.value)}
+              className="home-dropdown"
+              options={users}
+              optionLabel="username"
+              placeholder={"Select a user"}
+              style={{ ...CustomDropdown, margin: "1em 0", color: "white" }}
+            />
+          </FlexContainer>
+        </>
+      )}
+      <Text style={FormTitle}>You have successfully logged in.</Text>
       <Link
         // eslint-disable-next-line no-undef
         to={process.env.REACT_APP_BASE_URL + "/user-desk"}
         style={ButtonOutlineStyle}
       >
-        OK
+        Dashboard
       </Link>
     </ContainerWithoutHeight>
   );

@@ -20,8 +20,7 @@ export const useSignalFeed = () => {
   const [duration, setDuration] = useState(0);
   const [isConnected, setIsConnected] = useState(false);
   const [finish, setFinish] = useState(false);
-
-  let safe = initialState;
+  const [deviceData, setData] = useState(initialState);
 
   const Connect = () => {
     console.log("connect");
@@ -60,12 +59,11 @@ export const useSignalFeed = () => {
     setCharastircticR(null);
   };
 
-
   const Start = async () => {
     console.log("start");
     setFinish(0);
     console.log("start " + performance.now());
-    safe = initialState;
+    setData(initialState);
     read_charastirctic?.startNotifications();
 
     return performance.now();
@@ -76,14 +74,15 @@ export const useSignalFeed = () => {
     setDuration(performance.now() - startTime);
     setFinish(1);
     read_charastirctic?.stopNotifications();
+    write_charastirctic.writeValue(new Uint8Array([0x000]).buffer);
   };
 
   const GetFrequency = () => {
     console.log("max is: " + JSON.stringify(safe))
     const length = Math.max(
-      safe.force.length,
-      safe.pcg.length,
-      safe.temperature.length
+      deviceData.force.length,
+      deviceData.pcg.length,
+      deviceData.temperature.length
     );
     return [Math.ceil(length / Math.ceil(duration / 1000)), duration];
   };
@@ -129,14 +128,13 @@ export const useSignalFeed = () => {
             pcg,
             temperature,
           };
-          // console.log("🚀 ~ file: bluetooth.jsx:131 ~ SendCommand ~ recieved.pcg:", recieved.pcg)
-          let temp = safe;
+          let temp = deviceData;
+
           KEYS.map((key) => {
             temp[key] = [...temp[key], ...recieved[key]];
             return "";
           });
-          safe = temp;
-          console.log("safe is: " + JSON.stringify(safe))
+          setData(temp);
           callBack({
             red: temp.red,
             ecg: temp.ecg,
@@ -150,10 +148,7 @@ export const useSignalFeed = () => {
   };
 
   const TurnOff = () => {
-    if (isConnected && device.gatt.connected) {
-      write_charastirctic.writeValue(new Uint8Array([0x000]).buffer);
-      setFinish(0);
-    }
+    setFinish(0);
   };
 
   return {

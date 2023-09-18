@@ -8,7 +8,6 @@ export const useAddToDB = (DBName) => {
 
   const currentDate = GetCurrentDateTimeDB();
   const id = parseInt(String(currentDate + localStorage.getItem("id")));
-  console.log(id);
 
   const updateHistory = (timeData) => {
     updateParameterHistory({
@@ -30,9 +29,7 @@ export const useAddToDB = (DBName) => {
         var newData = {};
         if (typeof data !== 'undefined')
           newData = data.parameters;
-          console.log("old: " + JSON.stringify(newData));
           newParameter = { ...newData, ...timeData };
-          console.log("new: " + JSON.stringify(newParameter));
       })
       .then(() => {
         updateTimeHistory({

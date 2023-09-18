@@ -8,7 +8,6 @@ import { BluetoothContext } from "@/App";
 import { useAddToDB } from "@/database/AddToDB";
 import {
   CircularContainer,
-  // CircularValue,
   Description,
   DiagramButton,
   DiagramContainer,
@@ -35,6 +34,8 @@ import { Dropdown } from "primereact/dropdown";
 import { RadioButton } from "primereact/radiobutton";
 import Counter from "@/components/Counter/Counter";
 import AudioPlayer from "./components/AudioPlayer";
+import { COMMAND, delayTime, pendingTime } from "./components/Constants";
+import { SampleTimeDropDown } from "@/components/SampleTimeDropDown";
 
 const HeartAndLungSoundPage = () => {
   const [data, setData] = useState([]);
@@ -51,10 +52,8 @@ const HeartAndLungSoundPage = () => {
   const [position, setPosition] = useState("heart");
 
   const dbFunc = useAddToDB("PCGData");
-  const [saved, setSaved] = useState(0);
 
   const bluetooth = useContext(BluetoothContext);
-  const COMMAND = 0x03;
 
   // const url = `https://cdn.simplecast.com/audio/17ba21/17ba21db-66b5-4612-855e-556b20f60155/6cd39874-c070-417b-8cd0-481cb8c6e866/Undefined_E9_Nader_tc.mp3`;
   const [url, setUrl] = useState("https://cdn.simplecast.com/audio/17ba21/17ba21db-66b5-4612-855e-556b20f60155/6cd39874-c070-417b-8cd0-481cb8c6e866/Undefined_E9_Nader_tc.mp3");
@@ -65,18 +64,14 @@ const HeartAndLungSoundPage = () => {
       fs: fs,
     };
     let addr =
-      position === "heart"
-        ? "https://api.hekidesk.com//PCG_signal/heart"
-        : "https://api.hekidesk.com//PCG_signal/optional";
+      position === "heart" ? "/PCG_signal/heart" : "/PCG_signal/optional";
     let res = await axios.post(addr, payload).catch(console.log);
     return res?.data;
   }
 
   async function calculateBeatPerMinuteAPI(pcg) {
-    console.log(pcg);
     getDataAPI(pcg, bluetooth.GetFrequency()[0]).then((res) => {
       if (!res) return;
-      console.log(res);
       setHeartBeat(res.heart_rate);
       setRespirationRate(res.respiration_rate);
       setQualityIndex(res.lung_quality_ind);
@@ -93,14 +88,7 @@ const HeartAndLungSoundPage = () => {
   }
 
   useEffect(() => {
-    console.log(filterActiveNum);
-    console.log(filter);
     if (filteredArray) {
-      console.log(
-        filter
-          ? filteredArray[filterActiveNum]
-          : filteredArray[filterActiveNum + 1]
-      );
       setChartData(
         filter
           ? makeArrayForChart(
@@ -121,48 +109,27 @@ const HeartAndLungSoundPage = () => {
   }, [filterActiveNum, filter]);
 
   useEffect(() => {
-    bluetooth.SendCommand(COMMAND, (input) => {
-      setChartData(makeArrayForChart(input.pcg));
-      setData(input.pcg);
-    });
-
-    return bluetooth.TurnOff;
-  }, []);
-
-  useEffect(() => {
     if (bluetooth.finish) {
       if (data.length) {
         setChartData(makeArrayForChart(data));
         calculateBeatPerMinuteAPI(data);
-        console.log(filteredArray);
       }
     }
+    return bluetooth.TurnOff;
   }, [bluetooth]);
-
-  useEffect(() => {
-    if (saved) {
-      var dataParameter = {};
-      dataParameter["heartBeatSound"] = heartBeat;
-      dataParameter["respirationRate"] = respirationRate;
-      dbFunc.updateHistory(dataParameter);
-    }
-  }, [saved]);
 
   const [startCountDown, setStartCountDown] = useState(0);
   const [counter, setCounter] = useState(5);
   const [sampleTime, setSampleTime] = useState(10);
 
-  const pendingTime = 5000;
   const startTime = useRef(null);
   const endTime = useRef(null);
-  const delayTime = 30;
 
   const flushData = () => {
     setStartCountDown(1);
     setDisable(1);
     setData([]);
     setChartData([]);
-    setSaved(0);
     setHeartBeat("-?-");
     setRespirationRate("-?-");
     setQualityIndex(0);
@@ -170,12 +137,18 @@ const HeartAndLungSoundPage = () => {
 
   const startInput = () => {
     flushData();
+
+    bluetooth.SendCommand(COMMAND, (input) => {
+      setChartData(makeArrayForChart(input.pcg));
+      setData(input.pcg);
+    });
+
     setCounter(5);
     let startTimeDuration = 0;
     startTime.current = setTimeout(() => {
       bluetooth.Start().then((result) => (startTimeDuration = result));
       setCounter(sampleTime);
-      setSizeOfSlice(15000);
+      setSizeOfSlice(12000);
     }, [pendingTime + delayTime]);
     endTime.current = setTimeout(() => {
       setCounter(5);
@@ -189,16 +162,13 @@ const HeartAndLungSoundPage = () => {
     const finalSound = filter
       ? filteredArray[filterActiveNum]
       : filteredArray[filterActiveNum + 1];
-    console.log(finalSound);
     let payload = {
       sound: "[" + finalSound?.toString() + "]",
       fs: bluetooth.GetFrequency()[0],
     };
-    let res = await axios
-      .post("https://api.hekidesk.com//rcv_audio", payload)
-      .catch(console.log);
+    let res = await axios.post("/rcv_audio", payload).catch(console.log);
     if (res.statusText === "OK") {
-      const { data } = await axios.get("https://api.hekidesk.com//snd_audio", {
+      const { data } = await axios.get("/snd_audio", {
         responseType: "arraybuffer",
         headers: {
           "Content-Type": "audio/x-wav",
@@ -257,21 +227,10 @@ const HeartAndLungSoundPage = () => {
               </label>
             </div>
             <DiagramButton onClick={startInput}>Start</DiagramButton>
-            <DropdownButton style={{ marginLeft: "15px" }}>
-              <Dropdown
-                style={{ width: "100%" }}
-                value={sampleTime}
-                className="filter-btn"
-                onChange={(e) => setSampleTime(e.value)}
-                options={[
-                  { name: "10s ↓", value: 10 },
-                  { name: "20s ↓", value: 20 },
-                  { name: "30s ↓", value: 30 },
-                ]}
-                optionLabel="name"
-                placeholder={"sample time  ↓"}
-              />
-            </DropdownButton>
+            <SampleTimeDropDown
+              sampleTime={sampleTime}
+              setSampleTime={setSampleTime}
+            />
             <CircularContainer>
               <Counter counter={counter} startCountDown={startCountDown} />
             </CircularContainer>
@@ -336,8 +295,12 @@ const HeartAndLungSoundPage = () => {
           "Respiration rate: " + respirationRate,
           "Quality index: " + qualityIndex,
         ]}
-        saved={saved}
-        setSaved={setSaved}
+        onClick={() => {
+          var dataParameter = {};
+          dataParameter["heartBeatSound"] = heartBeat;
+          dataParameter["respirationRate"] = respirationRate;
+          dbFunc.updateHistory(dataParameter);
+        }}
       />
     </PageWrapper>
   );

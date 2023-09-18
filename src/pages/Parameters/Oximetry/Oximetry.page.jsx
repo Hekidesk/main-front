@@ -31,6 +31,8 @@ import {
 } from "@/components/reusableDataFunc/DataFunc";
 import Swal from "sweetalert2";
 import Counter from "@/components/Counter/Counter";
+import { COMMAND, delayTime, pendingTime } from "./components/Constants";
+import { SampleTimeDropDown } from "@/components/SampleTimeDropDown";
 
 const OximetryPage = () => {
   const [IrData, setIrData] = useState();
@@ -42,16 +44,20 @@ const OximetryPage = () => {
   const [heartBeat, setHeartBeat] = useState("- ? -");
   const [SPO2, setSPO2] = useState("-");
   const [qualityIndex, setQualityIndex] = useState("-");
-  const [saved, setSaved] = useState(0);
 
   const [filteredArray, setFilteredArray] = useState([]);
   const [filterActiveNum, setFilterActiveNum] = useState(-1);
   const [filter, setFilter] = useState(1);
   const [disable, setDisable] = useState(1);
 
-  const bluetooth = useContext(BluetoothContext);
+  const [startCountDown, setStartCountDown] = useState(0);
+  const [counter, setCounter] = useState(5);
+  const [sampleTime, setSampleTime] = useState(10);
 
-  const COMMAND = 0x01;
+  const startTime = useRef(null);
+  const endTime = useRef(null);
+
+  const bluetooth = useContext(BluetoothContext);
 
   async function calculateBeatPerMinuteAPI(irData, RedData) {
     console.log("frequency is: " + bluetooth.GetFrequency()[0]);
@@ -60,15 +66,12 @@ const OximetryPage = () => {
       Red: "[" + RedData?.toString() + "]",
       fs: bluetooth.GetFrequency()[0],
     };
-    let res = await axios
-      .post("https://api.hekidesk.com//PPG_signal", payload)
-      .catch(console.log);
+    let res = await axios.post("/PPG_signal", payload).catch(console.log);
     if (res?.data) {
       if (!Number(res?.data.Try_Again)) {
         setHeartBeat(res.data.HeartRate);
         setSPO2(res.data.SpO2);
         setQualityIndex(res.data.Quality_index);
-        console.log(makeArrayFormString(res.data.clear_IR));
         setFilteredArray([
           makeArrayForChart(irData),
           makeArrayForChart(makeArrayFormString(res.data.clear_IR)),
@@ -89,25 +92,13 @@ const OximetryPage = () => {
   }
 
   useEffect(() => {
-    bluetooth.SendCommand(COMMAND, (input) => {
-      setChartData(makeArrayForChart(input.ir));
-      setIrData(input.ir);
-      setRedData(input.red);
-    });
-
-    return bluetooth.TurnOff;
-  }, []);
-
-  useEffect(() => {
     if (bluetooth.finish) {
       calculateBeatPerMinuteAPI(IrData, RedData);
     }
+    return bluetooth.TurnOff;
   }, [bluetooth]);
 
   useEffect(() => {
-    console.log("filter: " + filter);
-    console.log(filterActiveNum);
-    console.log(filteredArray);
     setChartData(
       filter
         ? filteredArray[
@@ -128,16 +119,7 @@ const OximetryPage = () => {
     }
   }, [saved]);
 
-  const [startCountDown, setStartCountDown] = useState(0);
-  const [sampleTime, setSampleTime] = useState(10);
-  const [counter, setCounter] = useState(5);
   const [showDownCounter, setShowDownCounter] = useState(false);
-
-  // const sampleTime = 10000;
-  const pendingTime = 5000;
-  const startTime = useRef(null);
-  const endTime = useRef(null);
-  const delayTime = 50;
 
   useEffect(() => {
     setCounter(sampleTime);
@@ -157,6 +139,13 @@ const OximetryPage = () => {
   const startInput = () => {
     let startTimeDuration = 0;
     flushData();
+
+    bluetooth.SendCommand(COMMAND, (input) => {
+      setChartData(makeArrayForChart(input.ir));
+      setIrData(input.ir);
+      setRedData(input.red);
+    });
+
     startTime.current = setTimeout(() => {
       console.log("hi it's me");
       bluetooth.Start().then((result) => (startTimeDuration = result));
@@ -183,21 +172,10 @@ const OximetryPage = () => {
               Please put your finger on PPG sensor and then press
             </DiagramText>
             <DiagramButton onClick={startInput}>Start</DiagramButton>
-            <DropdownButton style={{ marginLeft: "15px" }}>
-              <Dropdown
-                style={{ width: "100%" }}
-                value={sampleTime}
-                className="filter-btn"
-                onChange={(e) => setSampleTime(e.value)}
-                options={[
-                  { name: "10s ↓", value: 10 },
-                  { name: "20s ↓", value: 20 },
-                  { name: "30s ↓", value: 30 },
-                ]}
-                optionLabel="name"
-                placeholder={"sample time  ↓"}
-              />
-            </DropdownButton>
+            <SampleTimeDropDown
+              sampleTime={sampleTime}
+              setSampleTime={setSampleTime}
+            />
             <CircularContainer>
               <Counter counter={counter} startCountDown={startCountDown} />
             </CircularContainer>
@@ -246,8 +224,12 @@ const OximetryPage = () => {
           "SPO2: " + SPO2,
           "Quality index: " + qualityIndex,
         ]}
-        saved={saved}
-        setSaved={setSaved}
+        onClick={() => {
+          var dataParameter = {};
+          dataParameter["heartBeatPPG"] = heartBeat;
+          dataParameter["SPO2"] = SPO2;
+          dbFunc.updateHistory(dataParameter);
+        }}
       />
     </PageWrapper>
   );

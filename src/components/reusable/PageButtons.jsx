@@ -1,6 +1,5 @@
-import React from "react";
 import { Row, Col } from "react-bootstrap";
-import { Button } from "primereact/button"; 
+import { Button } from "primereact/button";
 import { Link } from "react-router-dom";
 import { ButtonMeasurementStyle } from "@/components/reusable/ButtonStyle";
 import backIcon from "@/assets/icon/measurement/back.svg";
@@ -8,26 +7,30 @@ import shareIcon from "@/assets/icon/measurement/shareIcon.svg";
 import saveIcon from "@/assets/icon/measurement/saveIcon.svg";
 import ckeckmarkIcon from "@/assets/icon/ckeckmarkIcon.svg";
 import { downloadSVGAsPNG } from "@/utilities/share/downloadFile";
+import { useState } from "react";
 
 const PageButtons = ({
   disable,
   dataName,
   texts,
-  saved,
-  setSaved,
+  onClick,
   extraChartName = [],
   extraText = [],
 }) => {
+  const [save, setSave] = useState(false);
   return (
     <Row className="d-flex justify-content-between">
       <Col>
         <Button
-          onClick={() => setSaved(1)}
+          onClick={() => {
+            onClick(1);
+            setSave(true);
+          }}
           style={ButtonMeasurementStyle}
           className="page-btn d-flex justify-content-center"
-          disabled = {disable}
+          disabled={disable}
         >
-          {saved ? (
+          {save ? (
             <img
               src={ckeckmarkIcon}
               alt="Image"
@@ -47,9 +50,11 @@ const PageButtons = ({
       </Col>
       <Col>
         <Button
-          onClick={() => downloadSVGAsPNG(dataName, texts, extraChartName, extraText)}
+          onClick={() =>
+            downloadSVGAsPNG(dataName, texts, extraChartName, extraText)
+          }
           style={ButtonMeasurementStyle}
-          disabled = {disable}
+          disabled={disable}
           className="page-btn d-flex justify-content-center"
         >
           <img

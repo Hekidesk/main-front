@@ -3,10 +3,15 @@ import AppRoutes from "./routes";
 import { createContext, useMemo } from "react";
 import { useSignalFeed } from "./utilities/bluetooth";
 import { initDB } from "react-indexed-db";
-import {DBConfig} from "@/database/DBConfig"
+import { DBConfig } from "@/database/DBConfig";
+import axios from "axios";
+import "@/assets/styles/Measurement.css";
+
 export const BluetoothContext = createContext({});
 
 initDB(DBConfig);
+
+axios.defaults.baseURL = "https://api.hekidesk.com/";
 
 function App() {
   const connection = useSignalFeed();
