@@ -22,6 +22,9 @@ export const useSignalFeed = () => {
   const [finish, setFinish] = useState(false);
   const [deviceData, setData] = useState(initialState);
 
+  var Data = initialState;
+  const FreData = [];
+
   const Connect = () => {
     console.log("connect");
     navigator.bluetooth
@@ -63,7 +66,8 @@ export const useSignalFeed = () => {
     console.log("start");
     setFinish(0);
     console.log("start " + performance.now());
-    setData(initialState);
+    setData([]);
+    Data = initialState;
     read_charastirctic?.startNotifications();
 
     return performance.now();
@@ -78,11 +82,8 @@ export const useSignalFeed = () => {
   };
 
   const GetFrequency = () => {
-    const length = Math.max(
-      deviceData.force.length,
-      deviceData.pcg.length,
-      deviceData.temperature.length
-    );
+    console.log(deviceData);
+    const length = deviceData.length;
     return [Math.ceil(length / Math.ceil(duration / 1000)), duration];
   };
 
@@ -91,6 +92,8 @@ export const useSignalFeed = () => {
       console.log("command ", command);
       write_charastirctic?.writeValue(new Uint8Array([command]).buffer);
       if (!callBack) return;
+      setData([]);
+
       if (read_charastirctic)
         read_charastirctic.oncharacteristicvaluechanged = (data) => {
           const red = [];
@@ -108,17 +111,21 @@ export const useSignalFeed = () => {
               force.push(
                 Bytes2Float16(data.srcElement.value.getUint16(8 * i + 6, true))
               );
+              FreData.push(0);
             }
           } else if (command === 0x03) {
             for (let i = 0; i < 100; i++) {
               pcg.push(data.srcElement.value.getInt16(2 * i, true));
+              FreData.push(0);
             }
           } else if (command === 0x04) {
             temperature.push(
               Bytes2Float16(data.srcElement.value.getUint16(0, true))
             );
+            FreData.push(0);
           }
 
+          setData(FreData);
           let recieved = {
             red,
             ecg,
@@ -127,20 +134,18 @@ export const useSignalFeed = () => {
             pcg,
             temperature,
           };
-          let temp = deviceData;
 
           KEYS.map((key) => {
-            temp[key] = [...temp[key], ...recieved[key]];
+            Data[key] = [...Data[key], ...recieved[key]];
             return "";
           });
-          setData(temp);
           callBack({
-            red: temp.red,
-            ecg: temp.ecg,
-            force: temp.force,
-            ir: temp.ir,
-            pcg: temp.pcg,
-            temperature: temp.temperature,
+            red: Data.red,
+            ecg: Data.ecg,
+            force: Data.force,
+            ir: Data.ir,
+            pcg: Data.pcg,
+            temperature: Data.temperature,
           });
         };
     }
