@@ -35,10 +35,13 @@ export async function calculateBeatPerMinuteAPI(
       confirmButtonColor: "#3085d6",
     });
   });
+  console.log(res)
   if (!Number(res?.data.Try_Again) && res?.status < 400) {
+    console.log(res.data)
+    console.log(res.data.hrv)
     setResult({
       ...res.data,
-      heartBeat: Number(res.data.heartBeat),
+      heartBeat: Number(res.data.HeartRate),
       hrv: makeArrayFormString(res.data.hrv),
       ssTime: makeArrayFormString(res.data.ss_time),
       singleSpike: makeArrayFormString(res.data.single_spike),

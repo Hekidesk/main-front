@@ -9,16 +9,17 @@ import {
 import { Button } from "primereact/button";
 
 export const Info = ({ result, disable, setFilter, filter }) => {
+  console.log(result.PR_RR_Interval)
   return (
     <InfoContainer>
       <ImportantTitle>Heart Beat (bpm)</ImportantTitle>
       <ImportantValue>{result.heartBeat}</ImportantValue>
       <SimpleTitle>PR/RR Interval</SimpleTitle>
-      <SimpleValue>{result.PR_RR_Interval}</SimpleValue>
+      <SimpleValue>{result.PR_RR}</SimpleValue>
       <SimpleTitle>QRS Duration</SimpleTitle>
-      <SimpleValue>{result.QRS_Duration}</SimpleValue>
+      <SimpleValue>{result.QRS_duration}</SimpleValue>
       <SimpleTitle>Quality Index</SimpleTitle>
-      <SimpleValue>{result.qualityIndex}</SimpleValue>
+      <SimpleValue>{result.Quality_index}</SimpleValue>
       <Button
         style={filterButton}
         className="filter-btn"
