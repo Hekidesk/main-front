@@ -5,7 +5,6 @@ import CanvasJSReact from "./canvasjs.react";
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 const Diagram = ({ data, sizeOfSlice = -1, maximumNum = -1, type = "", avgTemp = null }) => {
-  console.log(avgTemp);
 
   const options = {
       height: type == "force" || type == "ppg" ? 250 : null,

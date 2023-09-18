@@ -1,7 +1,7 @@
 import PageWrapper from "@/components/PageWrapper/PageWrapper";
 import Diagram from "@/components/Datagram/Diagram";
 import heartAndLungSound from "@/assets/icon/parameter/heartAndLungSound.svg";
-import playSoundIcon from "@/assets/icon/playSoundIcon.png";
+// import playSoundIcon from "@/assets/icon/playSoundIcon.png";
 import HighlightTitle from "@/components/HighlightTitle/HighlightTitle";
 import { useEffect, useState, useContext, useRef } from "react";
 import { BluetoothContext } from "@/App";

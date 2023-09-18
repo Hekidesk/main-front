@@ -7,7 +7,7 @@ import {
   ClockContainer,
 } from "./CSS";
 import Sidebar from "@/components/Sidebar/Sidebar";
-import Profile from "@/pages/Profile/Profile";
+import Profile from "@/components/Profile/Profile";
 import Counter from "@/components/Counter/Counter";
 
 const PageWrapper = (props) => {

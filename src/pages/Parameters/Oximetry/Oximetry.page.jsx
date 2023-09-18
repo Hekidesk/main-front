@@ -49,7 +49,6 @@ const OximetryPage = () => {
   const [filterActiveNum, setFilterActiveNum] = useState(-1);
   const [filter, setFilter] = useState(1);
   const [disable, setDisable] = useState(1);
-
   const [startCountDown, setStartCountDown] = useState(0);
   const [counter, setCounter] = useState(5);
   const [sampleTime, setSampleTime] = useState(10);
@@ -110,15 +109,6 @@ const OximetryPage = () => {
     );
   }, [filterActiveNum, filter]);
 
-  useEffect(() => {
-    if (saved) {
-      var dataParameter = {};
-      dataParameter["heartBeatPPG"] = heartBeat;
-      dataParameter["SPO2"] = SPO2;
-      dbFunc.updateHistory(dataParameter);
-    }
-  }, [saved]);
-
   const [showDownCounter, setShowDownCounter] = useState(false);
 
   useEffect(() => {
@@ -126,7 +116,6 @@ const OximetryPage = () => {
   }, [sampleTime]);
 
   const flushData = () => {
-    setSaved(0);
     setDisable(1);
     setChartData([]);
     setHeartBeat("- ? -");

@@ -78,7 +78,6 @@ export const useSignalFeed = () => {
   };
 
   const GetFrequency = () => {
-    console.log("max is: " + JSON.stringify(safe))
     const length = Math.max(
       deviceData.force.length,
       deviceData.pcg.length,
