@@ -33,3 +33,11 @@ export const ChildContainer = styled.div`
     width: 95%;
   }
 `;
+export const ClockContainer = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100001;
+  ${props => !props.showDownCounter && 'display: none;'}
+`;

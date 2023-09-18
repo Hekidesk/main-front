@@ -4,7 +4,8 @@ import {  DiagramWrapper } from "./CSS";
 import CanvasJSReact from "./canvasjs.react";
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
-const Diagram = ({ data, sizeOfSlice = -1, maximumNum = -1, type = "" }) => {
+const Diagram = ({ data, sizeOfSlice = -1, maximumNum = -1, type = "", avgTemp = null }) => {
+  console.log(avgTemp);
 
   const options = {
       height: type == "force" || type == "ppg" ? 250 : null,
@@ -28,13 +29,25 @@ const Diagram = ({ data, sizeOfSlice = -1, maximumNum = -1, type = "" }) => {
       },
       axisY: {
         lineThickness: 0,
-        // interval: 50,
-        tickLength: 0,
+        tickLength: 2,
         gridColor: "#1CB5BDb1",
         gridThickness: 0.5,
-        labelFormatter: function () {
-          return "";
-        },
+        labelFontColor: "#1CB5BD",
+        labelFormatter: type != "temperature" ? 
+        function () {  
+            return "";
+        } : "",
+        stripLines: type != "temperature" ? null : [
+          {
+            startValue: Number(avgTemp),
+            endValue: Number(avgTemp) + 0.0001,
+            lineDashType: "shortDash",
+            label: "temperature",
+            color: "black",
+            labelBackgroundColor:"#1CB5BD",
+            labelFontColor:"black",
+          },
+        ],
       },
       animationDuration: 500,
       data: [
@@ -53,7 +66,7 @@ const Diagram = ({ data, sizeOfSlice = -1, maximumNum = -1, type = "" }) => {
             { x: 110, y: 2 },
             { x: 4000, y: 19.9 },
           ] : [],
-          color: "#1CB5BD"
+          color: "#13858B"
         },
         {
           type: "line",
@@ -61,7 +74,7 @@ const Diagram = ({ data, sizeOfSlice = -1, maximumNum = -1, type = "" }) => {
             { x: 110, y: 0.9 },
             { x: 4000, y: 15.07 },
           ] : [],
-          color:"#1CB5BD"
+          color:"#13858B"
         }
       ],
 

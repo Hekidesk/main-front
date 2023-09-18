@@ -79,6 +79,7 @@ export const useSignalFeed = () => {
   };
 
   const GetFrequency = () => {
+    console.log("max is: " + JSON.stringify(safe))
     const length = Math.max(
       safe.force.length,
       safe.pcg.length,
@@ -128,13 +129,14 @@ export const useSignalFeed = () => {
             pcg,
             temperature,
           };
-          console.log("🚀 ~ file: bluetooth.jsx:131 ~ SendCommand ~ recieved.pcg:", recieved.pcg)
+          // console.log("🚀 ~ file: bluetooth.jsx:131 ~ SendCommand ~ recieved.pcg:", recieved.pcg)
           let temp = safe;
           KEYS.map((key) => {
             temp[key] = [...temp[key], ...recieved[key]];
             return "";
           });
           safe = temp;
+          console.log("safe is: " + JSON.stringify(safe))
           callBack({
             red: temp.red,
             ecg: temp.ecg,

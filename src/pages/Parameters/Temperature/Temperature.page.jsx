@@ -137,7 +137,7 @@ const TemperaturePage = () => {
             </CircularContainer>
           </Description>
           <DiagramContainer>
-            <Diagram data={chartData} sizeOfSlice={sizeOfSlice} />
+            <Diagram data={chartData} sizeOfSlice={sizeOfSlice} type = {"temperature"} avgTemp = {temperature}/>
             <InfoContainer>
               <ImportantTitle>Temperature (°C)</ImportantTitle>
               <ImportantValue>{temperature}</ImportantValue>

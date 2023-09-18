@@ -4,12 +4,17 @@ import {
   ProfileContainer,
   SidebarContainer,
   ChildContainer,
+  ClockContainer,
 } from "./CSS";
 import Sidebar from "@/components/Sidebar/Sidebar";
 import Profile from "@/pages/Profile/Profile";
+import Counter from "@/components/Counter/Counter";
 
 const PageWrapper = (props) => {
   return (
+    <><ClockContainer {...props}>
+      <Counter counter={5} startCountDown={props.showDownCounter} size = {300}/>
+    </ClockContainer>
     <Container {...props}>
       <Wrapper>
         <ProfileContainer>
@@ -21,6 +26,7 @@ const PageWrapper = (props) => {
         <ChildContainer> {props.children}</ChildContainer>
       </Wrapper>
     </Container>
+    </>
   );
 };
 

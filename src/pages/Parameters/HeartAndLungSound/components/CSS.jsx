@@ -107,3 +107,19 @@ export const DropdownButton = styled.div`
   justify-content: center;
   text-align: center;
 `;
+export const PlaySoundText = styled.div`
+  font-size: 15px;
+  display: flex;
+  color: var(--main-green);
+  text-align: center;
+  justify-content: center;
+  padding-bottom: 0.5em;
+  font-weight: bold;
+  box-sizing: border-box;
+`;
+export const PlayBox = styled.div`
+  border: solid 1px var(--main-green);
+  margin-top: 1em;
+  padding: 1em;
+  border-radius: 1em;
+`;

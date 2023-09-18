@@ -54,7 +54,7 @@ const OximetryPage = () => {
   const COMMAND = 0x01;
 
   async function calculateBeatPerMinuteAPI(irData, RedData) {
-    console.log(bluetooth.GetFrequency()[0]);
+    console.log("frequency is: " + bluetooth.GetFrequency()[0]);
     let payload = {
       IR: "[" + irData?.toString() + "]",
       Red: "[" + RedData?.toString() + "]",
@@ -129,46 +129,52 @@ const OximetryPage = () => {
   }, [saved]);
 
   const [startCountDown, setStartCountDown] = useState(0);
-  const [counter, setCounter] = useState(5);
   const [sampleTime, setSampleTime] = useState(10);
+  const [counter, setCounter] = useState(5);
+  const [showDownCounter, setShowDownCounter] = useState(false);
 
   // const sampleTime = 10000;
   const pendingTime = 5000;
   const startTime = useRef(null);
   const endTime = useRef(null);
-  const delayTime = 30;
+  const delayTime = 50;
+
+  useEffect(() => {
+    setCounter(sampleTime);
+  }, [sampleTime]);
 
   const flushData = () => {
-    setStartCountDown(1);
     setSaved(0);
     setDisable(1);
     setChartData([]);
     setHeartBeat("- ? -");
     setSPO2("-");
     setQualityIndex("-");
-    setCounter(5);
+    setCounter(sampleTime);
+    setShowDownCounter(true);
   };
 
   const startInput = () => {
     let startTimeDuration = 0;
     flushData();
     startTime.current = setTimeout(() => {
-      setCounter(sampleTime);
-      console.log(startCountDown);
+      console.log("hi it's me");
       bluetooth.Start().then((result) => (startTimeDuration = result));
+      setShowDownCounter(false);
+      setStartCountDown(1);
       setSizeOfSlice(400);
     }, [pendingTime + delayTime]);
     endTime.current = setTimeout(() => {
-      setStartCountDown(0);
-      setCounter(5);
-      bluetooth.Stop(startTimeDuration);
       setSizeOfSlice(-1);
-    }, [sampleTime * 1000 + pendingTime + delayTime]);
+      setStartCountDown(0);
+      setCounter(sampleTime);
+      bluetooth.Stop(startTimeDuration);
+    }, [sampleTime * 1000 + pendingTime + delayTime*2]);
   };
 
   return (
-    <PageWrapper>
-      <div style={{ display: "grid", placeItems: "center" }}>
+    <PageWrapper showDownCounter = {showDownCounter}>
+      <div style={{ display: "grid", placeItems: "center", filter: blur("5px") }}>
         <HighlightTitle title="Oximetry" icon={HeartIcon} />
         <br />
         <DiagramWrapper>
@@ -221,7 +227,7 @@ const OximetryPage = () => {
                   options={[
                     { name: "ir", value: 0 },
                     { name: "red", value: 2 },
-                    { name: "filtered ppg", value: 4 },
+                    // { name: "filtered ppg", value: 4 },
                   ]}
                   optionLabel="name"
                   placeholder="Choose Signal  ↓"

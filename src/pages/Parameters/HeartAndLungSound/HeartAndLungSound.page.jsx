@@ -21,6 +21,8 @@ import {
   SimpleValue,
   filterButton,
   DropdownButton,
+  PlaySoundText,
+  PlayBox,
 } from "./components/CSS";
 import PageButtons from "@/components/reusable/PageButtons";
 import axios from "axios";
@@ -32,6 +34,7 @@ import { Button } from "primereact/button";
 import { Dropdown } from "primereact/dropdown";
 import { RadioButton } from "primereact/radiobutton";
 import Counter from "@/components/Counter/Counter";
+import AudioPlayer from "./components/AudioPlayer";
 
 const HeartAndLungSoundPage = () => {
   const [data, setData] = useState([]);
@@ -52,6 +55,9 @@ const HeartAndLungSoundPage = () => {
 
   const bluetooth = useContext(BluetoothContext);
   const COMMAND = 0x03;
+
+  // const url = `https://cdn.simplecast.com/audio/17ba21/17ba21db-66b5-4612-855e-556b20f60155/6cd39874-c070-417b-8cd0-481cb8c6e866/Undefined_E9_Nader_tc.mp3`;
+  const [url, setUrl] = useState("https://cdn.simplecast.com/audio/17ba21/17ba21db-66b5-4612-855e-556b20f60155/6cd39874-c070-417b-8cd0-481cb8c6e866/Undefined_E9_Nader_tc.mp3");
 
   async function getDataAPI(data, fs) {
     let payload = {
@@ -111,6 +117,7 @@ const HeartAndLungSoundPage = () => {
             )
       );
     }
+    playAudio();
   }, [filterActiveNum, filter]);
 
   useEffect(() => {
@@ -201,8 +208,9 @@ const HeartAndLungSoundPage = () => {
         type: "audio/x-wav",
       });
       const url = URL.createObjectURL(blob);
-      let audio = new Audio(url);
-      audio.play();
+      setUrl(url);
+      // let audio = new Audio(url);
+      // audio.play();
     }
   }
 
@@ -297,7 +305,7 @@ const HeartAndLungSoundPage = () => {
                   disabled={disable}
                 />
               </DropdownButton>
-              <Button
+              {/* <Button
                 style={filterButton}
                 onClick={() => playAudio()}
                 className="filter-btn"
@@ -309,7 +317,13 @@ const HeartAndLungSoundPage = () => {
                 <div style={{ display: "inline" }}>
                   <img src={playSoundIcon} width={"20"} height={"20"} />
                 </div>
-              </Button>
+              </Button> */}
+                <PlayBox>
+                  <PlaySoundText>
+                    <div>Play Sound</div>
+                  </PlaySoundText>
+                  <AudioPlayer url={url} />
+                </PlayBox>
             </InfoContainer>
           </DiagramContainer>
         </DiagramWrapper>
