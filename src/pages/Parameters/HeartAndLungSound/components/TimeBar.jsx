@@ -2,11 +2,16 @@ import * as React from "react";
 import { useDrag } from "react-use-gesture";
 import { directstyled, useDirectStyle } from "direct-styled";
 
+// function formatTime(seconds) {
+//   return [Math.floor(seconds / 60), Math.floor(seconds % 60)]
+//     .map(x => x.toString())
+//     .map(x => (x.length === 1 ? `0${x}` : x))
+//     .join(":");
+// }
+
 function formatTime(seconds) {
-  return [Math.floor(seconds / 60), Math.floor(seconds % 60)]
-    .map(x => x.toString())
-    .map(x => (x.length === 1 ? `0${x}` : x))
-    .join(":");
+  const formattedSeconds = Math.floor(seconds % 60).toString().padStart(2, '0');
+  return `0:${formattedSeconds}`;
 }
 
 const minMax = (min, max, value) => {

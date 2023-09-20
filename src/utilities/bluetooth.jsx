@@ -65,11 +65,9 @@ export const useSignalFeed = () => {
   const Start = async () => {
     console.log("start");
     setFinish(0);
-    console.log("start " + performance.now());
     setData([]);
     Data = initialState;
     read_charastirctic?.startNotifications();
-
     return performance.now();
   };
 
@@ -86,6 +84,13 @@ export const useSignalFeed = () => {
     const length = deviceData.length;
     return [Math.ceil(length / Math.ceil(duration / 1000)), duration];
   };
+
+  // const getCharge = () => {
+  //   if (device?.gatt.connected) {
+  //     write_charastirctic?.writeValue(new Uint8Array([0x180F]).buffer);
+      
+  //   }
+  // }
 
   const SendCommand = async (command, callBack) => {
     if (device?.gatt.connected) {

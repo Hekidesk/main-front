@@ -59,7 +59,6 @@ const OximetryPage = () => {
   const bluetooth = useContext(BluetoothContext);
 
   async function calculateBeatPerMinuteAPI(irData, RedData) {
-    console.log("frequency is: " + bluetooth.GetFrequency()[0]);
     let payload = {
       IR: "[" + irData?.toString() + "]",
       Red: "[" + RedData?.toString() + "]",
@@ -151,7 +150,7 @@ const OximetryPage = () => {
   };
 
   return (
-    <PageWrapper showDownCounter = {showDownCounter}>
+    <PageWrapper showDownCounter = {showDownCounter} blurBackground = {showDownCounter} >
       <div style={{ display: "grid", placeItems: "center", filter: blur("5px") }}>
         <HighlightTitle title="Oximetry" icon={HeartIcon} />
         <br />

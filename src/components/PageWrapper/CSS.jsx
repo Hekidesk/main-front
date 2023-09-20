@@ -41,3 +41,13 @@ export const ClockContainer = styled.div`
   z-index: 100001;
   ${props => !props.showDownCounter && 'display: none;'}
 `;
+export const AnswerReadyContainer = styled.div`
+  position: absolute;
+  color: black;
+  font-size: 20px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100001;
+  ${props => !props.answerReady && 'display: none;'}
+`;

@@ -65,7 +65,7 @@ html {
   .timebar-time-info {
     margin-top: 8px;
     font-size: 11px;
-    color: lightgrey;
+    color: var(--main-green);
     display: flex;
     justify-content: space-between;
   }

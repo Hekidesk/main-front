@@ -36,6 +36,7 @@ import Counter from "@/components/Counter/Counter";
 import AudioPlayer from "./components/AudioPlayer";
 import { COMMAND, delayTime, pendingTime } from "./components/Constants";
 import { SampleTimeDropDown } from "@/components/SampleTimeDropDown";
+import Swal from "sweetalert2";
 
 const HeartAndLungSoundPage = () => {
   const [data, setData] = useState([]);
@@ -55,8 +56,9 @@ const HeartAndLungSoundPage = () => {
 
   const bluetooth = useContext(BluetoothContext);
 
-  // const url = `https://cdn.simplecast.com/audio/17ba21/17ba21db-66b5-4612-855e-556b20f60155/6cd39874-c070-417b-8cd0-481cb8c6e866/Undefined_E9_Nader_tc.mp3`;
-  const [url, setUrl] = useState("https://cdn.simplecast.com/audio/17ba21/17ba21db-66b5-4612-855e-556b20f60155/6cd39874-c070-417b-8cd0-481cb8c6e866/Undefined_E9_Nader_tc.mp3");
+  const [answerReady, setAnswerReady] = useState(false);
+
+  const [url, setUrl] = useState("");
 
   async function getDataAPI(data, fs) {
     let payload = {
@@ -70,8 +72,18 @@ const HeartAndLungSoundPage = () => {
   }
 
   async function calculateBeatPerMinuteAPI(pcg) {
+    setAnswerReady(true);
     getDataAPI(pcg, bluetooth.GetFrequency()[0]).then((res) => {
-      if (!res) return;
+      if (!res) {
+        setAnswerReady(false);
+        Swal.fire({
+          icon: "error",
+          title: "Something went wrong",
+          text: "Please repeat procedure!",
+          confirmButtonColor: "#3085d6",
+        });
+        return;
+      }
       setHeartBeat(res.heart_rate);
       setRespirationRate(res.respiration_rate);
       setQualityIndex(res.lung_quality_ind);
@@ -84,10 +96,25 @@ const HeartAndLungSoundPage = () => {
         makeArrayFormString(res.lung_signal),
       ]);
       setDisable(0);
+      setAnswerReady(false);
     });
   }
 
+  const isFirstRender1 = useRef(true);
   useEffect(() => {
+    if (isFirstRender1.current) {
+      isFirstRender1.current = false;
+      return;
+    }
+    playAudio();
+  }, [filteredArray]);
+
+  const isFirstRender2 = useRef(true);
+  useEffect(() => {
+    if (isFirstRender2.current) {
+      isFirstRender2.current = false;
+      return;
+    }
     if (filteredArray) {
       setChartData(
         filter
@@ -132,23 +159,29 @@ const HeartAndLungSoundPage = () => {
     setChartData([]);
     setHeartBeat("-?-");
     setRespirationRate("-?-");
+    setCounter(5);
     setQualityIndex(0);
   };
 
+  const tempSizeOfSlice = 12000;
+
   const startInput = () => {
     flushData();
-
     bluetooth.SendCommand(COMMAND, (input) => {
-      setChartData(makeArrayForChart(input.pcg));
+      setChartData(
+        makeArrayForChart(
+          input.pcg.length - tempSizeOfSlice > 0
+            ? input.pcg.slice(input.pcg.length - tempSizeOfSlice)
+            : input.pcg
+        )
+      );
       setData(input.pcg);
     });
-
-    setCounter(5);
     let startTimeDuration = 0;
     startTime.current = setTimeout(() => {
       bluetooth.Start().then((result) => (startTimeDuration = result));
       setCounter(sampleTime);
-      setSizeOfSlice(12000);
+      setSizeOfSlice(tempSizeOfSlice);
     }, [pendingTime + delayTime]);
     endTime.current = setTimeout(() => {
       setCounter(5);
@@ -159,14 +192,16 @@ const HeartAndLungSoundPage = () => {
   };
 
   async function playAudio() {
-    const finalSound = filter
-      ? filteredArray[filterActiveNum]
-      : filteredArray[filterActiveNum + 1];
+    const finalSound =
+      filter && filterActiveNum !== -1
+        ? filteredArray[filterActiveNum]
+        : filteredArray[filterActiveNum + 1];
     let payload = {
       sound: "[" + finalSound?.toString() + "]",
       fs: bluetooth.GetFrequency()[0],
     };
-    let res = await axios.post("/rcv_audio", payload).catch(console.log);
+    let res = await axios.post("/rcv_audio", payload);
+    console.log(res);
     if (res.statusText === "OK") {
       const { data } = await axios.get("/snd_audio", {
         responseType: "arraybuffer",
@@ -179,13 +214,11 @@ const HeartAndLungSoundPage = () => {
       });
       const url = URL.createObjectURL(blob);
       setUrl(url);
-      // let audio = new Audio(url);
-      // audio.play();
     }
   }
 
   return (
-    <PageWrapper>
+    <PageWrapper blurBackground={answerReady} answerReady={answerReady}>
       <div style={{ display: "grid", placeItems: "center" }}>
         <HighlightTitle title="Heart Lung Sound" icon={heartAndLungSound} />
         <br />
@@ -264,25 +297,12 @@ const HeartAndLungSoundPage = () => {
                   disabled={disable}
                 />
               </DropdownButton>
-              {/* <Button
-                style={filterButton}
-                onClick={() => playAudio()}
-                className="filter-btn"
-                disabled={disable}
-              >
-                <div style={{ fontSize: "15px", display: "inline" }}>
-                  Play Sound
-                </div>{" "}
-                <div style={{ display: "inline" }}>
-                  <img src={playSoundIcon} width={"20"} height={"20"} />
-                </div>
-              </Button> */}
-                <PlayBox>
-                  <PlaySoundText>
-                    <div>Play Sound</div>
-                  </PlaySoundText>
-                  <AudioPlayer url={url} />
-                </PlayBox>
+              <PlayBox>
+                <PlaySoundText>
+                  <div>Play Sound</div>
+                </PlaySoundText>
+                <AudioPlayer url={url} />
+              </PlayBox>
             </InfoContainer>
           </DiagramContainer>
         </DiagramWrapper>

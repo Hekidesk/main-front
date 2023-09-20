@@ -13,7 +13,7 @@ function AudioPlayer({ url }) {
       {audioElement}
 
       {audioProps.isLoading ? (
-        <div style={{ color: "white" }}>Loading...</div>
+        <div style={{ color: "var(--main-green)", fontSize: "10px" }}>waiting for data...</div>
       ) : (
         <div className="controls">
           <PlaybackButton
