@@ -48,7 +48,7 @@ const RegisterForm = () => {
   return (
     <ContainerWithoutHeight>
       <LogoRow>
-        <Image src={Icon} alt="icon" width="60px" />
+        <Image src={Icon} alt="icon" width="40px" />
         <Title>Hekidesk</Title>
       </LogoRow>
       <InputTextGroup
@@ -76,6 +76,7 @@ const RegisterForm = () => {
           placeholder={"YYYY-MM-DD"}
           dateFormat="dd/mm/yy"
           showIcon
+          className="p-inputtext-sm"
         />
       </div>
       <InputTextGroup
@@ -102,7 +103,7 @@ const RegisterForm = () => {
         <Dropdown
           value={form.gender}
           onChange={(v) => onChangeValue("gender", v.value)}
-          className="register-dropdown"
+          className="register-dropdown  p-inputtext-sm"
           options={[
             { name: "Male", value: 1 },
             { name: "Female", value: 0 },

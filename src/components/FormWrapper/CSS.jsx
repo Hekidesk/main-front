@@ -25,26 +25,22 @@ export const InfoSection = styled.div`
   overflow: hidden;
   @media ${devices.tablet} {
     width: 50%;
-    padding: 5em;
-  }
-  @media ${devices.laptop} {
-    padding: 4em;
+    padding: 2em;
   }
 `;
 
 export const FormSection = styled.div`
-  padding: 3em;
+  padding: 1em 1em 0em 1em;
   width: 100%;
   height: 100%;
   border-radius: 30px;
   position: relative;
-  overflow: auto;
 
   @media ${devices.tablet} {
     width: 50%;
-    padding: 2.5em;
+    padding: 2.5em 2.5em 0 2.5em;
   }
   @media ${devices.laptop} {
-    padding: 2em;
+    padding: 2em 2em 0 2em;
   }
 `;

@@ -104,8 +104,6 @@ const HomeForm = () => {
           style={{ ...CustomDropdown, margin: "1em 0", color: "white" }}
         />
       </FlexContainer>
-
-      <Text style={FormTitle}>You have successfully logged in.</Text>
       <Link
         // eslint-disable-next-line no-undef
         to={process.env.REACT_APP_BASE_URL + "/user-desk"}
