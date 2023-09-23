@@ -39,12 +39,16 @@ const Measurement = () => {
         </div>
         <div className="row">
           {routes.map((item, i) => (
-            <div className="col-lg-4 col-xs-12 col-sm-6" key={i}>
+            <div
+              className="col-lg-4 col-xs-12 col-sm-6 p-1 d-flex justify-content-center"
+              key={i}
+            >
               <Link
                 to={
                   // eslint-disable-next-line no-undef
                   process.env.REACT_APP_BASE_URL + "/measurement" + item.route
                 }
+                className="w-100 d-flex justify-content-center measure-card"
               >
                 <Card
                   header={
@@ -54,6 +58,7 @@ const Measurement = () => {
                         height: "2.5em",
                         width: "auto",
                         paddingLeft: "20px",
+                        marginTop: "1em",
                       }}
                     />
                   }

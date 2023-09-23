@@ -17,7 +17,7 @@ const Profile = () => {
   }, []);
   return (
     <Row className="profile">
-      <Col className="profile-col">
+      <Col className="profile-col col-6 col-sm-4">
         <Link
           // eslint-disable-next-line no-undef
           to={process.env.REACT_APP_BASE_URL + "/connection"}
@@ -37,13 +37,13 @@ const Profile = () => {
           </Button>
         </Link>
       </Col>
-      <Col className="profile-col battery-container">
+      <Col className="profile-col battery-container col-3 col-sm-2">
         <BatteryCharge charge={10} />
       </Col>
-      <Col className="profile-col">
+      <Col className="profile-col col-4 col-sm-3">
         <img src={ProfilePhotoIcon} alt="profile" width={60} />
       </Col>
-      <Col className="profile-col" style={{ width: "25em" }}>
+      <Col className="profile-col col-5 col-sm-3">
         <div className="hello-profile">hello</div>
         <div className="name-profile">{username}</div>
       </Col>

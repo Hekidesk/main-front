@@ -9,7 +9,7 @@
   justify-content: space-between;
   position: relative;
   z-index: 100000;
-  transition: all 0.6s ease;
+  transition: all 0.5s ease;
 }
 
 .sidebar {
@@ -35,11 +35,13 @@
     right: 2rem;
     left: 2rem;
     border-radius: 20px 20px 0 0;
-    transition: all 0.001s ease;
+    transition: all 0.5s ease;
   }
   .sidebar-container a {
     display: inline-block !important;
     margin: 0.5rem;
+    display: flex;
+    align-items: center;
   }
   .SlickBar {
     display: flex;
@@ -55,16 +57,13 @@
   .logo-text {
     margin-top: 0px !important;
   }
-  .sidebar-text {
-    display: none;
-  }
   .sidebar {
     margin-right: 0 !important;
   }
   .sidebar-container a:hover {
     border-radius: 35px !important;
     width: 3.5rem !important;
-    transition: all 0.1s ease;
+    transition: all 0.5s ease;
   }
   .sidebar-container:hover .logo .logo-text {
     margin-left: 0 !important;
@@ -78,7 +77,7 @@
 
 .sidebar-container:hover {
   width: 13rem;
-  transition: all 0.4s ease;
+  transition: all 0.5s ease;
   height: 100%;
 }
 
@@ -89,13 +88,12 @@
   cursor: pointer;
   display: flex;
   padding-left: 1rem;
-  /* transition: all 0.1s ease; */
 }
 
 .sidebar-container a:hover {
   background-color: white;
   border-radius: 35px 0px 0px 35px;
-  width: 11.6rem;
+  width: 100%;
   color: var(--nav-color-top) !important;
   transition: width 1s, background-color 0.5s;
 }
@@ -111,13 +109,17 @@
 }
 
 .logo img {
-  margin-left: 0.8rem;
   transition: all 0.5s ease !important;
 }
 
 .logo .logo-text {
-  margin-top: 0.5rem;
   transition: all 0.5s ease !important;
+  display: none;
+  padding-right: 2em;
+}
+
+.sidebar-container:hover .logo-text {
+  display: inline;
 }
 
 .sidebar-container:hover .logo .logo-text {
@@ -137,22 +139,13 @@
   align-items: center;
   position: absolute;
   top: 2rem;
-  left: 1.2rem;
+  left: 25%;
   border-radius: 0 30px 30px 0;
+  transition: 0.5s ease-in-out;
 }
 
-.sidebar-text {
-  opacity: 0;
-  margin-left: 0;
-  transition: all 0.3s ease !important;
-}
-
-.sidebar-container:hover .sidebar-text {
-  width: 100%;
-  overflow: hidden;
-  opacity: 1;
-  margin-left: 1.5rem;
-  transition: all 0.5s ease !important;
+.sidebar-container:hover .SlickBar {
+  left: 18%;
 }
 
 .sidebar-btn {
@@ -163,70 +156,5 @@
 }
 
 .sidebar-item {
-  margin-left: 0.2rem;
-}
-
-.profile {
-  position: absolute;
-  right: 1.5rem;
-  top: 0.5rem;
-}
-
-.hello-profile {
-  padding-top: 8px;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 19px;
-  color: #a8bec5;
-}
-
-.name-profile {
-  font-style: normal;
-  font-weight: 700;
-  font-size: 14px;
-  line-height: 27px;
-  color: #68767a;
-}
-
-.profile-col {
-  padding-right: 0px !important;
-  padding-left: 0px !important;
-}
-
-.bell-profile {
-  margin-top: 15px !important;
-  margin-right: 15px !important;
-}
-
-.profile-btn {
-  background-color: #f1f1f1;
-  border-bottom: 1px solid #ccc !important;
-  border-radius: 0px !important;
-  cursor: pointer;
-  text-decoration: none;
-  color: #000;
-  position: relative;
-  overflow: hidden; /* Hides the overflowing colored underline */
-}
-
-/* Style the underline */
-.profile-btn::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background-color: var(
-    --main-green
-  ); /* Set your desired underline color here */
-  transform: scaleX(0);
-  transform-origin: bottom left;
-  transition: transform 0.3s ease;
-}
-
-/* Apply the underline effect on hover */
-.profile-btn:hover::after {
-  transform: scaleX(1);
+  margin-left: 0.5rem;
 }

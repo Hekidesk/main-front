@@ -21,17 +21,19 @@ const Sidebar = () => {
     <div className={click ? "sidebar-container" : "sidebar-container expanded"}>
       <div className="SlickBar">
         <div className="logo">
-          <img src={Logo} alt="logo" width="30" />
-          <div className="logo-text">Hekidesk</div>
+          <span>
+            <img src={Logo} alt="logo" width="30" />
+            <div className="logo-text">Hekidesk</div>
+          </span>
         </div>
-        <div className="sidebar-item">
+        <div className="sidebar-item logo">
           <Link
             onClick={() => setClick(false)}
             // eslint-disable-next-line no-undef
             to={process.env.REACT_APP_BASE_URL + "/"}
           >
             <img src={HomeIcon} alt="logo" width="25" />
-            <div className="sidebar-text">Home</div>
+            <div className="logo-text">Home</div>
           </Link>
           <Link
             onClick={() => setClick(false)}
@@ -39,7 +41,7 @@ const Sidebar = () => {
             to={process.env.REACT_APP_BASE_URL + "/user-desk"}
           >
             <img src={MyDeskIcon} alt="logo" width="25" />
-            <div className="sidebar-text">My Desk</div>
+            <div className="logo-text">My Desk</div>
           </Link>
           {showMeasurement ? (
             <Link
@@ -48,7 +50,7 @@ const Sidebar = () => {
               to={process.env.REACT_APP_BASE_URL + "/measurement"}
             >
               <img src={MeasurementIcon} alt="logo" width="25" />
-              <div className="sidebar-text">Measurement</div>
+              <div className="logo-text">Measurement</div>
             </Link>
           ) : (
             <></>
@@ -60,7 +62,7 @@ const Sidebar = () => {
               to={process.env.REACT_APP_BASE_URL + "/history"}
             >
               <img src={HistoryIcon} alt="logo" width="25" />
-              <div className="sidebar-text">History</div>
+              <div className="logo-text">History</div>
             </Link>
           ) : (
             <></>

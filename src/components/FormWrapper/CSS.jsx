@@ -2,16 +2,18 @@ import styled from "styled-components";
 import { devices, wrapperWidth } from "../../assets/styles/size";
 
 export const Wrapper = styled.div`
-  width: ${wrapperWidth};
+  width: 100%;
   min-height: auto;
   background-color: white;
   padding: 1em;
   border-radius: 40px;
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
   @media ${devices.tablet} {
     flex-direction: row;
     height: 96vh;
+    width: ${wrapperWidth};
+    margin: 2em;
   }
 `;
 

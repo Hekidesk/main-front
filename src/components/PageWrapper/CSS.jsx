@@ -2,33 +2,36 @@ import styled from "styled-components";
 import { devices, wrapperWidth } from "../../assets/styles/size";
 
 export const Wrapper = styled.div`
-  width: ${wrapperWidth};
+  width: 100%;
   min-height: 80vh;
   background-color: white;
   padding: 1em 1em 5em 1em;
   border-radius: 40px;
   display: flex;
   position: relative;
-  flex-direction: column-reverse;
+  flex-direction: column;
   @media ${devices.tablet} {
     flex-direction: row;
     min-height: 90vh;
     padding: 1em;
+    width: ${wrapperWidth};
+    margin: 2em;
   }
 `;
 export const ProfileContainer = styled.span`
-  position: absolute;
-  top: 1em;
-  right: 2em;
   display: flex;
   width: 20em;
+  padding: 1em 1em 0 0;
+
+  @media ${devices.tablet} {
+    padding: 0;
+  }
 `;
 export const SidebarContainer = styled.div`
   margin-right: 40px;
 `;
 export const ChildContainer = styled.div`
   width: 100%;
-  padding-top: 5em;
   @media ${devices.tablet} {
     width: 95%;
   }
@@ -39,7 +42,7 @@ export const ClockContainer = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 100001;
-  ${props => !props.showDownCounter && 'display: none;'}
+  ${(props) => !props.showDownCounter && "display: none;"}
 `;
 export const AnswerReadyContainer = styled.div`
   position: absolute;
@@ -49,5 +52,12 @@ export const AnswerReadyContainer = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 100001;
-  ${props => !props.answerReady && 'display: none;'}
+  ${(props) => !props.answerReady && "display: none;"}
+`;
+
+export const MainContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: 100%;
 `;

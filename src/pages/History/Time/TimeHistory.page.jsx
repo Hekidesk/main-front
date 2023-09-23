@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-import Profile from "@/components/Profile/Profile";
 import { Col, Row, Pagination } from "react-bootstrap";
-import Sidebar from "@/components/Sidebar/Sidebar";
 import ProfileSection from "@/components/Profile/ProfileSection";
 import { useIndexedDB } from "react-indexed-db";
 import { GetDateTimeDB, convertStringToDateDB } from "@/utilities/time/time";
 import { Knob } from "primereact/knob";
+import PageWrapper from "@/components/PageWrapper/PageWrapper";
 
 const TimeHistoryPage = () => {
   const [data, setData] = useState(null);
@@ -112,150 +111,134 @@ const TimeHistoryPage = () => {
   };
 
   return (
-    <div className="box">
-      <Profile />
+    <PageWrapper>
       <Row>
-        <Col className="sidebar" md={1}>
-          <Sidebar />
-        </Col>
-        <Col md={7} lg={9}>
+        <h2 className="title-name">Time History</h2>
+      </Row>
+      <Row>
+        <Col md={3} style={{ marginRight: "20px" }}>
           <Row>
-            <h2 className="title-name">Time History</h2>
+            <ProfileSection />
+          </Row>
+          <Row
+            style={{
+              backgroundColor: "#E8F0F4",
+              paddingTop: "20px",
+              paddingLeft: "10px",
+            }}
+          >
+            <Pagination style={{ display: "inline-block" }}>
+              <Pagination.First onClick={() => firstDate()}></Pagination.First>
+              <Pagination.Prev
+                onClick={() => decCurrentUser()}
+              ></Pagination.Prev>
+              {[...Array(5)].map((currElement, index) => (
+                <Pagination.Item
+                  key={currElement}
+                  onClick={() => retrieveDate(currentDate + index)}
+                  active={activeIndex === currentDate + index}
+                >
+                  <div style={{ height: "20px" }}>
+                    {dates[currentDate + index]}
+                  </div>
+                </Pagination.Item>
+              ))}
+              <Pagination.Next
+                onClick={() => incCurrentUser()}
+              ></Pagination.Next>
+              <Pagination.Last onClick={() => lastDate()}></Pagination.Last>
+            </Pagination>
+          </Row>
+        </Col>
+        <Col md={8}>
+          <Row>
+            <Col>
+              <div
+                className="bg-gray rate-box"
+                style={{ marginBottom: "20px" }}
+              >
+                <Row style={{ fontSize: "30", fontWeight: "600" }}>Rates:</Row>
+                <Row>
+                  {parameter &&
+                    parameter.map((p, i) => {
+                      return (
+                        <Col
+                          style={{
+                            fontWeight: p.value ? "bold" : "",
+                          }}
+                          md={6}
+                          key={i}
+                        >
+                          {p.text} {p.value ? p.value : ""}
+                        </Col>
+                      );
+                    })}
+                </Row>
+              </div>
+            </Col>
           </Row>
           <Row>
-            <Col md={3} style={{ marginRight: "20px" }}>
-              <Row>
-                <ProfileSection />
-              </Row>
-              <Row
+            <Col className="bg-gray">
+              <div style={{ fontWeight: "bold" }}> Heart Rate </div>
+              <div style={{ fontSize: "13px" }}> (bpm) </div>
+              <div className="knob-container" style={{ marginTop: "1rem" }}>
+                <Knob
+                  value={heartBeat}
+                  size={220}
+                  valueColor={
+                    heartBeat < 60 || heartBeat > 90 ? "red" : "green"
+                  }
+                  textColor={"black"}
+                />
+              </div>
+              <div
                 style={{
-                  backgroundColor: "#E8F0F4",
-                  paddingTop: "20px",
-                  paddingLeft: "10px",
+                  marginLeft: "6rem",
+                  fontWeight: "bold",
+                  marginBottom: "5rem",
                 }}
               >
-                <Pagination style={{ display: "inline-block" }}>
-                  <Pagination.First
-                    onClick={() => firstDate()}
-                  ></Pagination.First>
-                  <Pagination.Prev
-                    onClick={() => decCurrentUser()}
-                  ></Pagination.Prev>
-                  {[...Array(5)].map((currElement, index) => (
-                    <Pagination.Item
-                      key={currElement}
-                      onClick={() => retrieveDate(currentDate + index)}
-                      active={activeIndex === currentDate + index}
-                    >
-                      <div style={{ height: "20px" }}>
-                        {dates[currentDate + index]}
-                      </div>
-                    </Pagination.Item>
-                  ))}
-                  <Pagination.Next
-                    onClick={() => incCurrentUser()}
-                  ></Pagination.Next>
-                  <Pagination.Last onClick={() => lastDate()}></Pagination.Last>
-                </Pagination>
-              </Row>
+                {" "}
+                {heartBeat === 0
+                  ? " "
+                  : heartBeat < 60 || heartBeat > 90
+                  ? "Dangerous"
+                  : "Good"}{" "}
+              </div>
             </Col>
-            <Col md={8}>
-              <Row>
-                <Col>
-                  <div
-                    className="bg-gray rate-box"
-                    style={{ marginBottom: "20px" }}
-                  >
-                    <Row style={{ fontSize: "30", fontWeight: "600" }}>
-                      Rates:
-                    </Row>
-                    <Row>
-                      {parameter &&
-                        parameter.map((p, i) => {
-                          return (
-                            <Col
-                              style={{
-                                fontWeight: p.value ? "bold" : "",
-                              }}
-                              md={6}
-                              key={i}
-                            >
-                              {p.text} {p.value ? p.value : ""}
-                            </Col>
-                          );
-                        })}
-                    </Row>
-                  </div>
-                </Col>
-              </Row>
-              <Row>
-                <Col className="bg-gray">
-                  <div style={{ fontWeight: "bold" }}> Heart Rate </div>
-                  <div style={{ fontSize: "13px" }}> (bpm) </div>
-                  <div className="knob-container" style={{ marginTop: "1rem" }}>
-                    <Knob
-                      value={heartBeat}
-                      size={220}
-                      valueColor={
-                        heartBeat < 60 || heartBeat > 90 ? "red" : "green"
-                      }
-                      textColor={"black"}
-                    />
-                  </div>
-                  <div
-                    style={{
-                      marginLeft: "6rem",
-                      fontWeight: "bold",
-                      marginBottom: "5rem",
-                    }}
-                  >
-                    {" "}
-                    {heartBeat === 0
-                      ? " "
-                      : heartBeat < 60 || heartBeat > 90
-                      ? "Dangerous"
-                      : "Good"}{" "}
-                  </div>
-                </Col>
-                <Col className="bg-gray" style={{ marginLeft: "10px" }}>
-                  <div>
-                    <div style={{ fontWeight: "bold" }}> Temperature </div>
-                    <div style={{ fontSize: "13px" }}> (°C) </div>
-                    <div
-                      className="knob-container"
-                      style={{ marginTop: "1rem" }}
-                    >
-                      <Knob
-                        value={temperature}
-                        size={220}
-                        valueColor={
-                          temperature < 30 || temperature > 38 ? "red" : "green"
-                        }
-                        textColor={"black"}
-                      />
-                    </div>
-                    <div
-                      style={{
-                        marginLeft: "6rem",
-                        fontWeight: "bold",
-                        marginBottom: "5rem",
-                      }}
-                    >
-                      {" "}
-                      {temperature === 0
-                        ? " "
-                        : temperature < 30 || temperature > 38
-                        ? "Dangerous"
-                        : "Good"}{" "}
-                    </div>
-                  </div>
-                </Col>
-              </Row>
+            <Col className="bg-gray" style={{ marginLeft: "10px" }}>
+              <div>
+                <div style={{ fontWeight: "bold" }}> Temperature </div>
+                <div style={{ fontSize: "13px" }}> (°C) </div>
+                <div className="knob-container" style={{ marginTop: "1rem" }}>
+                  <Knob
+                    value={temperature}
+                    size={220}
+                    valueColor={
+                      temperature < 30 || temperature > 38 ? "red" : "green"
+                    }
+                    textColor={"black"}
+                  />
+                </div>
+                <div
+                  style={{
+                    marginLeft: "6rem",
+                    fontWeight: "bold",
+                    marginBottom: "5rem",
+                  }}
+                >
+                  {temperature === 0
+                    ? " "
+                    : temperature < 30 || temperature > 38
+                    ? "Dangerous"
+                    : "Good"}{" "}
+                </div>
+              </div>
             </Col>
           </Row>
         </Col>
       </Row>
-    </div>
+    </PageWrapper>
   );
 };
 
