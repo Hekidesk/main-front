@@ -2,20 +2,20 @@ import styled from "styled-components";
 import { Dropdown } from "primereact/dropdown";
 
 const DropdownButton = styled.div`
-  display: flex;
+  display: inline-block;
   align-items: center;
-  justify-content: center;
   text-align: center;
   margin-left: 15px;
+
+
 `;
 
 export const SampleTimeDropDown = ({ sampleTime, setSampleTime }) => {
   return (
     <DropdownButton>
       <Dropdown
-        style={{ width: "100%" }}
         value={sampleTime}
-        className="filter-btn"
+        className="time-dropdown"
         onChange={(e) => setSampleTime(e.value)}
         options={[
           { name: "10s ↓", value: 10 },

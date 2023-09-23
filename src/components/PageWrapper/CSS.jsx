@@ -1,11 +1,12 @@
 import styled from "styled-components";
-import { devices, wrapperWidth } from "../../assets/styles/size";
+import { devices, wrapperWidth } from "@/assets/styles/size";
 
 export const Wrapper = styled.div`
   width: ${wrapperWidth};
   min-height: 80vh;
   background-color: white;
   padding: 1em 1em 5em 1em;
+  margin: 1em 0 1em 0;
   border-radius: 40px;
   display: flex;
   position: relative;
@@ -21,7 +22,8 @@ export const ProfileContainer = styled.span`
   top: 1em;
   right: 2em;
   display: flex;
-  width: 20em;
+  justify-content: space-between !important;
+  width: 18em;
 `;
 export const SidebarContainer = styled.div`
   margin-right: 40px;
@@ -39,7 +41,7 @@ export const ClockContainer = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 100001;
-  ${props => !props.showDownCounter && 'display: none;'}
+  ${(props) => !props.showDownCounter && "display: none;"}
 `;
 export const AnswerReadyContainer = styled.div`
   position: absolute;
@@ -49,5 +51,6 @@ export const AnswerReadyContainer = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 100001;
-  ${props => !props.answerReady && 'display: none;'}
+  ${(props) => !props.answerReady && "display: none;"}
 `;
+

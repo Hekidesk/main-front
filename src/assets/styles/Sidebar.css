@@ -124,7 +124,7 @@
   margin-left: 2.5rem;
   transition: all 0.5s ease !important;
 }
-*/ .sidebar-container:hover .logo img {
+.sidebar-container:hover .logo img {
   margin-left: 3.5rem;
   transition: all 0.5s ease !important;
 }
@@ -168,30 +168,7 @@
 
 .profile {
   position: absolute;
-  right: 1.5rem;
   top: 0.5rem;
-}
-
-.hello-profile {
-  padding-top: 8px;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 19px;
-  color: #a8bec5;
-}
-
-.name-profile {
-  font-style: normal;
-  font-weight: 700;
-  font-size: 14px;
-  line-height: 27px;
-  color: #68767a;
-}
-
-.profile-col {
-  padding-right: 0px !important;
-  padding-left: 0px !important;
 }
 
 .bell-profile {

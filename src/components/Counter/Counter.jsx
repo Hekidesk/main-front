@@ -25,7 +25,7 @@ function Counter({ counter, startCountDown, size = 50 }) {
   // };
 
   return (
-    <div style={{ marginTop: "15px" }}>
+    <div>
       <CountdownCircleTimer
         isPlaying={startCountDown}
         key={key}

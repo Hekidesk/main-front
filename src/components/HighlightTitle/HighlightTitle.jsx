@@ -1,13 +1,11 @@
-import { Image } from "primereact/image";
 import { H6, H6Wrapper, TitleContainer } from "./CSS";
 
-const HighlightTitle = ({ title, icon }) => {
+const HighlightTitle = ({ title }) => {
   return (
     <TitleContainer>
       <H6Wrapper>
         <H6>{title}</H6>
       </H6Wrapper>
-      <Image src={icon} alt="icon" width="60%" />
     </TitleContainer>
   );
 };

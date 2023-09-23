@@ -82,5 +82,17 @@
   color: linear-gradient(to right, rgb(245, 24, 8), rgb(0, 0, 0)) !important;
 }
 
+.time-dropdown > .p-dropdown-label{
+  background: linear-gradient(to top, #77dce3, #16a1d5)  !important;
+  border: none !important;
+  height: 4em;
+  width: 10em;
+  border-radius: 1.5em;
+}
+
+.time-dropdown .p-inputtext{
+  padding-top: 20px;
+}
+
 
 

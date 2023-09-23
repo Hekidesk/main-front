@@ -18,4 +18,4 @@ export const devices = {
   desktop: `(min-width: ${sizes.desktop})`,
 };
 
-export const wrapperWidth = "80%";
+export const wrapperWidth = "95%";

@@ -1,6 +1,8 @@
 @font-face {
   font-family: OpenSans;
   src: url(./assets/font/OpenSans-Regular.ttf);
+  font-family: Lufga;
+  src: url(./assets/font/Fontspring-DEMO-lufga-regular.otf);
 }
 
 :root {
@@ -22,7 +24,7 @@ body,
   margin: 0;
   padding: 0;
   font-size: 16px;
-  font-family: OpenSans, sans-serif !important;
+  font-family: Lufga, OpenSans, sans-serif !important;
 }
 body {
   background-color: var(--bg-color);

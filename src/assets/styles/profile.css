@@ -47,10 +47,3 @@
   text-align: center;
   margin: auto;
 }
-
-.battery-container {
-  display: grid;
-  place-items: center;
-  padding: 5px;
-  transform: rotate(270deg);
-}
