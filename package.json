@@ -22,6 +22,7 @@
     "canvasjs-react-charts": "^1.0.5",
     "chart.js": "^4.3.0",
     "direct-styled": "^1.0.1",
+    "gsap": "^3.12.2",
     "primeicons": "^6.0.1",
     "primereact": "^9.6.0",
     "rc-slider": "^10.2.1",
