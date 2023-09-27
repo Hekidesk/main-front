@@ -16,10 +16,7 @@ import { useIndexedDB } from "react-indexed-db";
 
 const HomeForm = () => {
   const [selectedUser, setSelectedUser] = useState(null);
-  console.log(
-    "🚀 ~ file: Form.jsx:19 ~ HomeForm ~ selectedUser:",
-    selectedUser
-  );
+
   const [selectedDevice, setSelectedDevice] = useState(null);
 
   const [users, setUsers] = useState([]);

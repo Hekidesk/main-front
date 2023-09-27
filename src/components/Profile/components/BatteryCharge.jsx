@@ -1,8 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Bar, Battery } from "./CSS";
+import { BluetoothContext } from "@/App";
 
-export default function BatteryCharge({ charge }) {
+export default function BatteryCharge() {
   const [bars, setBars] = useState(Array(3).fill(false));
+  const [charge, setCharge] = useState(Array(3).fill(false));
+
+  const bluetooth = useContext(BluetoothContext);
+
+  useEffect(() => {
+    setTimeout(() => {
+      bluetooth.GetRemainCharg(setCharge);
+    }, 1 * 60 * 1000);
+  }, []);
 
   useEffect(() => {
     if (charge)
@@ -23,17 +33,17 @@ export default function BatteryCharge({ charge }) {
       <Bar
         data-power="33"
         style={{ background: bars[0] ? "#2CAFA4" : "transparent" }}
-        down = {true}
-        ></Bar>
+        down={true}
+      ></Bar>
       <Bar
         data-power="66"
         style={{ background: bars[1] ? "#2CAFA4" : "transparent" }}
-        middle = {true}
-        ></Bar>
+        middle={true}
+      ></Bar>
       <Bar
         data-power="100"
         style={{ background: bars[2] ? "#2CAFA4" : "transparent" }}
-        up = {true}
+        up={true}
       ></Bar>
       {/* <Bar
         data-power="80"
