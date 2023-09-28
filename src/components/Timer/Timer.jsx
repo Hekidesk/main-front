@@ -18,7 +18,7 @@ const Timer = ({ sampleTime, setSampleTime }) => {
     wheel.addEventListener("drag", () => {
       let value = Math.ceil(Math.ceil(wheel.rotation) / 30) * 5;
       setTime(value);
-      showClock();
+      showClock(-wheel.rotation);
     });
   }, []);
 

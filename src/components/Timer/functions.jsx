@@ -1,4 +1,4 @@
-export function showClock() {
+export function showClock(value) {
   var canvas = document.getElementById("timer");
   var ctx = canvas.getContext("2d");
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -38,10 +38,10 @@ export function showClock() {
       var hour = (i + 7) % 12;
       hour = hour == 0 ? 60 : hour * 5;
 
-      var xt = canvas.width / 2 + Math.cos(angle) * percent * 1.2;
-      var yt = canvas.height / 2 + Math.sin(angle) * percent * 1.2;
+      var xt = canvas.width / 2 + Math.cos(angle) * percent * 1.1;
+      var yt = canvas.height / 2 + Math.sin(angle) * percent * 1.1;
 
-      drawRotatedText(xt, yt, 0, hour); // todo - rotate numbers
+      drawRotatedText(xt, yt, (value * Math.PI) / 180, hour); // todo - rotate numbers
     }
   }
 
