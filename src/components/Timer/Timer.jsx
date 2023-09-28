@@ -1,6 +1,5 @@
 import { useState, useLayoutEffect } from "react";
 import styled from "styled-components";
-import "./Timer.css";
 import { showClock } from "./functions";
 import { Draggable } from "gsap/all";
 import gsap from "gsap";
