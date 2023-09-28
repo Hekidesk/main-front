@@ -1,8 +1,8 @@
 const initial_state = {
   heartBeat: "-?-",
-  qualityIndex: "-",
-  PR_RR_Interval: "-",
-  QRS_Duration: "-",
+  Quality_index: "-",
+  PR_RR: "-",
+  QRS_duration: "-",
   hrv: [],
   hrvVal: "-",
   ssTime: [],

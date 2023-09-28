@@ -30,7 +30,7 @@ export const SidebarContainer = styled.div`
 `;
 export const ChildContainer = styled.div`
   width: 100%;
-  padding-top: 5em;
+  padding-top: 4em;
   @media ${devices.tablet} {
     width: 95%;
   }

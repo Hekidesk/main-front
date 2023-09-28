@@ -3,12 +3,28 @@
   background-color: var(--nav-color-top) !important;
 }
 
+.filter-btn{
+  border-radius: 2.8rem !important;
+  width: 16rem !important;
+  font-size: 1.5rem !important;
+}
+
 .p-button:focus {
   box-shadow: none !important;
 }
 
 .page-btn:hover {
-  background-color: var(--nav-color-top) !important;
+  background: linear-gradient(to top, #77dce3, #16a1d5) !important;
+}
+
+.page-btn:hover span {
+  color: white !important;
+  transition: all 0.25s ease;
+}
+
+.page-btn:hover img {
+  transition: all 0.25s ease;
+  filter: brightness(0) invert(1);;
 }
 
 .p-inputtext {

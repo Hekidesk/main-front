@@ -1,48 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { Bar, Battery } from "./CSS";
+import fullCharge from "@/assets/icon/battery/fullCharge.svg";
+import semiFullCharge from "@/assets/icon/battery/semiFullCharge.svg";
+import halfCharge from "@/assets/icon/battery/halfCharge.svg";
+import semiHalfCharge from "@/assets/icon/battery/semiHalfCharge.svg";
+import lowCharge from "@/assets/icon/battery/lowCharge.svg";
+ 
 
 export default function BatteryCharge({ charge }) {
-  const [bars, setBars] = useState(Array(3).fill(false));
-
-  useEffect(() => {
-    if (charge)
-      setBars((preBars) => {
-        let index = 0;
-        let power = Math.round(charge / 33);
-        preBars = Array(3).fill(false);
-        while (power--) {
-          preBars[index] = true;
-          index++;
-        }
-        return preBars;
-      });
-  }, [charge]);
-
+  const BatteryImg = charge > 80 ? fullCharge : 
+                      charge > 60 ? semiFullCharge :
+                      charge > 40 ? halfCharge :
+                      charge > 20 ? semiHalfCharge :
+                      lowCharge ;
   return (
-    <Battery>
-      <Bar
-        data-power="33"
-        style={{ background: bars[0] ? "#2CAFA4" : "transparent" }}
-        down = {true}
-        ></Bar>
-      <Bar
-        data-power="66"
-        style={{ background: bars[1] ? "#2CAFA4" : "transparent" }}
-        middle = {true}
-        ></Bar>
-      <Bar
-        data-power="100"
-        style={{ background: bars[2] ? "#2CAFA4" : "transparent" }}
-        up = {true}
-      ></Bar>
-      {/* <Bar
-        data-power="80"
-        style={{ background: bars[3] ? "#2CAFA4" : "transparent" }}
-      ></Bar>
-      <Bar
-        data-power="100"
-        style={{ background: bars[4] ? "#2CAFA4" : "transparent" }}
-      ></Bar> */}
-    </Battery>
+    <img src={BatteryImg} alt="My Image" />
   );
 }

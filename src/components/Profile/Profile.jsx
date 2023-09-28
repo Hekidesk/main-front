@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useContext } from "react";
 import {  Row } from "react-bootstrap";
 import ProfilePhotoIcon from "@/assets/icon/profile.svg";
-import greenDCIcon from "@/assets/icon/greenDeviceConnectionIcon.svg";
-import redDCIcon from "@/assets/icon/blackDeviceConnectionIcon.svg";
+import connectedIcon from "@/assets/icon/deviceConnection/greenDeviceConnectionIcon.svg";
+import disconnectedIcon from "@/assets/icon/deviceConnection/blackDeviceConnectionIcon.svg";
 import { BluetoothContext } from "@/App";
 // import { Button } from "primereact/button";
 import {
@@ -40,14 +40,14 @@ const Profile = () => {
         >
             {bluetooth.isConnected ? (
               <img
-                src={greenDCIcon}
+                src={connectedIcon}
                 alt="profile"
                 width={25}
                 className="bell-profile"
               />
             ) : (
               <img
-                src={redDCIcon}
+                src={disconnectedIcon}
                 alt="profile"
                 width={25}
                 className="bell-profile"
@@ -56,7 +56,7 @@ const Profile = () => {
         </Link>
       </ConnectionIconCol>
       <BatteryIconCol>
-        <BatteryCharge charge={50} />
+        <BatteryCharge charge={10} />
       </BatteryIconCol>
       <Waste></Waste>
     </Row>

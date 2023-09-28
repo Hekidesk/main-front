@@ -1,10 +1,8 @@
 import { Row, Col } from "react-bootstrap";
 import { Button } from "primereact/button";
-import { Link } from "react-router-dom";
 import { ButtonMeasurementStyle } from "@/components/reusable/ButtonStyle";
-import backIcon from "@/assets/icon/measurement/back.svg";
-import shareIcon from "@/assets/icon/measurement/shareIcon.svg";
-import saveIcon from "@/assets/icon/measurement/saveIcon.svg";
+import shareIcon from "@/assets/icon/measurement/BlackShareIcon.svg";
+import saveIcon from "@/assets/icon/measurement/BlackSaveIcon.svg";
 import ckeckmarkIcon from "@/assets/icon/ckeckmarkIcon.svg";
 import { downloadSVGAsPNG } from "@/utilities/share/downloadFile";
 import { useState } from "react";
@@ -19,7 +17,7 @@ const PageButtons = ({
 }) => {
   const [save, setSave] = useState(false);
   return (
-    <Row className="d-flex justify-content-between">
+    <Row>
       <Col>
         <Button
           onClick={() => {
@@ -65,26 +63,6 @@ const PageButtons = ({
           />
           <span>Download</span>
         </Button>
-      </Col>
-      <Col>
-        <Link
-          // eslint-disable-next-line no-undef
-          to={process.env.REACT_APP_BASE_URL + "/measurement"}
-          className="d-flex justify-content-center"
-        >
-          <Button
-            style={ButtonMeasurementStyle}
-            className="page-btn d-flex justify-content-center"
-          >
-            <img
-              src={backIcon}
-              alt="Image"
-              width="8px"
-              style={{ margin: "0em 0.6em" }}
-            />
-            <span>Back</span>
-          </Button>
-        </Link>
       </Col>
     </Row>
   );

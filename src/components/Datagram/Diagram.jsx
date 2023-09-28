@@ -7,19 +7,20 @@ var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 const Diagram = ({ data, sizeOfSlice = -1, maximumNum = -1, type = "", avgTemp = null }) => {
 
   const options = {
-      height: type == "force" || type == "ppg" ? 250 : null,
+      height: 210,
       animationEnabled: true,
       zoomEnabled: true,
-      backgroundColor: "#C8E7F1",
+      backgroundColor: "#E8F0F4",
       toolTip: {
         animationEnabled: true,
       },
       axisX: {
         lineThickness: 0,
-        tickLength: 0,
+        tickLength: 9,
+        tickThickness: 2,
+        tickColor: "#7C8285",
         gridColor: "#1CB5BDb1",
-        gridThickness: 1,
-        ticksLimit: 2,
+        gridThickness: 0,
         minimum: sizeOfSlice > 0 && data ? (data.length - sizeOfSlice > 0 ? data.length - sizeOfSlice : 0) : 0,
         maximum: sizeOfSlice > 0 && data && maximumNum < 0 ? (data.length < sizeOfSlice ? sizeOfSlice : data.length) : maximumNum > 0 ? maximumNum: null,
          labelFormatter: function () {
@@ -28,9 +29,11 @@ const Diagram = ({ data, sizeOfSlice = -1, maximumNum = -1, type = "", avgTemp =
       },
       axisY: {
         lineThickness: 0,
-        tickLength: 2,
+        tickLength: 9,
+        tickThickness: 2,
+        tickColor: "#7C8285",
         gridColor: "#1CB5BDb1",
-        gridThickness: 0.5,
+        gridThickness: 0,
         labelFontColor: "#1CB5BD",
         labelFormatter: type != "temperature" ? 
         function () {  
@@ -88,9 +91,9 @@ const Diagram = ({ data, sizeOfSlice = -1, maximumNum = -1, type = "", avgTemp =
         style={{
           width: "8em",
           position: "absolute",
-          bottom: "2px",
+          bottom: "1px",
           height: "16px",
-          background: "#C8E7F1",
+          background: "#E8F0F4",
         }}
       >
         <span style={{ color: "white" }}>.</span>{" "}

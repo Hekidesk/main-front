@@ -99,7 +99,7 @@
   color: var(--nav-color-top) !important;
   transition: width 1s, background-color 0.5s;
 }
-*/ .sidebar-container a:hover img {
+.sidebar-container a:hover img {
   filter: invert(49%) sepia(73%) saturate(563%) hue-rotate(150deg)
     brightness(93%) contrast(93%);
 }
@@ -111,7 +111,7 @@
 }
 
 .logo img {
-  margin-left: 0.8rem;
+  margin-left: 0.5rem;
   transition: all 0.5s ease !important;
 }
 
@@ -121,7 +121,7 @@
 }
 
 .sidebar-container:hover .logo .logo-text {
-  margin-left: 2.5rem;
+  margin-left: 2.9rem;
   transition: all 0.5s ease !important;
 }
 .sidebar-container:hover .logo img {
@@ -166,44 +166,3 @@
   margin-left: 0.2rem;
 }
 
-.profile {
-  position: absolute;
-  top: 0.5rem;
-}
-
-.bell-profile {
-  margin-top: 15px !important;
-  margin-right: 15px !important;
-}
-
-.profile-btn {
-  background-color: #f1f1f1;
-  border-bottom: 1px solid #ccc !important;
-  border-radius: 0px !important;
-  cursor: pointer;
-  text-decoration: none;
-  color: #000;
-  position: relative;
-  overflow: hidden; /* Hides the overflowing colored underline */
-}
-
-/* Style the underline */
-.profile-btn::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background-color: var(
-    --main-green
-  ); /* Set your desired underline color here */
-  transform: scaleX(0);
-  transform-origin: bottom left;
-  transition: transform 0.3s ease;
-}
-
-/* Apply the underline effect on hover */
-.profile-btn:hover::after {
-  transform: scaleX(1);
-}

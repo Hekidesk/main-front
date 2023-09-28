@@ -21,7 +21,7 @@ const Sidebar = () => {
     <div className={click ? "sidebar-container" : "sidebar-container expanded"}>
       <div className="SlickBar">
         <div className="logo">
-          <img src={Logo} alt="logo" width="30" />
+          <img src={Logo} alt="logo" width="50" />
           <div className="logo-text">Hekidesk</div>
         </div>
         <div className="sidebar-item">

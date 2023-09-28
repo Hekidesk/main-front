@@ -3,9 +3,9 @@ import { devices } from "../../../../assets/styles/size";
 
 export const DiagramWrapper = styled.div`
   width: 100%;
-  padding: 1em 0;
-  background-color: var(--gray-green);
-  border-radius: 10px;
+  background-color: #E8F0F4;
+  border-radius: 30px;
+  padding-bottom: 2em;
 `;
 export const Description = styled.div`
   display: flex;
@@ -13,8 +13,10 @@ export const Description = styled.div`
   align-items: center;
 `;
 export const DiagramText = styled.h6`
-  color: white;
-  font-size: 1.4em;
+  color: black;
+  font-size: 1.1em;
+  font-weight: 600;
+  padding-top: 0.5rem;
 `;
 export const DiagramButton = styled.button`
   display: inline-block;
@@ -24,16 +26,14 @@ export const DiagramButton = styled.button`
   border-radius: 1.5em;
   color: white;
   border: none;
-  font-size: 1.2em;
+  font-size: 1.7rem;
   font-weight: bold;
-  margin-bottom: 0.5rem;
-  margin-left: 0.5rem;
+  margin: 1em 0 0.5rem 0.5rem;
 `;
 export const DiagramContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #c8e7f1;
   width: 100%;
   flex-direction: column;
   box-shadow: -1px -1px 10px -12px rgba(0, 0, 0, 0.82);
@@ -42,8 +42,8 @@ export const DiagramContainer = styled.div`
   }
 `;
 export const AbnormalityDiagramContainer = styled.div`
-  background-color: #c8e7f1;
   flex-direction: column;
+  width: 100%;
   box-shadow: -1px -1px 10px -12px rgba(0, 0, 0, 0.82);
 `;
 export const AbnormalityDiagramTitleContainer = styled.div`
@@ -62,19 +62,12 @@ export const LeftAbnormalityDiagramTitleContainer = styled.div`
   font-size: 20px;
 `;
 export const InfoContainer = styled.div`
-  background: #c8e7f1;
-  border-left: 2px solid var(--main-green);
-  border-right: 2px solid var(--main-green);
+  background-color: #E8F0F4;
   border-radius: 30px;
-  width: 100%;
   margin: 1em;
   padding: 1em;
-  @media ${devices.tablet} {
-    width: 30%;
-  }
 `;
 export const InfoAbnormalityContainer = styled.div`
-  background: #c8e7f1;
   border-left: 2px solid var(--main-green);
   border-right: 2px solid var(--main-green);
   border-radius: 30px;
@@ -85,27 +78,28 @@ export const InfoAbnormalityContainer = styled.div`
 `;
 export const ImportantTitle = styled.h6`
   color: var(--important-color);
-  text-shadow: 1px 1px 10px var(--important-color);
+  font-size: 1.5rem;
+  font-weight: 600;
 `;
 
 export const ImportantValue = styled.h3`
   color: var(--important-color);
   text-align: center;
-  font-size: 50px;
-  font-weight: bold;
-  text-shadow: 1px 1px 10px var(--important-color);
+  font-size: 6rem;
+  font-weight: 600;
 `;
 
 export const SimpleTitle = styled.h6`
-  color: var(--main-green);
-  text-shadow: 1px 1px 10px var(--main-green);
+  color: black;
+  font-size: 1rem;
+  font-weight: 600;
 `;
 
 export const SimpleValue = styled.h3`
-  color: var(--main-green);
+  color: black;
   text-align: center;
-  font-size: 30px;
-  text-shadow: 1px 1px 10px var(--main-green);
+  font-size: 2rem;
+  font-weight: 600;
 `;
 
 export const SmallSimpleValue = styled.h5`
@@ -131,6 +125,13 @@ export const CircularContainer = styled.div`
   display: inline-block;
   margin-left: 20px;
 `;
+export const CircularPhoto = styled.div`
+  display: inline-block;
+  padding: 1.1em;
+  background-color: white;
+  border-radius: 45px;
+  margin-right: 1em;
+`;
 export const filterButton = {
   margin: "20px auto",
   display: "block",
@@ -138,3 +139,43 @@ export const filterButton = {
   backgroundColor: "var(--main-green)",
   border: "var(--main-green)",
 };
+export const HrvContainer = styled.div`
+  width: 67%;
+  background-color: #E8F0F4;
+  position: relative;
+  border-radius: 2.8em;
+  padding: 0.75em;
+  margin-right: 2em;
+`;
+export const SingleSpikeContainer = styled.div`
+  width: 30%;
+  background-color: #E8F0F4;
+  position: relative;
+  border-radius: 2.8em;
+  padding: 0.75em;
+`;
+export const ParameterContainer = styled.div`
+  background-color: #FFFFFF;
+  border-radius: 2.9rem;
+  padding-bottom: 1rem;
+  ${(props) => props.padding && "padding: 3rem;"}
+
+`;
+export const HeartImageContainer = styled.div`
+  text-align: right;
+  margin-right: 3em;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+`
+export const ArrythmiaTitle = styled.h6`
+  color: black;
+  font-size: 1.7rem;
+  font-weight: 600;
+  padding-left: 3rem;
+  padding-top: 0.5rem;
+`;
+export const FlexSpaceBetweenBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+  ${(props) => props.padding && "padding: 0 2rem;"}
+`
