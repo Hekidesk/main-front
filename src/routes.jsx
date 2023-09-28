@@ -17,6 +17,7 @@ import BloodPressurePage from "@/pages/Parameters/BloodPressure/BloodPressure.pa
 import HeartAndLungSoundPage from "@/pages/Parameters/HeartAndLungSound/HeartAndLungSound.page";
 import ProtectedRoute from "@/hooks/ProtectedRoute";
 import CardiogramCopyPage from "./pages/Parameters/Cardiogram copy/Cardiogram.page";
+import Timer from "./components/Timer/Timer.jsx";
 
 function AppRoutes() {
   return (
@@ -24,6 +25,7 @@ function AppRoutes() {
       <Routes>
         <Route path={process.env.REACT_APP_BASE_URL} element={null}>
           <Route index element={<HomePage />} />
+          <Route path={"timer"} element={<Timer />} />
           <Route path={"register-user"} element={<RegisterPage />} />
           <Route path={"register-device"} element={<RegisterDevicePage />} />
           <Route path={"user-desk"} element={<DeskPage />} />

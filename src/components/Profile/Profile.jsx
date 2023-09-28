@@ -56,7 +56,7 @@ const Profile = () => {
         </Link>
       </ConnectionIconCol>
       <BatteryIconCol>
-        <BatteryCharge charge={10} />
+        <BatteryCharge />
       </BatteryIconCol>
       <Waste></Waste>
     </Row>

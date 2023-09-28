@@ -4,6 +4,8 @@ const ServiceUUID = "4fafc201-1fb5-459e-8fcc-c5c9c331914b";
 const ReadCharistristicUUID = "beb5483e-36e1-4688-b7f5-ea07361b26a8";
 const WriteCharistristicUUID = "e505ffd3-ecd5-4365-b57d-70202ab71692";
 
+const BATTERY = 0x180f;
+
 export const useSignalFeed = () => {
   const initialState = {
     red: [],
@@ -17,6 +19,7 @@ export const useSignalFeed = () => {
   const [loading, setLoading] = useState(false);
   const [read_charastirctic, setCharastircticR] = useState();
   const [write_charastirctic, setCharastircticW] = useState();
+  const [battery_charastirctic, setCharastircticB] = useState();
   const [duration, setDuration] = useState(0);
   const [isConnected, setIsConnected] = useState(false);
   const [finish, setFinish] = useState(false);
@@ -45,6 +48,12 @@ export const useSignalFeed = () => {
             });
             service.getCharacteristic(ReadCharistristicUUID).then((char) => {
               setCharastircticR(char);
+              setLoading(false);
+            });
+          });
+          gatt.getPrimaryService(BATTERY).then((service) => {
+            service.getCharacteristic(0x2a19).then((char) => {
+              setCharastircticB(char);
               setLoading(false);
             });
           });
@@ -84,13 +93,6 @@ export const useSignalFeed = () => {
     const length = deviceData.length;
     return [Math.ceil(length / Math.ceil(duration / 1000)), duration];
   };
-
-  // const getCharge = () => {
-  //   if (device?.gatt.connected) {
-  //     write_charastirctic?.writeValue(new Uint8Array([0x180F]).buffer);
-      
-  //   }
-  // }
 
   const SendCommand = async (command, callBack) => {
     if (device?.gatt.connected) {
@@ -160,6 +162,15 @@ export const useSignalFeed = () => {
     setFinish(0);
   };
 
+  const GetRemainCharge = (getBattery) => {
+    if (battery_charastirctic) {
+      battery_charastirctic.oncharacteristicvaluechanged = (data) => {
+        let battery = data.srcElement.value.getUint8(8, true);
+        getBattery(battery);
+      };
+    }
+  };
+
   return {
     Stop,
     Start,
@@ -172,6 +183,7 @@ export const useSignalFeed = () => {
     GetFrequency,
     finish,
     TurnOff,
+    GetRemainCharge,
   };
 };
 
