@@ -4,7 +4,7 @@ const initial_state = {
   PR_RR: "-",
   QRS_duration: "-",
   hrv: [],
-  hrvVal: "-",
+  hrv_val: "-",
   ssTime: [],
   singleSpike: [],
   PQRST_ss: [],

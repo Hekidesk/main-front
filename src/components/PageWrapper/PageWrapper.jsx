@@ -1,3 +1,4 @@
+import BackButton from "./BackButton";
 import { Container } from "@/components/reusable/Container";
 import {
   Wrapper,
@@ -6,6 +7,7 @@ import {
   ChildContainer,
   ClockContainer,
   AnswerReadyContainer,
+  BackWrapper,
 } from "./CSS";
 import Sidebar from "@/components/Sidebar/Sidebar";
 import Profile from "@/components/Profile/Profile";
@@ -14,23 +16,31 @@ import WaitAnswer from "../reusable/WaitAnswer";
 
 const PageWrapper = (props) => {
   return (
-    <><ClockContainer {...props}>
-      <Counter counter={5} startCountDown={props.showDownCounter} size = {300}/>
-    </ClockContainer>
-    <AnswerReadyContainer {...props}>
-      <WaitAnswer/>
-    </AnswerReadyContainer>
-    <Container {...props}>
-      <Wrapper>
-        <ProfileContainer>
-          <Profile />
-        </ProfileContainer>
-        <SidebarContainer>
-          <Sidebar />
-        </SidebarContainer>
-        <ChildContainer> {props.children}</ChildContainer>
-      </Wrapper>
-    </Container>
+    <>
+      <ClockContainer {...props}>
+        <Counter
+          counter={5}
+          startCountDown={props.showDownCounter}
+          size={300}
+        />
+      </ClockContainer>
+      <AnswerReadyContainer {...props}>
+        <WaitAnswer />
+      </AnswerReadyContainer>
+      <Container {...props}>
+        <Wrapper>
+          <ProfileContainer>
+            <Profile />
+          </ProfileContainer>
+          <SidebarContainer>
+            <Sidebar />
+          </SidebarContainer>
+          <BackWrapper>
+            <BackButton />
+          </BackWrapper>
+          <ChildContainer> {props.children}</ChildContainer>
+        </Wrapper>
+      </Container>
     </>
   );
 };

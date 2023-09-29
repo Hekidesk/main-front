@@ -30,7 +30,7 @@ export const SidebarContainer = styled.div`
 `;
 export const ChildContainer = styled.div`
   width: 100%;
-  padding-top: 4em;
+  padding-top: 5em;
   @media ${devices.tablet} {
     width: 95%;
   }
@@ -52,5 +52,12 @@ export const AnswerReadyContainer = styled.div`
   transform: translate(-50%, -50%);
   z-index: 100001;
   ${(props) => !props.answerReady && "display: none;"}
+`;
+export const BackWrapper = styled.div`
+  text-align: left;
+  padding-bottom: 1rem;
+  position: absolute;
+  left: 8em;
+  top: 2em;
 `;
 

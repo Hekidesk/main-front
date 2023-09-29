@@ -21,7 +21,7 @@ export const DiagramText = styled.h6`
 export const DiagramButton = styled.button`
   display: inline-block;
   background: linear-gradient(to top, #77dce3, #16a1d5) !important;
-  height: 4em;
+  height: 4.4em;
   width: 4em;
   border-radius: 1.5em;
   color: white;
@@ -131,6 +131,7 @@ export const CircularPhoto = styled.div`
   background-color: white;
   border-radius: 45px;
   margin-right: 1em;
+  color: black;
 `;
 export const filterButton = {
   margin: "20px auto",

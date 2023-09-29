@@ -1,12 +1,10 @@
-import { useState, useLayoutEffect } from "react";
+import { useLayoutEffect } from "react";
 import styled from "styled-components";
 import { showClock } from "./functions";
 import { Draggable } from "gsap/all";
 import gsap from "gsap";
 
 const Timer = ({ sampleTime, setSampleTime }) => {
-  const [time, setTime] = useState(5);
-
   useLayoutEffect(() => {
     gsap.registerPlugin(Draggable);
     showClock(0);
@@ -16,7 +14,7 @@ const Timer = ({ sampleTime, setSampleTime }) => {
     })[0];
     wheel.addEventListener("drag", () => {
       let value = Math.ceil(Math.ceil(wheel.rotation) / 30) * 5;
-      setTime(value);
+      setSampleTime(value);
       showClock(-wheel.rotation);
     });
   }, []);
@@ -26,10 +24,10 @@ const Timer = ({ sampleTime, setSampleTime }) => {
       <TextContainer>
         <Title>Time</Title>
         <SubTitle>Drag the circle to set the time</SubTitle>
-        <Time>{time} Seconds</Time>
+        <Time>{sampleTime} Seconds</Time>
       </TextContainer>
       <CanvasContainer>
-        <canvas id="timer" width="200px" height="200px"></canvas>
+        <canvas id="timer" width="160px" height="175px"></canvas>
       </CanvasContainer>
     </Container>
   );
@@ -44,13 +42,16 @@ const CanvasContainer = styled.div`
 `;
 
 const Container = styled.div`
-  width: clamp(150px, 100%, 380px);
+  width: clamp(50px, 100%, 330px);
   padding: 1.2em;
   border-radius: 45px;
   background: linear-gradient(180deg, #16a1d5 0%, #77dce3 100%);
   display: flex;
   overflow: hidden;
   position: relative;
+  margin-left: 2rem;
+  height: 7.5em;
+  margin-top: 1.7rem;
 `;
 
 const TextContainer = styled.div`

@@ -64,6 +64,7 @@ function AbnormalityDetection({
       axisY: {
         lineThickness: 0,
         tickLength: 0,
+        gridThickness: 0,
         labelFormatter: function () {
           return "";
         },

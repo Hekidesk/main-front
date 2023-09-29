@@ -30,6 +30,7 @@ import { makeArrayForChart } from "@/components/reusableDataFunc/DataFunc";
 import { calculateBeatPerMinuteAPI } from "./components/Functions";
 import { SampleTimeDropDown } from "@/components/SampleTimeDropDown";
 import { Info } from "./components/InfoContainer";
+import Timer from "@/components/Timer/Timer";
 
 const CardiogramCopyPage = () => {
   const bluetooth = useContext(BluetoothContext);
@@ -101,15 +102,12 @@ const CardiogramCopyPage = () => {
       <div style={{ display: "flex" }}>
         <div style={{ width: "75%" }}>
           <HighlightTitle title="Cardiogram" icon={HeartIcon} />
-          <div style={{ position: "relative" }}>
+          <div style={{ position: "relative", display: "flex" }}>
             <DiagramButton onClick={startInput}>START</DiagramButton>
-            <SampleTimeDropDown
-              sampleTime={sampleTime}
-              setSampleTime={setSampleTime}
-            />
-            <CircularContainer>
+            <Timer sampleTime={sampleTime} setSampleTime={setSampleTime} />
+            {/* <CircularContainer>
               <Counter counter={counter} startCountDown={startCountDown} />
-            </CircularContainer>
+            </CircularContainer> */}
           </div>
           <br />
           <DiagramWrapper>
@@ -130,21 +128,15 @@ const CardiogramCopyPage = () => {
           <AbnormalityDiagramContainer>
             <AbnormalityDetection
               heartBeat={result.heartBeat}
-              // ArrythmiaType={
-              //   result.ArrythmiaType !== -1 ? types[result.ArrythmiaType] : "-"
-              // }
-              // ArrythmiaType2={
-              //   result.ArrythmiaType2 !== -1 ? types2[result.ArrythmiaType2] : "-"
-              // }
               hrv={result.hrv}
-              hrvVal={result.hrvVal}
+              hrvVal={result.hrv_val}
               ssTime={result.ssTime}
               singleSpike={result.singleSpike}
               PQRST_ss={result.PQRST_ss}
             ></AbnormalityDetection>
           </AbnormalityDiagramContainer>
         </div>
-        <div style={{width: "35%"}}>
+        <div style={{ width: "35%" }}>
           <Info
             result={result}
             disable={disable}

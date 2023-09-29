@@ -53,6 +53,7 @@ export const useSignalFeed = () => {
           });
           gatt.getPrimaryService(BATTERY).then((service) => {
             service.getCharacteristic(0x2a19).then((char) => {
+              console.log("char is: ", char);
               setCharastircticB(char);
               setLoading(false);
             });
@@ -164,8 +165,9 @@ export const useSignalFeed = () => {
 
   const GetRemainCharge = (getBattery) => {
     if (battery_charastirctic) {
+      battery_charastirctic.readValue();
       battery_charastirctic.oncharacteristicvaluechanged = (data) => {
-        let battery = data.srcElement.value.getUint8(8, true);
+        let battery = data.srcElement.value.getUint8(0, true);
         getBattery(battery);
       };
     }
