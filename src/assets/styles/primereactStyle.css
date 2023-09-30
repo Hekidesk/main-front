@@ -1,11 +1,10 @@
-
 .filter-btn:hover {
   background-color: var(--nav-color-top) !important;
 }
 
-.filter-btn{
+.filter-btn {
   border-radius: 2.8rem !important;
-  width: 16rem !important;
+  max-width: 16rem;
   font-size: 1.5rem !important;
 }
 
@@ -24,7 +23,7 @@
 
 .page-btn:hover img {
   transition: all 0.25s ease;
-  filter: brightness(0) invert(1);;
+  filter: brightness(0) invert(1);
 }
 
 .p-inputtext {
@@ -35,7 +34,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border:none !important;
+  border: none !important;
   border-radius: 100px !important;
 }
 
@@ -59,7 +58,7 @@
   background-color: rgb(255, 255, 255) !important;
 }
 
-.p-component:hover{
+.p-component:hover {
   box-shadow: none !important;
 }
 
@@ -71,7 +70,7 @@
   box-shadow: none !important;
 }
 
-.filter-btn > .p-dropdown-label{
+.filter-btn > .p-dropdown-label {
   background-color: #8fa7af !important;
   border: none !important;
 }
@@ -80,7 +79,7 @@
   background-color: gray !important;
 }
 
-.home-dropdown > .p-dropdown-label{
+.home-dropdown > .p-dropdown-label {
   background-color: var(--green-color) !important;
   border: none !important;
 }
@@ -94,21 +93,18 @@
   border: none !important;
 }
 
-.p-knob	 {
+.p-knob {
   color: linear-gradient(to right, rgb(245, 24, 8), rgb(0, 0, 0)) !important;
 }
 
-.time-dropdown > .p-dropdown-label{
-  background: linear-gradient(to top, #77dce3, #16a1d5)  !important;
+.time-dropdown > .p-dropdown-label {
+  background: linear-gradient(to top, #77dce3, #16a1d5) !important;
   border: none !important;
   height: 4em;
   width: 10em;
   border-radius: 1.5em;
 }
 
-.time-dropdown .p-inputtext{
+.time-dropdown .p-inputtext {
   padding-top: 20px;
 }
-
-
-

@@ -5,7 +5,6 @@ export const Wrapper = styled.div`
   width: 100%;
   min-height: 80vh;
   background-color: white;
-  padding: 1em 1em 5em 1em;
   margin: 1em 0 1em 0;
   border-radius: 40px;
   display: flex;
@@ -14,7 +13,6 @@ export const Wrapper = styled.div`
   @media ${devices.tablet} {
     flex-direction: row;
     min-height: 90vh;
-    padding: 1em;
     width: ${wrapperWidth};
     margin: 2em;
   }
@@ -28,9 +26,7 @@ export const ProfileContainer = styled.span`
     padding: 0;
   }
 `;
-export const SidebarContainer = styled.div`
-  margin-right: 40px;
-`;
+
 export const ChildContainer = styled.div`
   width: 100%;
   @media ${devices.tablet} {
@@ -61,6 +57,7 @@ export const MainContainer = styled.div`
   flex-direction: column;
   align-items: flex-end;
   width: 100%;
+  padding: 1em;
 `;
 export const BackWrapper = styled.div`
   text-align: left;
@@ -69,4 +66,3 @@ export const BackWrapper = styled.div`
   left: 8em;
   top: 2em;
 `;
-

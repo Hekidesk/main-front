@@ -33,7 +33,7 @@ const Measurement = () => {
   ];
   return (
     <div>
-      <div className="d-flex flex-column">
+      <div className="d-flex flex-column mt-5">
         <div className="d-flex flex-column">
           <Title2>Measurement</Title2>
         </div>

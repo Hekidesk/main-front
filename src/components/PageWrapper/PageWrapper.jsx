@@ -2,7 +2,6 @@ import { Container } from "@/components/reusable/Container";
 import {
   Wrapper,
   ProfileContainer,
-  SidebarContainer,
   ChildContainer,
   ClockContainer,
   AnswerReadyContainer,
@@ -28,9 +27,7 @@ const PageWrapper = (props) => {
       </AnswerReadyContainer>
       <Container {...props}>
         <Wrapper>
-          <SidebarContainer>
-            <Sidebar />
-          </SidebarContainer>
+          <Sidebar />
           <MainContainer>
             <ProfileContainer>
               <Profile />
