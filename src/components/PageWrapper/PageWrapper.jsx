@@ -1,4 +1,3 @@
-import BackButton from "./BackButton";
 import { Container } from "@/components/reusable/Container";
 import {
   Wrapper,
@@ -7,7 +6,7 @@ import {
   ChildContainer,
   ClockContainer,
   AnswerReadyContainer,
-  BackWrapper,
+  MainContainer,
 } from "./CSS";
 import Sidebar from "@/components/Sidebar/Sidebar";
 import Profile from "@/components/Profile/Profile";
@@ -29,16 +28,15 @@ const PageWrapper = (props) => {
       </AnswerReadyContainer>
       <Container {...props}>
         <Wrapper>
-          <ProfileContainer>
-            <Profile />
-          </ProfileContainer>
           <SidebarContainer>
             <Sidebar />
           </SidebarContainer>
-          <BackWrapper>
-            <BackButton />
-          </BackWrapper>
-          <ChildContainer> {props.children}</ChildContainer>
+          <MainContainer>
+            <ProfileContainer>
+              <Profile />
+            </ProfileContainer>
+            <ChildContainer> {props.children}</ChildContainer>{" "}
+          </MainContainer>
         </Wrapper>
       </Container>
     </>

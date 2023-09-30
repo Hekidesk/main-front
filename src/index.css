@@ -97,3 +97,7 @@ a {
   left: 0 !important;
   top: 0 !important;
 }
+
+.measure-card .p-card-body {
+  padding: 0 0 15px 0 !important;
+}

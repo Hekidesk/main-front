@@ -1,18 +1,24 @@
 import { InputText } from "primereact/inputtext";
 
-export const InputTextGroup = ({ state, setState, label, placeHolder, warning, necessary = false }) => {
+export const InputTextGroup = ({
+  state,
+  setState,
+  label,
+  placeHolder,
+  warning,
+  necessary = false,
+}) => {
   return (
     <div
       style={{
         display: "flex",
         flexDirection: "column",
         width: "100%",
-        margin: "0.5em 0",
       }}
     >
       <label htmlFor={label} style={{ marginBottom: "0.4em" }}>
-        {label} 
-        {necessary && <div style = {{display: "inline" , color: "red"}}>{" "}*</div>}
+        {label}
+        {necessary && <div style={{ display: "inline", color: "red" }}> *</div>}
       </label>
       <InputText
         id={label}
@@ -21,7 +27,7 @@ export const InputTextGroup = ({ state, setState, label, placeHolder, warning, n
         value={state}
         onChange={(e) => setState(e.target.value)}
         placeholder={placeHolder}
-        className = {warning ? "p-invalid" : {}}
+        className={"p-inputtext-sm " + (warning ? "p-invalid" : {})}
       />
     </div>
   );

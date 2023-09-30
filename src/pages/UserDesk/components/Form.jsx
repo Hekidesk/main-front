@@ -29,6 +29,7 @@ const DeskForm = () => {
       <br />
       <br />
       <Link
+        // eslint-disable-next-line no-undef
         to={process.env.REACT_APP_BASE_URL + "/measurement"}
         style={ButtonStyle}
       >
@@ -41,6 +42,7 @@ const DeskForm = () => {
         Measurement
       </Link>
       <Link
+        // eslint-disable-next-line no-undef
         to={process.env.REACT_APP_BASE_URL + "/history"}
         style={ButtonStyle}
       >
@@ -53,6 +55,7 @@ const DeskForm = () => {
         History
       </Link>
       <Link
+        // eslint-disable-next-line no-undef
         to={process.env.REACT_APP_BASE_URL + "/"}
         style={ButtonOutlineStyle}
       >
