@@ -19,9 +19,8 @@ export const Wrapper = styled.div`
 `;
 export const ProfileContainer = styled.span`
   display: flex;
-  width: 20em;
+  width: 27em;
   padding: 1em 1em 0 0;
-
   @media ${devices.tablet} {
     padding: 0;
   }
@@ -29,9 +28,6 @@ export const ProfileContainer = styled.span`
 
 export const ChildContainer = styled.div`
   width: 100%;
-  @media ${devices.tablet} {
-    width: 95%;
-  }
 `;
 export const ClockContainer = styled.div`
   position: absolute;
@@ -57,12 +53,16 @@ export const MainContainer = styled.div`
   flex-direction: column;
   align-items: flex-end;
   width: 100%;
-  padding: 1em;
+  padding-top: 7em;
+  margin-left: 3em;
+  @media ${devices.tablet} {
+    font-size: 10px !important;
+  }
 `;
 export const BackWrapper = styled.div`
   text-align: left;
-  padding-bottom: 1rem;
+  padding-bottom: 1em;
   position: absolute;
-  left: 8em;
-  top: 2em;
+  left: 17%;
+  top: 1em;
 `;

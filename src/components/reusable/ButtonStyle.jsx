@@ -1,5 +1,5 @@
 const btn = {
-  fontSize: "18px",
+  fontSize: "1.2em",
   width: "100%",
   display: "flex",
   alignItems: "center",
@@ -52,9 +52,9 @@ export const ButtonMeasurementStyle = {
   border: "none",
   color: "black",
   ...btn,
-  width: "10rem",
+  width: "8rem",
   borderRadius: "4rem",
-  marginLeft: "3rem",
+  marginLeft: "1rem",
 };
 
 

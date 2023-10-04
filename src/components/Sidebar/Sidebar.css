@@ -1,7 +1,13 @@
 .sidebar-container {
   background-image: linear-gradient(180deg, #139fd5 0%, #7adee3 100%);
   border-radius: 40px 0 0 40px;
-  width: 22%;
+  width: 18%;
+}
+
+@media (min-width: 1024px) {
+  .sidebar-container {
+    font-size: 14px !important;
+  }
 }
 
 .sidebar-container .side-bar-list {
@@ -29,7 +35,6 @@
   align-items: center;
   width: 8em;
   padding: 1em 0.5em;
-  margin-left: -2em;
 }
 
 .sidebar-container .side-bar-list .sidebar-items .side-item,

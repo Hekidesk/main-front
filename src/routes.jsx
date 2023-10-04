@@ -16,7 +16,6 @@ import TemperaturePage from "@/pages/Parameters/Temperature/Temperature.page";
 import BloodPressurePage from "@/pages/Parameters/BloodPressure/BloodPressure.page";
 import HeartAndLungSoundPage from "@/pages/Parameters/HeartAndLungSound/HeartAndLungSound.page";
 import ProtectedRoute from "@/hooks/ProtectedRoute";
-import CardiogramCopyPage from "./pages/Parameters/Cardiogram copy/Cardiogram.page";
 import Timer from "./components/Timer/Timer.jsx";
 
 function AppRoutes() {
@@ -29,7 +28,6 @@ function AppRoutes() {
           <Route path={"register-user"} element={<RegisterPage />} />
           <Route path={"register-device"} element={<RegisterDevicePage />} />
           <Route path={"user-desk"} element={<DeskPage />} />
-          <Route path={"demo"} element={<CardiogramCopyPage />} />
           <Route path={"connection"} element={<ConnectionPage />} />
         </Route>
         <Route

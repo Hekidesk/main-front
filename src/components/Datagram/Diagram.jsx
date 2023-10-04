@@ -7,7 +7,7 @@ var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 const Diagram = ({ data, sizeOfSlice = -1, maximumNum = -1, type = "", avgTemp = null }) => {
 
   const options = {
-      height: 210,
+      height: 150,
       animationEnabled: true,
       zoomEnabled: true,
       backgroundColor: "#E8F0F4",
@@ -89,7 +89,7 @@ const Diagram = ({ data, sizeOfSlice = -1, maximumNum = -1, type = "", avgTemp =
       </div>
       <div
         style={{
-          width: "8em",
+          width: "12em",
           position: "absolute",
           bottom: "1px",
           height: "16px",

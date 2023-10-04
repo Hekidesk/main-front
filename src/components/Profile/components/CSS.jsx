@@ -30,7 +30,7 @@ export const NameProfileContainer = styled.div`
 `;
 export const PhotoCol = styled.div`
   width: 20%;
-  paddingRight: 10px
+  padding-right: 1em;
 `;
 export const TextCol = styled.div`
   width: 30%;

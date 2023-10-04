@@ -1,22 +1,22 @@
 import PageWrapper from "@/components/PageWrapper/PageWrapper";
 import Diagram from "@/components/Datagram/Diagram";
-import HeartIcon from "@/assets/icon/parameter/heart.svg";
+import HeartIcon from "@/assets/icon/parameter/cardiogram.svg";
 import HighlightTitle from "@/components/HighlightTitle/HighlightTitle";
 import { useEffect, useState, useRef, useContext } from "react";
 import { BluetoothContext } from "@/App";
 import {
-  CircularContainer,
   Description,
   DiagramButton,
   DiagramContainer,
   DiagramText,
   DiagramWrapper,
+  CircularPhoto,
   AbnormalityDiagramContainer,
+  TimerWrapper,
 } from "./components/CSS";
 import PageButtons from "@/components/reusable/PageButtons";
 import { useAddToDB } from "@/database/AddToDB";
 import AbnormalityDetection from "./components/AbnormalityDetection";
-import Counter from "@/components/Counter/Counter";
 import {
   COMMAND,
   delayTime,
@@ -27,8 +27,8 @@ import {
 } from "./components/Constants";
 import { makeArrayForChart } from "@/components/reusableDataFunc/DataFunc";
 import { calculateBeatPerMinuteAPI } from "./components/Functions";
-import { SampleTimeDropDown } from "@/components/SampleTimeDropDown";
 import { Info } from "./components/InfoContainer";
+import Timer from "@/components/Timer/Timer";
 
 const CardiogramPage = () => {
   const bluetooth = useContext(BluetoothContext);
@@ -97,82 +97,78 @@ const CardiogramPage = () => {
 
   return (
     <PageWrapper>
-      <div style={{ display: "grid", placeItems: "center" }}>
-        <HighlightTitle title="Cardiogram" icon={HeartIcon} />
-        <br />
-        <DiagramWrapper>
-          <Description>
-            <DiagramText>
-              Please put your right and left fingers on ECG sensors and then
-              press
-            </DiagramText>
-            <DiagramButton onClick={startInput}>Start</DiagramButton>
-            <SampleTimeDropDown
-              sampleTime={sampleTime}
-              setSampleTime={setSampleTime}
-            />
-            <CircularContainer>
-              <Counter counter={counter} startCountDown={startCountDown} />
-            </CircularContainer>
-          </Description>
-          <DiagramContainer>
-            <Diagram data={chartData} sizeOfSlice={sizeOfSlice} />
-            <Info
-              result={result}
-              disable={disable}
-              setFilter={setFilter}
-              filter={filter}
-            />
-          </DiagramContainer>
+      <div style={{ display: "flex" }}>
+        <div style={{ width: "75%" }}>
+          <HighlightTitle title="Cardiogram" icon={HeartIcon} />
+          <TimerWrapper>
+            <Timer sampleTime={sampleTime} setSampleTime={setSampleTime} />
+            <DiagramButton onClick={startInput}>START</DiagramButton>
+          </TimerWrapper>
+          <br />
+          <DiagramWrapper>
+            <Description>
+              <DiagramText>
+                <CircularPhoto>
+                  {" "}
+                  <img src={HeartIcon} />{" "}
+                </CircularPhoto>
+                Please put your right and left fingers on ECG sensors and then
+                press
+              </DiagramText>
+            </Description>
+            <DiagramContainer>
+              <Diagram data={chartData} sizeOfSlice={sizeOfSlice} />
+            </DiagramContainer>
+          </DiagramWrapper>
           <AbnormalityDiagramContainer>
             <AbnormalityDetection
               heartBeat={result.heartBeat}
-              ArrythmiaType={
-                result.ArrythmiaType !== -1 ? types[result.ArrythmiaType] : "-"
-              }
-              ArrythmiaType2={
-                result.ArrythmiaType2 !== -1
-                  ? types2[result.ArrythmiaType2]
-                  : "-"
-              }
               hrv={result.hrv}
-              hrvVal={result.hrvVal}
+              hrvVal={result.hrv_val}
               ssTime={result.ssTime}
               singleSpike={result.singleSpike}
               PQRST_ss={result.PQRST_ss}
             ></AbnormalityDetection>
           </AbnormalityDiagramContainer>
-        </DiagramWrapper>
+        </div>
+        <div style={{ width: "35%" }}>
+          <Info
+            result={result}
+            disable={disable}
+            setFilter={setFilter}
+            filter={filter}
+          />
+          <PageButtons
+            disable={disable}
+            dataName="cardiogramData"
+            texts={[
+              "Heart beat: " + result.heartBeat,
+              "PR/RR Interval: " + result.PR_RR_Interval,
+              "QRS Duration: " + result.QRS_Duration,
+            ]}
+            extraChartName={[
+              "#chartContainerAbnormality1 canvas",
+              "#chartContainerAbnormality2 canvas",
+            ]}
+            extraText={[
+              ["hrv: " + result.hrvVal],
+              [
+                "Arrythmia Type: " + types[result.ArrythmiaType],
+                "Arrythmia Type 2: " + types2[result.ArrythmiaType2],
+              ],
+            ]}
+            onClick={() => {
+              var dataParameter = {};
+              dataParameter["heartBeatECG"] = result.heartBeat;
+              dataParameter["PR_RR_Interval"] = result.PR_RR_Interval;
+              dataParameter["QRS_Duration"] = result.QRS_Duration;
+              dataParameter["hrvVal"] = result.hrvVal;
+              dataParameter["ArrythmiaType"] = types[result.ArrythmiaType];
+              dbFunc.updateHistory(dataParameter);
+            }}
+          />
+        </div>
       </div>
-      <PageButtons
-        disable={disable}
-        dataName="cardiogramData"
-        texts={[
-          "Heart beat: " + result.heartBeat,
-          "PR/RR Interval: " + result.PR_RR_Interval,
-          "QRS Duration: " + result.QRS_Duration,
-        ]}
-        extraChartName={[
-          "#chartContainerAbnormality1 canvas",
-          "#chartContainerAbnormality2 canvas",
-        ]}
-        extraText={[
-          ["hrv: " + result.hrvVal],
-          [
-            "Arrythmia Type: " + types[result.ArrythmiaType],
-            "Arrythmia Type 2: " + types2[result.ArrythmiaType2],
-          ],
-        ]}
-        onClick={() => {
-          var dataParameter = {};
-          dataParameter["heartBeatECG"] = result.heartBeat;
-          dataParameter["PR_RR_Interval"] = result.PR_RR_Interval;
-          dataParameter["QRS_Duration"] = result.QRS_Duration;
-          dataParameter["hrvVal"] = result.hrvVal;
-          dataParameter["ArrythmiaType"] = types[result.ArrythmiaType];
-          dbFunc.updateHistory(dataParameter);
-        }}
-      />
     </PageWrapper>
   );
 };

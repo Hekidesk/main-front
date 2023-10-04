@@ -9,6 +9,7 @@ export const H6 = styled.h6`
   font-size: 2.9em !important;
   font-weight: 700 !important;
   font-family: 'Lufga'!important;
+  margin-left: 0.7em;
   @media ${devices.tablet} {
     font-size: 2.2em;
   }

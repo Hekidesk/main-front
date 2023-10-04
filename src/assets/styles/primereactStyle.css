@@ -3,9 +3,18 @@
 }
 
 .filter-btn {
-  border-radius: 2.8rem !important;
-  max-width: 16rem;
-  font-size: 1.5rem !important;
+  border-radius: 3.5rem !important;
+  text-align: center;
+  font-size: 1.7em !important;
+  font-weight: 600 !important;
+  margin: 20px auto !important;
+  padding: 0.3em !important;
+  background-color: var(--green-color) !important;
+  border: var(--green-color) !important;
+  width: 10em !important;
+  display: flex;
+  justify-content: center;
+  align-items: center
 }
 
 .p-button:focus {

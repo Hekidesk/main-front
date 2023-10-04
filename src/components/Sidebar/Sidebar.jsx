@@ -5,11 +5,12 @@ import MyDeskIcon from "@/assets/icon/myDesk.svg";
 import HistoryIcon from "@/assets/icon/history.svg";
 import MeasurementIcon from "@/assets/icon/3D.svg";
 import "./Sidebar.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Sidebar = () => {
-  const MenuItem = ({ link, image, name }) => {
+  const MenuItem = ({ link, image, name, show }) => {
     return (
+      show &&
       <Link
         // eslint-disable-next-line no-undef
         to={process.env.REACT_APP_BASE_URL + link}
@@ -19,11 +20,18 @@ const Sidebar = () => {
       >
         <span>
           <img src={image} alt="logo" width="25" />
-          <p className="item-title">{name}</p>
+          <p>{name}</p>
         </span>
       </Link>
     );
   };
+
+  const location = useLocation();
+  const [showMeasurement] = useState(
+    location.pathname.includes("/measurement") &&
+      location.pathname !== "/measurement"
+  );
+  const [showHistory] = useState(location.pathname.includes("/history"));
 
   return (
     <div className={"sidebar-container"}>
@@ -34,21 +42,23 @@ const Sidebar = () => {
         </div>
         <div className="sidebar-items">
           {[
-            { link: "/", name: "Home", image: HomeIcon },
-            { link: "/user-desk", name: "My Desk", image: MyDeskIcon },
+            { link: "/", name: "Home", image: HomeIcon, show: true },
+            { link: "/user-desk", name: "My Desk", image: MyDeskIcon, show: true },
             {
               link: "/measurement",
               name: "Measurement",
               image: MeasurementIcon,
+              show: showMeasurement
             },
-            { link: "/history", name: "History", image: HistoryIcon },
-          ].map((item, i) => (
-            <MenuItem
-              name={item.name}
-              image={item.image}
-              link={item.link}
-              key={i}
-            />
+            { link: "/history", name: "History", image: HistoryIcon, show: showHistory },
+          ].map((item, i) => (  
+                <MenuItem
+                  name={item.name}
+                  image={item.image}
+                  link={item.link}
+                  show={item.show}
+                  key={i}
+                />
           ))}
         </div>
       </div>

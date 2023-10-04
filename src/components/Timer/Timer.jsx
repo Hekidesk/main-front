@@ -27,7 +27,7 @@ const Timer = ({ sampleTime, setSampleTime }) => {
         <Time>{sampleTime} Seconds</Time>
       </TextContainer>
       <CanvasContainer>
-        <canvas id="timer" width="160px" height="175px"></canvas>
+        <canvas id="timer" width="150" height="120"></canvas>
       </CanvasContainer>
     </Container>
   );
@@ -38,20 +38,20 @@ export default Timer;
 const CanvasContainer = styled.div`
   position: absolute;
   top: -30px;
-  right: -70px;
+  right: -65px;
 `;
 
 const Container = styled.div`
-  width: clamp(50px, 100%, 330px);
-  padding: 1.2em;
-  border-radius: 45px;
+  width: clamp(50px, 100%, 270px);
+  padding: 1.5em;
+  border-radius: 3em;
   background: linear-gradient(180deg, #16a1d5 0%, #77dce3 100%);
   display: flex;
   overflow: hidden;
   position: relative;
-  margin-left: 2rem;
-  height: 7.5em;
-  margin-top: 1.7rem;
+  margin-left: 0.5rem;
+  height: 8em;
+  margin-top: 1.7em;
 `;
 
 const TextContainer = styled.div`
@@ -62,15 +62,16 @@ const TextContainer = styled.div`
 
 const Title = styled.h3`
   color: #fff;
-  font-size: 18px;
+  font-size: 1.2em;
   font-style: normal;
   font-weight: 600;
   line-height: normal;
+  margin-bottom: 0.1em !important;
 `;
 
 const SubTitle = styled.h5`
   color: #fff;
-  font-size: 15px;
+  font-size: 1em;
   font-style: normal;
   font-weight: 500;
   line-height: normal;
@@ -79,7 +80,7 @@ const SubTitle = styled.h5`
 
 const Time = styled.h2`
   color: #fff;
-  font-size: 28.992px;
+  font-size: 1.8em;
   font-style: normal;
   font-weight: 700;
   text-align: center;

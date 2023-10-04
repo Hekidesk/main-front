@@ -91,10 +91,6 @@
   transform: scaleX(1);
 }
 
-.profile {
-  justify-content: flex-end;
-}
-
 .hello-profile {
   padding-top: 8px;
   font-style: normal;

@@ -1,19 +1,17 @@
 import React from "react";
-import { Row, Col } from "react-bootstrap";
 import CanvasJSReact from "@/components/Datagram/canvasjs.react";
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 import {
-  AbnormalityDiagramTitleContainer,
-  LeftAbnormalityDiagramTitleContainer,
-  InfoAbnormalityContainer,
-  SimpleTitle,
-  SimpleValue,
+  HrvContainer,
+  SingleSpikeContainer,
+  CircularPhoto,
+  DiagramText,
 } from "./CSS";
+import hrvIcon from "@/assets/icon/parameter/hrv.svg";
+import singleSpikeIcon from "@/assets/icon/parameter/singleSpike.svg";
 
 function AbnormalityDetection({
   heartBeat,
-  ArrythmiaType,
-  ArrythmiaType2,
   hrv,
   hrvVal,
   ssTime,
@@ -58,15 +56,14 @@ function AbnormalityDetection({
     return {
       animationEnabled: true,
       zoomEnabled: true,
-      backgroundColor: "#C8E7F1",
-      height: 270,
+      backgroundColor: "#E8F0F4",
+      height: 160,
       toolTip: {
         animationEnabled: true,
       },
       axisY: {
         lineThickness: 0,
         tickLength: 0,
-        gridColor: "#1CB5BDb1",
         gridThickness: 0,
         labelFormatter: function () {
           return "";
@@ -83,8 +80,6 @@ function AbnormalityDetection({
       axisX: {
         lineThickness: 0,
         tickLength: 0,
-        gridColor: "#1CB5BDb1",
-        gridThickness: 0,
         labelFormatter: function () {
           return "";
         },
@@ -94,8 +89,8 @@ function AbnormalityDetection({
       data: [
         {
           type: data === "hrv" ? "rangeColumn" : "line",
-          lineColor: "#1CB5BD",
-          color: "#1CB5BD",
+          lineColor: "#838383",
+          color: "#838383",
           lineThickness: 0,
           dataPoints:
             data === "hrv" ? [...getHrvSteam()] : getSingleSpikeSteam(),
@@ -105,78 +100,52 @@ function AbnormalityDetection({
   }
 
   return (
-    <div>
-      <Row
-        style={{
-          backgroundColor: "#A5C2CB",
-          width: "100%",
-          marginLeft: "0.1px",
-        }}
-      >
-        <Col md={3}>
-          <LeftAbnormalityDiagramTitleContainer>
-            Single Spike
-          </LeftAbnormalityDiagramTitleContainer>
-        </Col>
-        <Col md={4}>
-          <AbnormalityDiagramTitleContainer>
-            HRV
-          </AbnormalityDiagramTitleContainer>
-        </Col>
-        <Col md={5}>
-          <AbnormalityDiagramTitleContainer>
-            Arrhyithmia type & hrv
-          </AbnormalityDiagramTitleContainer>
-        </Col>
-      </Row>
-      <Row>
-        <Col
-          md={3}
-          style={{ marginLeft: "50px", position: "relative" }}
-          id="chartContainerAbnormality2"
+    <div style={{ marginTop: "2em", marginLeft: "0.1em", display: "flex" }}>
+      <HrvContainer id="chartContainerAbnormality2">
+        <DiagramText>
+          <CircularPhoto>
+            {" "}
+            <img src={hrvIcon} />{" "}
+          </CircularPhoto>
+          HRV
+          <CircularPhoto style={{float: "right"}}>
+              {hrvVal}
+          </CircularPhoto>
+        </DiagramText>
+        <CanvasJSChart options={getOptions("hrv")} />
+        <div
+          style={{
+            width: "12em",
+            position: "absolute",
+            bottom: "10px",
+            height: "16px",
+            background: "#E8F0F4",
+          }}
         >
-          <CanvasJSChart options={getOptions("singleSpike")} />
-          <div
-            style={{
-              width: "8em",
-              position: "absolute",
-              bottom: "2px",
-              height: "16px",
-              background: "#C8E7F1",
-            }}
-          >
-            <span style={{ color: "white" }}>.</span>{" "}
-          </div>
-        </Col>
-        <Col
-          md={5}
-          style={{ marginRight: "50px", position: "relative" }}
-          id="chartContainerAbnormality1"
+          <span style={{ color: "white" }}>.</span>{" "}
+        </div>
+      </HrvContainer>
+      <SingleSpikeContainer id="chartContainerAbnormality1">
+        <DiagramText>
+          <CircularPhoto>
+            {" "}
+            <img src={singleSpikeIcon} />{" "}
+          </CircularPhoto>
+          Single Spike
+        </DiagramText>
+        <CanvasJSChart options={getOptions("singleSpike")} />
+        <div
+          style={{
+            width: "12em",
+            position: "absolute",
+            bottom: "9px",
+            height: "16px",
+            background: "#E8F0F4",
+          }}
         >
-          <CanvasJSChart options={getOptions("hrv")} />
-          <div
-            style={{
-              width: "8em",
-              position: "absolute",
-              bottom: "2px",
-              height: "16px",
-              background: "#C8E7F1",
-            }}
-          >
-            <span style={{ color: "white" }}>.</span>{" "}
-          </div>
-        </Col>
-        <Col>
-          <InfoAbnormalityContainer>
-            <SimpleTitle>Type 1</SimpleTitle>
-            <SimpleValue>{ArrythmiaType}</SimpleValue>
-            <SimpleTitle>Type 2</SimpleTitle>
-            <SimpleValue>{ArrythmiaType2}</SimpleValue>
-            <SimpleTitle>hrv</SimpleTitle>
-            <SimpleValue>{hrvVal}</SimpleValue>
-          </InfoAbnormalityContainer>
-        </Col>
-      </Row>
+          <span style={{ color: "white" }}>.</span>{" "}
+        </div>
+      </SingleSpikeContainer>
     </div>
   );
 }

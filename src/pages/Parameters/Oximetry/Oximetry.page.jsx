@@ -1,11 +1,13 @@
 import "@/assets/styles/primereactStyle.css";
 import PageWrapper from "@/components/PageWrapper/PageWrapper";
 import Diagram from "@/components/Datagram/Diagram";
-import HeartIcon from "@/assets/icon/parameter/heart.svg";
+import oximetryIcon from "@/assets/icon/parameter/oximetry.svg";
+import ChooseSignalIcon from "@/assets/icon/parameter/ChooseSignalIcon.svg";
+import downArrowIcon from "@/assets/icon/downArrowIcon.svg";
+import upArrowIcon from "@/assets/icon/upArrowIcon.svg";
 import HighlightTitle from "@/components/HighlightTitle/HighlightTitle";
 import { useEffect, useState, useContext, useRef } from "react";
 import {
-  CircularContainer,
   Description,
   DiagramButton,
   DiagramContainer,
@@ -16,8 +18,13 @@ import {
   InfoContainer,
   SimpleTitle,
   SimpleValue,
-  filterButton,
+  ButtonContainer,
   DropdownButton,
+  CircularPhoto,
+  TimerWrapper,
+  ParameterContainer,
+  ChooseSignalWrapper,
+  filterButton
 } from "./components/CSS";
 import { BluetoothContext } from "@/App";
 import { Button } from "primereact/button";
@@ -30,9 +37,9 @@ import {
   makeArrayFormString,
 } from "@/components/reusableDataFunc/DataFunc";
 import Swal from "sweetalert2";
-import Counter from "@/components/Counter/Counter";
 import { COMMAND, delayTime, pendingTime } from "./components/Constants";
-import { SampleTimeDropDown } from "@/components/SampleTimeDropDown";
+import Timer from "@/components/Timer/Timer";
+import resultIcon from "@/assets/icon/resultIcon.svg";
 
 const OximetryPage = () => {
   const [IrData, setIrData] = useState();
@@ -52,6 +59,8 @@ const OximetryPage = () => {
   const [startCountDown, setStartCountDown] = useState(0);
   const [counter, setCounter] = useState(5);
   const [sampleTime, setSampleTime] = useState(10);
+
+  const [ChooseSignalClicked, setClicked] = useState(false);
 
   const startTime = useRef(null);
   const endTime = useRef(null);
@@ -146,45 +155,73 @@ const OximetryPage = () => {
       setStartCountDown(0);
       setCounter(sampleTime);
       bluetooth.Stop(startTimeDuration);
-    }, [sampleTime * 1000 + pendingTime + delayTime*2]);
+    }, [sampleTime * 1000 + pendingTime + delayTime * 2]);
   };
 
   return (
-    <PageWrapper showDownCounter = {showDownCounter} blurBackground = {showDownCounter} >
-      <div style={{ display: "grid", placeItems: "center", filter: blur("5px") }}>
-        <HighlightTitle title="Oximetry" icon={HeartIcon} />
-        <br />
-        <DiagramWrapper>
-          <Description>
+    <PageWrapper
+      showDownCounter={showDownCounter}
+      blurBackground={showDownCounter}
+    >
+      <div style={{ display: "flex" }}>
+        <div style={{ width: "75%" }}>
+          <HighlightTitle title="Oximetry" />
+          <TimerWrapper>
+            <Timer sampleTime={sampleTime} setSampleTime={setSampleTime} />
+            <DiagramButton onClick={startInput}>START</DiagramButton>
+          </TimerWrapper>
+          <br />
+          <DiagramWrapper>
+            <Description>
+              <CircularPhoto>
+                <img src={oximetryIcon} />{" "}
+              </CircularPhoto>
+              <DiagramText>
+                Please put your finger on PPG sensor and then press
+              </DiagramText>
+            </Description>
+            <DiagramContainer>
+              <Diagram data={chartData} sizeOfSlice={sizeOfSlice} />
+            </DiagramContainer>
+          </DiagramWrapper>
+        </div>
+        <div style={{ width: "35%" }}>
+          <InfoContainer>
             <DiagramText>
-              Please put your finger on PPG sensor and then press
+              <CircularPhoto margin = {true}>
+                <img src={resultIcon} width={15} />
+              </CircularPhoto>
+              Results
             </DiagramText>
-            <DiagramButton onClick={startInput}>Start</DiagramButton>
-            <SampleTimeDropDown
-              sampleTime={sampleTime}
-              setSampleTime={setSampleTime}
-            />
-            <CircularContainer>
-              <Counter counter={counter} startCountDown={startCountDown} />
-            </CircularContainer>
-          </Description>
-          <DiagramContainer>
-            <Diagram data={chartData} sizeOfSlice={sizeOfSlice} />
-            <InfoContainer>
+            <ParameterContainer>
               <ImportantTitle>Heart Rate (bpm)</ImportantTitle>
               <ImportantValue>{heartBeat}</ImportantValue>
               <SimpleTitle>SPO2 %</SimpleTitle>
               <SimpleValue>{SPO2}</SimpleValue>
               <SimpleTitle>Quality Index %</SimpleTitle>
               <SimpleValue>{qualityIndex}</SimpleValue>
-              <Button
-                style={filterButton}
-                onClick={() => setFilter(1 - filter)}
-                className="filter-btn"
-                disabled={disable}
-              >
-                {filter % 2 ? "filtered" : "main"} signal
-              </Button>
+              <ChooseSignalWrapper clicked = {ChooseSignalClicked}>
+                <CircularPhoto margin = {true}>
+                  <img src={ChooseSignalIcon} width={15} />
+                </CircularPhoto>
+                Choose Signal
+                <CircularPhoto margin = {false}>
+                  <img src={ChooseSignalClicked ? upArrowIcon : downArrowIcon} width={15}  onClick={() => setClicked(1-ChooseSignalClicked)}/>
+                </CircularPhoto>
+
+                <ButtonContainer>
+                  <div style={{width: "50%", display: ChooseSignalClicked ? "block" : "none"}}>
+                    <Button style={filterButton}>
+                      IR
+                    </Button>
+                  </div>
+                  <div style={{width: "50%", display: ChooseSignalClicked ? "block" : "none"}}>
+                    <Button style={filterButton} >
+                      RED
+                    </Button>
+                  </div>
+                </ButtonContainer>
+              </ChooseSignalWrapper>
               <DropdownButton>
                 <Dropdown
                   style={{ width: "80%" }}
@@ -200,25 +237,32 @@ const OximetryPage = () => {
                   disabled={disable}
                 />
               </DropdownButton>
-            </InfoContainer>
-          </DiagramContainer>
-        </DiagramWrapper>
+              <Button
+                onClick={() => setFilter(1 - filter)}
+                className="filter-btn"
+                disabled={disable}
+              >
+                {filter % 2 ? "filtered" : "main"} signal
+              </Button>
+            </ParameterContainer>
+          </InfoContainer>
+          <PageButtons
+            disable={disable}
+            dataName="oximetryData"
+            texts={[
+              "Heart beat: " + heartBeat,
+              "SPO2: " + SPO2,
+              "Quality index: " + qualityIndex,
+            ]}
+            onClick={() => {
+              var dataParameter = {};
+              dataParameter["heartBeatPPG"] = heartBeat;
+              dataParameter["SPO2"] = SPO2;
+              dbFunc.updateHistory(dataParameter);
+            }}
+          />
+        </div>
       </div>
-      <PageButtons
-        disable={disable}
-        dataName="oximetryData"
-        texts={[
-          "Heart beat: " + heartBeat,
-          "SPO2: " + SPO2,
-          "Quality index: " + qualityIndex,
-        ]}
-        onClick={() => {
-          var dataParameter = {};
-          dataParameter["heartBeatPPG"] = heartBeat;
-          dataParameter["SPO2"] = SPO2;
-          dbFunc.updateHistory(dataParameter);
-        }}
-      />
     </PageWrapper>
   );
 };
