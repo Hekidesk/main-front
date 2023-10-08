@@ -13,6 +13,7 @@ export const Wrapper = styled.div`
     flex-direction: row;
     height: 96vh;
     width: ${wrapperWidth};
+    max-width: 1440px;
     margin: 2em;
   }
 `;
