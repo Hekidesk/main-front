@@ -20,8 +20,13 @@ import { Button } from "primereact/button";
 import resultIcon from "@/assets/icon/resultIcon.svg";
 import ArrhyithmiaTypeIcon from "@/assets/icon/parameter/ArrhyithmiaTypeIcon.svg";
 import heartPhoto from "@/assets/icon/heartPhoto.svg";
+import PageButtons from "@/components/reusable/PageButtons";
+import { useAddToDB } from "@/database/AddToDB";
+
 
 export const Info = ({ result, disable, setFilter, filter }) => {
+  const dbFunc = useAddToDB("cardiogramData");
+
   return (
     <InfoContainer>
       <DiagramText>
@@ -68,9 +73,38 @@ export const Info = ({ result, disable, setFilter, filter }) => {
           onClick={() => setFilter(1 - filter)}
           disabled={disable}
         >
-          {filter % 2 ? "Filtered" : "main"} signal
+          {filter % 2 ? "Filtered" : "Main"} Signal
         </Button>
       </FilterButton>
+      <PageButtons
+            disable={disable}
+            dataName="cardiogramData"
+            texts={[
+              "Heart beat: " + result.heartBeat,
+              "PR/RR Interval: " + result.PR_RR_Interval,
+              "QRS Duration: " + result.QRS_duration,
+            ]}
+            extraChartName={[
+              "#chartContainerAbnormality1 canvas",
+              "#chartContainerAbnormality2 canvas",
+            ]}
+            extraText={[
+              ["hrv: " + result.hrv_val],
+              [
+                "Arrythmia Type: " + types[result.ArrythmiaType],
+                "Arrythmia Type 2: " + types2[result.ArrythmiaType2],
+              ],
+            ]}
+            onClick={() => {
+              var dataParameter = {};
+              dataParameter["heartBeatECG"] = result.heartBeat;
+              dataParameter["PR_RR_Interval"] = result.PR_RR_Interval;
+              dataParameter["QRS_Duration"] = result.QRS_duration;
+              dataParameter["hrvVal"] = result.hrv_val;
+              dataParameter["ArrythmiaType"] = types[result.ArrythmiaType];
+              dbFunc.updateHistory(dataParameter);
+            }}
+          />
     </InfoContainer>
   );
 };

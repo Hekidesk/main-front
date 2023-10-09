@@ -3,9 +3,10 @@ import { devices } from "../../../../assets/styles/size";
 
 export const DiagramWrapper = styled.div`
   width: 100%;
-  padding: 1em 0;
-  background-color: var(--gray-green);
-  border-radius: 10px;
+  background-color: #e8f0f4;
+  border-radius: 30px;
+  padding-bottom: 2em;
+  font-size: 10px;
 `;
 export const Description = styled.div`
   display: flex;
@@ -13,18 +14,23 @@ export const Description = styled.div`
   align-items: center;
 `;
 export const DiagramText = styled.h6`
-  color: white;
-  font-size: 1.2em;
+  color: black;
+  font-size: 1.1em;
+  font-weight: 600;
+  padding-top: 0.5em;
+  padding-left: 0.5em;
 `;
 export const DiagramButton = styled.button`
-  background: transparent;
-  color: var(--gray);
-  text-shadow: 1px 1px 1px #fff;
+  display: inline-block;
+  background: linear-gradient(to top, #77dce3, #16a1d5) !important;
+  height: 4.7em;
+  width: 4.5em;
+  border-radius: 1.7em;
+  color: white;
   border: none;
-  font-size: 1.4em;
+  font-size: 1.7em;
   font-weight: bold;
-  margin-bottom: 0.5rem;
-  margin-left: 0.5rem;
+  margin: 1em 0 0.5em 0.5em;
 `;
 export const DiagramContainer = styled.div`
   display: flex;
@@ -40,14 +46,10 @@ export const DiagramContainer = styled.div`
 `;
 
 export const InfoContainer = styled.div`
-  background: #c8e7f1;
-  border-left: 2px solid var(--main-green);
-  border-right: 2px solid var(--main-green);
+  background-color: #e8f0f4;
   border-radius: 30px;
-  width: 100%;
-  height: 400px;
   margin: 1em;
-  padding: 1em;
+  padding: 0em 1em 1em 1em;
 `;
 
 export const ImportantTitle = styled.h6`
@@ -124,4 +126,16 @@ export const ForceDataContainer = styled.div`
   background-color: #c8e7f1;
   flex-direction: column;
   box-shadow: -1px -1px 10px -12px rgba(0, 0, 0, 0.82);
+`;
+export const TimerWrapper = styled.div`
+  position: relative;
+  display: flex;
+`;
+export const CircularPhoto = styled.div`
+  display: inline-block;
+  padding: 1.1em;
+  background-color: white;
+  border-radius: 45px;
+  color: black;
+  ${(props) => props.margin && "margin-right: 1em;"}
 `;

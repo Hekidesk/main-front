@@ -18,6 +18,7 @@ export const DiagramText = styled.h6`
   font-size: 1.1em;
   font-weight: 600;
   padding-top: 0.5em;
+  padding-left: 0.5em;
 `;
 export const DiagramButton = styled.button`
   display: inline-block;
@@ -39,7 +40,7 @@ export const DiagramContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #c8e7f1;
+  background: #e8f0f4;
   width: 100%;
   flex-direction: column;
   @media ${devices.tablet} {
@@ -51,7 +52,8 @@ export const InfoContainer = styled.div`
   background-color: #e8f0f4;
   border-radius: 30px;
   margin: 1em;
-  padding: 0em 1em 1em;
+  padding: 0em 1em 1em 1em;
+  margin-bottom: 3em;
 `;
 
 export const ImportantTitle = styled.h6`
@@ -128,11 +130,11 @@ export const CircularPhoto = styled.div`
 export const ParameterContainer = styled.div`
   background-color: #ffffff;
   border-radius: 2.9em;
-  padding-bottom: 1em;
   padding: 3em;
+  padding-bottom: 0;
 `;
 export const ChooseSignalWrapper = styled.div`
-  padding: 1em;
+  padding: 1.5em;
   opacity: 0.6;
   background: #0a0a0a;
   border-radius: 45px;
@@ -140,7 +142,31 @@ export const ChooseSignalWrapper = styled.div`
   color: white;
   font-size: 1.2em;
   font-weight: 600;
+  ${(props) =>
+    props.ChooseSignalClicked && "height: 10em; transition: all 0.5s ease;"}
 `;
 export const ButtonContainer = styled.div`
   display: flex;
+`;
+export const OneButtonContainer = styled.div`
+  width: 50%;
+  ${(props) =>
+    props.clicked
+      ? `
+        opacity: 1;
+        height: 100%;
+        overflow: visible;
+      `
+      : `
+        opacity: 0;
+        height: 0;
+        overflow: hidden;
+      `}
+  transition: ${(props) =>
+    props.clicked
+      ? 'opacity 1.5s, height 1.5s, visibility 1.5s;'
+      : 'opacity 1s, height 0.4s, visibility 1s;'};
+`;
+export const FilterButton = styled.div`
+  text-align: center;
 `;

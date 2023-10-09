@@ -1,10 +1,11 @@
 import PageWrapper from "@/components/PageWrapper/PageWrapper";
 import Diagram from "@/components/Datagram/Diagram";
-import bloodPressure from "@/assets/icon/parameter/bloodPressure.svg";
+import bloodPressure from "@/assets/icon/parameter/force1.svg";
+import bloodPressure2 from "@/assets/icon/parameter/force2.svg";
+import resultIcon from "@/assets/icon/resultIcon.svg";
 import HighlightTitle from "@/components/HighlightTitle/HighlightTitle";
 import { useEffect, useState, useContext, useRef } from "react";
 import {
-  CircularContainer,
   SimpleValue,
   SimpleTitle,
   Description,
@@ -15,6 +16,8 @@ import {
   ImportantTitle,
   ImportantValue,
   InfoContainer,
+  TimerWrapper,
+  CircularPhoto,
 } from "./components/CSS";
 import PageButtons from "@/components/reusable/PageButtons";
 import axios from "axios";
@@ -23,10 +26,8 @@ import { useAddToDB } from "@/database/AddToDB";
 import { BluetoothContext } from "@/App";
 import { makeArrayForChart } from "@/components/reusableDataFunc/DataFunc";
 import Counter from "@/components/Counter/Counter";
-import { Row, Col } from "react-bootstrap";
 import { COMMAND, delayTime, fs, pendingTime } from "./components/Constants";
-import { SampleTimeDropDown } from "@/components/SampleTimeDropDown";
-import ForceDiagram from "./components/ForceDiagram";
+import Timer from "@/components/Timer/Timer";
 
 const BloodPressurePage = () => {
   const [IrData, setIrData] = useState();
@@ -112,68 +113,83 @@ const BloodPressurePage = () => {
 
   return (
     <PageWrapper>
-      <div style={{ display: "grid", placeItems: "center" }}>
-        <HighlightTitle title="Blood Pressure" icon={bloodPressure} />
-        <br />
-        <DiagramWrapper>
-          <Description>
-            <DiagramText>
-              Please put your finger on PPG sensors and then press it slowly
-            </DiagramText>
-            <DiagramButton onClick={startInput}>Start</DiagramButton>
-            <SampleTimeDropDown
-              sampleTime={sampleTime}
-              setSampleTime={setSampleTime}
-            />
-            <CircularContainer>
-              <Counter counter={counter} startCountDown={startCountDown} />
-            </CircularContainer>
-          </Description>
-          <DiagramContainer>
-            <Col md={9}>
-              <Row>
-                <Col>
-                  <Diagram
-                    data={IRChartData}
-                    sizeOfSlice={-1}
-                    maximumNum={sampleTime * fs}
-                    type="ppg"
-                  />
-                </Col>
-              </Row>
-              <ForceDiagram
-                forceChartData={forceChartData}
+      <HighlightTitle title="Blood Pressure" icon={bloodPressure} />
+      <TimerWrapper>
+        <Timer sampleTime={sampleTime} setSampleTime={setSampleTime} />
+        <DiagramButton onClick={startInput}>START</DiagramButton>
+      </TimerWrapper>
+      <div style={{ display: "flex" }}>
+        <div style={{ width: "75%" }}>
+          <br />
+          <DiagramWrapper>
+            <Description>
+              <CircularPhoto>
+                <img src={bloodPressure} />{" "}
+              </CircularPhoto>
+              <DiagramText>
+                Please put your finger on PPG sensors and then press it slowly
+              </DiagramText>
+            </Description>
+            <DiagramContainer>
+              <Diagram
+                data={IRChartData}
+                sizeOfSlice={-1}
                 maximumNum={sampleTime * fs}
+                type="ppg"
               />
-            </Col>
-            <Col md={2} style={{ alignSelf: "flex-start", marginTop: "2em" }}>
-              <InfoContainer>
-                <ImportantTitle>SYS/DIA (mmHg)</ImportantTitle>
-                <ImportantValue>
-                  {SYS}/{DIA}
-                </ImportantValue>
-                <SimpleTitle>Quality Index (%)</SimpleTitle>
-                <SimpleValue>
-                  {qualityIndex} {qualityIndex != "-" ? "%" : ""}
-                </SimpleValue>
-              </InfoContainer>
-            </Col>
-          </DiagramContainer>
-        </DiagramWrapper>
+            </DiagramContainer>
+          </DiagramWrapper>
+          <br />
+          <DiagramWrapper>
+            <Description>
+              <CircularPhoto>
+                <img src={bloodPressure2} width={12} />{" "}
+              </CircularPhoto>
+              <DiagramText>Force</DiagramText>
+            </Description>
+            <DiagramContainer>
+              <Diagram
+                data={forceChartData}
+                sizeOfSlice={-1}
+                maximumNum={sampleTime * fs}
+                type="force"
+              />
+            </DiagramContainer>
+          </DiagramWrapper>
+          <br />
+        </div>
+        <div style={{ width: "35%" }}>
+          <InfoContainer>
+            <DiagramText>
+              <CircularPhoto margin={true}>
+                <img src={resultIcon} width={15} />
+              </CircularPhoto>
+              Results
+            </DiagramText>
+            <ImportantTitle>SYS/DIA (mmHg)</ImportantTitle>
+            <ImportantValue>
+              {SYS}/{DIA}
+            </ImportantValue>
+            <SimpleTitle>Quality Index (%)</SimpleTitle>
+            <SimpleValue>
+              {qualityIndex} {qualityIndex != "-" ? "%" : ""}
+            </SimpleValue>
+          </InfoContainer>
+          <PageButtons
+            disable={disable}
+            dataName="BloodPressureData"
+            texts={["SYS/DIA " + SYS + "/" + DIA]}
+            extraChartName={["#forceDiagram #chartContainer canvas"]}
+            extraText={[[""]]}
+            onClick={() => {
+              var dataParameter = {};
+              dataParameter["SYS"] = SYS;
+              dataParameter["DIA"] = DIA;
+              dbFunc.updateHistory(dataParameter);
+            }}
+          />
+        </div>
       </div>
-      <PageButtons
-        disable={disable}
-        dataName="BloodPressureData"
-        texts={["SYS/DIA " + SYS + "/" + DIA]}
-        extraChartName={["#forceDiagram #chartContainer canvas"]}
-        extraText={[[""]]}
-        onClick={() => {
-          var dataParameter = {};
-          dataParameter["SYS"] = SYS;
-          dataParameter["DIA"] = DIA;
-          dbFunc.updateHistory(dataParameter);
-        }}
-      />
     </PageWrapper>
   );
 };

@@ -1,6 +1,12 @@
 import PageWrapper from "@/components/PageWrapper/PageWrapper";
 import Diagram from "@/components/Datagram/Diagram";
 import heartAndLungSound from "@/assets/icon/parameter/heartAndLungSound.svg";
+import positionIcon from "@/assets/icon/positionIcon.svg";
+import positionPhoto from "@/assets/icon/positionPhoto.svg";
+import ChooseSignalIcon from "@/assets/icon/parameter/ChooseSignalIcon.svg";
+import ChooseSignalHand from "@/assets/icon/parameter/ChooseSignalHand.svg";
+import downArrowIcon from "@/assets/icon/downArrowIcon.svg";
+import upArrowIcon from "@/assets/icon/upArrowIcon.svg";
 // import playSoundIcon from "@/assets/icon/playSoundIcon.png";
 import HighlightTitle from "@/components/HighlightTitle/HighlightTitle";
 import { useEffect, useState, useContext, useRef } from "react";
@@ -22,6 +28,15 @@ import {
   DropdownButton,
   PlaySoundText,
   PlayBox,
+  TimerWrapper,
+  CircularPhoto,
+  PositionText,
+  CircularPositionPhoto,
+  DiagramPositionText,
+  FilterButton,
+  ChooseSignalWrapper,
+  ButtonContainer,
+  OneButtonContainer,
 } from "./components/CSS";
 import PageButtons from "@/components/reusable/PageButtons";
 import axios from "axios";
@@ -37,11 +52,13 @@ import AudioPlayer from "./components/AudioPlayer";
 import { COMMAND, delayTime, pendingTime } from "./components/Constants";
 import { SampleTimeDropDown } from "@/components/SampleTimeDropDown";
 import Swal from "sweetalert2";
+import Timer from "@/components/Timer/Timer";
+import resultIcon from "@/assets/icon/resultIcon.svg";
 
 const HeartAndLungSoundPage = () => {
   const [data, setData] = useState([]);
   const [chartData, setChartData] = useState();
-  const [filteredArray, setFilteredArray] = useState(null);
+  const [filteredArray, setFilteredArray] = useState([]);
   const [filter, setFilter] = useState(1);
   const [filterActiveNum, setFilterActiveNum] = useState(-1);
   const [sizeOfSlice, setSizeOfSlice] = useState(-1);
@@ -59,6 +76,8 @@ const HeartAndLungSoundPage = () => {
   const [answerReady, setAnswerReady] = useState(false);
 
   const [url, setUrl] = useState("");
+
+  const [ChooseSignalClicked, setClicked] = useState(false);
 
   async function getDataAPI(data, fs) {
     let payload = {
@@ -115,23 +134,6 @@ const HeartAndLungSoundPage = () => {
       isFirstRender2.current = false;
       return;
     }
-    if (filteredArray) {
-      setChartData(
-        filter
-          ? makeArrayForChart(
-              filteredArray[
-                filterActiveNum === -1 ? filterActiveNum + 1 : filterActiveNum
-              ]
-            )
-          : makeArrayForChart(
-              filteredArray[
-                filterActiveNum === -1
-                  ? filterActiveNum + 2
-                  : filterActiveNum + 1
-              ]
-            )
-      );
-    }
     playAudio();
   }, [filterActiveNum, filter]);
 
@@ -140,6 +142,7 @@ const HeartAndLungSoundPage = () => {
       if (data.length) {
         setChartData(makeArrayForChart(data));
         calculateBeatPerMinuteAPI(data);
+        console.log("hi");
       }
     }
     return bluetooth.TurnOff;
@@ -157,25 +160,34 @@ const HeartAndLungSoundPage = () => {
     setDisable(1);
     setData([]);
     setChartData([]);
+    setFilteredArray([]);
     setHeartBeat("-?-");
     setRespirationRate("-?-");
     setCounter(5);
     setQualityIndex(0);
   };
 
-  const tempSizeOfSlice = 12000;
+  const tempSizeOfSlice = 20000;
 
   const startInput = () => {
     flushData();
     bluetooth.SendCommand(COMMAND, (input) => {
       setChartData(
         makeArrayForChart(
-          input.pcg.length - tempSizeOfSlice > 0
-            ? input.pcg.slice(input.pcg.length - tempSizeOfSlice)
+          bluetooth.finish
+            ? input.pcg.length - tempSizeOfSlice > 0
+              ? input.pcg.slice(input.pcg.length - tempSizeOfSlice)
+              : input.pcg
             : input.pcg
         )
       );
-      setData(input.pcg);
+      setData(
+        bluetooth.finish
+          ? input.pcg.length - tempSizeOfSlice > 0
+            ? input.pcg.slice(input.pcg.length - tempSizeOfSlice)
+            : input.pcg
+          : input.pcg
+      );
     });
     let startTimeDuration = 0;
     startTime.current = setTimeout(() => {
@@ -219,18 +231,18 @@ const HeartAndLungSoundPage = () => {
 
   return (
     <PageWrapper blurBackground={answerReady} answerReady={answerReady}>
-      <div style={{ display: "grid", placeItems: "center" }}>
-        <HighlightTitle title="Heart Lung Sound" icon={heartAndLungSound} />
-        <br />
-        <DiagramWrapper>
-          <Description>
-            <DiagramText>
-              Please put your device on your specified posiotion{"   "}
-            </DiagramText>
+      <HighlightTitle title="Heart Lung Sound" icon={heartAndLungSound} />
+      <TimerWrapper>
+        <PositionText>
+          <DiagramPositionText>
+            <CircularPositionPhoto>
+              <img src={positionIcon} width={15} />{" "}
+            </CircularPositionPhoto>
+            please choose position
             <div
               className="flex align-items-center"
               style={{
-                marginLeft: "10px",
+                marginLeft: "30px",
                 marginRight: "10px",
                 color: "white",
                 paddingBottom: "0.4em",
@@ -244,84 +256,186 @@ const HeartAndLungSoundPage = () => {
                 onChange={(e) => setPosition(e.value)}
                 checked={position === "heart"}
               />
-              <label htmlFor="ingredient1" style={{ marginLeft: "5px" }}>
+              <label
+                htmlFor="ingredient1"
+                style={{ marginLeft: "5px", color: "white" }}
+              >
                 Heart
               </label>
               <RadioButton
                 style={{ marginLeft: "10px" }}
                 inputId="ingredient2"
+                name="lung"
+                value="lung"
+                onChange={(e) => setPosition(e.value)}
+                checked={position === "lung"}
+              />
+              <label
+                htmlFor="ingredient2"
+                style={{ marginLeft: "5px", color: "white" }}
+              >
+                Lung
+              </label>
+              <RadioButton
+                style={{ marginLeft: "10px" }}
+                inputId="ingredient3"
                 name="optional"
                 value="optional"
                 onChange={(e) => setPosition(e.value)}
                 checked={position === "optional"}
               />
-              <label htmlFor="ingredient2" style={{ marginLeft: "5px" }}>
+              <label
+                htmlFor="ingredient3"
+                style={{ marginLeft: "5px", color: "white" }}
+              >
                 Optional
               </label>
             </div>
-            <DiagramButton onClick={startInput}>Start</DiagramButton>
-            <SampleTimeDropDown
-              sampleTime={sampleTime}
-              setSampleTime={setSampleTime}
-            />
-            <CircularContainer>
-              <Counter counter={counter} startCountDown={startCountDown} />
-            </CircularContainer>
-          </Description>
-          <DiagramContainer>
-            <Diagram data={chartData} sizeOfSlice={sizeOfSlice} />
-            <InfoContainer>
-              <ImportantTitle>Heart Beat (bpm)</ImportantTitle>
-              <ImportantValue>{heartBeat}</ImportantValue>
-              <SimpleTitle>Respiration Rate (bpm)</SimpleTitle>
-              <SimpleValue>{respirationRate}</SimpleValue>
+          </DiagramPositionText>
+          <div style={{ width: "22%" }}>
+            <img src={positionPhoto} width={70} />
+          </div>
+        </PositionText>
+        <Timer sampleTime={sampleTime} setSampleTime={setSampleTime} />
+        <DiagramButton onClick={startInput}>START</DiagramButton>
+      </TimerWrapper>
+      <br />
+      <div style={{ display: "flex" }}>
+        <div style={{ width: "75%" }}>
+          <DiagramWrapper>
+            <Description>
+              <DiagramText>
+                <CircularPhoto margin={true} >
+                  <img src={heartAndLungSound} />{" "}
+                </CircularPhoto>
+                Please put your device on your specified posiotion{"   "}
+              </DiagramText>
+            </Description>
+            <DiagramContainer>
+              <Diagram data={chartData} sizeOfSlice={sizeOfSlice} />
+            </DiagramContainer>
+          </DiagramWrapper>
+          <br />
+          <DiagramWrapper>
+            <Description>
+              <CircularPhoto>
+                <img src={ChooseSignalHand} />{" "}
+              </CircularPhoto>
+              <DiagramText>please choose signal</DiagramText>
+            </Description>
+            <DiagramContainer>
+              <Diagram
+                data={
+                  filter
+                    ? makeArrayForChart(
+                        filteredArray[
+                          filterActiveNum === -1
+                            ? filterActiveNum + 1
+                            : filterActiveNum
+                        ]
+                      )
+                    : makeArrayForChart(
+                        filteredArray[
+                          filterActiveNum === -1
+                            ? filterActiveNum + 2
+                            : filterActiveNum + 1
+                        ]
+                      )
+                }
+                sizeOfSlice={sizeOfSlice}
+              />
+            </DiagramContainer>
+          </DiagramWrapper>
+        </div>
+        <div style={{ width: "35%" }}>
+          <InfoContainer>
+            <DiagramText>
+              <CircularPhoto margin={true}>
+                <img src={resultIcon} width={15} />
+              </CircularPhoto>
+              Results
+            </DiagramText>
+            <ImportantTitle>Heart Beat (bpm)</ImportantTitle>
+            <ImportantValue>{heartBeat}</ImportantValue>
+            <SimpleTitle>Respiration Rate (bpm)</SimpleTitle>
+            <SimpleValue>{respirationRate}</SimpleValue>
+            <ChooseSignalWrapper clicked={ChooseSignalClicked}>
+              <CircularPhoto margin={true}>
+                <img src={ChooseSignalIcon} width={15} />
+              </CircularPhoto>
+              Choose Signal
+              <CircularPhoto
+                margin={false}
+                onClick={() => setClicked(1 - ChooseSignalClicked)}
+              >
+                <img
+                  src={ChooseSignalClicked ? upArrowIcon : downArrowIcon}
+                  width={15}
+                />
+              </CircularPhoto>
+              <ButtonContainer>
+                <OneButtonContainer clicked={ChooseSignalClicked}>
+                  <Button
+                    style={filterButton}
+                    onClick={() => setFilterActiveNum(0)}
+                    disabled={disable}
+                  >
+                    Both
+                  </Button>
+                </OneButtonContainer>
+                <OneButtonContainer clicked={ChooseSignalClicked}>
+                  <Button
+                    style={filterButton}
+                    onClick={() => setFilterActiveNum(2)}
+                    disabled={disable}
+                  >
+                    Heart
+                  </Button>
+                </OneButtonContainer>
+                <OneButtonContainer clicked={ChooseSignalClicked}>
+                  <Button
+                    style={filterButton}
+                    onClick={() => setFilterActiveNum(4)}
+                    disabled={disable}
+                  >
+                    Lung
+                  </Button>
+                </OneButtonContainer>
+              </ButtonContainer>
+            </ChooseSignalWrapper>
+            <FilterButton>
               <Button
-                style={filterButton}
                 onClick={() => setFilter(1 - filter)}
+                className="filter-btn"
                 disabled={disable}
               >
-                {filter % 2 ? "filtered" : "main"} signal
+                {filter % 2 ? "Filtered" : "Main"} Signal
               </Button>
-              <DropdownButton>
-                <Dropdown
-                  style={{ width: "80%" }}
-                  value={filterActiveNum}
-                  onChange={(e) => setFilterActiveNum(e.value)}
-                  options={[
-                    { name: "both", value: 0 },
-                    { name: "heart", value: 2 },
-                    { name: "lung", value: 4 },
-                  ]}
-                  optionLabel="name"
-                  placeholder="Choose Signal  ↓"
-                  disabled={disable}
-                />
-              </DropdownButton>
-              <PlayBox>
-                <PlaySoundText>
-                  <div>Play Sound</div>
-                </PlaySoundText>
-                <AudioPlayer url={url} />
-              </PlayBox>
-            </InfoContainer>
-          </DiagramContainer>
-        </DiagramWrapper>
+            </FilterButton>          
+            <PlayBox>
+              <PlaySoundText>
+                <div>Play Sound</div>
+              </PlaySoundText>
+              <AudioPlayer url={url} />
+            </PlayBox>
+          </InfoContainer>
+          <PageButtons
+            disable={disable}
+            dataName="pcgData"
+            texts={[
+              "Heart beat: " + heartBeat,
+              "Respiration rate: " + respirationRate,
+              "Quality index: " + qualityIndex,
+            ]}
+            onClick={() => {
+              var dataParameter = {};
+              dataParameter["heartBeatSound"] = heartBeat;
+              dataParameter["respirationRate"] = respirationRate;
+              dbFunc.updateHistory(dataParameter);
+            }}
+          />
+        </div>
       </div>
-      <PageButtons
-        disable={disable}
-        dataName="pcgData"
-        texts={[
-          "Heart beat: " + heartBeat,
-          "Respiration rate: " + respirationRate,
-          "Quality index: " + qualityIndex,
-        ]}
-        onClick={() => {
-          var dataParameter = {};
-          dataParameter["heartBeatSound"] = heartBeat;
-          dataParameter["respirationRate"] = respirationRate;
-          dbFunc.updateHistory(dataParameter);
-        }}
-      />
     </PageWrapper>
   );
 };

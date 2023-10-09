@@ -17,8 +17,7 @@ const PageButtons = ({
 }) => {
   const [save, setSave] = useState(false);
   return (
-    <Row>
-      <Col>
+    <div style={{display: "flex", "justifyContent": "center"}}>
         <Button
           onClick={() => {
             onClick(1);
@@ -45,8 +44,6 @@ const PageButtons = ({
           )}
           <span>Save</span>
         </Button>
-      </Col>
-      <Col>
         <Button
           onClick={() =>
             downloadSVGAsPNG(dataName, texts, extraChartName, extraText)
@@ -63,8 +60,7 @@ const PageButtons = ({
           />
           <span>Download</span>
         </Button>
-      </Col>
-    </Row>
+    </div>
   );
 };
 

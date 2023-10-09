@@ -36,7 +36,7 @@ export async function calculateBeatPerMinuteAPI(
     });
   });
   console.log(res)
-  if (!Number(res?.data.Try_Again) && res?.status < 400) {
+  if(!Number(res?.data.Try_Again) && res?.status < 400) {
     console.log(res.data)
     console.log(res.data.hrv)
     setResult({

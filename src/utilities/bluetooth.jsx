@@ -90,7 +90,6 @@ export const useSignalFeed = () => {
   };
 
   const GetFrequency = () => {
-    console.log(deviceData);
     const length = deviceData.length;
     return [Math.ceil(length / Math.ceil(duration / 1000)), duration];
   };

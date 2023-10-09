@@ -13,7 +13,7 @@ const FormWrapper = ({ children1 = null, children2 = null }) => {
           <Button
             rounded
             text
-            style={{ position: "absolute", top: "10px", left: "10px" }}
+            style={{ position: "absolute", top: "5px", left: "0px" }}
             onClick={() => history(-1)}
           >
             <img src={BackIcon} alt="back" width={"10px"} />

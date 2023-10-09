@@ -14,16 +14,12 @@ import {
   AbnormalityDiagramContainer,
   TimerWrapper,
 } from "./components/CSS";
-import PageButtons from "@/components/reusable/PageButtons";
-import { useAddToDB } from "@/database/AddToDB";
 import AbnormalityDetection from "./components/AbnormalityDetection";
 import {
   COMMAND,
   delayTime,
   initial_state,
   pendingTime,
-  types,
-  types2,
 } from "./components/Constants";
 import { makeArrayForChart } from "@/components/reusableDataFunc/DataFunc";
 import { calculateBeatPerMinuteAPI } from "./components/Functions";
@@ -32,7 +28,6 @@ import Timer from "@/components/Timer/Timer";
 
 const CardiogramPage = () => {
   const bluetooth = useContext(BluetoothContext);
-  const dbFunc = useAddToDB("cardiogramData");
 
   const [data, setData] = useState();
   const [filteredArray, setFilteredArray] = useState([]);
@@ -67,7 +62,7 @@ const CardiogramPage = () => {
 
     startTime.current = setTimeout(() => {
       bluetooth.Start().then((result) => (startTimeDuration = result));
-      setSizeOfSlice(80);
+      setSizeOfSlice(400);
       setCounter(sampleTime);
     }, [pendingTime + delayTime]);
     endTime.current = setTimeout(() => {
@@ -97,9 +92,9 @@ const CardiogramPage = () => {
 
   return (
     <PageWrapper>
+      <HighlightTitle title="Cardiogram" icon={HeartIcon} />
       <div style={{ display: "flex" }}>
         <div style={{ width: "75%" }}>
-          <HighlightTitle title="Cardiogram" icon={HeartIcon} />
           <TimerWrapper>
             <Timer sampleTime={sampleTime} setSampleTime={setSampleTime} />
             <DiagramButton onClick={startInput}>START</DiagramButton>
@@ -131,41 +126,12 @@ const CardiogramPage = () => {
             ></AbnormalityDetection>
           </AbnormalityDiagramContainer>
         </div>
-        <div style={{ width: "35%" }}>
+        <div style={{ width: "35%", height: "100%" }}>
           <Info
             result={result}
             disable={disable}
             setFilter={setFilter}
             filter={filter}
-          />
-          <PageButtons
-            disable={disable}
-            dataName="cardiogramData"
-            texts={[
-              "Heart beat: " + result.heartBeat,
-              "PR/RR Interval: " + result.PR_RR_Interval,
-              "QRS Duration: " + result.QRS_Duration,
-            ]}
-            extraChartName={[
-              "#chartContainerAbnormality1 canvas",
-              "#chartContainerAbnormality2 canvas",
-            ]}
-            extraText={[
-              ["hrv: " + result.hrvVal],
-              [
-                "Arrythmia Type: " + types[result.ArrythmiaType],
-                "Arrythmia Type 2: " + types2[result.ArrythmiaType2],
-              ],
-            ]}
-            onClick={() => {
-              var dataParameter = {};
-              dataParameter["heartBeatECG"] = result.heartBeat;
-              dataParameter["PR_RR_Interval"] = result.PR_RR_Interval;
-              dataParameter["QRS_Duration"] = result.QRS_Duration;
-              dataParameter["hrvVal"] = result.hrvVal;
-              dataParameter["ArrythmiaType"] = types[result.ArrythmiaType];
-              dbFunc.updateHistory(dataParameter);
-            }}
           />
         </div>
       </div>

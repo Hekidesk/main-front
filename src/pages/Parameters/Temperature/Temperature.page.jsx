@@ -1,10 +1,12 @@
 import PageWrapper from "@/components/PageWrapper/PageWrapper";
 import Diagram from "@/components/Datagram/Diagram";
-import temperatureIcon from "@/assets/icon/parameter/temeperature.svg";
+import temperatureIcon from "@/assets/icon/parameter/temperature.svg";
+import resultIcon from "@/assets/icon/resultIcon.svg";
 import HighlightTitle from "@/components/HighlightTitle/HighlightTitle";
 import { useEffect, useState, useContext, useRef } from "react";
 import {
   CircularContainer,
+  CircularPhoto,
   Description,
   DiagramButton,
   DiagramContainer,
@@ -13,6 +15,7 @@ import {
   ImportantTitle,
   ImportantValue,
   InfoContainer,
+  TimerWrapper,
 } from "./components/CSS";
 import PageButtons from "@/components/reusable/PageButtons";
 import { useAddToDB } from "@/database/AddToDB";
@@ -21,6 +24,7 @@ import { makeArrayForChart } from "@/components/reusableDataFunc/DataFunc";
 import Counter from "@/components/Counter/Counter";
 import { COMMAND, delayTime, pendingTime } from "./components/Constants";
 import { SampleTimeDropDown } from "@/components/SampleTimeDropDown";
+import Timer from "@/components/Timer/Timer";
 
 const TemperaturePage = () => {
   const [data, setData] = useState([]);
@@ -88,45 +92,58 @@ const TemperaturePage = () => {
 
   return (
     <PageWrapper>
-      <div style={{ display: "grid", placeItems: "center" }}>
-        <HighlightTitle title="Temperature" icon={temperatureIcon} />
-        <br />
-        <DiagramWrapper>
-          <Description>
+      <HighlightTitle title="Temperature" />
+      <TimerWrapper>
+        <Timer sampleTime={sampleTime} setSampleTime={setSampleTime} />
+        <DiagramButton onClick={startInput}>START</DiagramButton>
+      </TimerWrapper>
+      <div style={{ display: "flex", marginTop: "1em" }}>
+        <div style={{ width: "75%" }}>
+          <DiagramWrapper>
+            <Description>
+              <CircularPhoto>
+                <img src={temperatureIcon} width={10} />{" "}
+              </CircularPhoto>
+              <DiagramText>
+                Please put your finger on Temperature sensor and then press
+              </DiagramText>
+            </Description>
+            <DiagramContainer>
+              <Diagram
+                data={chartData}
+                sizeOfSlice={sizeOfSlice}
+                type={"temperature"}
+                avgTemp={temperature}
+              />
+            </DiagramContainer>
+          </DiagramWrapper>
+        </div>
+        <div style={{ width: "35%" }}>
+          <InfoContainer>
             <DiagramText>
-              Please put your finger on Temperature sensor and then press
+              <CircularPhoto margin={true}>
+                <img src={resultIcon} width={15} />
+              </CircularPhoto>
+              Results
             </DiagramText>
-            <DiagramButton onClick={startInput}>Start</DiagramButton>
-            <SampleTimeDropDown
-              sampleTime={sampleTime}
-              setSampleTime={setSampleTime}
-            />
-            <CircularContainer>
-              <Counter counter={counter} startCountDown={startCountDown} />
-            </CircularContainer>
-          </Description>
-          <DiagramContainer>
-            <Diagram data={chartData} sizeOfSlice={sizeOfSlice} type = {"temperature"} avgTemp = {temperature}/>
-            <InfoContainer>
-              <ImportantTitle>Temperature (°C)</ImportantTitle>
-              <ImportantValue>{temperature}</ImportantValue>
-            </InfoContainer>
-          </DiagramContainer>
-        </DiagramWrapper>
+            <ImportantTitle>Temperature (°C)</ImportantTitle>
+            <ImportantValue>{temperature}</ImportantValue>
+          </InfoContainer>
+          <PageButtons
+            disable={disable}
+            dataName="TemperatureData"
+            texts={[
+              "Temperature: " + temperature,
+              "Quality index: " + qualityIndex,
+            ]}
+            onClick={() => {
+              var dataParameter = {};
+              dataParameter["temperature"] = temperature;
+              dbFunc.updateHistory(dataParameter);
+            }}
+          />
+        </div>
       </div>
-      <PageButtons
-        disable={disable}
-        dataName="TemperatureData"
-        texts={[
-          "Temperature: " + temperature,
-          "Quality index: " + qualityIndex,
-        ]}
-        onClick={() => {
-          var dataParameter = {};
-          dataParameter["temperature"] = temperature;
-          dbFunc.updateHistory(dataParameter);
-        }}
-      />
     </PageWrapper>
   );
 };

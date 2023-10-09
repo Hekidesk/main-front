@@ -28,6 +28,7 @@ export const InfoSection = styled.div`
   @media ${devices.tablet} {
     width: 50%;
     padding: 2em;
+    padding-top: 3em;
   }
 `;
 

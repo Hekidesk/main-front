@@ -3,6 +3,7 @@ import PageWrapper from "@/components/PageWrapper/PageWrapper";
 import Diagram from "@/components/Datagram/Diagram";
 import oximetryIcon from "@/assets/icon/parameter/oximetry.svg";
 import ChooseSignalIcon from "@/assets/icon/parameter/ChooseSignalIcon.svg";
+import ChooseSignalHand from "@/assets/icon/parameter/ChooseSignalHand.svg";
 import downArrowIcon from "@/assets/icon/downArrowIcon.svg";
 import upArrowIcon from "@/assets/icon/upArrowIcon.svg";
 import HighlightTitle from "@/components/HighlightTitle/HighlightTitle";
@@ -24,7 +25,9 @@ import {
   TimerWrapper,
   ParameterContainer,
   ChooseSignalWrapper,
-  filterButton
+  filterButton,
+  OneButtonContainer,
+  FilterButton,
 } from "./components/CSS";
 import { BluetoothContext } from "@/App";
 import { Button } from "primereact/button";
@@ -56,7 +59,9 @@ const OximetryPage = () => {
   const [filterActiveNum, setFilterActiveNum] = useState(-1);
   const [filter, setFilter] = useState(1);
   const [disable, setDisable] = useState(1);
+  // eslint-disable-next-line no-unused-vars
   const [startCountDown, setStartCountDown] = useState(0);
+  // eslint-disable-next-line no-unused-vars
   const [counter, setCounter] = useState(5);
   const [sampleTime, setSampleTime] = useState(10);
 
@@ -105,18 +110,6 @@ const OximetryPage = () => {
     return bluetooth.TurnOff;
   }, [bluetooth]);
 
-  useEffect(() => {
-    setChartData(
-      filter
-        ? filteredArray[
-            filterActiveNum === -1 ? filterActiveNum + 1 : filterActiveNum
-          ]
-        : filteredArray[
-            filterActiveNum === -1 ? filterActiveNum + 2 : filterActiveNum + 1
-          ]
-    );
-  }, [filterActiveNum, filter]);
-
   const [showDownCounter, setShowDownCounter] = useState(false);
 
   useEffect(() => {
@@ -163,9 +156,9 @@ const OximetryPage = () => {
       showDownCounter={showDownCounter}
       blurBackground={showDownCounter}
     >
+      <HighlightTitle title="Oximetry" />
       <div style={{ display: "flex" }}>
         <div style={{ width: "75%" }}>
-          <HighlightTitle title="Oximetry" />
           <TimerWrapper>
             <Timer sampleTime={sampleTime} setSampleTime={setSampleTime} />
             <DiagramButton onClick={startInput}>START</DiagramButton>
@@ -184,11 +177,38 @@ const OximetryPage = () => {
               <Diagram data={chartData} sizeOfSlice={sizeOfSlice} />
             </DiagramContainer>
           </DiagramWrapper>
+          <br />
+          <DiagramWrapper>
+            <Description>
+              <CircularPhoto>
+                <img src={ChooseSignalHand} />{" "}
+              </CircularPhoto>
+              <DiagramText>please choose signal</DiagramText>
+            </Description>
+            <DiagramContainer>
+              <Diagram
+                data={
+                  filter
+                    ? filteredArray[
+                        filterActiveNum === -1
+                          ? filterActiveNum + 1
+                          : filterActiveNum
+                      ]
+                    : filteredArray[
+                        filterActiveNum === -1
+                          ? filterActiveNum + 2
+                          : filterActiveNum + 1
+                      ]
+                }
+                sizeOfSlice={sizeOfSlice}
+              />
+            </DiagramContainer>
+          </DiagramWrapper>
         </div>
         <div style={{ width: "35%" }}>
           <InfoContainer>
             <DiagramText>
-              <CircularPhoto margin = {true}>
+              <CircularPhoto margin={true}>
                 <img src={resultIcon} width={15} />
               </CircularPhoto>
               Results
@@ -200,52 +220,51 @@ const OximetryPage = () => {
               <SimpleValue>{SPO2}</SimpleValue>
               <SimpleTitle>Quality Index %</SimpleTitle>
               <SimpleValue>{qualityIndex}</SimpleValue>
-              <ChooseSignalWrapper clicked = {ChooseSignalClicked}>
-                <CircularPhoto margin = {true}>
+              <ChooseSignalWrapper clicked={ChooseSignalClicked}>
+                <CircularPhoto margin={true}>
                   <img src={ChooseSignalIcon} width={15} />
                 </CircularPhoto>
                 Choose Signal
-                <CircularPhoto margin = {false}>
-                  <img src={ChooseSignalClicked ? upArrowIcon : downArrowIcon} width={15}  onClick={() => setClicked(1-ChooseSignalClicked)}/>
+                <CircularPhoto
+                  margin={false}
+                  onClick={() => setClicked(1 - ChooseSignalClicked)}
+                >
+                  <img
+                    src={ChooseSignalClicked ? upArrowIcon : downArrowIcon}
+                    width={15}
+                  />
                 </CircularPhoto>
-
                 <ButtonContainer>
-                  <div style={{width: "50%", display: ChooseSignalClicked ? "block" : "none"}}>
-                    <Button style={filterButton}>
+                  <OneButtonContainer clicked={ChooseSignalClicked}>
+                    <Button
+                      style={filterButton}
+                      onClick={() => setFilterActiveNum(0)}
+                      disabled={disable}
+                    >
                       IR
                     </Button>
-                  </div>
-                  <div style={{width: "50%", display: ChooseSignalClicked ? "block" : "none"}}>
-                    <Button style={filterButton} >
+                  </OneButtonContainer>
+                  <OneButtonContainer clicked={ChooseSignalClicked}>
+                    <Button
+                      style={filterButton}
+                      onClick={() => setFilterActiveNum(2)}
+                      disabled={disable}
+                    >
                       RED
                     </Button>
-                  </div>
+                  </OneButtonContainer>
                 </ButtonContainer>
               </ChooseSignalWrapper>
-              <DropdownButton>
-                <Dropdown
-                  style={{ width: "80%" }}
-                  value={filterActiveNum}
-                  onChange={(e) => setFilterActiveNum(e.value)}
-                  options={[
-                    { name: "ir", value: 0 },
-                    { name: "red", value: 2 },
-                    // { name: "filtered ppg", value: 4 },
-                  ]}
-                  optionLabel="name"
-                  placeholder="Choose Signal  ↓"
+              <FilterButton>
+                <Button
+                  onClick={() => setFilter(1 - filter)}
+                  className="filter-btn"
                   disabled={disable}
-                />
-              </DropdownButton>
-              <Button
-                onClick={() => setFilter(1 - filter)}
-                className="filter-btn"
-                disabled={disable}
-              >
-                {filter % 2 ? "filtered" : "main"} signal
-              </Button>
+                >
+                  {filter % 2 ? "Filtered" : "Main"} Signal
+                </Button>
+              </FilterButton>
             </ParameterContainer>
-          </InfoContainer>
           <PageButtons
             disable={disable}
             dataName="oximetryData"
@@ -261,6 +280,7 @@ const OximetryPage = () => {
               dbFunc.updateHistory(dataParameter);
             }}
           />
+          </InfoContainer>
         </div>
       </div>
     </PageWrapper>

@@ -7,7 +7,7 @@ var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 const Diagram = ({ data, sizeOfSlice = -1, maximumNum = -1, type = "", avgTemp = null }) => {
 
   const options = {
-      height: 150,
+      height: 9*parseFloat(getComputedStyle(document.body).fontSize),
       animationEnabled: true,
       zoomEnabled: true,
       backgroundColor: "#E8F0F4",
@@ -68,7 +68,7 @@ const Diagram = ({ data, sizeOfSlice = -1, maximumNum = -1, type = "", avgTemp =
             { x: 110, y: 2 },
             { x: 4000, y: 19.9 },
           ] : [],
-          color: "#13858B"
+          color: "#838383"
         },
         {
           type: "line",
@@ -76,7 +76,7 @@ const Diagram = ({ data, sizeOfSlice = -1, maximumNum = -1, type = "", avgTemp =
             { x: 110, y: 0.9 },
             { x: 4000, y: 15.07 },
           ] : [],
-          color:"#13858B"
+          color:"#838383"
         }
       ],
 

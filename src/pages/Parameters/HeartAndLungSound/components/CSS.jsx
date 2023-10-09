@@ -3,9 +3,10 @@ import { devices } from "../../../../assets/styles/size";
 
 export const DiagramWrapper = styled.div`
   width: 100%;
-  padding: 1em 0;
-  background-color: var(--gray-green);
-  border-radius: 10px;
+  background-color: #e8f0f4;
+  border-radius: 30px;
+  padding-bottom: 2em;
+  font-size: 10px;
 `;
 export const Description = styled.div`
   display: flex;
@@ -13,18 +14,23 @@ export const Description = styled.div`
   align-items: center;
 `;
 export const DiagramText = styled.h6`
-  color: white;
-  font-size: 1.2em;
+  color: black;
+  font-size: 1.1em;
+  font-weight: 600;
+  padding-top: 0.5em;
+  padding-left: 0.5em;
 `;
 export const DiagramButton = styled.button`
-  background: transparent;
-  color: var(--gray);
-  text-shadow : 1px 1px 1px #fff;
+  display: inline-block;
+  background: linear-gradient(to top, #77dce3, #16a1d5) !important;
+  height: 4.7em;
+  width: 4.5em;
+  border-radius: 1.7em;
+  color: white;
   border: none;
-  font-size: 1.4em;
+  font-size: 1.7em;
   font-weight: bold;
-  margin-bottom: 0.5rem;
-  margin-left: 0.5rem;
+  margin: 1em 0 0.5em 0.5em;
 `;
 export const DiagramContainer = styled.div`
   display: flex;
@@ -39,40 +45,34 @@ export const DiagramContainer = styled.div`
 `;
 
 export const InfoContainer = styled.div`
-  background: #c8e7f1;
-  border-left: 2px solid var(--main-green);
-  border-right: 2px solid var(--main-green);
-  border-radius: 30px ;
-  width: 100%;
+  background-color: #e8f0f4;
+  border-radius: 30px;
   margin: 1em;
-  padding: 1em;
-  @media ${devices.tablet} {
-    width: 30%;
-  }
+  padding: 0em 1em 1em;
 `;
 
 export const ImportantTitle = styled.h6`
   color: var(--important-color);
-  text-shadow : 1px 1px 10px var(--important-color);
+  text-shadow: 1px 1px 10px var(--important-color);
   font-weight: bold;
 `;
 
 export const ImportantValue = styled.h3`
   color: var(--important-color);
-  text-shadow : 1px 1px 10px var(--important-color);
+  text-shadow: 1px 1px 10px var(--important-color);
   font-weight: bold;
   text-align: center;
 `;
 
 export const SimpleTitle = styled.h6`
   color: var(--main-green);
-  text-shadow : 1px 1px 10px var(--main-green);
+  text-shadow: 1px 1px 10px var(--main-green);
   font-weight: bold;
 `;
 
 export const SimpleValue = styled.h3`
   color: var(--main-green);
-  text-shadow : 1px 1px 10px var(--main-green);
+  text-shadow: 1px 1px 10px var(--main-green);
   font-weight: bold;
   text-align: center;
 `;
@@ -100,7 +100,7 @@ export const filterButton = {
   alignItems: "center",
   backgroundColor: "var(--main-green)",
   border: "var(--main-green)",
-}
+};
 export const DropdownButton = styled.div`
   display: flex;
   align-items: center;
@@ -122,4 +122,86 @@ export const PlayBox = styled.div`
   margin-top: 1em;
   padding: 1em;
   border-radius: 1em;
+`;
+export const TimerWrapper = styled.div`
+  position: relative;
+  display: flex;
+`;
+export const CircularPhoto = styled.div`
+  display: inline-block;
+  padding: 1.1em;
+  background-color: white;
+  border-radius: 45px;
+  color: black;
+  ${(props) => props.margin && "margin-right: 1em;"}
+  ${(props) => !props.margin && "float: right;"}
+  &:hover {
+    ${(props) => !props.margin && "cursor: pointer"}
+  }
+`;
+export const PositionText = styled.div`
+  display: flex;
+  background: linear-gradient(to top, #77dce3, #16a1d5) !important;
+  height: 4.7em;
+  width: 20em;
+  border-radius: 1.7em;
+  color: white;
+  border: none;
+  font-size: 1.7em;
+  font-weight: bold;
+  margin: 1em 0 0.5em 0.5em;
+  `;
+  export const CircularPositionPhoto = styled.div`
+  display: inline-block;
+  padding: 0.7em 0.8em;
+  background-color: white;
+  border-radius: 45px;
+  color: black;
+  margin-right: 1em;
+`;
+export const DiagramPositionText = styled.h6`
+  width: 78%;
+  color: white;
+  font-size: 0.7em;
+  font-weight: 600;
+  padding-top: 0.5em;
+  padding-left: 0.5em;
+`;
+export const FilterButton = styled.div`
+  text-align: center;
+`;
+export const ChooseSignalWrapper = styled.div`
+  padding: 1.5em;
+  opacity: 0.6;
+  background: #0a0a0a;
+  border-radius: 45px;
+  backdrop-filter: blur(10px);
+  color: white;
+  font-size: 1.2em;
+  font-weight: 600;
+  margin-top: 1em;
+  ${(props) =>
+    props.ChooseSignalClicked && "height: 10em; transition: all 0.5s ease;"}
+`;
+export const ButtonContainer = styled.div`
+  display: flex;
+`;
+export const OneButtonContainer = styled.div`
+  width: 50%;
+  ${(props) =>
+    props.clicked
+      ? `
+        opacity: 1;
+        height: 100%;
+        overflow: visible;
+      `
+      : `
+        opacity: 0;
+        height: 0;
+        overflow: hidden;
+      `}
+  transition: ${(props) =>
+    props.clicked
+      ? 'opacity 1.5s, height 1.5s, visibility 1.5s;'
+      : 'opacity 1s, height 0.4s, visibility 1s;'};
 `;

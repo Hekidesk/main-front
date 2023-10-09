@@ -70,7 +70,7 @@ export const InfoContainer = styled.div`
   background-color: #E8F0F4;
   border-radius: 30px;
   margin: 1em;
-  padding: 0em 1em 1em;
+  padding: 0em 1em;
   text-alighn: center;
 `;
 export const InfoAbnormalityContainer = styled.div`
@@ -84,33 +84,33 @@ export const InfoAbnormalityContainer = styled.div`
 `;
 export const ImportantTitle = styled.h6`
   color: var(--important-color);
-  font-size: 1.5em;
-  font-weight: 600;
+  font-weight: bold;
+  text-shadow: 1px 1px 10px var(--important-color);
 `;
 
 export const ImportantValue = styled.h3`
   color: var(--important-color);
   text-align: center;
-  font-size: 6em;
-  font-weight: 600;
+  font-size: 4em;
+  text-shadow: 1px 1px 10px var(--important-color);
 `;
 
 export const SimpleTitle = styled.h6`
-  color: black;
-  font-size: 1em;
-  font-weight: 600;
+  color: var(--main-green);
+  font-size: 1.5em;
+  font-weight: bold;
+  text-shadow: 1px 1px 10px var(--main-green);
 `;
 
 export const SimpleValue = styled.h3`
-  color: black;
+  color: var(--main-green);
   text-align: center;
-  font-size: 2em;
-  font-weight: 600;
+  font-size: 1.5em;
+  text-shadow: 1px 1px 10px var(--main-green);
 `;
 
 export const SmallSimpleValue = styled.h5`
   color: var(--main-green);
-  font-weight: bold;
   font-size: 12px;
   text-align: center;
 `;

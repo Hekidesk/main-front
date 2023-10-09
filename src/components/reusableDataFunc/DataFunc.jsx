@@ -5,6 +5,8 @@ export const makeArrayFormString = (arr) => {
   }
 
 export const makeArrayForChart = (arr) => {
+    if(!arr)
+      return [];
     return arr.map((item, id) => {
       return {
         x: item?.id ?? id,

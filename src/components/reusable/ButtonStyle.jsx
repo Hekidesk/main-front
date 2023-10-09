@@ -54,7 +54,6 @@ export const ButtonMeasurementStyle = {
   ...btn,
   width: "8rem",
   borderRadius: "4rem",
-  marginLeft: "1rem",
 };
 
 
