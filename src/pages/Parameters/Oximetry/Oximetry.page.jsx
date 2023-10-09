@@ -2,10 +2,7 @@ import "@/assets/styles/primereactStyle.css";
 import PageWrapper from "@/components/PageWrapper/PageWrapper";
 import Diagram from "@/components/Datagram/Diagram";
 import oximetryIcon from "@/assets/icon/parameter/oximetry.svg";
-import ChooseSignalIcon from "@/assets/icon/parameter/ChooseSignalIcon.svg";
 import ChooseSignalHand from "@/assets/icon/parameter/ChooseSignalHand.svg";
-import downArrowIcon from "@/assets/icon/downArrowIcon.svg";
-import upArrowIcon from "@/assets/icon/upArrowIcon.svg";
 import HighlightTitle from "@/components/HighlightTitle/HighlightTitle";
 import { useEffect, useState, useContext, useRef } from "react";
 import {
@@ -14,27 +11,11 @@ import {
   DiagramContainer,
   DiagramText,
   DiagramWrapper,
-  ImportantTitle,
-  ImportantValue,
-  InfoContainer,
-  SimpleTitle,
-  SimpleValue,
-  ButtonContainer,
-  DropdownButton,
   CircularPhoto,
   TimerWrapper,
-  ParameterContainer,
-  ChooseSignalWrapper,
-  filterButton,
-  OneButtonContainer,
-  FilterButton,
 } from "./components/CSS";
 import { BluetoothContext } from "@/App";
-import { Button } from "primereact/button";
-import { Dropdown } from "primereact/dropdown";
 import axios from "axios";
-import { useAddToDB } from "@/database/AddToDB";
-import PageButtons from "@/components/reusable/PageButtons";
 import {
   makeArrayForChart,
   makeArrayFormString,
@@ -42,18 +23,20 @@ import {
 import Swal from "sweetalert2";
 import { COMMAND, delayTime, pendingTime } from "./components/Constants";
 import Timer from "@/components/Timer/Timer";
-import resultIcon from "@/assets/icon/resultIcon.svg";
+import { Info } from "./components/InfoContainer";
 
 const OximetryPage = () => {
   const [IrData, setIrData] = useState();
   const [RedData, setRedData] = useState();
   const [chartData, setChartData] = useState();
   const [sizeOfSlice, setSizeOfSlice] = useState(-1);
-  const dbFunc = useAddToDB("oximetryData");
 
-  const [heartBeat, setHeartBeat] = useState("- ? -");
-  const [SPO2, setSPO2] = useState("-");
-  const [qualityIndex, setQualityIndex] = useState("-");
+  const initial_state = {
+    heartBeat: "-?-",
+    SPO2: "-",
+    qualityIndex: "-",
+  };
+  const [result, setResult] = useState(initial_state);
 
   const [filteredArray, setFilteredArray] = useState([]);
   const [filterActiveNum, setFilterActiveNum] = useState(-1);
@@ -64,8 +47,6 @@ const OximetryPage = () => {
   // eslint-disable-next-line no-unused-vars
   const [counter, setCounter] = useState(5);
   const [sampleTime, setSampleTime] = useState(10);
-
-  const [ChooseSignalClicked, setClicked] = useState(false);
 
   const startTime = useRef(null);
   const endTime = useRef(null);
@@ -81,9 +62,11 @@ const OximetryPage = () => {
     let res = await axios.post("/PPG_signal", payload).catch(console.log);
     if (res?.data) {
       if (!Number(res?.data.Try_Again)) {
-        setHeartBeat(res.data.HeartRate);
-        setSPO2(res.data.SpO2);
-        setQualityIndex(res.data.Quality_index);
+        setResult({
+          heartBeat: res.data.HeartRate,
+          SPO2: res.data.SpO2,
+          qualityIndex: res.data.Quality_index,
+        });
         setFilteredArray([
           makeArrayForChart(irData),
           makeArrayForChart(makeArrayFormString(res.data.clear_IR)),
@@ -119,9 +102,7 @@ const OximetryPage = () => {
   const flushData = () => {
     setDisable(1);
     setChartData([]);
-    setHeartBeat("- ? -");
-    setSPO2("-");
-    setQualityIndex("-");
+    setResult(initial_state);
     setCounter(sampleTime);
     setShowDownCounter(true);
   };
@@ -157,7 +138,7 @@ const OximetryPage = () => {
       blurBackground={showDownCounter}
     >
       <HighlightTitle title="Oximetry" />
-      <div style={{ display: "flex" }}>
+      <div style={{ display: "flex", marginBottom: "2em" }}>
         <div style={{ width: "75%" }}>
           <TimerWrapper>
             <Timer sampleTime={sampleTime} setSampleTime={setSampleTime} />
@@ -206,81 +187,13 @@ const OximetryPage = () => {
           </DiagramWrapper>
         </div>
         <div style={{ width: "35%" }}>
-          <InfoContainer>
-            <DiagramText>
-              <CircularPhoto margin={true}>
-                <img src={resultIcon} width={15} />
-              </CircularPhoto>
-              Results
-            </DiagramText>
-            <ParameterContainer>
-              <ImportantTitle>Heart Rate (bpm)</ImportantTitle>
-              <ImportantValue>{heartBeat}</ImportantValue>
-              <SimpleTitle>SPO2 %</SimpleTitle>
-              <SimpleValue>{SPO2}</SimpleValue>
-              <SimpleTitle>Quality Index %</SimpleTitle>
-              <SimpleValue>{qualityIndex}</SimpleValue>
-              <ChooseSignalWrapper clicked={ChooseSignalClicked}>
-                <CircularPhoto margin={true}>
-                  <img src={ChooseSignalIcon} width={15} />
-                </CircularPhoto>
-                Choose Signal
-                <CircularPhoto
-                  margin={false}
-                  onClick={() => setClicked(1 - ChooseSignalClicked)}
-                >
-                  <img
-                    src={ChooseSignalClicked ? upArrowIcon : downArrowIcon}
-                    width={15}
-                  />
-                </CircularPhoto>
-                <ButtonContainer>
-                  <OneButtonContainer clicked={ChooseSignalClicked}>
-                    <Button
-                      style={filterButton}
-                      onClick={() => setFilterActiveNum(0)}
-                      disabled={disable}
-                    >
-                      IR
-                    </Button>
-                  </OneButtonContainer>
-                  <OneButtonContainer clicked={ChooseSignalClicked}>
-                    <Button
-                      style={filterButton}
-                      onClick={() => setFilterActiveNum(2)}
-                      disabled={disable}
-                    >
-                      RED
-                    </Button>
-                  </OneButtonContainer>
-                </ButtonContainer>
-              </ChooseSignalWrapper>
-              <FilterButton>
-                <Button
-                  onClick={() => setFilter(1 - filter)}
-                  className="filter-btn"
-                  disabled={disable}
-                >
-                  {filter % 2 ? "Filtered" : "Main"} Signal
-                </Button>
-              </FilterButton>
-            </ParameterContainer>
-          <PageButtons
+          <Info
+            result={result}
             disable={disable}
-            dataName="oximetryData"
-            texts={[
-              "Heart beat: " + heartBeat,
-              "SPO2: " + SPO2,
-              "Quality index: " + qualityIndex,
-            ]}
-            onClick={() => {
-              var dataParameter = {};
-              dataParameter["heartBeatPPG"] = heartBeat;
-              dataParameter["SPO2"] = SPO2;
-              dbFunc.updateHistory(dataParameter);
-            }}
+            setFilter={setFilter}
+            filter={filter}
+            setFilterActiveNum = {setFilterActiveNum}
           />
-          </InfoContainer>
         </div>
       </div>
     </PageWrapper>

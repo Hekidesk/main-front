@@ -8,21 +8,13 @@ import {
   CircularPhoto,
   ParameterContainer,
   DiagramText,
-  HeartImageContainer,
   ArrythmiaTitle,
-  FlexSpaceBetweenBox,
 } from "./CSS";
-import {
-  types,
-  types2,
-} from "./Constants";
+import { types, types2 } from "./Constants";
 import { Button } from "primereact/button";
 import resultIcon from "@/assets/icon/resultIcon.svg";
-import ArrhyithmiaTypeIcon from "@/assets/icon/parameter/ArrhyithmiaTypeIcon.svg";
-import heartPhoto from "@/assets/icon/heartPhoto.svg";
 import PageButtons from "@/components/reusable/PageButtons";
 import { useAddToDB } from "@/database/AddToDB";
-
 
 export const Info = ({ result, disable, setFilter, filter }) => {
   const dbFunc = useAddToDB("cardiogramData");
@@ -31,7 +23,7 @@ export const Info = ({ result, disable, setFilter, filter }) => {
     <InfoContainer>
       <DiagramText>
         <CircularPhoto>
-          <img src={resultIcon} width={15}/>
+          <img src={resultIcon} width={15} />
         </CircularPhoto>
         Results
       </DiagramText>
@@ -40,32 +32,18 @@ export const Info = ({ result, disable, setFilter, filter }) => {
         <ImportantValue>{result.heartBeat}</ImportantValue>
         <SimpleTitle>PR/RR Interval</SimpleTitle>
         <SimpleValue>{result.PR_RR}</SimpleValue>
-        <FlexSpaceBetweenBox padding={false}>
-          <SimpleTitle>QRS Duration</SimpleTitle>
-          <SimpleTitle>Quality Index</SimpleTitle>
-        </FlexSpaceBetweenBox>
-          <FlexSpaceBetweenBox padding={true}>
-            <SimpleValue>{result.QRS_duration}</SimpleValue>
-            <SimpleValue>{result.Quality_index}</SimpleValue>
-          </FlexSpaceBetweenBox>
-      </ParameterContainer>
-      <br />
-      <ParameterContainer padding={false}>
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <div>
-            <DiagramText>
-              <img src={ArrhyithmiaTypeIcon}/> Arrhyithmia type
-            </DiagramText>
-            <ArrythmiaTitle>{result.ArrythmiaType !== -1 ? types[result.ArrythmiaType] : "-"}</ArrythmiaTitle>
-            <DiagramText>
-              <img src={ArrhyithmiaTypeIcon} /> Arrhyithmia type 2
-            </DiagramText>
-            <ArrythmiaTitle>{result.ArrythmiaType2 !== -1 ? types2[result.ArrythmiaType2] : "-"}</ArrythmiaTitle>
-          </div>
-          <HeartImageContainer>
-            <img src={heartPhoto}/>
-          </HeartImageContainer>
-        </div>
+        <SimpleTitle>QRS Duration</SimpleTitle>
+        <SimpleValue>{result.QRS_duration}</SimpleValue>
+        <SimpleTitle>Quality Index</SimpleTitle>
+        <SimpleValue>{result.Quality_index}</SimpleValue>
+        <SimpleTitle>Arrhyithmia type</SimpleTitle>
+        <ArrythmiaTitle>
+          {result.ArrythmiaType !== -1 ? types[result.ArrythmiaType] : "-"}
+        </ArrythmiaTitle>
+        <SimpleTitle>Arrhyithmia type 2</SimpleTitle>
+        <ArrythmiaTitle>
+          {result.ArrythmiaType2 !== -1 ? types2[result.ArrythmiaType2] : "-"}
+        </ArrythmiaTitle>
       </ParameterContainer>
       <FilterButton>
         <Button
@@ -77,34 +55,34 @@ export const Info = ({ result, disable, setFilter, filter }) => {
         </Button>
       </FilterButton>
       <PageButtons
-            disable={disable}
-            dataName="cardiogramData"
-            texts={[
-              "Heart beat: " + result.heartBeat,
-              "PR/RR Interval: " + result.PR_RR_Interval,
-              "QRS Duration: " + result.QRS_duration,
-            ]}
-            extraChartName={[
-              "#chartContainerAbnormality1 canvas",
-              "#chartContainerAbnormality2 canvas",
-            ]}
-            extraText={[
-              ["hrv: " + result.hrv_val],
-              [
-                "Arrythmia Type: " + types[result.ArrythmiaType],
-                "Arrythmia Type 2: " + types2[result.ArrythmiaType2],
-              ],
-            ]}
-            onClick={() => {
-              var dataParameter = {};
-              dataParameter["heartBeatECG"] = result.heartBeat;
-              dataParameter["PR_RR_Interval"] = result.PR_RR_Interval;
-              dataParameter["QRS_Duration"] = result.QRS_duration;
-              dataParameter["hrvVal"] = result.hrv_val;
-              dataParameter["ArrythmiaType"] = types[result.ArrythmiaType];
-              dbFunc.updateHistory(dataParameter);
-            }}
-          />
+        disable={disable}
+        dataName="cardiogramData"
+        texts={[
+          "Heart beat: " + result.heartBeat,
+          "PR/RR Interval: " + result.PR_RR_Interval,
+          "QRS Duration: " + result.QRS_duration,
+        ]}
+        extraChartName={[
+          "#chartContainerAbnormality1 canvas",
+          "#chartContainerAbnormality2 canvas",
+        ]}
+        extraText={[
+          ["hrv: " + result.hrv_val],
+          [
+            "Arrythmia Type: " + types[result.ArrythmiaType],
+            "Arrythmia Type 2: " + types2[result.ArrythmiaType2],
+          ],
+        ]}
+        onClick={() => {
+          var dataParameter = {};
+          dataParameter["heartBeatECG"] = result.heartBeat;
+          dataParameter["PR_RR_Interval"] = result.PR_RR_Interval;
+          dataParameter["QRS_Duration"] = result.QRS_duration;
+          dataParameter["hrvVal"] = result.hrv_val;
+          dataParameter["ArrythmiaType"] = types[result.ArrythmiaType];
+          dbFunc.updateHistory(dataParameter);
+        }}
+      />
     </InfoContainer>
   );
 };

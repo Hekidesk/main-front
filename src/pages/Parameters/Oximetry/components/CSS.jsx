@@ -51,9 +51,9 @@ export const DiagramContainer = styled.div`
 export const InfoContainer = styled.div`
   background-color: #e8f0f4;
   border-radius: 30px;
-  margin: 1em;
+  margin: 0 1em;
   padding: 0em 1em 1em 1em;
-  margin-bottom: 3em;
+  height: 100%;
 `;
 
 export const ImportantTitle = styled.h6`
@@ -80,7 +80,7 @@ export const SimpleValue = styled.h3`
   color: var(--main-green);
   font-weight: bold;
   text-align: center;
-  font-size: 50px;
+  font-size: 1.5em;
   text-shadow: 1px 1px 10px var(--main-green);
 `;
 
@@ -134,16 +134,16 @@ export const ParameterContainer = styled.div`
   padding-bottom: 0;
 `;
 export const ChooseSignalWrapper = styled.div`
-  padding: 1.5em;
+  padding: 0.5em;
   opacity: 0.6;
-  background: #0a0a0a;
+  background: #EBEBEB;
   border-radius: 45px;
   backdrop-filter: blur(10px);
-  color: white;
+  color: black;
   font-size: 1.2em;
   font-weight: 600;
   ${(props) =>
-    props.ChooseSignalClicked && "height: 10em; transition: all 0.5s ease;"}
+    props.clicked && "padding: 1em;"}
 `;
 export const ButtonContainer = styled.div`
   display: flex;

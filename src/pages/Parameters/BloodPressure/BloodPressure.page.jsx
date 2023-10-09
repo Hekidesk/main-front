@@ -18,6 +18,7 @@ import {
   InfoContainer,
   TimerWrapper,
   CircularPhoto,
+  ParameterContainer,
 } from "./components/CSS";
 import PageButtons from "@/components/reusable/PageButtons";
 import axios from "axios";
@@ -118,7 +119,7 @@ const BloodPressurePage = () => {
         <Timer sampleTime={sampleTime} setSampleTime={setSampleTime} />
         <DiagramButton onClick={startInput}>START</DiagramButton>
       </TimerWrapper>
-      <div style={{ display: "flex" }}>
+      <div style={{ display: "flex", marginBottom: "1em" }}>
         <div style={{ width: "75%" }}>
           <br />
           <DiagramWrapper>
@@ -156,7 +157,6 @@ const BloodPressurePage = () => {
               />
             </DiagramContainer>
           </DiagramWrapper>
-          <br />
         </div>
         <div style={{ width: "35%" }}>
           <InfoContainer>
@@ -166,28 +166,30 @@ const BloodPressurePage = () => {
               </CircularPhoto>
               Results
             </DiagramText>
-            <ImportantTitle>SYS/DIA (mmHg)</ImportantTitle>
-            <ImportantValue>
-              {SYS}/{DIA}
-            </ImportantValue>
-            <SimpleTitle>Quality Index (%)</SimpleTitle>
-            <SimpleValue>
-              {qualityIndex} {qualityIndex != "-" ? "%" : ""}
-            </SimpleValue>
+            <ParameterContainer>
+              <ImportantTitle>SYS/DIA (mmHg)</ImportantTitle>
+              <ImportantValue>
+                {SYS}/{DIA}
+              </ImportantValue>
+              <SimpleTitle>Quality Index (%)</SimpleTitle>
+              <SimpleValue>
+                {qualityIndex} {qualityIndex != "-" ? "%" : ""}
+              </SimpleValue>
+            </ParameterContainer>
+            <PageButtons
+              disable={disable}
+              dataName="BloodPressureData"
+              texts={["SYS/DIA " + SYS + "/" + DIA]}
+              extraChartName={["#forceDiagram #chartContainer canvas"]}
+              extraText={[[""]]}
+              onClick={() => {
+                var dataParameter = {};
+                dataParameter["SYS"] = SYS;
+                dataParameter["DIA"] = DIA;
+                dbFunc.updateHistory(dataParameter);
+              }}
+            />
           </InfoContainer>
-          <PageButtons
-            disable={disable}
-            dataName="BloodPressureData"
-            texts={["SYS/DIA " + SYS + "/" + DIA]}
-            extraChartName={["#forceDiagram #chartContainer canvas"]}
-            extraText={[[""]]}
-            onClick={() => {
-              var dataParameter = {};
-              dataParameter["SYS"] = SYS;
-              dataParameter["DIA"] = DIA;
-              dbFunc.updateHistory(dataParameter);
-            }}
-          />
         </div>
       </div>
     </PageWrapper>

@@ -113,3 +113,8 @@ export const CircularPhoto = styled.div`
   color: black;
   ${(props) => props.margin && "margin-right: 1em;"}
 `;
+export const ParameterContainer = styled.div`
+  background-color: #ffffff;
+  border-radius: 2.9em;
+  padding: 2em;
+`;

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import {  Row } from "react-bootstrap";
-import ProfilePhotoIcon from "@/assets/icon/profile.svg";
+import ProfilePhotoIcon from "@/assets/icon/profileIcon.svg";
 import connectedIcon from "@/assets/icon/deviceConnection/greenDeviceConnectionIcon.svg";
 import disconnectedIcon from "@/assets/icon/deviceConnection/blackDeviceConnectionIcon.svg";
 import { BluetoothContext } from "@/App";
@@ -26,8 +26,8 @@ const Profile = () => {
   }, []);
   return (
     <Row className="profile">
-      <PhotoCol >
-        <img src={ProfilePhotoIcon} alt="profile" width={60} />
+      <PhotoCol>
+        <img src={ProfilePhotoIcon} alt="profile" width={40} />
       </PhotoCol>
       <TextCol>
         <WelcomeProfileContainer>Welcome</WelcomeProfileContainer>

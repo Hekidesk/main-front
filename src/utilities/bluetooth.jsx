@@ -32,11 +32,12 @@ export const useSignalFeed = () => {
     console.log("connect");
     navigator.bluetooth
       .requestDevice({
-        optionalServices: [ServiceUUID],
+        optionalServices: [ServiceUUID, BATTERY],
         // filters: [{ name: "HekiDesk1.2" }],
         acceptAllDevices: true,
       })
       .then((device) => {
+        console.log(device);
         setLoading(true);
         setDevice(device);
         setIsConnected(true);
@@ -48,21 +49,23 @@ export const useSignalFeed = () => {
             });
             service.getCharacteristic(ReadCharistristicUUID).then((char) => {
               setCharastircticR(char);
-              setLoading(false);
             });
           });
           gatt.getPrimaryService(BATTERY).then((service) => {
             service.getCharacteristic(0x2a19).then((char) => {
-              console.log("char is: ", char);
               setCharastircticB(char);
               setLoading(false);
             });
           });
         });
         device.addEventListener("gattserverdisconnected", () => {
+          console.log("disconnect 2");
           setIsConnected(false);
           setDevice("");
         });
+      })
+      .catch((error) => {
+        console.error("Bluetooth device selection error:", error);
       });
   };
 

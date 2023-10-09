@@ -16,6 +16,7 @@ import {
   ImportantValue,
   InfoContainer,
   TimerWrapper,
+  ParameterContainer,
 } from "./components/CSS";
 import PageButtons from "@/components/reusable/PageButtons";
 import { useAddToDB } from "@/database/AddToDB";
@@ -126,22 +127,24 @@ const TemperaturePage = () => {
               </CircularPhoto>
               Results
             </DiagramText>
-            <ImportantTitle>Temperature (°C)</ImportantTitle>
-            <ImportantValue>{temperature}</ImportantValue>
+            <ParameterContainer>
+              <ImportantTitle>Temperature (°C)</ImportantTitle>
+              <ImportantValue>{temperature}</ImportantValue>
+            </ParameterContainer>
+            <PageButtons
+              disable={disable}
+              dataName="TemperatureData"
+              texts={[
+                "Temperature: " + temperature,
+                "Quality index: " + qualityIndex,
+              ]}
+              onClick={() => {
+                var dataParameter = {};
+                dataParameter["temperature"] = temperature;
+                dbFunc.updateHistory(dataParameter);
+              }}
+            />
           </InfoContainer>
-          <PageButtons
-            disable={disable}
-            dataName="TemperatureData"
-            texts={[
-              "Temperature: " + temperature,
-              "Quality index: " + qualityIndex,
-            ]}
-            onClick={() => {
-              var dataParameter = {};
-              dataParameter["temperature"] = temperature;
-              dbFunc.updateHistory(dataParameter);
-            }}
-          />
         </div>
       </div>
     </PageWrapper>

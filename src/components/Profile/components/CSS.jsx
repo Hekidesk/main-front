@@ -30,10 +30,11 @@ export const NameProfileContainer = styled.div`
 `;
 export const PhotoCol = styled.div`
   width: 20%;
+  padding-top: 1em;
   padding-right: 1em;
 `;
 export const TextCol = styled.div`
-  width: 40%;
+  width: 30%;
   padding: 5px 20px 0px 15px;
 `;
 export const ConnectionIconCol = styled.div`
@@ -45,6 +46,7 @@ export const BatteryIconCol = styled.div`
   display: grid;
   place-items: center;
   padding: 5px;
+  padding-top: 1.7em;
 `;
 export const Waste = styled.div`
   width: 10%;

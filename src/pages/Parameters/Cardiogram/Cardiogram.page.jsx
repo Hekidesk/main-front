@@ -93,7 +93,7 @@ const CardiogramPage = () => {
   return (
     <PageWrapper>
       <HighlightTitle title="Cardiogram" icon={HeartIcon} />
-      <div style={{ display: "flex" }}>
+      <div style={{ display: "flex", marginBottom: "2em" }}>
         <div style={{ width: "75%" }}>
           <TimerWrapper>
             <Timer sampleTime={sampleTime} setSampleTime={setSampleTime} />
@@ -126,7 +126,7 @@ const CardiogramPage = () => {
             ></AbnormalityDetection>
           </AbnormalityDiagramContainer>
         </div>
-        <div style={{ width: "35%", height: "100%" }}>
+        <div style={{ width: "35%", minHeight: "100%" }}>
           <Info
             result={result}
             disable={disable}

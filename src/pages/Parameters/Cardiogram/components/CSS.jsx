@@ -3,7 +3,7 @@ import { devices } from "../../../../assets/styles/size";
 
 export const DiagramWrapper = styled.div`
   width: 100%;
-  background-color: #E8F0F4;
+  background-color: #e8f0f4;
   border-radius: 30px;
   padding-bottom: 2em;
   font-size: 10px;
@@ -34,7 +34,7 @@ export const DiagramButton = styled.button`
 export const TimerWrapper = styled.div`
   position: relative;
   display: flex;
-`
+`;
 export const DiagramContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -67,9 +67,10 @@ export const LeftAbnormalityDiagramTitleContainer = styled.div`
   font-size: 20px;
 `;
 export const InfoContainer = styled.div`
-  background-color: #E8F0F4;
+  height: 100%;
+  background-color: #e8f0f4;
   border-radius: 30px;
-  margin: 1em;
+  margin: 0 1em;
   padding: 0em 1em;
   text-alighn: center;
 `;
@@ -143,7 +144,7 @@ export const FilterButton = styled.div`
 `;
 export const HrvContainer = styled.div`
   width: 67%;
-  background-color: #E8F0F4;
+  background-color: #e8f0f4;
   position: relative;
   border-radius: 2.8em;
   padding: 0 0.75em 0.75em 0.75em;
@@ -151,32 +152,32 @@ export const HrvContainer = styled.div`
 `;
 export const SingleSpikeContainer = styled.div`
   width: 30%;
-  background-color: #E8F0F4;
+  background-color: #e8f0f4;
   position: relative;
   border-radius: 2.8em;
   padding: 0 0.75em 0.75em 0.75em;
 `;
 export const ParameterContainer = styled.div`
-  background-color: #FFFFFF;
+  height: 70%;
+  background-color: #ffffff;
   border-radius: 2.9em;
   padding-bottom: 1em;
-  ${(props) => props.padding && "padding: 1.5em;"}
+  ${(props) => props.padding && "padding: 2em 2.5em;"}
 `;
 export const HeartImageContainer = styled.div`
   text-align: right;
   margin-right: 3em;
   padding-top: 1em;
   padding-bottom: 1em;
-`
+`;
 export const ArrythmiaTitle = styled.h6`
-  color: black;
-  font-size: 1.7em;
-  font-weight: 600;
-  padding-left: 3em;
-  padding-top: 0.5em;
+  color: var(--main-green);
+  text-align: center;
+  font-size: 1.5em;
+  text-shadow: 1px 1px 10px var(--main-green);
 `;
 export const FlexSpaceBetweenBox = styled.div`
   display: flex;
   justify-content: space-between;
   ${(props) => props.padding && "padding: 0 2em;"}
-`
+`;

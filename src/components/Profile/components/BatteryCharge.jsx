@@ -12,17 +12,13 @@ export default function BatteryCharge() {
 
   const getCharge = () => {
     if(bluetooth.isConnected)
-      bluetooth.GetRemainCharge(setCharge);
+      bluetooth.GetRemainCharge(setCharge)
   }
-
-  const intervalId = setInterval(getCharge, 1 * 60 * 1000);
 
   useEffect(() => {
     getCharge();
-    return clearInterval(intervalId);
+    setInterval(getCharge, 1 * 60 * 1000);
   }, []);
-
-
 
   const BatteryImg =
     charge > 80
