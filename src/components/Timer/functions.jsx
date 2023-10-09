@@ -36,10 +36,10 @@ export function showClock(value) {
     for (var i = 0; i < 12; i++) {
       angle = (i * (-Math.PI * 2)) / 12;
       var hour = (i + 7) % 12;
-      hour = hour == 0 ? 60 : hour * 5;
+      hour = hour == 0 ? 65 : hour * 5 + 5;
 
-      var xt = canvas.width / 2 + Math.cos(angle) * percent * 1.1;
-      var yt = canvas.height / 2 + Math.sin(angle) * percent * 1.1;
+      var xt = canvas.width / 2 + Math.cos(angle) * percent * 1.13;
+      var yt = canvas.height / 2 + Math.sin(angle) * percent * 1.13;
 
       drawRotatedText(xt, yt, (value * Math.PI) / 180, hour); // todo - rotate numbers
     }
@@ -47,12 +47,11 @@ export function showClock(value) {
 
   function drawRotatedText(endingX, centerY, radianAngle, text) {
     ctx.save();
-    ctx.font = "bold 16px Lufga";
+    ctx.font = "bold 22px inherit";
     ctx.fillStyle = "white";
     var width = ctx.measureText(text).width;
     ctx.translate(endingX, centerY);
     ctx.rotate(radianAngle);
-    ctx.textBaseline = "middle";
     ctx.fillText(text, -width, 0);
     ctx.restore();
   }

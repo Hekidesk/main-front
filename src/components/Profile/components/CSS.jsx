@@ -12,7 +12,7 @@ export const ButtonProfile = {
 };
 export const Battery = styled.div`
   background-image: url("src/assets/icon/battery/batteryBodyIcon.svg");
-`
+`;
 export const WelcomeProfileContainer = styled.div`
   padding-top: 8px;
   font-style: normal;
@@ -33,7 +33,7 @@ export const PhotoCol = styled.div`
   padding-right: 1em;
 `;
 export const TextCol = styled.div`
-  width: 30%;
+  width: 40%;
   padding: 5px 20px 0px 15px;
 `;
 export const ConnectionIconCol = styled.div`

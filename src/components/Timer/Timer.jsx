@@ -13,8 +13,8 @@ const Timer = ({ sampleTime, setSampleTime }) => {
       bounds: { minRotation: 0, maxRotation: 336 },
     })[0];
     wheel.addEventListener("drag", () => {
-      let value = Math.ceil(Math.ceil(wheel.rotation) / 30) * 5;
-      setSampleTime(value);
+      let value = Math.ceil(Math.ceil(wheel.rotation) / 30) * 5 + 5;
+      setSampleTime(value < 10 ? 10 : value);
       showClock(-wheel.rotation);
     });
   }, []);
@@ -27,7 +27,7 @@ const Timer = ({ sampleTime, setSampleTime }) => {
         <Time>{sampleTime} Seconds</Time>
       </TextContainer>
       <CanvasContainer>
-        <canvas id="timer" width="150" height="120"></canvas>
+        <canvas id="timer" width="130" height="130"></canvas>
       </CanvasContainer>
     </Container>
   );
@@ -37,12 +37,12 @@ export default Timer;
 
 const CanvasContainer = styled.div`
   position: absolute;
-  top: -30px;
-  right: -65px;
+  top: -25px;
+  right: -40px;
 `;
 
 const Container = styled.div`
-  width: clamp(50px, 100%, 270px);
+  width: clamp(50px, 100%, 250px);
   padding: 1.5em;
   border-radius: 3em;
   background: linear-gradient(180deg, #16a1d5 0%, #77dce3 100%);

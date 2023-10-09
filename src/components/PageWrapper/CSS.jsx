@@ -14,6 +14,7 @@ export const Wrapper = styled.div`
     flex-direction: row;
     min-height: 90vh;
     width: ${wrapperWidth};
+    max-width: 1440px;
     margin: 2em;
   }
 `;
