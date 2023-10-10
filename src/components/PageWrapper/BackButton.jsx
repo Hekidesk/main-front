@@ -30,10 +30,10 @@ const BackButton = () => {
         <img
           src={backIcon}
           alt="Image"
-          width="8px"
+          width="7px"
           style={{ margin: "0em 0.6em" }}
         />
-        {"  "}
+        {"     "}
         <span style={{ fontSize: "1.4em" }}>Back</span>
       </Button>
     </Link> : <></>

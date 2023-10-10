@@ -109,7 +109,7 @@ function AbnormalityDetection({
           </CircularPhoto>
           HRV
           <CircularPhoto style={{float: "right"}}>
-              {hrvVal}
+              HRV Value: {hrvVal}
           </CircularPhoto>
         </DiagramText>
         <CanvasJSChart options={getOptions("hrv")} />

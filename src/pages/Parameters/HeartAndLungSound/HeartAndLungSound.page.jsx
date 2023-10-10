@@ -1,8 +1,6 @@
 import PageWrapper from "@/components/PageWrapper/PageWrapper";
 import Diagram from "@/components/Datagram/Diagram";
 import heartAndLungSound from "@/assets/icon/parameter/heartAndLungSound.svg";
-import positionIcon from "@/assets/icon/positionIcon.svg";
-import positionPhoto from "@/assets/icon/positionPhoto.svg";
 import ChooseSignalIcon from "@/assets/icon/parameter/ChooseSignalIcon.svg";
 import ChooseSignalHand from "@/assets/icon/parameter/ChooseSignalHand.svg";
 import downArrowIcon from "@/assets/icon/downArrowIcon.svg";
@@ -13,7 +11,6 @@ import { useEffect, useState, useContext, useRef } from "react";
 import { BluetoothContext } from "@/App";
 import { useAddToDB } from "@/database/AddToDB";
 import {
-  CircularContainer,
   Description,
   DiagramButton,
   DiagramContainer,
@@ -25,18 +22,15 @@ import {
   SimpleTitle,
   SimpleValue,
   filterButton,
-  DropdownButton,
   PlaySoundText,
   PlayBox,
   TimerWrapper,
   CircularPhoto,
-  PositionText,
-  CircularPositionPhoto,
-  DiagramPositionText,
   FilterButton,
   ChooseSignalWrapper,
   ButtonContainer,
   OneButtonContainer,
+  ParameterContainer,
 } from "./components/CSS";
 import PageButtons from "@/components/reusable/PageButtons";
 import axios from "axios";
@@ -45,15 +39,13 @@ import {
   makeArrayFormString,
 } from "@/components/reusableDataFunc/DataFunc";
 import { Button } from "primereact/button";
-import { Dropdown } from "primereact/dropdown";
-import { RadioButton } from "primereact/radiobutton";
 import Counter from "@/components/Counter/Counter";
 import AudioPlayer from "./components/AudioPlayer";
 import { COMMAND, delayTime, pendingTime } from "./components/Constants";
-import { SampleTimeDropDown } from "@/components/SampleTimeDropDown";
 import Swal from "sweetalert2";
 import Timer from "@/components/Timer/Timer";
 import resultIcon from "@/assets/icon/resultIcon.svg";
+import PositionChoose from "./components/PositionChoose";
 
 const HeartAndLungSoundPage = () => {
   const [data, setData] = useState([]);
@@ -232,80 +224,17 @@ const HeartAndLungSoundPage = () => {
   return (
     <PageWrapper blurBackground={answerReady} answerReady={answerReady}>
       <HighlightTitle title="Heart Lung Sound" icon={heartAndLungSound} />
-      <TimerWrapper>
-        <PositionText>
-          <DiagramPositionText>
-            <CircularPositionPhoto>
-              <img src={positionIcon} width={15} />{" "}
-            </CircularPositionPhoto>
-            please choose position
-            <div
-              className="flex align-items-center"
-              style={{
-                marginLeft: "30px",
-                marginRight: "10px",
-                color: "white",
-                paddingBottom: "0.4em",
-              }}
-            >
-              <RadioButton
-                style={{ marginLeft: "10px" }}
-                inputId="ingredient1"
-                name="heart"
-                value="heart"
-                onChange={(e) => setPosition(e.value)}
-                checked={position === "heart"}
-              />
-              <label
-                htmlFor="ingredient1"
-                style={{ marginLeft: "5px", color: "white" }}
-              >
-                Heart
-              </label>
-              <RadioButton
-                style={{ marginLeft: "10px" }}
-                inputId="ingredient2"
-                name="lung"
-                value="lung"
-                onChange={(e) => setPosition(e.value)}
-                checked={position === "lung"}
-              />
-              <label
-                htmlFor="ingredient2"
-                style={{ marginLeft: "5px", color: "white" }}
-              >
-                Lung
-              </label>
-              <RadioButton
-                style={{ marginLeft: "10px" }}
-                inputId="ingredient3"
-                name="optional"
-                value="optional"
-                onChange={(e) => setPosition(e.value)}
-                checked={position === "optional"}
-              />
-              <label
-                htmlFor="ingredient3"
-                style={{ marginLeft: "5px", color: "white" }}
-              >
-                Optional
-              </label>
-            </div>
-          </DiagramPositionText>
-          <div style={{ width: "22%" }}>
-            <img src={positionPhoto} width={70} />
-          </div>
-        </PositionText>
-        <Timer sampleTime={sampleTime} setSampleTime={setSampleTime} />
-        <DiagramButton onClick={startInput}>START</DiagramButton>
-      </TimerWrapper>
-      <br />
-      <div style={{ display: "flex" }}>
+      <div style={{ display: "flex", marginBottom: "2em" }}>
         <div style={{ width: "75%" }}>
+          <TimerWrapper>
+            <PositionChoose position={position} setPosition={setPosition} />
+            <Timer sampleTime={sampleTime} setSampleTime={setSampleTime} />
+            <DiagramButton onClick={startInput}>START</DiagramButton>
+          </TimerWrapper>
           <DiagramWrapper>
             <Description>
               <DiagramText>
-                <CircularPhoto margin={true} >
+                <CircularPhoto margin={true}>
                   <img src={heartAndLungSound} />{" "}
                 </CircularPhoto>
                 Please put your device on your specified posiotion{"   "}
@@ -355,10 +284,12 @@ const HeartAndLungSoundPage = () => {
               </CircularPhoto>
               Results
             </DiagramText>
-            <ImportantTitle>Heart Beat (bpm)</ImportantTitle>
-            <ImportantValue>{heartBeat}</ImportantValue>
-            <SimpleTitle>Respiration Rate (bpm)</SimpleTitle>
-            <SimpleValue>{respirationRate}</SimpleValue>
+            <ParameterContainer>
+              <ImportantTitle>Heart Beat (bpm)</ImportantTitle>
+              <ImportantValue>{heartBeat}</ImportantValue>
+              <SimpleTitle>Respiration Rate (bpm)</SimpleTitle>
+              <SimpleValue>{respirationRate}</SimpleValue>
+            </ParameterContainer>
             <ChooseSignalWrapper clicked={ChooseSignalClicked}>
               <CircularPhoto margin={true}>
                 <img src={ChooseSignalIcon} width={15} />
@@ -369,7 +300,7 @@ const HeartAndLungSoundPage = () => {
                 onClick={() => setClicked(1 - ChooseSignalClicked)}
               >
                 <img
-                  src={ChooseSignalClicked ? upArrowIcon : downArrowIcon}
+                  src={ChooseSignalClicked ? downArrowIcon : upArrowIcon }
                   width={15}
                 />
               </CircularPhoto>
@@ -411,14 +342,13 @@ const HeartAndLungSoundPage = () => {
               >
                 {filter % 2 ? "Filtered" : "Main"} Signal
               </Button>
-            </FilterButton>          
+            </FilterButton>
             <PlayBox>
               <PlaySoundText>
                 <div>Play Sound</div>
               </PlaySoundText>
               <AudioPlayer url={url} />
             </PlayBox>
-          </InfoContainer>
           <PageButtons
             disable={disable}
             dataName="pcgData"
@@ -434,6 +364,7 @@ const HeartAndLungSoundPage = () => {
               dbFunc.updateHistory(dataParameter);
             }}
           />
+          </InfoContainer>
         </div>
       </div>
     </PageWrapper>

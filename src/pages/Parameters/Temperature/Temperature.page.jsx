@@ -94,12 +94,12 @@ const TemperaturePage = () => {
   return (
     <PageWrapper>
       <HighlightTitle title="Temperature" />
-      <TimerWrapper>
-        <Timer sampleTime={sampleTime} setSampleTime={setSampleTime} />
-        <DiagramButton onClick={startInput}>START</DiagramButton>
-      </TimerWrapper>
       <div style={{ display: "flex", marginTop: "1em" }}>
         <div style={{ width: "75%" }}>
+          <TimerWrapper>
+            <Timer sampleTime={sampleTime} setSampleTime={setSampleTime} />
+            <DiagramButton onClick={startInput}>START</DiagramButton>
+          </TimerWrapper>
           <DiagramWrapper>
             <Description>
               <CircularPhoto>

@@ -51,6 +51,8 @@ export const InfoContainer = styled.div`
   margin: 0 1em;
   padding: 0em 1em;
   height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr;
 `;
 
 export const ImportantTitle = styled.h6`

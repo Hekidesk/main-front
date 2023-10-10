@@ -17,7 +17,7 @@ const PageButtons = ({
 }) => {
   const [save, setSave] = useState(false);
   return (
-    <div style={{display: "flex", "justifyContent": "center"}}>
+    <div style={{display: "flex", "justifyContent": "center", alignSelf: "end"}}>
         <Button
           onClick={() => {
             onClick(1);

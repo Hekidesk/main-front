@@ -54,6 +54,8 @@ export const InfoContainer = styled.div`
   margin: 0 1em;
   padding: 0em 1em 1em 1em;
   height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr;
 `;
 
 export const ImportantTitle = styled.h6`
@@ -135,11 +137,12 @@ export const ParameterContainer = styled.div`
 `;
 export const ChooseSignalWrapper = styled.div`
   padding: 0.5em;
+  margin: 1.5em;
   opacity: 0.6;
-  background: #EBEBEB;
+  background: #0A0A0A;
   border-radius: 45px;
   backdrop-filter: blur(10px);
-  color: black;
+  color: white;
   font-size: 1.2em;
   font-weight: 600;
   ${(props) =>
@@ -164,8 +167,8 @@ export const OneButtonContainer = styled.div`
       `}
   transition: ${(props) =>
     props.clicked
-      ? 'opacity 1.5s, height 1.5s, visibility 1.5s;'
-      : 'opacity 1s, height 0.4s, visibility 1s;'};
+      ? 'opacity 1.5s;'
+      : 'opacity 10s;'};
 `;
 export const FilterButton = styled.div`
   text-align: center;

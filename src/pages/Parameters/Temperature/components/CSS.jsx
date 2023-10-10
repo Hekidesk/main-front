@@ -33,15 +33,11 @@ export const DiagramButton = styled.button`
   margin: 1em 0 0.5em 0.5em;
 `;
 export const DiagramContainer = styled.div`
-  display: flex;
   justify-content: center;
   align-items: center;
   background: #c8e7f1;
   width: 100%;
-  flex-direction: column;
-  @media ${devices.tablet} {
-    flex-direction: row;
-  }
+
 `;
 
 export const InfoContainer = styled.div`
@@ -49,22 +45,26 @@ export const InfoContainer = styled.div`
   border-radius: 30px;
   margin: 0em 1em;
   padding: 0em 1em 1em;
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr;
 `;
 
 export const ImportantTitle = styled.h6`
+  display: block;
   color: var(--important-color);
   text-shadow: 1px 1px 10px var(--important-color);
   font-weight: bold;
 `;
 
 export const ImportantValue = styled.h3`
+  display: block;
   color: var(--important-color);
   text-shadow: 1px 1px 10px var(--important-color);
   font-weight: bold;
   font-size: 50px;
   text-align: center;
 `;
-
 export const SimpleTitle = styled.h6`
   color: var(--main-green);
   text-shadow: 1px 1px 10px var(--main-green);
@@ -117,4 +117,8 @@ export const ParameterContainer = styled.div`
   background-color: #ffffff;
   border-radius: 2.9em;
   padding: 2em;
+  display: flex;
+  flex-direction: column; /* Stack the children vertically */
+  justify-content: center; /* Centers horizontally */
+  align-items: center;
 `;

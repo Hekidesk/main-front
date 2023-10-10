@@ -115,13 +115,13 @@ const BloodPressurePage = () => {
   return (
     <PageWrapper>
       <HighlightTitle title="Blood Pressure" icon={bloodPressure} />
-      <TimerWrapper>
-        <Timer sampleTime={sampleTime} setSampleTime={setSampleTime} />
-        <DiagramButton onClick={startInput}>START</DiagramButton>
-      </TimerWrapper>
       <div style={{ display: "flex", marginBottom: "1em" }}>
         <div style={{ width: "75%" }}>
           <br />
+            <TimerWrapper>
+              <Timer sampleTime={sampleTime} setSampleTime={setSampleTime} />
+              <DiagramButton onClick={startInput}>START</DiagramButton>
+            </TimerWrapper>
           <DiagramWrapper>
             <Description>
               <CircularPhoto>

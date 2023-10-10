@@ -73,6 +73,8 @@ export const InfoContainer = styled.div`
   margin: 0 1em;
   padding: 0em 1em;
   text-alighn: center;
+  display: grid;
+  grid-template-rows: auto 1fr;
 `;
 export const InfoAbnormalityContainer = styled.div`
   border-left: 2px solid var(--main-green);
@@ -141,6 +143,7 @@ export const CircularPhoto = styled.div`
 `;
 export const FilterButton = styled.div`
   text-align: center;
+  margin: 2em 0em;
 `;
 export const HrvContainer = styled.div`
   width: 67%;
@@ -158,7 +161,6 @@ export const SingleSpikeContainer = styled.div`
   padding: 0 0.75em 0.75em 0.75em;
 `;
 export const ParameterContainer = styled.div`
-  height: 70%;
   background-color: #ffffff;
   border-radius: 2.9em;
   padding-bottom: 1em;
@@ -174,6 +176,7 @@ export const ArrythmiaTitle = styled.h6`
   color: var(--main-green);
   text-align: center;
   font-size: 1.5em;
+  margin: 1em 0em;
   text-shadow: 1px 1px 10px var(--main-green);
 `;
 export const FlexSpaceBetweenBox = styled.div`

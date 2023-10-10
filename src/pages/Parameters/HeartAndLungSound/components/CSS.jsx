@@ -47,8 +47,11 @@ export const DiagramContainer = styled.div`
 export const InfoContainer = styled.div`
   background-color: #e8f0f4;
   border-radius: 30px;
-  margin: 1em;
+  margin: 0 1em;
   padding: 0em 1em 1em;
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr;
 `;
 
 export const ImportantTitle = styled.h6`
@@ -171,17 +174,17 @@ export const FilterButton = styled.div`
   text-align: center;
 `;
 export const ChooseSignalWrapper = styled.div`
-  padding: 1.5em;
+  padding: 0.5em;
+  margin: 1.5em;
   opacity: 0.6;
-  background: #0a0a0a;
+  background: #0A0A0A;
   border-radius: 45px;
   backdrop-filter: blur(10px);
   color: white;
   font-size: 1.2em;
   font-weight: 600;
-  margin-top: 1em;
   ${(props) =>
-    props.ChooseSignalClicked && "height: 10em; transition: all 0.5s ease;"}
+    props.clicked && "padding: 1em;"}
 `;
 export const ButtonContainer = styled.div`
   display: flex;
@@ -202,6 +205,12 @@ export const OneButtonContainer = styled.div`
       `}
   transition: ${(props) =>
     props.clicked
-      ? 'opacity 1.5s, height 1.5s, visibility 1.5s;'
-      : 'opacity 1s, height 0.4s, visibility 1s;'};
+      ? 'opacity 1.5s;'
+      : 'opacity 1s;'};
+`;
+export const ParameterContainer = styled.div`
+  background-color: #ffffff;
+  border-radius: 2.9em;
+  padding: 3em;
+  padding-bottom: 0;
 `;
