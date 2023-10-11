@@ -45,6 +45,9 @@ const BloodPressurePage = () => {
   const bluetooth = useContext(BluetoothContext);
 
   async function calculate(irData, forceData) {
+    console.log("ir Data: " + irData)
+    console.log("force Data: " + forceData)
+
     let payload = {
       IR: "[" + irData?.toString() + "]",
       force: "[" + forceData?.toString() + "]",
