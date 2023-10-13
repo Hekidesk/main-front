@@ -66,4 +66,7 @@ export const BackWrapper = styled.div`
   position: absolute;
   left: 17%;
   top: 1em;
+  @media ${devices.laptopM} {
+    left: 4% !important;
+  }
 `;

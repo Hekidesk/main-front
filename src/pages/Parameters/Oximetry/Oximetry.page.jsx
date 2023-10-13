@@ -147,7 +147,7 @@ const OximetryPage = () => {
           <br />
           <DiagramWrapper>
             <Description>
-              <CircularPhoto>
+              <CircularPhoto margin={true}>
                 <img src={oximetryIcon} />{" "}
               </CircularPhoto>
               <DiagramText>
@@ -161,7 +161,7 @@ const OximetryPage = () => {
           <br />
           <DiagramWrapper>
             <Description>
-              <CircularPhoto>
+              <CircularPhoto margin={true}>
                 <img src={ChooseSignalHand} />{" "}
               </CircularPhoto>
               <DiagramText>please choose signal</DiagramText>

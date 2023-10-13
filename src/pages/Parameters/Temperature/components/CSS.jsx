@@ -46,8 +46,7 @@ export const InfoContainer = styled.div`
   margin: 0em 1em;
   padding: 0em 1em 1em;
   height: 100%;
-  display: grid;
-  grid-template-rows: auto 1fr;
+  position: relative;
 `;
 
 export const ImportantTitle = styled.h6`
@@ -116,9 +115,9 @@ export const CircularPhoto = styled.div`
 export const ParameterContainer = styled.div`
   background-color: #ffffff;
   border-radius: 2.9em;
-  padding: 2em;
+  padding: 10em 2em;
   display: flex;
   flex-direction: column; /* Stack the children vertically */
-  justify-content: center; /* Centers horizontally */
-  align-items: center;
+  justify-content: left; /* Centers horizontally */
+  align-items: left;
 `;

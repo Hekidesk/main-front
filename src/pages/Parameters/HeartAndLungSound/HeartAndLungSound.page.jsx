@@ -247,7 +247,7 @@ const HeartAndLungSoundPage = () => {
           <br />
           <DiagramWrapper>
             <Description>
-              <CircularPhoto>
+              <CircularPhoto margin={true}>
                 <img src={ChooseSignalHand} />{" "}
               </CircularPhoto>
               <DiagramText>please choose signal</DiagramText>
@@ -276,7 +276,7 @@ const HeartAndLungSoundPage = () => {
             </DiagramContainer>
           </DiagramWrapper>
         </div>
-        <div style={{ width: "35%" }}>
+        <div style={{ width: "30%" }}>
           <InfoContainer>
             <DiagramText>
               <CircularPhoto margin={true}>
@@ -289,6 +289,12 @@ const HeartAndLungSoundPage = () => {
               <ImportantValue>{heartBeat}</ImportantValue>
               <SimpleTitle>Respiration Rate (bpm)</SimpleTitle>
               <SimpleValue>{respirationRate}</SimpleValue>
+              <PlayBox>
+                <PlaySoundText>
+                  <div>Play Sound</div>
+                </PlaySoundText>
+                <AudioPlayer url={url} />
+              </PlayBox>
             </ParameterContainer>
             <ChooseSignalWrapper clicked={ChooseSignalClicked}>
               <CircularPhoto margin={true}>
@@ -300,14 +306,14 @@ const HeartAndLungSoundPage = () => {
                 onClick={() => setClicked(1 - ChooseSignalClicked)}
               >
                 <img
-                  src={ChooseSignalClicked ? downArrowIcon : upArrowIcon }
+                  src={ChooseSignalClicked ? upArrowIcon : downArrowIcon}
                   width={15}
                 />
               </CircularPhoto>
               <ButtonContainer>
                 <OneButtonContainer clicked={ChooseSignalClicked}>
                   <Button
-                    style={filterButton}
+                    className="filter-button filter-button-heart-size"
                     onClick={() => setFilterActiveNum(0)}
                     disabled={disable}
                   >
@@ -316,7 +322,7 @@ const HeartAndLungSoundPage = () => {
                 </OneButtonContainer>
                 <OneButtonContainer clicked={ChooseSignalClicked}>
                   <Button
-                    style={filterButton}
+                    className="filter-button filter-button-heart-size"
                     onClick={() => setFilterActiveNum(2)}
                     disabled={disable}
                   >
@@ -325,8 +331,8 @@ const HeartAndLungSoundPage = () => {
                 </OneButtonContainer>
                 <OneButtonContainer clicked={ChooseSignalClicked}>
                   <Button
-                    style={filterButton}
-                    onClick={() => setFilterActiveNum(4)}
+                    className="filter-button filter-button-heart-size"
+                    onClick={() => setFilterActiveNum(2)}
                     disabled={disable}
                   >
                     Lung
@@ -343,27 +349,22 @@ const HeartAndLungSoundPage = () => {
                 {filter % 2 ? "Filtered" : "Main"} Signal
               </Button>
             </FilterButton>
-            <PlayBox>
-              <PlaySoundText>
-                <div>Play Sound</div>
-              </PlaySoundText>
-              <AudioPlayer url={url} />
-            </PlayBox>
-          <PageButtons
-            disable={disable}
-            dataName="pcgData"
-            texts={[
-              "Heart beat: " + heartBeat,
-              "Respiration rate: " + respirationRate,
-              "Quality index: " + qualityIndex,
-            ]}
-            onClick={() => {
-              var dataParameter = {};
-              dataParameter["heartBeatSound"] = heartBeat;
-              dataParameter["respirationRate"] = respirationRate;
-              dbFunc.updateHistory(dataParameter);
-            }}
-          />
+
+            <PageButtons
+              disable={disable}
+              dataName="pcgData"
+              texts={[
+                "Heart beat: " + heartBeat,
+                "Respiration rate: " + respirationRate,
+                "Quality index: " + qualityIndex,
+              ]}
+              onClick={() => {
+                var dataParameter = {};
+                dataParameter["heartBeatSound"] = heartBeat;
+                dataParameter["respirationRate"] = respirationRate;
+                dbFunc.updateHistory(dataParameter);
+              }}
+            />
           </InfoContainer>
         </div>
       </div>

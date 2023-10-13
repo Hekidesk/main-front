@@ -51,10 +51,15 @@ export const InfoContainer = styled.div`
   margin: 0 1em;
   padding: 0em 1em;
   height: 100%;
-  display: grid;
-  grid-template-rows: auto 1fr;
+  position: relative;
 `;
-
+export const ParameterContainer = styled.div`
+  background-color: #ffffff;
+  border-radius: 2.9em;
+  padding: 3em;
+  padding-bottom: 0;
+  height: 70%;
+`;
 export const ImportantTitle = styled.h6`
   color: var(--important-color);
   font-weight: bold;
@@ -141,10 +146,4 @@ export const CircularPhoto = styled.div`
   border-radius: 45px;
   color: black;
   ${(props) => props.margin && "margin-right: 1em;"}
-`;
-export const ParameterContainer = styled.div`
-  background-color: #ffffff;
-  border-radius: 2.9em;
-  padding: 3em;
-  padding-bottom: 0;
 `;

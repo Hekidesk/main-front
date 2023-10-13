@@ -11,7 +11,6 @@ import {
   ChooseSignalWrapper,
   ButtonContainer,
   OneButtonContainer,
-  filterButton,
 } from "./CSS";
 import { Button } from "primereact/button";
 import resultIcon from "@/assets/icon/resultIcon.svg";
@@ -58,14 +57,14 @@ export const Info = ({
           onClick={() => setClicked(1 - ChooseSignalClicked)}
         >
           <img
-            src={ChooseSignalClicked ? downArrowIcon : upArrowIcon}
+            src={ChooseSignalClicked ? upArrowIcon : downArrowIcon}
             width={15}
           />
         </CircularPhoto>
         <ButtonContainer>
           <OneButtonContainer clicked={ChooseSignalClicked}>
             <Button
-              style={filterButton}
+              className="filter-button"
               onClick={() => setFilterActiveNum(0)}
               disabled={disable}
             >
@@ -74,13 +73,13 @@ export const Info = ({
           </OneButtonContainer>
           <OneButtonContainer clicked={ChooseSignalClicked}>
             <Button
-              style={filterButton}
+              className="filter-button"
               onClick={() => setFilterActiveNum(2)}
               disabled={disable}
             >
               RED
             </Button>
-          </OneButtonContainer>
+          </OneButtonContainer> 
         </ButtonContainer>
       </ChooseSignalWrapper>
       <FilterButton>

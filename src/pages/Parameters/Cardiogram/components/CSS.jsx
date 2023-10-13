@@ -73,8 +73,7 @@ export const InfoContainer = styled.div`
   margin: 0 1em;
   padding: 0em 1em;
   text-alighn: center;
-  display: grid;
-  grid-template-rows: auto 1fr;
+  position: relative;
 `;
 export const InfoAbnormalityContainer = styled.div`
   border-left: 2px solid var(--main-green);

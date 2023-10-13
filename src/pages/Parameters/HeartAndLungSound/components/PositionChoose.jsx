@@ -66,7 +66,7 @@ const PositionChoose = ({position, setPosition}) => {
         </div>
       </DiagramPositionText>
       <div style={{ width: "22%" }}>
-        <img src={positionPhoto} width={70} />
+        <img src={positionPhoto} width={60} />
       </div>
     </PositionText>
   );

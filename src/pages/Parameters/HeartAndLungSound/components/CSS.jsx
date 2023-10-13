@@ -50,8 +50,7 @@ export const InfoContainer = styled.div`
   margin: 0 1em;
   padding: 0em 1em 1em;
   height: 100%;
-  display: grid;
-  grid-template-rows: auto 1fr;
+  position: relative;
 `;
 
 export const ImportantTitle = styled.h6`
@@ -137,7 +136,7 @@ export const CircularPhoto = styled.div`
   border-radius: 45px;
   color: black;
   ${(props) => props.margin && "margin-right: 1em;"}
-  ${(props) => !props.margin && "float: right;"}
+  ${(props) => !props.margin && "position: absolute; right: 3.2em;"}
   &:hover {
     ${(props) => !props.margin && "cursor: pointer"}
   }
@@ -153,8 +152,8 @@ export const PositionText = styled.div`
   font-size: 1.7em;
   font-weight: bold;
   margin: 1em 0 0.5em 0.5em;
-  `;
-  export const CircularPositionPhoto = styled.div`
+`;
+export const CircularPositionPhoto = styled.div`
   display: inline-block;
   padding: 0.7em 0.8em;
   background-color: white;
@@ -177,40 +176,42 @@ export const ChooseSignalWrapper = styled.div`
   padding: 0.5em;
   margin: 1.5em;
   opacity: 0.6;
-  background: #0A0A0A;
+  background: #0a0a0a;
   border-radius: 45px;
-  backdrop-filter: blur(10px);
   color: white;
   font-size: 1.2em;
   font-weight: 600;
-  ${(props) =>
-    props.clicked && "padding: 1em;"}
+  @media ${devices.laptopM} {
+    font-size: 0.9em;
+  }
+  ${(props) => props.clicked && "padding: 0.7em;border-radius: 30px;"}
 `;
 export const ButtonContainer = styled.div`
   display: flex;
+  justify-content: space-around;
+  @media ${devices.laptopM} {
+    flex-direction: column;
+    justify-content: space-between;
+  }
 `;
 export const OneButtonContainer = styled.div`
-  width: 50%;
   ${(props) =>
     props.clicked
       ? `
-        opacity: 1;
-        height: 100%;
-        overflow: visible;
-      `
+      opacity: 1;
+      height: 100%;
+      overflow: visible;
+    `
       : `
-        opacity: 0;
-        height: 0;
-        overflow: hidden;
-      `}
-  transition: ${(props) =>
-    props.clicked
-      ? 'opacity 1.5s;'
-      : 'opacity 1s;'};
+      opacity: 0;
+      height: 0;
+      overflow: hidden;
+    `}
+  transition: ${(props) => (props.clicked ? "opacity 1.5s;" : "opacity 15s;")};
 `;
 export const ParameterContainer = styled.div`
+  position: relative;
   background-color: #ffffff;
   border-radius: 2.9em;
-  padding: 3em;
-  padding-bottom: 0;
+  padding: 3em 3em 1em 3em;
 `;
