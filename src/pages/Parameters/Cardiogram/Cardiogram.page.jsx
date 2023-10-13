@@ -35,8 +35,9 @@ const CardiogramPage = () => {
   const [chartData, setChartData] = useState();
   const [sizeOfSlice, setSizeOfSlice] = useState(-1);
   const [disable, setDisable] = useState(1);
-
+  
   const [result, setResult] = useState(initial_state);
+  const [showDownCounter, setShowDownCounter] = useState(false);
   const [startCountDown, setStartCountDown] = useState(0);
   const [counter, setCounter] = useState(5);
   const [sampleTime, setSampleTime] = useState(10);
@@ -48,6 +49,7 @@ const CardiogramPage = () => {
     setDisable(1);
     setChartData([]);
     setStartCountDown(1);
+    setShowDownCounter(true);
     setResult(initial_state);
   };
 
@@ -62,6 +64,7 @@ const CardiogramPage = () => {
 
     startTime.current = setTimeout(() => {
       bluetooth.Start().then((result) => (startTimeDuration = result));
+      setShowDownCounter(false);
       setSizeOfSlice(400);
       setCounter(sampleTime);
     }, [pendingTime + delayTime]);
@@ -91,7 +94,10 @@ const CardiogramPage = () => {
   }, [filter]);
 
   return (
-    <PageWrapper>
+    <PageWrapper
+      showDownCounter={showDownCounter}
+      blurBackground={showDownCounter}
+    >
       <HighlightTitle title="Cardiogram" icon={HeartIcon} />
       <div style={{ display: "flex", marginBottom: "2em" }}>
         <div style={{ width: "75%" }}>

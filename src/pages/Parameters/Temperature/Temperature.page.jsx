@@ -39,6 +39,7 @@ const TemperaturePage = () => {
   const [startCountDown, setStartCountDown] = useState(0);
   const [counter, setCounter] = useState(5);
   const [sampleTime, setSampleTime] = useState(10);
+  const [showDownCounter, setShowDownCounter] = useState(false);
 
   const dbFunc = useAddToDB("TemperatureData");
   const bluetooth = useContext(BluetoothContext);
@@ -63,6 +64,7 @@ const TemperaturePage = () => {
   }, [bluetooth]);
 
   const flushData = () => {
+    setShowDownCounter(true);
     setStartCountDown(1);
     setTemperature("- ? -");
     setCounter(5);
@@ -79,6 +81,7 @@ const TemperaturePage = () => {
       setData(input.temperature);
     });
     startTime.current = setTimeout(() => {
+      setShowDownCounter(false);
       setCounter(sampleTime);
       bluetooth.Start().then((result) => (startTimeDuration = result));
       setSizeOfSlice(10);
@@ -92,7 +95,10 @@ const TemperaturePage = () => {
   };
 
   return (
-    <PageWrapper>
+    <PageWrapper
+      showDownCounter={showDownCounter}
+      blurBackground={showDownCounter}
+    >
       <HighlightTitle title="Temperature" />
       <div style={{ display: "flex", marginTop: "1em" }}>
         <div style={{ width: "75%" }}>

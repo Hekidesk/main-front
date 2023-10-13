@@ -45,8 +45,8 @@ const BloodPressurePage = () => {
   const bluetooth = useContext(BluetoothContext);
 
   async function calculate(irData, forceData) {
-    console.log("ir Data: " + irData)
-    console.log("force Data: " + forceData)
+    console.log("ir Data: " + irData);
+    console.log("force Data: " + forceData);
 
     let payload = {
       IR: "[" + irData?.toString() + "]",
@@ -79,6 +79,7 @@ const BloodPressurePage = () => {
   const [startCountDown, setStartCountDown] = useState(0);
   const [counter, setCounter] = useState(5);
   const [sampleTime, setSampleTime] = useState(10);
+  const [showDownCounter, setShowDownCounter] = useState(false);
 
   const startTime = useRef(null);
   const endTime = useRef(null);
@@ -90,6 +91,7 @@ const BloodPressurePage = () => {
     setDisable(1);
     setIRChartData([]);
     setStartCountDown(1);
+    setShowDownCounter(true);
   };
 
   const startInput = () => {
@@ -104,6 +106,7 @@ const BloodPressurePage = () => {
     });
 
     startTime.current = setTimeout(() => {
+      setShowDownCounter(false);
       bluetooth.Start().then((result) => (startTimeDuration = result));
       setCounter(sampleTime);
     }, [pendingTime + delayTime]);
@@ -116,15 +119,18 @@ const BloodPressurePage = () => {
   };
 
   return (
-    <PageWrapper>
+    <PageWrapper
+      showDownCounter={showDownCounter}
+      blurBackground={showDownCounter}
+    >
       <HighlightTitle title="Blood Pressure" icon={bloodPressure} />
       <div style={{ display: "flex", marginBottom: "1em" }}>
         <div style={{ width: "75%" }}>
           <br />
-            <TimerWrapper>
-              <Timer sampleTime={sampleTime} setSampleTime={setSampleTime} />
-              <DiagramButton onClick={startInput}>START</DiagramButton>
-            </TimerWrapper>
+          <TimerWrapper>
+            <Timer sampleTime={sampleTime} setSampleTime={setSampleTime} />
+            <DiagramButton onClick={startInput}>START</DiagramButton>
+          </TimerWrapper>
           <DiagramWrapper>
             <Description>
               <CircularPhoto>

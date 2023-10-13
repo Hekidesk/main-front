@@ -49,13 +49,14 @@ export async function calculateBeatPerMinuteAPI(
       ArrythmiaType: parseInt(res.data.arrhythmia_type_PQRST),
       ArrythmiaType2: parseInt(res.data.Pred_Label),
     });
-    let dot = makePQRST(
-      makeArrayFormString(res.data.P),
-      makeArrayFormString(res.data.Q),
-      makeArrayFormString(res.data.R),
-      makeArrayFormString(res.data.S),
-      makeArrayFormString(res.data.T)
-    );
+    let dot = []
+    // makePQRST(
+    //   makeArrayFormString(res.data.P),
+    //   makeArrayFormString(res.data.Q),
+    //   makeArrayFormString(res.data.R),
+    //   makeArrayFormString(res.data.S),
+    //   makeArrayFormString(res.data.T)
+    // );
 
     let filtered_signal = makeArrayFormString(res.data.ECG_filtered);
     setFilteredArray([

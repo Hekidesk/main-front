@@ -143,6 +143,7 @@ const HeartAndLungSoundPage = () => {
   const [startCountDown, setStartCountDown] = useState(0);
   const [counter, setCounter] = useState(5);
   const [sampleTime, setSampleTime] = useState(10);
+  const [showDownCounter, setShowDownCounter] = useState(false);
 
   const startTime = useRef(null);
   const endTime = useRef(null);
@@ -156,6 +157,7 @@ const HeartAndLungSoundPage = () => {
     setHeartBeat("-?-");
     setRespirationRate("-?-");
     setCounter(5);
+    setShowDownCounter(true);
     setQualityIndex(0);
   };
 
@@ -184,6 +186,7 @@ const HeartAndLungSoundPage = () => {
     let startTimeDuration = 0;
     startTime.current = setTimeout(() => {
       bluetooth.Start().then((result) => (startTimeDuration = result));
+      setShowDownCounter(false);
       setCounter(sampleTime);
       setSizeOfSlice(tempSizeOfSlice);
     }, [pendingTime + delayTime]);
@@ -222,7 +225,11 @@ const HeartAndLungSoundPage = () => {
   }
 
   return (
-    <PageWrapper blurBackground={answerReady} answerReady={answerReady}>
+    <PageWrapper
+      showDownCounter={showDownCounter}
+      blurBackground={showDownCounter || answerReady}
+      answerReady={answerReady}
+    >
       <HighlightTitle title="Heart Lung Sound" icon={heartAndLungSound} />
       <div style={{ display: "flex", marginBottom: "2em" }}>
         <div style={{ width: "75%" }}>
