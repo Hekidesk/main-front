@@ -33,7 +33,7 @@ const Measurement = () => {
   ];
   return (
     <div>
-      <div className="d-flex flex-column mt-5">
+      <div className="d-flex flex-column mt-5" style={{ maxWidth: "900px" }}>
         <div className="d-flex flex-column">
           <Title2>Measurement</Title2>
         </div>
@@ -77,9 +77,10 @@ const Measurement = () => {
           // eslint-disable-next-line no-undef
           to={process.env.REACT_APP_BASE_URL + "/user-desk"}
           style={ButtonMyDeskStyle}
+          className="p-2"
         >
           <img src={MyDeskIcon} alt="Image" width="16px" className={"mx-2"} />
-          {" My Desk"}
+          <b>{" My Desk"}</b>
         </Link>
       </div>
     </div>

@@ -25,7 +25,7 @@ export const NameProfileContainer = styled.div`
   font-family: "Open Sans";
   font-style: normal;
   font-weight: 450;
-  font-size: 15px;
+  font-size: 13px;
   line-height: 20px;
 `;
 export const PhotoCol = styled.div`
@@ -34,8 +34,8 @@ export const PhotoCol = styled.div`
   padding-right: 1em;
 `;
 export const TextCol = styled.div`
-  width: 30%;
-  padding: 5px 20px 0px 15px;
+  width: 35%;
+  padding: 5px 10px 0px 10px;
 `;
 export const ConnectionIconCol = styled.div`
   padding-top: 4px;
