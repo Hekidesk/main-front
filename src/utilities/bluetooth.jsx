@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Swal from "sweetalert2";
 
 const ServiceUUID = "4fafc201-1fb5-459e-8fcc-c5c9c331914b";
 const ReadCharistristicUUID = "beb5483e-36e1-4688-b7f5-ea07361b26a8";
@@ -37,7 +38,6 @@ export const useSignalFeed = () => {
         acceptAllDevices: true,
       })
       .then((device) => {
-        console.log(device);
         setLoading(true);
         setDevice(device);
         setIsConnected(true);
@@ -59,7 +59,7 @@ export const useSignalFeed = () => {
           });
         });
         device.addEventListener("gattserverdisconnected", () => {
-          console.log("disconnect 2");
+          console.log("-disconnect-");
           setIsConnected(false);
           setDevice("");
         });
@@ -175,6 +175,19 @@ export const useSignalFeed = () => {
     }
   };
 
+  const CheckConnection = () => {
+    if (!isConnected) {
+      Swal.fire({
+        icon: "error",
+        title: "Device is disconnected",
+        text: "Please conect your device!",
+        confirmButtonColor: "#3085d6",
+      });
+      return true;
+    }
+    return false;
+  };
+
   return {
     Stop,
     Start,
@@ -188,6 +201,7 @@ export const useSignalFeed = () => {
     finish,
     TurnOff,
     GetRemainCharge,
+    CheckConnection,
   };
 };
 

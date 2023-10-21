@@ -73,6 +73,8 @@ const TemperaturePage = () => {
   };
 
   const startInput = () => {
+    if (bluetooth.CheckConnection()) return;
+    
     let startTimeDuration = 0;
     flushData();
 

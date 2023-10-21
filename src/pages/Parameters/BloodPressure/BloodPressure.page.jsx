@@ -54,7 +54,7 @@ const BloodPressurePage = () => {
       fs: bluetooth.GetFrequency()[0],
     };
     let res = await axios.post("/bp_signal", payload).catch(console.log);
-    if (res?.status < 400 && !Number(res.data.Try_Again)) {
+    if (!Number(res.data.Try_Again)) {
       setSYS(res.data.Diastolic);
       setDIA(res.data.Systolic);
       setQualityIndex(res.data.Quality_index);
@@ -95,6 +95,8 @@ const BloodPressurePage = () => {
   };
 
   const startInput = () => {
+    if (bluetooth.CheckConnection()) return;
+    
     let startTimeDuration = 0;
     flushData();
 

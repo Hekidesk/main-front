@@ -85,7 +85,7 @@ const HeartAndLungSoundPage = () => {
   async function calculateBeatPerMinuteAPI(pcg) {
     setAnswerReady(true);
     getDataAPI(pcg, bluetooth.GetFrequency()[0]).then((res) => {
-      if (!res) {
+      if (!res || Number(res?.data.Try_Again)) {
         setAnswerReady(false);
         Swal.fire({
           icon: "error",
@@ -164,6 +164,7 @@ const HeartAndLungSoundPage = () => {
   const tempSizeOfSlice = 20000;
 
   const startInput = () => {
+    if (bluetooth.CheckConnection()) return;
     flushData();
     bluetooth.SendCommand(COMMAND, (input) => {
       setChartData(

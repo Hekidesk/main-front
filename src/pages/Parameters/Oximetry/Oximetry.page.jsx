@@ -108,6 +108,7 @@ const OximetryPage = () => {
   };
 
   const startInput = () => {
+    if (bluetooth.CheckConnection()) return;
     let startTimeDuration = 0;
     flushData();
 
@@ -192,7 +193,7 @@ const OximetryPage = () => {
             disable={disable}
             setFilter={setFilter}
             filter={filter}
-            setFilterActiveNum = {setFilterActiveNum}
+            setFilterActiveNum={setFilterActiveNum}
           />
         </div>
       </div>

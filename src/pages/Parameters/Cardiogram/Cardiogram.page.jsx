@@ -54,14 +54,14 @@ const CardiogramPage = () => {
   };
 
   const startInput = () => {
+    if(bluetooth.CheckConnection())
+      return;
     let startTimeDuration = 0;
     flushData();
-
     bluetooth.SendCommand(COMMAND, (input) => {
       setChartData(makeArrayForChart(input.ecg));
       setData(input.ecg);
     });
-
     startTime.current = setTimeout(() => {
       bluetooth.Start().then((result) => (startTimeDuration = result));
       setShowDownCounter(false);
