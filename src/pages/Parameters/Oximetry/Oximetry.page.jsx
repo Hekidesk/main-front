@@ -129,6 +129,7 @@ const OximetryPage = () => {
       setSizeOfSlice(-1);
       setStartCountDown(0);
       setCounter(sampleTime);
+      setFilterActiveNum(0); //added
       bluetooth.Stop(startTimeDuration);
     }, [sampleTime * 1000 + pendingTime + delayTime * 2]);
   };
@@ -165,7 +166,7 @@ const OximetryPage = () => {
               <CircularPhoto margin={true}>
                 <img src={ChooseSignalHand} />{" "}
               </CircularPhoto>
-              <DiagramText>please choose signal</DiagramText>
+              <DiagramText>choosen signal: {filterActiveNum > 1 ? "Red" : filterActiveNum > -1 ? "IR" : "-" }</DiagramText>
             </Description>
             <DiagramContainer>
               <Diagram

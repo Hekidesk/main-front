@@ -4,12 +4,13 @@ import "../../assets/styles/profile.css";
 import { useEffect, useState } from "react";
 import { useIndexedDB } from "react-indexed-db";
 const ProfileSection = () => {
-  const { getByID } = useIndexedDB("users");
+  const { getByIndex  } = useIndexedDB("users");
   const [user, setUser] = useState({});
   const [age, setAge] = useState("");
 
   useEffect(() => {
-    getByID(localStorage.getItem("id")).then((user) => setUser(user));
+    getByIndex("username",localStorage.getItem("user")).then((user) => console.log(user));
+    getByIndex("username",localStorage.getItem("user")).then((user) => setUser(user));
   }, []);
 
   useEffect(() => {
