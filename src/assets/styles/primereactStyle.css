@@ -124,7 +124,7 @@
 
 .filter-button {
   width: 7em;
-  margin: 20px auto !important;
+  margin: 10px auto !important;
   display: block !important;
   align-items: center !important;
   background-color: var(--green-color) !important;

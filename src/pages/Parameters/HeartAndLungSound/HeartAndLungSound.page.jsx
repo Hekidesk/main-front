@@ -85,7 +85,8 @@ const HeartAndLungSoundPage = () => {
   async function calculateBeatPerMinuteAPI(pcg) {
     setAnswerReady(true);
     getDataAPI(pcg, bluetooth.GetFrequency()[0]).then((res) => {
-      if (!res || Number(res?.data.Try_Again)) {
+      console.log(res);
+      if (!res || Number(res.Try_Again)) {
         setAnswerReady(false);
         Swal.fire({
           icon: "error",
@@ -196,6 +197,7 @@ const HeartAndLungSoundPage = () => {
       setStartCountDown(0);
       bluetooth.Stop(startTimeDuration);
       setSizeOfSlice(-1);
+      setFilterActiveNum(0); //added
     }, [sampleTime * 1000 + pendingTime + delayTime]);
   };
 
@@ -258,7 +260,16 @@ const HeartAndLungSoundPage = () => {
               <CircularPhoto margin={true}>
                 <img src={ChooseSignalHand} />{" "}
               </CircularPhoto>
-              <DiagramText>please choose signal</DiagramText>
+              <DiagramText>
+                choosen signal:{" "}
+                {filterActiveNum > 3
+                  ? "Lung"
+                  : filterActiveNum > 1
+                  ? "Heart"
+                  : filterActiveNum > -1
+                  ? "Both"
+                  : "-"}
+              </DiagramText>
             </Description>
             <DiagramContainer>
               <Diagram
@@ -340,7 +351,7 @@ const HeartAndLungSoundPage = () => {
                 <OneButtonContainer clicked={ChooseSignalClicked}>
                   <Button
                     className="filter-button filter-button-heart-size"
-                    onClick={() => setFilterActiveNum(2)}
+                    onClick={() => setFilterActiveNum(4)}
                     disabled={disable}
                   >
                     Lung

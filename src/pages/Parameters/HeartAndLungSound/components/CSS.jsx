@@ -174,7 +174,7 @@ export const FilterButton = styled.div`
 `;
 export const ChooseSignalWrapper = styled.div`
   padding: 0.5em;
-  margin: 1.5em;
+  margin: 1em;
   opacity: 0.6;
   background: #0a0a0a;
   border-radius: 45px;
