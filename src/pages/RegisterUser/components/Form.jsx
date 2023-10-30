@@ -14,6 +14,11 @@ import { Calendar } from "primereact/calendar";
 const RegisterForm = () => {
   const [form, setForm] = useState({
     username: "",
+    password: "",
+    firstName: "",
+    lastName: "",
+    phoneNumber: "",
+    bloodType: "",
     dateOfBirth: "",
     weight: "",
     height: "",
@@ -29,7 +34,7 @@ const RegisterForm = () => {
   // todo --> done
   // add register user
   function addUser() {
-    if(!form.username){
+    if (!form.username) {
       setWarning(true);
       return;
     }
@@ -53,13 +58,47 @@ const RegisterForm = () => {
       </LogoRow>
       <InputTextGroup
         state={form.username}
-        placeHolder={"Name"}
-        label="Name" 
+        placeHolder={"Username"}
+        label="Username"
         setState={(v) => onChangeValue("username", v)}
-        warning = {warning}
-        necessary = {true}
+        warning={warning}
+        necessary={true}
       />
-      <div style = {{textAlign: "left" }}>{warning && <div style = {{color : "red", fontSize: "12px", float: "left" }}> Name connot be empty </div>}</div>
+      <div style={{ textAlign: "left" }}>
+        {warning && (
+          <div
+            style={{
+              color: "red",
+              fontSize: "12px",
+              float: "left",
+              gridColumnStart: 1,
+            }}
+          >
+            {" "}
+            Name cannot be empty{" "}
+          </div>
+        )}
+      </div>
+      <InputTextGroup
+        state={form.password}
+        label={"Password"}
+        placeHolder={"Password"}
+        setState={(v) => onChangeValue("password", v)}
+      />
+      <Row>
+        <InputTextGroup
+          state={form.firstName}
+          label={"First Name"}
+          placeHolder={"First Name"}
+          setState={(v) => onChangeValue("firstName", v)}
+        />
+        <InputTextGroup
+          state={form.lastName}
+          label={"Last Name"}
+          placeHolder={"Last Name"}
+          setState={(v) => onChangeValue("lastName", v)}
+        />
+      </Row>
       <div
         style={{
           display: "flex",
@@ -79,39 +118,70 @@ const RegisterForm = () => {
           className="p-inputtext-sm"
         />
       </div>
-      <InputTextGroup
-        state={form.weight}
-        label={"Weight"}
-        placeHolder={"Weight (kg)"}
-        setState={(v) => onChangeValue("weight", v)}
-      />
-      <InputTextGroup
-        state={form.height}
-        label={"Height"}
-        placeHolder={"Height (cm)"}
-        setState={(v) => onChangeValue("height", v)}
-      />
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          width: "100%",
-          margin: "0.5em 0",
-        }}
-      >
-        <label htmlFor={"gender"}>Gender</label>
-        <Dropdown
-          value={form.gender}
-          onChange={(v) => onChangeValue("gender", v.value)}
-          className="register-dropdown  p-inputtext-sm"
-          options={[
-            { name: "Male", value: 1 },
-            { name: "Female", value: 0 },
-          ]}
-          optionLabel="name"
-          placeholder="Select a gender"
+      <Row>
+        <InputTextGroup
+          state={form.weight}
+          label={"Weight"}
+          placeHolder={"Weight (kg)"}
+          setState={(v) => onChangeValue("weight", v)}
         />
-      </div>
+        <InputTextGroup
+          state={form.height}
+          label={"Height"}
+          placeHolder={"Height (cm)"}
+          setState={(v) => onChangeValue("height", v)}
+        />
+      </Row>
+      <Row>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            width: "100%",
+            margin: "0.5em 0",
+          }}
+        >
+          <label htmlFor={"bloodType"}>Blood Type</label>
+          <Dropdown
+            value={form.bloodType}
+            onChange={(v) => onChangeValue("bloodType", v.value)}
+            className="register-dropdown  p-inputtext-sm"
+            options={[
+              { value: "A+" },
+              { value: "A-" },
+              { value: "B+" },
+              { value: "B-" },
+              { value: "O+" },
+              { value: "O-" },
+              { value: "AB+" },
+              { value: "AB-" },
+            ]}
+            optionLabel="value"
+            placeholder="Select a bloodType"
+          />
+        </div>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            width: "100%",
+            margin: "0.5em 0",
+          }}
+        >
+          <label htmlFor={"gender"}>Gender</label>
+          <Dropdown
+            value={form.gender}
+            onChange={(v) => onChangeValue("gender", v.value)}
+            className="register-dropdown  p-inputtext-sm"
+            options={[
+              { name: "Male", value: 1 },
+              { name: "Female", value: 0 },
+            ]}
+            optionLabel="name"
+            placeholder="Select a gender"
+          />
+        </div>
+      </Row>
       <Row>
         <Col>
           <Button style={ButtonStyle} onClick={() => history(-1)}>
