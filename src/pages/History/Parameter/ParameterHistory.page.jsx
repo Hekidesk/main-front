@@ -166,133 +166,136 @@ const ParameterHistoryPage = () => {
 
   return (
     <PageWrapper>
-      <Row>
-        <h2 className="title-name">Parameters</h2>
-      </Row>
-      <Row>
-        <Col lg={4} md={12}>
-          <ProfileSection />
-        </Col>
-        <Col lg={8} md={12}>
-          <img
-            src={ParameterPhotoIcon}
-            className="top-history-img"
-            alt="time-history-photo"
-          />
-        </Col>
-      </Row>
-      <Row>
-        <Col md={6}>
-          <div className="parameter-section">
-            <img src={HeartRateIcon} alt="time-history-photo" />
-            <div>Heart Rate (bpm) - ppg</div>
-            <HistoryChart
-              color="red"
-              data={[heartBeatPPG]}
-              name={["heartbeat ppg"]}
+      <div style={{marginRight: "20px"}}>
+        <Row>
+          <h2 className="title-name">Parameters</h2>
+        </Row>
+        <Row>
+          <Col lg={4} md={12}>
+            <ProfileSection />
+          </Col>
+          <Col lg={8} md={12}>
+            <img
+              src={ParameterPhotoIcon}
+              className="top-history-img"
+              alt="time-history-photo"
+              height={240}
             />
-          </div>
-        </Col>
-        <Col md={6}>
-          <div className="parameter-section">
-            <img src={Spo2Icon} alt="time-history-photo" />
-            <div>SpO2 (%)</div>
-            <HistoryChart color="#8CCD47" data={[SPO2]} name={["SPO2"]} />
-          </div>
-        </Col>
-      </Row>
-      <Row>
-        <Col md={6}>
-          <div className="parameter-section">
-            <img src={HeartRateIcon} alt="time-history-photo" />
-            <div>Heart Rate (bpm) - ecg</div>
-            <HistoryChart
-              color="#43a5d6"
-              data={[heartBeatECG]}
-              name={["heartbeat ecg"]}
-            />
-          </div>
-        </Col>
-        <Col md={6}>
-          <div className="parameter-section">
-            <img src={PR_RR_INTERVAL} alt="time-history-photo" />
-            <div>PR/RR Interval (msec)</div>
-            <HistoryChart
-              color="orange"
-              data={[PR_RR_Interval]}
-              name={["PR RR Interval"]}
-            />
-          </div>
-        </Col>
-      </Row>
-      <Row>
-        <Col md={6}>
-          <div className="parameter-section">
-            <img src={QRS_Duration_Icon} alt="time-history-photo" />
-            <div>QRS Duration (msec)</div>
-            <HistoryChart
-              color="black"
-              data={[QRS_Duration]}
-              name={["QRS Duration"]}
-            />
-          </div>
-        </Col>
-        <Col md={6}>
-          <div className="parameter-section">
-            <img alt="hr" src={SYSDIAIcon} />
-            <div>HR Variation</div>
-            <HistoryChart color="green" data={[hrvVal]} name={["hrv"]} />
-          </div>
-        </Col>
-      </Row>
-      <Row>
-        <Col md={6}>
-          <div className="parameter-section">
-            <img src={SYSDIAIcon} alt="time-history-photo" />
-            <div>SYS/DIA(mmHg)</div>
-            <HistoryChart
-              color="yellow"
-              data={[SYS, DIA]}
-              name={["SYS", "DIA"]}
-            />
-          </div>
-        </Col>
-        <Col md={6}>
-          <div className="parameter-section">
-            <img src={TemperatureIcon} alt="time-history-photo" />
-            <div>Temperature</div>
-            <HistoryChart
-              color="purple"
-              data={[temperature]}
-              name={["Temperature"]}
-            />
-          </div>
-        </Col>
-      </Row>
-      <Row>
-        <Col md={6}>
-          <div className="parameter-section">
-            <img src={RespirationRateIcon} alt="time-history-photo" />
-            <div>Respiration Rate (bpm)</div>
-            <HistoryChart
-              color="#43a5d6"
-              data={[respirationRate]}
-              name={["Rrespiration Rate"]}
-            />
-          </div>
-        </Col>
-        <Col md={6}>
-          <div className="parameter-section">
-            <img src={HeartAbnormalityIcon} alt="time-history-photo" />
-            <div>Heart Rate - sound</div>
-            <HistoryChart
-              color="black"
-              data={[heartBeatSound]}
-              name={["HeartBeat Sound"]}
-            />
-          </div>
-        </Col>
-      </Row>
+          </Col>
+        </Row>
+        <Row>
+          <Col md={6}>
+            <div className="parameter-section">
+              <img src={HeartRateIcon} alt="time-history-photo" />
+              <div>Heart Rate (bpm) - ppg</div>
+              <HistoryChart
+                color="red"
+                data={[heartBeatPPG]}
+                name={["heartbeat ppg"]}
+              />
+            </div>
+          </Col>
+          <Col md={6}>
+            <div className="parameter-section">
+              <img src={Spo2Icon} alt="time-history-photo" />
+              <div>SpO2 (%)</div>
+              <HistoryChart color="#8CCD47" data={[SPO2]} name={["SPO2"]} />
+            </div>
+          </Col>
+        </Row>
+        <Row>
+          <Col md={6}>
+            <div className="parameter-section">
+              <img src={HeartRateIcon} alt="time-history-photo" />
+              <div>Heart Rate (bpm) - ecg</div>
+              <HistoryChart
+                color="#43a5d6"
+                data={[heartBeatECG]}
+                name={["heartbeat ecg"]}
+              />
+            </div>
+          </Col>
+          <Col md={6}>
+            <div className="parameter-section">
+              <img src={PR_RR_INTERVAL} alt="time-history-photo" />
+              <div>PR/RR Interval (msec)</div>
+              <HistoryChart
+                color="orange"
+                data={[PR_RR_Interval]}
+                name={["PR RR Interval"]}
+              />
+            </div>
+          </Col>
+        </Row>
+        <Row>
+          <Col md={6}>
+            <div className="parameter-section">
+              <img src={QRS_Duration_Icon} alt="time-history-photo" />
+              <div>QRS Duration (msec)</div>
+              <HistoryChart
+                color="black"
+                data={[QRS_Duration]}
+                name={["QRS Duration"]}
+              />
+            </div>
+          </Col>
+          <Col md={6}>
+            <div className="parameter-section">
+              <img alt="hr" src={SYSDIAIcon} />
+              <div>HR Variation</div>
+              <HistoryChart color="green" data={[hrvVal]} name={["hrv"]} />
+            </div>
+          </Col>
+        </Row>
+        <Row>
+          <Col md={6}>
+            <div className="parameter-section">
+              <img src={SYSDIAIcon} alt="time-history-photo" />
+              <div>SYS/DIA(mmHg)</div>
+              <HistoryChart
+                color="yellow"
+                data={[SYS, DIA]}
+                name={["SYS", "DIA"]}
+              />
+            </div>
+          </Col>
+          <Col md={6}>
+            <div className="parameter-section">
+              <img src={TemperatureIcon} alt="time-history-photo" />
+              <div>Temperature</div>
+              <HistoryChart
+                color="purple"
+                data={[temperature]}
+                name={["Temperature"]}
+              />
+            </div>
+          </Col>
+        </Row>
+        <Row>
+          <Col md={6}>
+            <div className="parameter-section">
+              <img src={RespirationRateIcon} alt="time-history-photo" />
+              <div>Respiration Rate (bpm)</div>
+              <HistoryChart
+                color="#43a5d6"
+                data={[respirationRate]}
+                name={["Rrespiration Rate"]}
+              />
+            </div>
+          </Col>
+          <Col md={6}>
+            <div className="parameter-section">
+              <img src={HeartAbnormalityIcon} alt="time-history-photo" />
+              <div>Heart Rate - sound</div>
+              <HistoryChart
+                color="black"
+                data={[heartBeatSound]}
+                name={["HeartBeat Sound"]}
+              />
+            </div>
+          </Col>
+        </Row>
+      </div>
     </PageWrapper>
   );
 };

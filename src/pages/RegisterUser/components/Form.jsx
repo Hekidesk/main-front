@@ -36,7 +36,7 @@ const RegisterForm = () => {
     localStorage.setItem("user", form.username);
     add({ ...form }).then(
       (event) => {
-        localStorage.setItem("id", event);
+        localStorage.setItem("id", event.target.result);
         history("/");
       },
       (error) => {
