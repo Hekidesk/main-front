@@ -18,103 +18,130 @@ import HistoryChart from "../Chart/HistoryChart";
 import { useIndexedDB } from "react-indexed-db";
 import { GetDateTimeDB } from "@/utilities/time/time";
 import PageWrapper from "@/components/PageWrapper/PageWrapper";
+import { ParameterSection, TitleName } from "./component/CSS";
 
 const ParameterHistoryPage = () => {
+  
   const { getAll: getAllOximetryData } = useIndexedDB("oximetryData");
   const { getAll: getAllCardiogramData } = useIndexedDB("cardiogramData");
   const { getAll: getAllBPData } = useIndexedDB("BPData");
   const { getAll: getAllTemperatureData } = useIndexedDB("TemperatureData");
   const { getAll: getAllPCGData } = useIndexedDB("PCGData");
-
-  const [heartBeatPPG, setHeartBeatPPG] = useState([]);
-  const [SPO2, setSPO2] = useState([]);
-
-  const [heartBeatECG, setHeartBeatECG] = useState([]);
-  const [PR_RR_Interval, setPR_RR_Interval] = useState([]);
-  const [QRS_Duration, setQRSDuration] = useState([]);
-  const [hrvVal, setHrvVal] = useState([]);
-
-  const [SYS, setSYS] = useState([]);
-  const [DIA, setDIA] = useState([]);
-
-  const [temperature, setTemperature] = useState([]);
-
-  const [heartBeatSound, setHeartBeatSound] = useState([]);
-  const [respirationRate, setRespirationRate] = useState([]);
+  const [parameterData, setData] = useState([]);
 
   useEffect(() => {
+    let datas = [];
     getAllOximetryData().then((dataFromDB) => {
+      let tempFlow = [];
       const result = dataFromDB.filter(
         (temp) => temp.userId === localStorage.getItem("id")
       );
-      let tempFlow1 = [];
       result.map((res) =>
-        tempFlow1.push({
+        tempFlow.push({
           date: GetDateTimeDB(String(res["dateAndId"])),
           value: res["heartBeatPPG"],
         })
       );
-      setHeartBeatPPG(tempFlow1);
-      let tempFlow2 = [];
+      datas.push({
+        img: HeartRateIcon,
+        title: "Heart Rate (bpm) - ppg",
+        color: "red",
+        chartName: ["heartbeat ppg"],
+        data: [tempFlow],
+      });
+      console.log(datas);
+      tempFlow = [];
       result.map((res) =>
-        tempFlow2.push({
+        tempFlow.push({
           date: GetDateTimeDB(String(res["dateAndId"])),
           value: res["SPO2"],
         })
       );
-      setSPO2(tempFlow2);
+      datas.push({
+        img: Spo2Icon,
+        title: "SpO2 (%)",
+        color: "#8CCD47",
+        chartName: ["SPO2"],
+        data: [tempFlow],
+      });
     });
 
     getAllCardiogramData().then((dataFromDB) => {
       const result = dataFromDB.filter(
         (temp) => temp.userId === localStorage.getItem("id")
       );
-      let tempFlow1 = [];
+      let tempFlow = [];
       result.map((res) =>
-        tempFlow1.push({
+        tempFlow.push({
           date: GetDateTimeDB(String(res["dateAndId"])),
           value: res["heartBeatECG"],
         })
       );
-      setHeartBeatECG(tempFlow1);
-      let tempFlow2 = [];
+      datas.push({
+        img: HeartRateIcon,
+        title: "Heart Rate (bpm) - ecg",
+        color: "#43a5d6",
+        chartName: ["heartbeat ecg"],
+        data: [tempFlow],
+      });
+
+      tempFlow = [];
       result.map((res) =>
-        tempFlow2.push({
+        tempFlow.push({
           date: GetDateTimeDB(String(res["dateAndId"])),
           value: res["PR_RR_Interval"],
         })
       );
-      setPR_RR_Interval(tempFlow2);
-      let tempFlow3 = [];
+      datas.push({
+        img: PR_RR_INTERVAL,
+        title: "PR/RR Interval (msec)",
+        color: "orange",
+        chartName: ["PR RR Interval"],
+        data: [tempFlow],
+      });
+
+      tempFlow = [];
       result.map((res) =>
-        tempFlow3.push({
+        tempFlow.push({
           date: GetDateTimeDB(String(res["dateAndId"])),
           value: res["QRS_Duration"],
         })
       );
-      setQRSDuration(tempFlow3);
-      let tempFlow4 = [];
+      datas.push({
+        img: QRS_Duration_Icon,
+        title: "QRS Duration (msec)",
+        color: "black",
+        chartName: ["QRS Duration"],
+        data: [tempFlow],
+      });
+
+      tempFlow = [];
       result.map((res) =>
-        tempFlow4.push({
+        tempFlow.push({
           date: GetDateTimeDB(String(res["dateAndId"])),
           value: res["hrvVal"],
         })
       );
-      setHrvVal(tempFlow4);
+      datas.push({
+        img: SYSDIAIcon,
+        title: "HR Variation",
+        color: "green",
+        chartName: ["hrv"],
+        data: [tempFlow],
+      });
     });
 
     getAllBPData().then((dataFromDB) => {
       const result = dataFromDB.filter(
         (temp) => temp.userId === localStorage.getItem("id")
       );
-      let tempFlow1 = [];
+      let tempFlow = [];
       result.map((res) =>
-        tempFlow1.push({
+        tempFlow.push({
           date: GetDateTimeDB(String(res["dateAndId"])),
           value: res["SYS"],
         })
       );
-      setSYS(tempFlow1);
 
       let tempFlow2 = [];
       result.map((res) =>
@@ -123,52 +150,79 @@ const ParameterHistoryPage = () => {
           value: res["DIA"],
         })
       );
-      setDIA(tempFlow2);
+      datas.push({
+        img: SYSDIAIcon,
+        title: "SYS/DIA(mmHg)",
+        color: "yellow",
+        chartName: ["SYS", "DIA"],
+        data: [tempFlow, tempFlow2],
+      });
     });
 
     getAllTemperatureData().then((dataFromDB) => {
       const result = dataFromDB.filter(
         (temp) => temp.userId === localStorage.getItem("id")
       );
-      let tempFlow1 = [];
+      let tempFlow = [];
       result.map((res) =>
-        tempFlow1.push({
+        tempFlow.push({
           date: GetDateTimeDB(String(res["dateAndId"])),
           value: res["temperature"],
         })
       );
-      setTemperature(tempFlow1);
+      datas.push({
+        img: TemperatureIcon,
+        title: "Temperature",
+        color: "purple",
+        chartName: ["Temperature"],
+        data: [tempFlow],
+      });
     });
 
-    getAllPCGData().then((dataFromDB) => {
-      const result = dataFromDB.filter(
-        (temp) => temp.userId === localStorage.getItem("id")
-      );
-      let tempFlow1 = [];
-      result.map((res) =>
-        tempFlow1.push({
-          date: GetDateTimeDB(String(res["dateAndId"])),
-          value: res["heartBeatSound"],
-        })
-      );
-      setHeartBeatSound(tempFlow1);
+    getAllPCGData()
+      .then((dataFromDB) => {
+        const result = dataFromDB.filter(
+          (temp) => temp.userId === localStorage.getItem("id")
+        );
+        let tempFlow = [];
+        result.map((res) =>
+          tempFlow.push({
+            date: GetDateTimeDB(String(res["dateAndId"])),
+            value: res["heartBeatSound"],
+          })
+        );
+        datas.push({
+          img: HeartAbnormalityIcon,
+          title: "Heart Rate - sound (bpm)",
+          color: "#black",
+          chartName: ["HeartBeat Sound"],
+          data: [tempFlow],
+        });
 
-      let tempFlow2 = [];
-      result.map((res) =>
-        tempFlow2.push({
-          date: GetDateTimeDB(String(res["dateAndId"])),
-          value: res["respirationRate"],
-        })
-      );
-      setRespirationRate(tempFlow2);
-    });
+        tempFlow = [];
+        result.map((res) =>
+          tempFlow.push({
+            date: GetDateTimeDB(String(res["dateAndId"])),
+            value: res["respirationRate"],
+          })
+        );
+        datas.push({
+          img: RespirationRateIcon,
+          title: "Respiration Rate (bpm)",
+          color: "#43a5d6",
+          chartName: ["Rrespiration Rate"],
+          data: [tempFlow],
+        });
+      })
+      .then(() => setData(datas));
+    console.log(datas);
   }, []);
 
   return (
     <PageWrapper>
-      <div style={{marginRight: "20px"}}>
+      <div style={{ marginRight: "20px" }}>
         <Row>
-          <h2 className="title-name">Parameters</h2>
+          <TitleName>Parameters</TitleName>
         </Row>
         <Row>
           <Col lg={4} md={12}>
@@ -184,116 +238,25 @@ const ParameterHistoryPage = () => {
           </Col>
         </Row>
         <Row>
-          <Col md={6}>
-            <div className="parameter-section">
-              <img src={HeartRateIcon} alt="time-history-photo" />
-              <div>Heart Rate (bpm) - ppg</div>
-              <HistoryChart
-                color="red"
-                data={[heartBeatPPG]}
-                name={["heartbeat ppg"]}
-              />
-            </div>
-          </Col>
-          <Col md={6}>
-            <div className="parameter-section">
-              <img src={Spo2Icon} alt="time-history-photo" />
-              <div>SpO2 (%)</div>
-              <HistoryChart color="#8CCD47" data={[SPO2]} name={["SPO2"]} />
-            </div>
-          </Col>
-        </Row>
-        <Row>
-          <Col md={6}>
-            <div className="parameter-section">
-              <img src={HeartRateIcon} alt="time-history-photo" />
-              <div>Heart Rate (bpm) - ecg</div>
-              <HistoryChart
-                color="#43a5d6"
-                data={[heartBeatECG]}
-                name={["heartbeat ecg"]}
-              />
-            </div>
-          </Col>
-          <Col md={6}>
-            <div className="parameter-section">
-              <img src={PR_RR_INTERVAL} alt="time-history-photo" />
-              <div>PR/RR Interval (msec)</div>
-              <HistoryChart
-                color="orange"
-                data={[PR_RR_Interval]}
-                name={["PR RR Interval"]}
-              />
-            </div>
-          </Col>
-        </Row>
-        <Row>
-          <Col md={6}>
-            <div className="parameter-section">
-              <img src={QRS_Duration_Icon} alt="time-history-photo" />
-              <div>QRS Duration (msec)</div>
-              <HistoryChart
-                color="black"
-                data={[QRS_Duration]}
-                name={["QRS Duration"]}
-              />
-            </div>
-          </Col>
-          <Col md={6}>
-            <div className="parameter-section">
-              <img alt="hr" src={SYSDIAIcon} />
-              <div>HR Variation</div>
-              <HistoryChart color="green" data={[hrvVal]} name={["hrv"]} />
-            </div>
-          </Col>
-        </Row>
-        <Row>
-          <Col md={6}>
-            <div className="parameter-section">
-              <img src={SYSDIAIcon} alt="time-history-photo" />
-              <div>SYS/DIA(mmHg)</div>
-              <HistoryChart
-                color="yellow"
-                data={[SYS, DIA]}
-                name={["SYS", "DIA"]}
-              />
-            </div>
-          </Col>
-          <Col md={6}>
-            <div className="parameter-section">
-              <img src={TemperatureIcon} alt="time-history-photo" />
-              <div>Temperature</div>
-              <HistoryChart
-                color="purple"
-                data={[temperature]}
-                name={["Temperature"]}
-              />
-            </div>
-          </Col>
-        </Row>
-        <Row>
-          <Col md={6}>
-            <div className="parameter-section">
-              <img src={RespirationRateIcon} alt="time-history-photo" />
-              <div>Respiration Rate (bpm)</div>
-              <HistoryChart
-                color="#43a5d6"
-                data={[respirationRate]}
-                name={["Rrespiration Rate"]}
-              />
-            </div>
-          </Col>
-          <Col md={6}>
-            <div className="parameter-section">
-              <img src={HeartAbnormalityIcon} alt="time-history-photo" />
-              <div>Heart Rate - sound</div>
-              <HistoryChart
-                color="black"
-                data={[heartBeatSound]}
-                name={["HeartBeat Sound"]}
-              />
-            </div>
-          </Col>
+          {console.log(parameterData)}
+          {parameterData.map((data, i) => {
+            {
+              console.log(data);
+            }
+            return (
+              <Col md={6} key={i}>
+                <ParameterSection>
+                  <img src={data.img} alt="time-history-photo" />
+                  <div>{data.title}</div>
+                  <HistoryChart
+                    color={data.color}
+                    data={data.data}
+                    name={data.chartName}
+                  />
+                </ParameterSection>
+              </Col>
+            );
+          })}
         </Row>
       </div>
     </PageWrapper>
