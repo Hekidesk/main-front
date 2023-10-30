@@ -132,6 +132,11 @@
   border-radius: 3.5em !important;
 }
 
+.p-dropdown .p-dropdown-clear-icon{
+  color: white !important;
+  right: 1rem !important;
+}
+
 @media (max-width: 1024px) {
   .filter-button {
     margin: 2px auto !important;

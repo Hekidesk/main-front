@@ -4,7 +4,7 @@ import "../../assets/styles/profile.css";
 import { useEffect, useState } from "react";
 import { useIndexedDB } from "react-indexed-db";
 const ProfileSection = () => {
-  const { getByIndex  } = useIndexedDB("users");
+  const { getByIndex } = useIndexedDB("users");
   const [user, setUser] = useState({});
   const [age, setAge] = useState("");
 

@@ -4,21 +4,21 @@
   border-radius: 15px;
   padding-left: 50px;
   padding-top: 30px;
+  margin-bottom: 20px;
 }
 
 .parameter-section {
   background-color: #e8f0f4;
-  height: 300px;
   border-radius: 9px;
-  padding: 1rem;
+  padding: 0.8rem 1rem 2rem;
+  height: 90%;
   font-weight: 600;
   font-size: 24px;
   color: #576367;
-  margin-top: 20px;
+  margin: 20px 0px;
 }
 
 .top-history-img {
-  height: 100%;
   width: 100%;
   object-fit: cover;
   border-radius: 9px;

@@ -125,6 +125,7 @@ const TimeHistoryPage = () => {
               backgroundColor: "#E8F0F4",
               paddingTop: "20px",
               paddingLeft: "10px",
+              borderRadius: "9px",
             }}
           >
             <Pagination style={{ display: "inline-block" }}>
@@ -155,7 +156,6 @@ const TimeHistoryPage = () => {
             <Col>
               <div
                 className="bg-gray rate-box"
-                style={{ marginBottom: "20px" }}
               >
                 <Row style={{ fontSize: "30", fontWeight: "600" }}>Rates:</Row>
                 <Row>
@@ -178,44 +178,16 @@ const TimeHistoryPage = () => {
             </Col>
           </Row>
           <Row>
-            <Col className="bg-gray">
-              <div style={{ fontWeight: "bold" }}> Heart Rate </div>
-              <div style={{ fontSize: "13px" }}> (bpm) </div>
-              <div className="knob-container" style={{ marginTop: "1rem" }}>
-                <Knob
-                  value={heartBeat}
-                  size={220}
-                  valueColor={
-                    heartBeat < 60 || heartBeat > 90 ? "red" : "green"
-                  }
-                  textColor={"black"}
-                />
-              </div>
-              <div
-                style={{
-                  marginLeft: "6rem",
-                  fontWeight: "bold",
-                  marginBottom: "5rem",
-                }}
-              >
-                {" "}
-                {heartBeat === 0
-                  ? " "
-                  : heartBeat < 60 || heartBeat > 90
-                  ? "Dangerous"
-                  : "Good"}{" "}
-              </div>
-            </Col>
-            <Col className="bg-gray" style={{ marginLeft: "10px" }}>
-              <div>
-                <div style={{ fontWeight: "bold" }}> Temperature </div>
-                <div style={{ fontSize: "13px" }}> (°C) </div>
+            <Col>
+              <div className="bg-gray">
+                <div style={{ fontWeight: "bold" }}> Heart Rate </div>
+                <div style={{ fontSize: "13px" }}> (bpm) </div>
                 <div className="knob-container" style={{ marginTop: "1rem" }}>
                   <Knob
-                    value={temperature}
+                    value={heartBeat}
                     size={220}
                     valueColor={
-                      temperature < 30 || temperature > 38 ? "red" : "green"
+                      heartBeat < 60 || heartBeat > 90 ? "red" : "green"
                     }
                     textColor={"black"}
                   />
@@ -227,11 +199,43 @@ const TimeHistoryPage = () => {
                     marginBottom: "5rem",
                   }}
                 >
-                  {temperature === 0
+                  {" "}
+                  {heartBeat === 0
                     ? " "
-                    : temperature < 30 || temperature > 38
+                    : heartBeat < 60 || heartBeat > 90
                     ? "Dangerous"
                     : "Good"}{" "}
+                </div>
+              </div>
+            </Col>
+            <Col style={{ marginLeft: "10px" }}>
+              <div className="bg-gray">
+                <div>
+                  <div style={{ fontWeight: "bold" }}> Temperature </div>
+                  <div style={{ fontSize: "13px" }}> (°C) </div>
+                  <div className="knob-container" style={{ marginTop: "1rem" }}>
+                    <Knob
+                      value={temperature}
+                      size={220}
+                      valueColor={
+                        temperature < 30 || temperature > 38 ? "red" : "green"
+                      }
+                      textColor={"black"}
+                    />
+                  </div>
+                  <div
+                    style={{
+                      marginLeft: "6rem",
+                      fontWeight: "bold",
+                      marginBottom: "5rem",
+                    }}
+                  >
+                    {temperature === 0
+                      ? " "
+                      : temperature < 30 || temperature > 38
+                      ? "Dangerous"
+                      : "Good"}{" "}
+                  </div>
                 </div>
               </div>
             </Col>
