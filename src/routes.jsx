@@ -2,6 +2,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import HomePage from "@/pages/Home/Home.page";
+import LoginPage from "@/pages/LoginUser/Login.page";
 import RegisterPage from "@/pages/RegisterUser/Register.page";
 import RegisterDevicePage from "@/pages/RegisterDevice/RegisterDevice.page";
 import DeskPage from "@/pages/UserDesk/UserDesk.page";
@@ -17,18 +18,23 @@ import BloodPressurePage from "@/pages/Parameters/BloodPressure/BloodPressure.pa
 import HeartAndLungSoundPage from "@/pages/Parameters/HeartAndLungSound/HeartAndLungSound.page";
 import ProtectedRoute from "@/hooks/ProtectedRoute";
 import Timer from "./components/Timer/Timer.jsx";
+import SignUpPage from "./pages/SignUpUser/SignUp.page.jsx";
 
 function AppRoutes() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path={process.env.REACT_APP_BASE_URL} element={null}>
-          <Route index element={<HomePage />} />
+          <Route index element={<LoginPage />} />
+          <Route path={"home"} element={<HomePage />} />
+          <Route path={"signup-user"} element={<SignUpPage />} />
           <Route path={"timer"} element={<Timer />} />
           <Route path={"register-user"} element={<RegisterPage />} />
           <Route path={"register-device"} element={<RegisterDevicePage />} />
           <Route path={"user-desk"} element={<DeskPage />} />
           <Route path={"connection"} element={<ConnectionPage />} />
+          {/* <Route path={"login-user"} element={<LoginPage />} /> */}
+          <Route path={"signup-user"} element={<SignUpPage />} />
         </Route>
         <Route
           path={process.env.REACT_APP_BASE_URL + "/history"}

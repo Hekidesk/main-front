@@ -23,3 +23,7 @@ export const CustomDropdown = {
   background: "var(--green-color)",
   borderColor: "var(--green-color)",
 };
+export const LogoWrapper = styled.div`
+  margin-bottom: 20px;
+  margin-right: 10px;
+`;
