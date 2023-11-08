@@ -42,7 +42,7 @@ const Sidebar = () => {
         </div>
         <div className="sidebar-items">
           {[
-            { link: "/", name: "Home", image: HomeIcon, show: true },
+            { link: "/home", name: "Home", image: HomeIcon, show: true },
             { link: "/user-desk", name: "My Desk", image: MyDeskIcon, show: true },
             {
               link: "/measurement",

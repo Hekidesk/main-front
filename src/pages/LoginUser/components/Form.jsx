@@ -2,13 +2,15 @@ import Icon from "@/assets/logo/hekidesk-green.svg";
 import { Image } from "primereact/image";
 import { Button } from "primereact/button";
 import { ButtonStyle } from "@/components/reusable/ButtonStyle";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { InputTextGroup } from "@/components/reusable/InputTextGroup";
 import { ContainerWithoutHeight } from "@/components/reusable/Container";
 import { LogoRow, Row, Title, LogoWrapper } from "./CSS";
 import { Link } from "react-router-dom";
-import axios from "axios";
-import Swal from "sweetalert2";
+// import axios from "axios";
+// import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
+import { Authentication } from "@/App";
 
 const LoginForm = () => {
   const [form, setForm] = useState({
@@ -23,6 +25,8 @@ const LoginForm = () => {
   }
 
   const [warning, setWarning] = useState(initialWarning);
+  const history = useNavigate();
+  const UserInfo = useContext(Authentication);
 
   const loginUser = () => {
     setWarning(initialWarning);
@@ -32,21 +36,22 @@ const LoginForm = () => {
       });
     if(!form.username || !form.password)
       return;
-    axios.post("token", form).then(
-      (response) => {
-        console.log(response);
-        if (response.status === 200) {
-          localStorage.setItem("token", response.data.token); //jwt         
-        }
-      },
-      (error) => {
-        Swal.fire({
-          icon: error,
-          title: error.response.data.message.split(":")[1],
-          text: "Please repeat procedure!",
-        });
-      }
-    );
+    
+    UserInfo.SetAllInfo(form);  
+    history("/home");
+    // axios.post("token", form).then(
+    //   (response) => {
+    //     console.log(response);
+    //     history("/home");
+    //   },
+    //   (error) => {
+    //     Swal.fire({
+    //       icon: error,
+    //       title: error.message,
+    //       text: "Please repeat procedure!",
+    //     });
+    //   }
+    // );
   }
 
 
@@ -82,7 +87,7 @@ const LoginForm = () => {
           Login
         </Button>
       </Row>
-      <div style={{ textAlign: "center" }}>Does not have a account yet?</div>
+      <div style={{ textAlign: "center" }}>Does not have an account yet?</div>
       <Row>
         <Link
             // eslint-disable-next-line no-undef

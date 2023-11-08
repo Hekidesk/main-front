@@ -17,8 +17,6 @@ const SignUpForm = () => {
   });
   const onChangeValue = (n, v) => setForm({ ...form, [n]: v });
 
-  const history = useNavigate();
-
   const { add } = useIndexedDB("users");
 
   const initialWarning = {
@@ -28,6 +26,7 @@ const SignUpForm = () => {
   };
 
   const [warning, setWarning] = useState(initialWarning);
+  const history = useNavigate();
 
   const addUser = () => {
     console.log("hi");
@@ -41,6 +40,7 @@ const SignUpForm = () => {
       console.log(warning);
       return;
     }
+    history("/home");
     localStorage.setItem("user", form.username);
     add({ ...form }).then(
       (event) => {

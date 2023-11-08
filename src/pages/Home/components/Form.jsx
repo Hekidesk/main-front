@@ -60,7 +60,7 @@ const HomeForm = () => {
   const selectUser = (user) => {
     setSelectedUser(user);
     console.log(users);
-    localStorage.setItem("user", user.username);
+    localStorage.setItem("user", user ? user.username : null);
     localStorage.setItem("id", users.indexOf(user));
   };
 
