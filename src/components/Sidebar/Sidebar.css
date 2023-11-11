@@ -27,6 +27,25 @@
   width: 100%;
 }
 
+.sidebar-item-end{
+  position: absolute;
+  bottom: 1.5rem;
+  color: #fff;
+  font-size: 14px !important;
+  cursor: pointer;
+  padding-top: 1em;
+  border-top: 1px solid #fff ;
+}
+
+.sidebar-item-end p {
+  display: inline-block;
+}
+
+.sidebar-item-end img {
+  display: inline-block;
+  margin-right: 15px;
+}
+
 .sidebar-container .side-bar-list .sidebar-items .side-item span,
 .sidebar-container .side-bar-list .sidebar-items .side-item-active span {
   display: flex;

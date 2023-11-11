@@ -72,17 +72,6 @@ const Measurement = () => {
           ))}
         </div>
       </div>
-      <div className="d-flex justify-content-end">
-        <Link
-          // eslint-disable-next-line no-undef
-          to={process.env.REACT_APP_BASE_URL + "/user-desk"}
-          style={ButtonMyDeskStyle}
-          className="p-2"
-        >
-          <img src={MyDeskIcon} alt="Image" width="16px" className={"mx-2"} />
-          <b>{" My Desk"}</b>
-        </Link>
-      </div>
     </div>
   );
 };

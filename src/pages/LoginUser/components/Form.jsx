@@ -2,7 +2,7 @@ import Icon from "@/assets/logo/hekidesk-green.svg";
 import { Image } from "primereact/image";
 import { Button } from "primereact/button";
 import { ButtonStyle } from "@/components/reusable/ButtonStyle";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { InputTextGroup } from "@/components/reusable/InputTextGroup";
 import { ContainerWithoutHeight } from "@/components/reusable/Container";
 import { LogoRow, Row, Title, LogoWrapper } from "./CSS";
@@ -27,6 +27,10 @@ const LoginForm = () => {
   const [warning, setWarning] = useState(initialWarning);
   const history = useNavigate();
   const UserInfo = useContext(Authentication);
+
+  useEffect(() => {
+    localStorage.setItem("isLoggedIn", false);
+  }, [])
 
   const loginUser = () => {
     setWarning(initialWarning);

@@ -1,23 +1,16 @@
-import { useEffect, useState } from "react";
+import {useState } from "react";
 
 export const UserInfo = () => {
   const [username, setUsername] = useState("");
-  const [isLoggedIn, setLoggedIn] = useState(false);
-
-  useEffect(() => {
-    console.log("wolaaa " + isLoggedIn);
-  }, [isLoggedIn])
-  
   
   const SetAllInfo = (user) => {
     console.log(user);
-    setLoggedIn(true);
     setUsername(user.username);
+    localStorage.setItem("isLoggedIn", true);
   };
 
   return {
     username,
-    isLoggedIn,
     setUsername, 
     SetAllInfo,
   };
