@@ -2,12 +2,14 @@ import Icon from "@/assets/logo/hekidesk-green.svg";
 import { Image } from "primereact/image";
 import { Button } from "primereact/button";
 import { ButtonStyle } from "@/components/reusable/ButtonStyle";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { InputTextGroup } from "@/components/reusable/InputTextGroup";
 import { ContainerWithoutHeight } from "@/components/reusable/Container";
 import { useNavigate } from "react-router-dom";
 import { Col, LogoRow, Row, Title, LogoWrapper } from "./CSS";
-import { useIndexedDB } from "react-indexed-db";
+import axios from "axios";
+import Swal from "sweetalert2";
+import { Authentication } from "@/App";
 
 const SignUpForm = () => {
   const [form, setForm] = useState({
@@ -16,8 +18,7 @@ const SignUpForm = () => {
     phoneNumber: "",
   });
   const onChangeValue = (n, v) => setForm({ ...form, [n]: v });
-
-  const { add } = useIndexedDB("users");
+  const UserInfo = useContext(Authentication);
 
   const initialWarning = {
     username: false,
@@ -40,17 +41,23 @@ const SignUpForm = () => {
       console.log(warning);
       return;
     }
-    history("/home");
-    localStorage.setItem("user", form.username);
-    add({ ...form }).then(
-      (event) => {
-        localStorage.setItem("id", event.target.result);
-        history("/");
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+    axios
+      .post("user", form)
+      .then((response) => {
+        console.log(response);
+        axios.post("token", form).then((response) => {
+          console.log(response);
+          UserInfo.SetAllInfo(form, response.data.token);
+          history("/home");
+        });
+      })
+      .catch((error) => {
+        Swal.fire({
+          icon: error,
+          title: error.response,
+          text: "Please repeat procedure!",
+        });
+      });
   };
 
   return (
@@ -79,7 +86,7 @@ const SignUpForm = () => {
           warning={warning.password}
           necessary={true}
           warningMessage="Password cannot be empty"
-          feedback = {true}
+          feedback={true}
         />
       </Row>
       <br />

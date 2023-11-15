@@ -30,11 +30,11 @@ const Sidebar = () => {
   };
 
   const navigate = useNavigate();
-
   const Logout = () => {
     localStorage.setItem("isLoggedIn", false);
     localStorage.setItem("user", "");
     localStorage.setItem("id", -1);
+    localStorage.setItem("token", "");
     // eslint-disable-next-line no-undef
     navigate(process.env.REACT_APP_BASE_URL + "/");
   };

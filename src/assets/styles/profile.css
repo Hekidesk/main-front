@@ -52,6 +52,7 @@
 .profile {
   position: absolute;
   top: 0.5rem;
+  cursor: pointer;
 }
 
 .bell-profile {
