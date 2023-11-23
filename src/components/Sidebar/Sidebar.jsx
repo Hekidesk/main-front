@@ -35,6 +35,7 @@ const Sidebar = () => {
     localStorage.setItem("user", "");
     localStorage.setItem("id", -1);
     localStorage.setItem("token", "");
+    localStorage.setItem("expireDate", "");
     // eslint-disable-next-line no-undef
     navigate(process.env.REACT_APP_BASE_URL + "/");
   };

@@ -1,6 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import AppRoutes from "./routes";
-import { createContext, useMemo } from "react";
+import { createContext, useEffect, useMemo } from "react";
 import { useSignalFeed } from "./utilities/bluetooth";
 import { initDB } from "react-indexed-db";
 import { DBConfig } from "@/database/DBConfig";
@@ -21,6 +21,16 @@ function App() {
     return connection;
   }, [connection]);
   const user = UserInfo();
+
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      localStorage.setItem("isLoggedIn", false);
+    };
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, []); 
 
   return (
     <Authentication.Provider value={user}>

@@ -33,11 +33,11 @@ const Profile = () => {
   }
 
   return (
-    <Row className="profile" onClick={() => redirect()}>
-      <PhotoCol>
+    <Row className="profile">
+      <PhotoCol onClick={() => redirect()}>
         <img src={ProfilePhotoIcon} alt="profile" width={40} />
       </PhotoCol>
-      <TextCol>
+      <TextCol onClick={() => redirect()}>
         <WelcomeProfileContainer>Welcome</WelcomeProfileContainer>
         <NameProfileContainer>{username}</NameProfileContainer>
       </TextCol>

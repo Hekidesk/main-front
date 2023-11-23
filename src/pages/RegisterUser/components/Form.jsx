@@ -8,14 +8,15 @@ import { InputTextGroup } from "@/components/reusable/InputTextGroup";
 import { ContainerWithoutHeight } from "@/components/reusable/Container";
 import { useNavigate } from "react-router-dom";
 import { Col, LogoRow, Row, Title, LogoWrapper } from "./CSS";
-import { useIndexedDB } from "react-indexed-db";
 import { Calendar } from "primereact/calendar";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const RegisterForm = () => {
   const [form, setForm] = useState({
-    firstName: "",
-    lastName: "",
-    bloodType: "A+",
+    first_name: "",
+    last_name: "",
+    blood_type : "A+",
     dateOfBirth: "",
     weight: "",
     height: "",
@@ -25,12 +26,11 @@ const RegisterForm = () => {
 
   const history = useNavigate();
 
-  const { add } = useIndexedDB("users");
 
   const initialWarning = {
-    firstName: false,
-    lastName: false,
-    bloodType: false,
+    first_name: false,
+    last_name: false,
+    blood_type : false,
     dateOfBirth: false,
     weight: false,
     height: false,
@@ -43,18 +43,18 @@ const RegisterForm = () => {
     console.log("hi");
     setWarning(initialWarning);
     setWarning({
-      firstName: !form.firstName,
-      lastName: !form.lastName,
-      bloodType: !form.bloodType,
+      first_name: !form.first_name,
+      last_name: !form.last_name,
+      blood_type : !form.blood_type ,
       dateOfBirth: !form.dateOfBirth,
       weight: !form.weight,
       height: !form.height,
       gender: !form.gender,
     });
     if (
-      !form.firstName ||
-      !form.lastName ||
-      !form.bloodType ||
+      !form.first_name ||
+      !form.last_name ||
+      !form.blood_type  ||
       !form.dateOfBirth ||
       !form.weight ||
       !form.height ||
@@ -65,13 +65,19 @@ const RegisterForm = () => {
       return;
     }
     localStorage.setItem("user", form.username);
-    add({ ...form }).then(
-      (event) => {
-        localStorage.setItem("id", event.target.result);
-        history("/");
+    axios.post("account", form).then(
+      (response) => {
+        console.log(response.data);
+        localStorage.setItem("user", form.first_name);
+        localStorage.setItem("id", response.data.account_id);
+        history("/home");
       },
       (error) => {
-        console.log(error);
+        Swal.fire({
+          icon: error,
+          title: error.response.data,
+          text: "Please repeat procedure!",
+        });
       }
     );
   }
@@ -86,20 +92,20 @@ const RegisterForm = () => {
       </LogoRow>
       <Row>
         <InputTextGroup
-          state={form.firstName}
+          state={form.first_name}
           label={"First Name"}
           placeHolder={"First Name"}
-          setState={(v) => onChangeValue("firstName", v)}
-          warning={warning.firstName}
+          setState={(v) => onChangeValue("first_name", v)}
+          warning={warning.first_name}
           necessary={true}
           warningMessage="first name cannot be empty"
         />
         <InputTextGroup
-          state={form.lastName}
+          state={form.last_name}
           label={"Last Name"}
           placeHolder={"Last Name"}
-          setState={(v) => onChangeValue("lastName", v)}
-          warning={warning.lastName}
+          setState={(v) => onChangeValue("last_name", v)}
+          warning={warning.last_name}
           necessary={true}
           warningMessage="Last name cannot be empty"
         />
@@ -153,11 +159,11 @@ const RegisterForm = () => {
           margin: "0.5em 0",
         }}
       >
-        <label htmlFor={"bloodType"}>Blood Type</label>
+        <label htmlFor={"blood_type "}>Blood Type</label>
         <Dropdown
-          value={form.bloodType}
-          onChange={(v) => onChangeValue("bloodType", v.value)}
-          className={"register-dropdown p-inputtext-sm " + (warning.bloodType ? "p-invalid" : {})}
+          value={form.blood_type }
+          onChange={(v) => onChangeValue("blood_type ", v.value)}
+          className={"register-dropdown p-inputtext-sm " + (warning.blood_type  ? "p-invalid" : {})}
           options={[
             { value: "A+" },
             { value: "A-" },
@@ -169,7 +175,7 @@ const RegisterForm = () => {
             { value: "AB-" },
           ]}
           optionLabel="value"
-          placeholder="Select a bloodType"
+          placeholder="Select a blood_type "
         />
       </div>
       <div

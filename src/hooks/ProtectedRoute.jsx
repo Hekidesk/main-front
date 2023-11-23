@@ -6,13 +6,15 @@ import Swal from "sweetalert2";
 
 function ProtectedRoute(props) {
   const bluetooth = useContext(BluetoothContext);
-  const isAccountSelected = localStorage.getItem("id") != -1;
+  const isAccountSelected = localStorage.getItem("account-id") != -1;
   const navigate = useNavigate();
-  const isLoggedIn = localStorage.getItem("isLoggedIn");
+  const isLoggedIn = JSON.parse(localStorage.getItem("isLoggedIn"));
 
   useEffect(() => {
+    console.log(isLoggedIn + " " + isAccountSelected);
     if (isLoggedIn) {
       if (isAccountSelected) {
+        console.log("hi: " + !bluetooth.isConnected);
         if (!bluetooth.isConnected && props.needsDevice) {
           Swal.fire({
             title: "Your device is disconnected",
