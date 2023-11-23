@@ -11,10 +11,8 @@ function ProtectedRoute(props) {
   const isLoggedIn = JSON.parse(localStorage.getItem("isLoggedIn"));
 
   useEffect(() => {
-    console.log(isLoggedIn + " " + isAccountSelected);
     if (isLoggedIn) {
       if (isAccountSelected) {
-        console.log("hi: " + !bluetooth.isConnected);
         if (!bluetooth.isConnected && props.needsDevice) {
           Swal.fire({
             title: "Your device is disconnected",

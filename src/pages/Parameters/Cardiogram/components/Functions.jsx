@@ -27,11 +27,12 @@ export async function calculateBeatPerMinuteAPI(
   let payload = {
     ECG: "[" + ecg?.toString() + "]",
     fs: bluetooth.GetFrequency()[0],
+    account_id: localStorage.getItem("account-id"),
   };
-  let res = await axios.post("/ECG_signal", payload).catch(() => {
+  let res = await axios.post("/ECG_signal", payload).catch((error) => {
     Swal.fire({
       icon: "error",
-      title: "Something went wrong",
+      title: error.error,
       text: "Please repeat procedure!",
       confirmButtonColor: "#3085d6",
     });
