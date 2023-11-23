@@ -52,6 +52,7 @@ const BloodPressurePage = () => {
       IR: "[" + irData?.toString() + "]",
       force: "[" + forceData?.toString() + "]",
       fs: bluetooth.GetFrequency()[0],
+      account_id: localStorage.getItem("account-id"),
     };
     let res = await axios.post("/bp_signal", payload).catch(console.log);
     if (!Number(res.data.Try_Again)) {

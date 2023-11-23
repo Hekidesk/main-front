@@ -110,7 +110,7 @@ const LoginForm = () => {
           Login
         </Button>
       </Row>
-      <div style={{ textAlign: "center" }}>Does not have an account yet?</div>
+      <div style={{ textAlign: "center" }}>Do not have an account yet?</div>
       <Row>
         <Link
           // eslint-disable-next-line no-undef
