@@ -137,6 +137,10 @@
   right: 1rem !important;
 }
 
+.p-inputtext{
+  width: 100% !important;
+}
+
 @media (max-width: 1024px) {
   .filter-button {
     margin: 2px auto !important;

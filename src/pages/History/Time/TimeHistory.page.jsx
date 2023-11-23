@@ -5,6 +5,7 @@ import { useIndexedDB } from "react-indexed-db";
 import { GetDateTimeDB, convertStringToDateDB } from "@/utilities/time/time";
 import { Knob } from "primereact/knob";
 import PageWrapper from "@/components/PageWrapper/PageWrapper";
+import { TitleName } from "../Parameter/component/CSS";
 
 const TimeHistoryPage = () => {
   const [data, setData] = useState(null);
@@ -113,7 +114,7 @@ const TimeHistoryPage = () => {
   return (
     <PageWrapper>
       <Row>
-        <h2 className="title-name">Time History</h2>
+        <TitleName>Time History</TitleName>
       </Row>
       <Row>
         <Col md={3} style={{ marginRight: "20px" }}>

@@ -16,20 +16,28 @@ import {
 } from "./components/CSS";
 import { Link } from "react-router-dom";
 import BatteryCharge from "./components/BatteryCharge";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
   const [username, setUsername] = useState("");
   const bluetooth = useContext(BluetoothContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setUsername(localStorage.getItem("user"));
   }, []);
+
+  const redirect = () => {
+    // eslint-disable-next-line no-undef
+    navigate(process.env.REACT_APP_BASE_URL + "/home");
+  }
+
   return (
     <Row className="profile">
-      <PhotoCol>
+      <PhotoCol onClick={() => redirect()}>
         <img src={ProfilePhotoIcon} alt="profile" width={40} />
       </PhotoCol>
-      <TextCol>
+      <TextCol onClick={() => redirect()}>
         <WelcomeProfileContainer>Welcome</WelcomeProfileContainer>
         <NameProfileContainer>{username}</NameProfileContainer>
       </TextCol>

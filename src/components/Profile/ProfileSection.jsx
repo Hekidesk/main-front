@@ -9,7 +9,6 @@ const ProfileSection = () => {
   const [age, setAge] = useState("");
 
   useEffect(() => {
-    getByIndex("username",localStorage.getItem("user")).then((user) => console.log(user));
     getByIndex("username",localStorage.getItem("user")).then((user) => setUser(user));
   }, []);
 
