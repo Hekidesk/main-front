@@ -34,7 +34,7 @@ const ParameterHistoryPage = () => {
     getAllOximetryData().then((dataFromDB) => {
       let tempFlow = [];
       const result = dataFromDB.filter(
-        (temp) => temp.userId === localStorage.getItem("id")
+        (temp) => temp.userId === localStorage.getItem("account-id")
       );
       result.map((res) =>
         tempFlow.push({
@@ -49,7 +49,6 @@ const ParameterHistoryPage = () => {
         chartName: ["heartbeat ppg"],
         data: [tempFlow],
       });
-      console.log(datas);
       tempFlow = [];
       result.map((res) =>
         tempFlow.push({
@@ -68,7 +67,7 @@ const ParameterHistoryPage = () => {
 
     getAllCardiogramData().then((dataFromDB) => {
       const result = dataFromDB.filter(
-        (temp) => temp.userId === localStorage.getItem("id")
+        (temp) => temp.userId === localStorage.getItem("account-id")
       );
       let tempFlow = [];
       result.map((res) =>
@@ -133,7 +132,7 @@ const ParameterHistoryPage = () => {
 
     getAllBPData().then((dataFromDB) => {
       const result = dataFromDB.filter(
-        (temp) => temp.userId === localStorage.getItem("id")
+        (temp) => temp.userId === localStorage.getItem("account-id")
       );
       let tempFlow = [];
       result.map((res) =>
@@ -161,7 +160,7 @@ const ParameterHistoryPage = () => {
 
     getAllTemperatureData().then((dataFromDB) => {
       const result = dataFromDB.filter(
-        (temp) => temp.userId === localStorage.getItem("id")
+        (temp) => temp.userId === localStorage.getItem("account-id")
       );
       let tempFlow = [];
       result.map((res) =>
@@ -182,7 +181,7 @@ const ParameterHistoryPage = () => {
     getAllPCGData()
       .then((dataFromDB) => {
         const result = dataFromDB.filter(
-          (temp) => temp.userId === localStorage.getItem("id")
+          (temp) => temp.userId === localStorage.getItem("account-id")
         );
         let tempFlow = [];
         result.map((res) =>
@@ -215,7 +214,6 @@ const ParameterHistoryPage = () => {
         });
       })
       .then(() => setData(datas));
-    console.log(datas);
   }, []);
 
   return (
@@ -238,11 +236,7 @@ const ParameterHistoryPage = () => {
           </Col>
         </Row>
         <Row>
-          {console.log(parameterData)}
           {parameterData.map((data, i) => {
-            {
-              console.log(data);
-            }
             return (
               <Col md={6} key={i}>
                 <ParameterSection>

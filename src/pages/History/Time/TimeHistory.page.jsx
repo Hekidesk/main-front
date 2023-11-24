@@ -33,7 +33,7 @@ const TimeHistoryPage = () => {
   useEffect(() => {
     getAllData().then((dataFromDB) => {
       const result = dataFromDB.filter(
-        (temp) => temp.userId === localStorage.getItem("id")
+        (temp) => temp.userId === localStorage.getItem("account-id")
       );
       let dateAndIds = result.map((d) => d.dateAndId);
       const tempResult = dateAndIds.map((d) => GetDateTimeDB(String(d)));
@@ -53,7 +53,7 @@ const TimeHistoryPage = () => {
   const retrieveDate = (currentDate) => {
     setActiveIndex(currentDate);
     const dateAndId = parseInt(
-      convertStringToDateDB(dates[currentDate], localStorage.getItem("id"))
+      convertStringToDateDB(dates[currentDate], localStorage.getItem("account-id"))
     );
     const tempResult = data.filter((temp) => temp.dateAndId === dateAndId);
     const result = tempResult[0].parameters;

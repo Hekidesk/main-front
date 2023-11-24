@@ -41,6 +41,7 @@ const RegisterForm = () => {
 
   const addUser = () => {
     console.log("hi");
+    console.log(form.dateOfBirth);
     setWarning(initialWarning);
     setWarning({
       first_name: !form.first_name,
@@ -69,7 +70,7 @@ const RegisterForm = () => {
       (response) => {
         console.log(response.data);
         localStorage.setItem("user", form.first_name);
-        localStorage.setItem("id", response.data.account_id);
+        localStorage.setItem("account-id", response.data.account_id);
         history("/home");
       },
       (error) => {

@@ -7,12 +7,12 @@ export const useAddToDB = (DBName) => {
   const { getByID, update: updateTimeHistory } = useIndexedDB("time");
 
   const currentDate = GetCurrentDateTimeDB();
-  const id = parseInt(String(currentDate + localStorage.getItem("id")));
+  const id = parseInt(String(currentDate + localStorage.getItem("account-id")));
 
   const updateHistory = (timeData) => {
     updateParameterHistory({
       dateAndId: id,
-      userId: localStorage.getItem("id"),
+      userId: localStorage.getItem("account-id"),
       ...timeData,
     }).then(
       (event) => {
@@ -34,7 +34,7 @@ export const useAddToDB = (DBName) => {
       .then(() => {
         updateTimeHistory({
           dateAndId: id,
-          userId: localStorage.getItem("id"),
+          userId: localStorage.getItem("account-id"),
           parameters: newParameter,
         }).then(
           (event) => {

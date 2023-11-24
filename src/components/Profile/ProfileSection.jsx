@@ -2,19 +2,33 @@ import { Col, Row } from "react-bootstrap";
 import ProfilePhotoIcon from "@/assets/icon/profile.svg";
 import "../../assets/styles/profile.css";
 import { useEffect, useState } from "react";
-import { useIndexedDB } from "react-indexed-db";
+import axios from "axios";
+import Swal from "sweetalert2";
+
 const ProfileSection = () => {
-  const { getByIndex } = useIndexedDB("users");
   const [user, setUser] = useState({});
   const [age, setAge] = useState("");
 
   useEffect(() => {
-    getByIndex("username",localStorage.getItem("user")).then((user) => setUser(user));
+    axios.get("/account/"+localStorage.getItem("account-id")).then(
+      (response) => {
+        console.log(response.data.data);
+        setUser(response.data.data);
+      },
+      (error) => {
+        Swal.fire({
+          icon: error,
+          title: error.response,
+          text: "Please repeat procedure!",
+        });
+      }
+    );
   }, []);
 
   useEffect(() => {
-    const birthDate = new Date(user.dateOfBirth);
+    const birthDate = new Date(user.date_of_birth);
     var today = new Date();
+    console.log(today);
     const diffTime = Math.abs(today.getTime() - birthDate);
     const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24 * 30 * 12));
     setAge(diffDays);

@@ -31,7 +31,7 @@ const HomeForm = () => {
     axios.get("user-accounts").then(
       (response) => {
         console.log(response.data.data);
-        setUsers(response.data.data.length > 0 ? response.data.data : []);
+        setUsers(response.data.data.length > 0 ? response.data.data.filter((user) => user.is_active == true) : []);
       },
       (error) => {
         Swal.fire({
@@ -61,7 +61,7 @@ const HomeForm = () => {
   const deleteSelectedUser = (user) => {
     setUsers(users.filter((u) => u !== user));
     setSelectedUser(null);
-    axios.delete("accounts" + localStorage.getItem("account-id")).then(
+    axios.delete("account/" + localStorage.getItem("account-id")).then(
       (response) => {
         console.log(response);
       },
