@@ -8,6 +8,7 @@ import LogoutIcon from "@/assets/icon/logoutIcon.svg";
 import "./Sidebar.css";
 import { Link, useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import variable from "@/assets/var/variable.json";
 
 const Sidebar = () => {
   const MenuItem = ({ link, image, name, show }) => {
@@ -52,7 +53,7 @@ const Sidebar = () => {
       <div className="side-bar-list">
         <div className="logo">
           <img src={Logo} alt="logo" width="50" />
-          <h4 className="logo-text">Hekidesk</h4>
+          <h4 className="logo-text">{variable['app-name']}</h4>
         </div>
         <div className="sidebar-items">
           {[

@@ -21,6 +21,7 @@ import {
 } from "@/components/reusable/ButtonStyle";
 import axios from "axios";
 import Swal from "sweetalert2";
+import variable from "@/assets/var/variable.json";
 
 const HomeForm = () => {
   const [selectedUser, setSelectedUser] = useState(null);
@@ -77,7 +78,7 @@ const HomeForm = () => {
         <LogoWrapper>
           <Image src={Icon} alt="icon" width="60px" />
         </LogoWrapper>
-        <Title>Hekidesk</Title>
+        <Title>{variable['app-name']}</Title>
       </LogoRow>
       <br />
       <Text style={FormTitle}>
