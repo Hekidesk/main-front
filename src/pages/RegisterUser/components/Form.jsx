@@ -11,6 +11,7 @@ import { Col, LogoRow, Row, Title, LogoWrapper } from "./CSS";
 import { Calendar } from "primereact/calendar";
 import axios from "axios";
 import Swal from "sweetalert2";
+import variable from "@/assets/var/variable.json";
 
 const RegisterForm = () => {
   const [form, setForm] = useState({
@@ -89,7 +90,7 @@ const RegisterForm = () => {
         <LogoWrapper>
           <Image src={Icon} alt="icon" width="40px" />
         </LogoWrapper>
-        <Title>Hekidesk</Title>
+        <Title>{variable['app-name']}</Title>
       </LogoRow>
       <Row>
         <InputTextGroup

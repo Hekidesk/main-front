@@ -12,6 +12,7 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { Authentication } from "@/App";
 import validateToken from "../Authentication/validateTokens";
+import variable from "@/assets/var/variable.json";
 
 const LoginForm = () => {
   const [form, setForm] = useState({
@@ -84,7 +85,7 @@ const LoginForm = () => {
         <LogoWrapper>
           <Image src={Icon} alt="icon" width="40px" />
         </LogoWrapper>
-        <Title>Hekidesk</Title>
+        <Title>{variable['app-name']}</Title>
       </LogoRow>
       <InputTextGroup
         state={form.username}

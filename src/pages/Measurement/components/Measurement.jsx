@@ -15,6 +15,7 @@ import OxIcon from "@/assets/icon/measurement/oximetryIcon.svg";
 import SoundIcon from "@/assets/icon/measurement/heartLungSoundIcon.svg";
 import TemeperatureIcon from "@/assets/icon/measurement/temeperatureIcon.svg";
 import BpIcon from "@/assets/icon/measurement/bloodPressureIcon.svg";
+import vitallinkIcon from "@/assets/icon/vitallincIcon.png";
 
 // Style
 import { CardStyle, TitleOfCard } from "./CSS";
@@ -33,9 +34,9 @@ const Measurement = () => {
   ];
   return (
     <div>
-      <div className="d-flex flex-column mt-5" style={{ maxWidth: "900px" }}>
-        <div className="d-flex flex-column">
-          <Title2>Measurement</Title2>
+      <div className="d-flex flex-column" style={{ maxWidth: "900px" }}>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+          <img src={vitallinkIcon} alt="icon" width={"350px"} />
         </div>
         <div className="row">
           {routes.map((item, i) => (

@@ -10,6 +10,7 @@ import { Col, LogoRow, Row, Title, LogoWrapper } from "./CSS";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { Authentication } from "@/App";
+import variable from "@/assets/var/variable.json";
 
 const SignUpForm = () => {
   const [form, setForm] = useState({
@@ -66,7 +67,7 @@ const SignUpForm = () => {
         <LogoWrapper>
           <Image src={Icon} alt="icon" width="40px" />
         </LogoWrapper>
-        <Title>Hekidesk</Title>
+        <Title>{variable['app-name']}</Title>
       </LogoRow>
       <Row>
         <InputTextGroup

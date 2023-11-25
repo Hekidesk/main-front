@@ -9,6 +9,7 @@ import {
   ImageWrapper,
   QuestionWrapper,
 } from "../../../components/reusable/ImageWrapper";
+import variable from "@/assets/var/variable.json";
 
 const ConnectionInfo = () => {
   return (
@@ -31,7 +32,7 @@ const ConnectionInfo = () => {
             width="16px"
             style={{ margin: "0em 1em" }}
           />
-          Turn on the Hekidesk
+          Turn on the {variable['app-name']}
         </ListItems>
       </List>
       <ImageWrapper>
