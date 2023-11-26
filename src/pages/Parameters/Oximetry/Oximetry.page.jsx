@@ -58,6 +58,7 @@ const OximetryPage = () => {
       IR: "[" + irData?.toString() + "]",
       Red: "[" + RedData?.toString() + "]",
       fs: bluetooth.GetFrequency()[0],
+      account_id: localStorage.getItem("account-id"),
     };
     let res = await axios.post("/PPG_signal", payload).catch(console.log);
     if (res?.data) {
