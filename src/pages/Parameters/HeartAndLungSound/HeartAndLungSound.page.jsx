@@ -75,6 +75,7 @@ const HeartAndLungSoundPage = () => {
     let payload = {
       pcg: "[" + data?.toString() + "]",
       fs: fs,
+      account_id: localStorage.getItem("account-id"),
     };
     let addr =
       position === "heart" ? "/PCG_signal/heart" : "/PCG_signal/optional";
@@ -118,7 +119,9 @@ const HeartAndLungSoundPage = () => {
       isFirstRender1.current = false;
       return;
     }
-    playAudio();
+    if(filteredArray.length !== 0){
+      playAudio();
+    }
   }, [filteredArray]);
 
   const isFirstRender2 = useRef(true);
@@ -197,11 +200,12 @@ const HeartAndLungSoundPage = () => {
       setStartCountDown(0);
       bluetooth.Stop(startTimeDuration);
       setSizeOfSlice(-1);
-      setFilterActiveNum(0); //added
+      setFilterActiveNum(0);
     }, [sampleTime * 1000 + pendingTime + delayTime]);
   };
 
   async function playAudio() {
+    setAnswerReady(true);
     const finalSound =
       filter && filterActiveNum !== -1
         ? filteredArray[filterActiveNum]
@@ -224,6 +228,7 @@ const HeartAndLungSoundPage = () => {
       });
       const url = URL.createObjectURL(blob);
       setUrl(url);
+      setAnswerReady(false);
     }
   }
 
