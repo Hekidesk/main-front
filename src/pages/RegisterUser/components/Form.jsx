@@ -69,7 +69,7 @@ const RegisterForm = () => {
         console.log(response.data);
         localStorage.setItem("user", form.first_name);
         localStorage.setItem("account-id", response.data.account_id);
-        history("/home");
+        history(process.env.REACT_APP_BASE_URL + "/home");
       },
       (error) => {
         Swal.fire({

@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import Icon from "@/assets/logo/hekidesk-green.svg";
 import { Image } from "primereact/image";
 import { Button } from "primereact/button";
@@ -47,7 +48,7 @@ const SignUpForm = () => {
         axios.post("token", form).then((response) => {
           console.log(response);
           UserInfo.SetAllInfo(form, response.data.token);
-          history("/home");
+          history(process.env.REACT_APP_BASE_URL + "/home");
         });
       })
       .catch((error) => {
