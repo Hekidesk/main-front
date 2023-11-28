@@ -34,7 +34,7 @@ const Sidebar = () => {
   const Logout = () => {
     localStorage.setItem("isLoggedIn", false);
     localStorage.setItem("user", "");
-    localStorage.setItem("account-id", -1);
+    localStorage.setItem("account-id", "");
     localStorage.setItem("token", "");
     localStorage.setItem("expireDate", "");
     // eslint-disable-next-line no-undef
