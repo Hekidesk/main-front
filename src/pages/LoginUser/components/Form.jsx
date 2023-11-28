@@ -35,7 +35,7 @@ const LoginForm = () => {
       (response) => {
         console.log(response);
         UserInfo.SetAllInfo(response.data, localStorage.getItem("token"));
-        history("/home");
+        history(process.env.REACT_APP_BASE_URL + "/home");
       },
       (error) => {
         Swal.fire({
@@ -67,7 +67,7 @@ const LoginForm = () => {
       .then((response) => {
         console.log(response);
         UserInfo.SetAllInfo(form, response.data.token);
-        history("/home");
+        history(process.env.REACT_APP_BASE_URL + "/home");
       })
       .catch((error) => {
         Swal.fire({
