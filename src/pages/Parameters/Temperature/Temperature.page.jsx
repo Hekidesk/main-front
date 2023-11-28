@@ -5,7 +5,7 @@ import resultIcon from "@/assets/icon/resultIcon.svg";
 import HighlightTitle from "@/components/HighlightTitle/HighlightTitle";
 import { useEffect, useState, useContext, useRef } from "react";
 import {
-  CircularContainer,
+  // CircularContainer,
   CircularPhoto,
   Description,
   DiagramButton,
@@ -22,10 +22,12 @@ import PageButtons from "@/components/reusable/PageButtons";
 import { useAddToDB } from "@/database/AddToDB";
 import { BluetoothContext } from "@/App";
 import { makeArrayForChart } from "@/components/reusableDataFunc/DataFunc";
-import Counter from "@/components/Counter/Counter";
+// import Counter from "@/components/Counter/Counter";
+// import { SampleTimeDropDown } from "@/components/SampleTimeDropDown";
 import { COMMAND, delayTime, pendingTime } from "./components/Constants";
-import { SampleTimeDropDown } from "@/components/SampleTimeDropDown";
 import Timer from "@/components/Timer/Timer";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const TemperaturePage = () => {
   const [data, setData] = useState([]);
@@ -36,8 +38,8 @@ const TemperaturePage = () => {
   const [disable, setDisable] = useState(1);
   const [sizeOfSlice, setSizeOfSlice] = useState(-1);
 
-  const [startCountDown, setStartCountDown] = useState(0);
-  const [counter, setCounter] = useState(5);
+  // const [startCountDown, setStartCountDown] = useState(0);
+  // const [counter, setCounter] = useState(5);
   const [sampleTime, setSampleTime] = useState(10);
   const [showDownCounter, setShowDownCounter] = useState(false);
 
@@ -47,10 +49,24 @@ const TemperaturePage = () => {
   const startTime = useRef(null);
   const endTime = useRef(null);
 
-  function calculateTemperature(data) {
+  async function calculateTemperature(data) {
     if (data != []) {
-      const average = data.reduce((a, b) => a + b, 0) / data.length;
-      setTemperature(Number(average).toFixed(2));
+      let payload = {
+        temperature: "[" + data?.toString() + "]",
+        account_id: localStorage.getItem("account-id"),
+      };
+      console.log(payload)
+      let res = await axios
+        .post("/temperature_signal", payload)
+        .catch(console.log);
+      if (res?.data) setTemperature(Number(res.data.temperature).toFixed(2));
+      else
+        Swal.fire({
+          icon: "error",
+          title: "Something went wrong",
+          text: "Please repeat procedure!",
+          confirmButtonColor: "#3085d6",
+        });
       setQualityIndex(100);
       setDisable(0);
     }
@@ -65,16 +81,16 @@ const TemperaturePage = () => {
 
   const flushData = () => {
     setShowDownCounter(true);
-    setStartCountDown(1);
+    // setStartCountDown(1);
     setTemperature("- ? -");
-    setCounter(5);
+    // setCounter(5);
     setChartData([]);
     setDisable(1);
   };
 
   const startInput = () => {
     if (bluetooth.CheckConnection()) return;
-    
+
     let startTimeDuration = 0;
     flushData();
 
@@ -84,13 +100,13 @@ const TemperaturePage = () => {
     });
     startTime.current = setTimeout(() => {
       setShowDownCounter(false);
-      setCounter(sampleTime);
+      // setCounter(sampleTime);
       bluetooth.Start().then((result) => (startTimeDuration = result));
       setSizeOfSlice(10);
     }, [pendingTime + delayTime]);
     endTime.current = setTimeout(() => {
-      setStartCountDown(0);
-      setCounter(5);
+      // setStartCountDown(0);
+      // setCounter(5);
       bluetooth.Stop(startTimeDuration);
       setSizeOfSlice(sampleTime);
     }, [sampleTime * 1000 + pendingTime + delayTime]);
