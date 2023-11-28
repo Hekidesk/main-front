@@ -213,6 +213,7 @@ const HeartAndLungSoundPage = () => {
     let payload = {
       sound: "[" + finalSound?.toString() + "]",
       fs: bluetooth.GetFrequency()[0],
+      account_id: localStorage.getItem("account-id"),
     };
     let res = await axios.post("/rcv_audio", payload);
     console.log(res);
@@ -222,6 +223,7 @@ const HeartAndLungSoundPage = () => {
         headers: {
           "Content-Type": "audio/x-wav",
         },
+        account_id: localStorage.getItem("account-id"),
       });
       const blob = new Blob([data], {
         type: "audio/x-wav",
