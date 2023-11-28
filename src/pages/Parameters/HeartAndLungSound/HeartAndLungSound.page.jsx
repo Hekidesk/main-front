@@ -87,8 +87,8 @@ const HeartAndLungSoundPage = () => {
     setAnswerReady(true);
     getDataAPI(pcg, bluetooth.GetFrequency()[0]).then((res) => {
       console.log(res);
+      setAnswerReady(false);
       if (!res || Number(res.Try_Again)) {
-        setAnswerReady(false);
         Swal.fire({
           icon: "error",
           title: "Something went wrong",
@@ -109,7 +109,6 @@ const HeartAndLungSoundPage = () => {
         makeArrayFormString(res.lung_signal),
       ]);
       setDisable(0);
-      setAnswerReady(false);
     });
   }
 
@@ -138,7 +137,6 @@ const HeartAndLungSoundPage = () => {
       if (data.length) {
         setChartData(makeArrayForChart(data));
         calculateBeatPerMinuteAPI(data);
-        console.log("hi");
       }
     }
     return bluetooth.TurnOff;
@@ -216,7 +214,6 @@ const HeartAndLungSoundPage = () => {
       account_id: localStorage.getItem("account-id"),
     };
     let res = await axios.post("/rcv_audio", payload);
-    console.log(res);
     if (res.statusText === "OK") {
       const { data } = await axios.get("/snd_audio", {
         responseType: "arraybuffer",

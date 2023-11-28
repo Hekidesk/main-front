@@ -54,20 +54,23 @@ const BloodPressurePage = () => {
       fs: bluetooth.GetFrequency()[0],
       account_id: localStorage.getItem("account-id"),
     };
-    let res = await axios.post("/bp_signal", payload).catch(console.log);
-    if (!Number(res.data.Try_Again)) {
-      setSYS(res.data.Diastolic);
-      setDIA(res.data.Systolic);
-      setQualityIndex(res.data.Quality_index);
-      setDisable(0);
-    } else {
+    await axios.post("/bp_signal", payload).then((res)=>{
+      if (!Number(res.data.Try_Again)) {
+        setSYS(res.data.Diastolic);
+        setDIA(res.data.Systolic);
+        setQualityIndex(res.data.Quality_index);
+        setDisable(0);
+      }
+      else 
+        throw new Error("Try Again");
+    }).catch(() => {
       Swal.fire({
         icon: "error",
         title: "Something went wrong",
-        text: "Please repeat procedure!",
+        text: "please try again",
         confirmButtonColor: "#3085d6",
-      });
-    }
+      })
+    });
   }
 
   useEffect(() => {

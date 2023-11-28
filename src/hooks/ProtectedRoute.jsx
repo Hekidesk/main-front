@@ -29,11 +29,28 @@ function ProtectedRoute(props) {
     }
   }, [bluetooth]);
 
+  if (isLoggedIn) {
+    if (isAccountSelected) {
+      if (!bluetooth.isConnected && props.needsDevice) {
+        Swal.fire({
+          title: "Your device is disconnected",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          confirmButtonText: "Connect Your Device",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            navigate(process.env.REACT_APP_BASE_URL + "/connection");
+          }
+        });
+      }
+    }
+  }
+
   if (!isLoggedIn) {
     return <Navigate to="/" replace />;
   }
 
-  if (!isAccountSelected && props.children.type.name !== "HomePage") {
+  if (!isAccountSelected && props.children.type.name !== "HomePage" && props.children.type.name !== "RegisterPage") {
     return <Navigate to={process.env.REACT_APP_BASE_URL + "/home"} replace />;
   }
 

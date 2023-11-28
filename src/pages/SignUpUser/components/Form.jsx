@@ -31,7 +31,6 @@ const SignUpForm = () => {
   const history = useNavigate();
 
   const addUser = () => {
-    console.log("hi");
     setWarning(initialWarning);
     setWarning({
       username: !form.username,
@@ -39,7 +38,6 @@ const SignUpForm = () => {
       phoneNumber: !form.phoneNumber,
     });
     if (!form.username || !form.password || !form.phoneNumber) {
-      console.log(warning);
       return;
     }
     axios
@@ -55,7 +53,7 @@ const SignUpForm = () => {
       .catch((error) => {
         Swal.fire({
           icon: error,
-          title: error.response,
+          title: error.response.data.error,
           text: "Please repeat procedure!",
         });
       });

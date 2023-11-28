@@ -31,7 +31,6 @@ const HomeForm = () => {
   useEffect(() => {
     axios.get("user-accounts").then(
       (response) => {
-        console.log(response.data.data);
         setUsers(response.data.data.length > 0 ? response.data.data.filter((user) => user.is_active == true) : []);
       },
       (error) => {

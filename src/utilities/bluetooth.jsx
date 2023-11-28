@@ -59,7 +59,6 @@ export const useSignalFeed = () => {
           });
         });
         device.addEventListener("gattserverdisconnected", () => {
-          console.log("-disconnect-");
           setIsConnected(false);
           setDevice("");
         });
