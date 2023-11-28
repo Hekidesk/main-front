@@ -41,8 +41,6 @@ const RegisterForm = () => {
   const [warning, setWarning] = useState(initialWarning);
 
   const addUser = () => {
-    console.log("hi");
-    console.log(form.dateOfBirth);
     setWarning(initialWarning);
     setWarning({
       first_name: !form.first_name,
@@ -63,7 +61,6 @@ const RegisterForm = () => {
       !form.gender
     )
     {
-      console.log(warning);
       return;
     }
     localStorage.setItem("user", form.username);
@@ -77,7 +74,7 @@ const RegisterForm = () => {
       (error) => {
         Swal.fire({
           icon: error,
-          title: error.response.data,
+          title: error.response.data.error,
           text: "Please repeat procedure!",
         });
       }

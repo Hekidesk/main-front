@@ -50,7 +50,6 @@ const LoginForm = () => {
   useEffect(() => {
     localStorage.setItem("isLoggedIn", false);
     if (validateToken()) {
-      console.log("hi new user");
       getUserInformation();
     }
   }, []);

@@ -11,7 +11,7 @@ import TimeHistoryPage from "@/pages/History/Time/TimeHistory.page";
 import MeasurementPage from "@/pages/Measurement/Measurement.page";
 import HistoryDeskPage from "@/pages/History/HistoryDesk/HistoryDesk.page";
 import CardiogramPage from "@/pages/Parameters/Cardiogram/Cardiogram.page";
-import OximetryPage from "@/pages/Parameters/Oximetry/Oximetry.page";
+import OximetryPage from "@/pages/Parameters/Oximetry/Oximetry.page";SignUpPage
 import TemperaturePage from "@/pages/Parameters/Temperature/Temperature.page";
 import BloodPressurePage from "@/pages/Parameters/BloodPressure/BloodPressure.page";
 import HeartAndLungSoundPage from "@/pages/Parameters/HeartAndLungSound/HeartAndLungSound.page";

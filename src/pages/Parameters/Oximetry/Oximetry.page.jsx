@@ -120,7 +120,6 @@ const OximetryPage = () => {
     });
 
     startTime.current = setTimeout(() => {
-      console.log("hi it's me");
       bluetooth.Start().then((result) => (startTimeDuration = result));
       setShowDownCounter(false);
       setStartCountDown(1);

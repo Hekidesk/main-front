@@ -55,7 +55,6 @@ const TemperaturePage = () => {
         temperature: "[" + data?.toString() + "]",
         account_id: localStorage.getItem("account-id"),
       };
-      console.log(payload)
       let res = await axios
         .post("/temperature_signal", payload)
         .catch(console.log);
