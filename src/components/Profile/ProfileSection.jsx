@@ -12,6 +12,7 @@ const ProfileSection = () => {
   useEffect(() => {
     axios.get("/account/"+localStorage.getItem("account-id")).then(
       (response) => {
+        console.log(response.data.data);
         setUser(response.data.data);
       },
       (error) => {
