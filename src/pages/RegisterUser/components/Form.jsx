@@ -64,7 +64,14 @@ const RegisterForm = () => {
       return;
     }
     localStorage.setItem("user", form.username);
-    axios.post("account", form).then(
+    const updatedForm = {
+      ...form,
+      height: Number(form.height),
+      weight: Number(form.weight),
+    };
+    setForm(updatedForm)
+    console.log(updatedForm);
+    axios.post("account", updatedForm).then(
       (response) => {
         console.log(response.data);
         localStorage.setItem("user", form.first_name);
