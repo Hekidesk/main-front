@@ -12,7 +12,6 @@ const ProfileSection = () => {
   useEffect(() => {
     axios.get("/account/"+localStorage.getItem("account-id")).then(
       (response) => {
-        console.log(response.data.data);
         setUser(response.data.data);
       },
       (error) => {
@@ -28,7 +27,6 @@ const ProfileSection = () => {
   useEffect(() => {
     const birthDate = new Date(user.date_of_birth);
     var today = new Date();
-    console.log(today);
     const diffTime = Math.abs(today.getTime() - birthDate);
     const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24 * 30 * 12));
     setAge(diffDays);

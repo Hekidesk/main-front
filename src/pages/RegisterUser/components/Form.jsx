@@ -68,6 +68,7 @@ const RegisterForm = () => {
       ...form,
       height: Number(form.height),
       weight: Number(form.weight),
+      gender: Boolean(form.gender)
     };
     setForm(updatedForm)
     console.log(updatedForm);

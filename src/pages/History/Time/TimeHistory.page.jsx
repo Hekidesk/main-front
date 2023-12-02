@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Col, Row, Pagination } from "react-bootstrap";
 import ProfileSection from "@/components/Profile/ProfileSection";
-import { useIndexedDB } from "react-indexed-db";
-import { GetDateTimeDB, convertStringToDateDB } from "@/utilities/time/time";
+import { convertGMTToDateNum } from "@/utilities/time/time";
 import { Knob } from "primereact/knob";
 import PageWrapper from "@/components/PageWrapper/PageWrapper";
 import { TitleName } from "../Parameter/component/CSS";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const TimeHistoryPage = () => {
   const [data, setData] = useState(null);
@@ -19,7 +20,6 @@ const TimeHistoryPage = () => {
   const [currentDate, setCurrentDate] = useState(0);
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const { getAll: getAllData } = useIndexedDB("time");
 
   const types = [
     "Normal",
@@ -31,15 +31,19 @@ const TimeHistoryPage = () => {
   ];
 
   useEffect(() => {
-    getAllData().then((dataFromDB) => {
-      const result = dataFromDB.filter(
-        (temp) => temp.userId === localStorage.getItem("account-id")
-      );
-      let dateAndIds = result.map((d) => d.dateAndId);
-      const tempResult = dateAndIds.map((d) => GetDateTimeDB(String(d)));
-      setDates(tempResult);
-      setData(result);
-    });
+    axios
+      .get("data/" + localStorage.getItem("account-id"))
+      .then((response) => {
+          let temp_dates = response.data.map((d) => convertGMTToDateNum(d.time));
+          setDates(temp_dates);
+          setData(response.data);
+        }).catch((error) => {
+          Swal.fire({
+            icon: error,
+            title: error.response.data.error,
+            text: "Please repeat procedure!",
+          });
+        });
   }, []);
 
   useEffect(() => {
@@ -52,11 +56,7 @@ const TimeHistoryPage = () => {
 
   const retrieveDate = (currentDate) => {
     setActiveIndex(currentDate);
-    const dateAndId = parseInt(
-      convertStringToDateDB(dates[currentDate], localStorage.getItem("account-id"))
-    );
-    const tempResult = data.filter((temp) => temp.dateAndId === dateAndId);
-    const result = tempResult[0].parameters;
+    const result = data[currentDate];
     setParameter([
       { text: "Heart Rate ECG (bpm):", value: result.heartBeatECG },
       { text: "Heart Rate PPG (bpm):", value: result.heartBeatPPG },
@@ -155,9 +155,7 @@ const TimeHistoryPage = () => {
         <Col md={8}>
           <Row>
             <Col>
-              <div
-                className="bg-gray rate-box"
-              >
+              <div className="bg-gray rate-box">
                 <Row style={{ fontSize: "30", fontWeight: "600" }}>Rates:</Row>
                 <Row>
                   {parameter &&
