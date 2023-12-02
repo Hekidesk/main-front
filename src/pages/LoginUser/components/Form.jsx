@@ -33,8 +33,8 @@ const LoginForm = () => {
   function getUserInformation() {
     axios.get("user", {Authentication: localStorage.getItem("token")}).then(
       (response) => {
-        console.log(response);
         UserInfo.SetAllInfo(response.data, localStorage.getItem("token"));
+        // eslint-disable-next-line no-undef
         history(process.env.REACT_APP_BASE_URL + "/home");
       },
       (error) => {
@@ -67,6 +67,7 @@ const LoginForm = () => {
       .then((response) => {
         console.log(response);
         UserInfo.SetAllInfo(form, response.data.token);
+        // eslint-disable-next-line no-undef
         history(process.env.REACT_APP_BASE_URL + "/home");
       })
       .catch((error) => {

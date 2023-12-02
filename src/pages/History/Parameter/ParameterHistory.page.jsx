@@ -15,179 +15,182 @@ import SYSDIAIcon from "@/assets/icon/history/bloodPressureIcon.svg";
 import "@/assets/styles/history.css";
 import "@/assets/styles/profile.css";
 import HistoryChart from "../Chart/HistoryChart";
-import { useIndexedDB } from "react-indexed-db";
 import { GetDateTimeDB } from "@/utilities/time/time";
 import PageWrapper from "@/components/PageWrapper/PageWrapper";
 import { ParameterSection, TitleName } from "./component/CSS";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const ParameterHistoryPage = () => {
-  
-  const { getAll: getAllOximetryData } = useIndexedDB("oximetryData");
-  const { getAll: getAllCardiogramData } = useIndexedDB("cardiogramData");
-  const { getAll: getAllBPData } = useIndexedDB("BPData");
-  const { getAll: getAllTemperatureData } = useIndexedDB("TemperatureData");
-  const { getAll: getAllPCGData } = useIndexedDB("PCGData");
   const [parameterData, setData] = useState([]);
 
   useEffect(() => {
     let datas = [];
-    getAllOximetryData().then((dataFromDB) => {
-      let tempFlow = [];
-      const result = dataFromDB.filter(
-        (temp) => temp.userId === localStorage.getItem("account-id")
-      );
-      result.map((res) =>
-        tempFlow.push({
-          date: GetDateTimeDB(String(res["dateAndId"])),
-          value: res["heartBeatPPG"],
-        })
-      );
-      datas.push({
-        img: HeartRateIcon,
-        title: "Heart Rate (bpm) - ppg",
-        color: "red",
-        chartName: ["heartbeat ppg"],
-        data: [tempFlow],
-      });
-      tempFlow = [];
-      result.map((res) =>
-        tempFlow.push({
-          date: GetDateTimeDB(String(res["dateAndId"])),
-          value: res["SPO2"],
-        })
-      );
-      datas.push({
-        img: Spo2Icon,
-        title: "SpO2 (%)",
-        color: "#8CCD47",
-        chartName: ["SPO2"],
-        data: [tempFlow],
-      });
-    });
+    const promise1 = axios
+      .get("ECG_signal/" + localStorage.getItem("account-id") + "/0")
+      .then(
+        (response) => {
+          const result = response.data;
+          let tempFlow = [];
+          result.map((res) =>
+            tempFlow.push({
+              date: GetDateTimeDB(String(res["time"])),
+              value: res["heart_rate"],
+            })
+          );
+          datas.push({
+            img: HeartRateIcon,
+            title: "Heart Rate (bpm) - ecg",
+            color: "#43a5d6",
+            chartName: ["heartbeat ecg"],
+            data: [tempFlow],
+          });
+          console.log(tempFlow);
+          tempFlow = [];
+          result.map((res) =>
+            tempFlow.push({
+              date: GetDateTimeDB(String(res["time"])),
+              value: res["pr_interval"],
+            })
+          );
+          datas.push({
+            img: PR_RR_INTERVAL,
+            title: "PR/RR Interval (msec)",
+            color: "orange",
+            chartName: ["PR RR Interval"],
+            data: [tempFlow],
+          });
 
-    getAllCardiogramData().then((dataFromDB) => {
-      const result = dataFromDB.filter(
-        (temp) => temp.userId === localStorage.getItem("account-id")
-      );
-      let tempFlow = [];
-      result.map((res) =>
-        tempFlow.push({
-          date: GetDateTimeDB(String(res["dateAndId"])),
-          value: res["heartBeatECG"],
-        })
-      );
-      datas.push({
-        img: HeartRateIcon,
-        title: "Heart Rate (bpm) - ecg",
-        color: "#43a5d6",
-        chartName: ["heartbeat ecg"],
-        data: [tempFlow],
-      });
+          tempFlow = [];
+          result.map((res) =>
+            tempFlow.push({
+              date: GetDateTimeDB(String(res["time"])),
+              value: res["qrs_duration"],
+            })
+          );
+          datas.push({
+            img: QRS_Duration_Icon,
+            title: "QRS Duration (msec)",
+            color: "black",
+            chartName: ["QRS Duration"],
+            data: [tempFlow],
+          });
 
-      tempFlow = [];
-      result.map((res) =>
-        tempFlow.push({
-          date: GetDateTimeDB(String(res["dateAndId"])),
-          value: res["PR_RR_Interval"],
-        })
-      );
-      datas.push({
-        img: PR_RR_INTERVAL,
-        title: "PR/RR Interval (msec)",
-        color: "orange",
-        chartName: ["PR RR Interval"],
-        data: [tempFlow],
-      });
-
-      tempFlow = [];
-      result.map((res) =>
-        tempFlow.push({
-          date: GetDateTimeDB(String(res["dateAndId"])),
-          value: res["QRS_Duration"],
-        })
-      );
-      datas.push({
-        img: QRS_Duration_Icon,
-        title: "QRS Duration (msec)",
-        color: "black",
-        chartName: ["QRS Duration"],
-        data: [tempFlow],
-      });
-
-      tempFlow = [];
-      result.map((res) =>
-        tempFlow.push({
-          date: GetDateTimeDB(String(res["dateAndId"])),
-          value: res["hrvVal"],
-        })
-      );
-      datas.push({
-        img: SYSDIAIcon,
-        title: "HR Variation",
-        color: "green",
-        chartName: ["hrv"],
-        data: [tempFlow],
-      });
-    });
-
-    getAllBPData().then((dataFromDB) => {
-      const result = dataFromDB.filter(
-        (temp) => temp.userId === localStorage.getItem("account-id")
-      );
-      let tempFlow = [];
-      result.map((res) =>
-        tempFlow.push({
-          date: GetDateTimeDB(String(res["dateAndId"])),
-          value: res["SYS"],
-        })
+          tempFlow = [];
+          result.map((res) =>
+            tempFlow.push({
+              date: GetDateTimeDB(String(res["time"])),
+              value: res["hrv_val"],
+            })
+          );
+          datas.push({
+            img: SYSDIAIcon,
+            title: "HR Variation",
+            color: "green",
+            chartName: ["hrv"],
+            data: [tempFlow],
+          });
+        },
+        (error) => {
+          Swal.fire({
+            icon: error,
+            title: error.response,
+            text: "Please repeat procedure!",
+          });
+        }
       );
 
-      let tempFlow2 = [];
-      result.map((res) =>
-        tempFlow2.push({
-          date: GetDateTimeDB(String(res["dateAndId"])),
-          value: res["DIA"],
-        })
-      );
-      datas.push({
-        img: SYSDIAIcon,
-        title: "SYS/DIA(mmHg)",
-        color: "yellow",
-        chartName: ["SYS", "DIA"],
-        data: [tempFlow, tempFlow2],
-      });
-    });
-
-    getAllTemperatureData().then((dataFromDB) => {
-      const result = dataFromDB.filter(
-        (temp) => temp.userId === localStorage.getItem("account-id")
-      );
-      let tempFlow = [];
-      result.map((res) =>
-        tempFlow.push({
-          date: GetDateTimeDB(String(res["dateAndId"])),
-          value: res["temperature"],
-        })
-      );
-      datas.push({
-        img: TemperatureIcon,
-        title: "Temperature",
-        color: "purple",
-        chartName: ["Temperature"],
-        data: [tempFlow],
-      });
-    });
-
-    getAllPCGData()
-      .then((dataFromDB) => {
-        const result = dataFromDB.filter(
-          (temp) => temp.userId === localStorage.getItem("account-id")
-        );
+    const promise2 = axios
+      .get("PPG_signal/" + localStorage.getItem("account-id") + "/0")
+      .then((response) => {
+        const result = response.data;
         let tempFlow = [];
         result.map((res) =>
           tempFlow.push({
-            date: GetDateTimeDB(String(res["dateAndId"])),
-            value: res["heartBeatSound"],
+            date: GetDateTimeDB(String(res["time"])),
+            value: res["heart_rate"],
+          })
+        );
+        datas.push({
+          img: HeartRateIcon,
+          title: "Heart Rate (bpm) - ppg",
+          color: "red",
+          chartName: ["heartbeat ppg"],
+          data: [tempFlow],
+        });
+        tempFlow = [];
+        result.map((res) =>
+          tempFlow.push({
+            date: GetDateTimeDB(String(res["time"])),
+            value: res["spo2"],
+          })
+        );
+        datas.push({
+          img: Spo2Icon,
+          title: "SpO2 (%)",
+          color: "#8CCD47",
+          chartName: ["SPO2"],
+          data: [tempFlow],
+        });
+      });
+
+    const promise3 = axios
+      .get("bp_signal/" + localStorage.getItem("account-id") + "/0")
+      .then((response) => {
+        const result = response.data;
+        let tempFlow = [];
+        result.map((res) =>
+          tempFlow.push({
+            date: GetDateTimeDB(String(res["time"])),
+            value: res["systolic"],
+          })
+        );
+
+        let tempFlow2 = [];
+        result.map((res) =>
+          tempFlow2.push({
+            date: GetDateTimeDB(String(res["time"])),
+            value: res["diastolic"],
+          })
+        );
+        datas.push({
+          img: SYSDIAIcon,
+          title: "SYS/DIA(mmHg)",
+          color: "yellow",
+          chartName: ["SYS", "DIA"],
+          data: [tempFlow, tempFlow2],
+        });
+      });
+
+    const promise4 = axios
+      .get("temperature_signal/" + localStorage.getItem("account-id") + "/0")
+      .then((response) => {
+        const result = response.data;
+        let tempFlow = [];
+        result.map((res) =>
+          tempFlow.push({
+            date: GetDateTimeDB(String(res["time"])),
+            value: res["temperature"],
+          })
+        );
+        datas.push({
+          img: TemperatureIcon,
+          title: "Temperature",
+          color: "purple",
+          chartName: ["Temperature"],
+          data: [tempFlow],
+        });
+      });
+
+    const promise5 = axios
+      .get("PCG_signal/" + localStorage.getItem("account-id") + "/0")
+      .then((response) => {
+        const result = response.data;
+        let tempFlow = [];
+        result.map((res) =>
+          tempFlow.push({
+            date: GetDateTimeDB(String(res["time"])),
+            value: res["heart_rate"],
           })
         );
         datas.push({
@@ -201,8 +204,8 @@ const ParameterHistoryPage = () => {
         tempFlow = [];
         result.map((res) =>
           tempFlow.push({
-            date: GetDateTimeDB(String(res["dateAndId"])),
-            value: res["respirationRate"],
+            date: GetDateTimeDB(String(res["time"])),
+            value: res["respiration_rate"],
           })
         );
         datas.push({
@@ -212,8 +215,12 @@ const ParameterHistoryPage = () => {
           chartName: ["Rrespiration Rate"],
           data: [tempFlow],
         });
-      })
-      .then(() => setData(datas));
+        console.log(datas);
+      });
+      
+    Promise.all([promise1, promise2, promise3, promise4, promise5]).then(() =>
+      setData(datas)
+    );
   }, []);
 
   return (

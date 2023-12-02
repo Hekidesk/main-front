@@ -70,9 +70,15 @@ export const GetCurrentDateTimeDB = () => {
 
 export const GetDateTimeDB = (date) => {
   const showTime =
-    String(date.slice(0, 4)) + "/" + String(date.slice(4, 6)) + "/" + String(date.slice(6, 8));
+    String(date.slice(0, 4)) + "/" + String(date.slice(5, 7)) + "/" + String(date.slice(8, 10));
   return showTime;
 };
+
+export const convertGMTToDateNum = (date) => {
+  const d = new Date(date);
+  return d.getFullYear() + "/" + d.getMonth() + "/" + d.getDate();
+
+}
 
 export const convertStringToDateDB = (date, userId) => {
   date = String(date).split("/");
