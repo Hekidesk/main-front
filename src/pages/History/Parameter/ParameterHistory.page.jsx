@@ -12,8 +12,7 @@ import PR_RR_INTERVAL from "@/assets/icon/history/PR_RR_INTERVAL.svg";
 import QRS_Duration_Icon from "@/assets/icon/history/QRS_Duration.svg";
 import SYSDIAIcon from "@/assets/icon/history/bloodPressureIcon.svg";
 
-import "@/assets/styles/history.css";
-import "@/assets/styles/profile.css";
+
 import HistoryChart from "../Chart/HistoryChart";
 import { GetDateTimeDB } from "@/utilities/time/time";
 import PageWrapper from "@/components/PageWrapper/PageWrapper";
@@ -25,6 +24,10 @@ const ParameterHistoryPage = () => {
   const [parameterData, setData] = useState([]);
 
   useEffect(() => {
+    const delay = async () => {
+      await new Promise(resolve => setTimeout(resolve, 500)); // 2000 milliseconds or 2 seconds
+    };
+
     let datas = [];
     const promise1 = axios
       .get("ECG_signal/" + localStorage.getItem("account-id") + "/0")
@@ -99,7 +102,8 @@ const ParameterHistoryPage = () => {
           });
         }
       );
-
+    
+    delay();
     const promise2 = axios
       .get("PPG_signal/" + localStorage.getItem("account-id") + "/0")
       .then((response) => {
@@ -134,6 +138,7 @@ const ParameterHistoryPage = () => {
         });
       });
 
+    delay();
     const promise3 = axios
       .get("bp_signal/" + localStorage.getItem("account-id") + "/0")
       .then((response) => {
@@ -161,7 +166,8 @@ const ParameterHistoryPage = () => {
           data: [tempFlow, tempFlow2],
         });
       });
-
+    
+    delay();
     const promise4 = axios
       .get("temperature_signal/" + localStorage.getItem("account-id") + "/0")
       .then((response) => {
@@ -181,7 +187,8 @@ const ParameterHistoryPage = () => {
           data: [tempFlow],
         });
       });
-
+      
+    delay();
     const promise5 = axios
       .get("PCG_signal/" + localStorage.getItem("account-id") + "/0")
       .then((response) => {

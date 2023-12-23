@@ -11,6 +11,8 @@ import "primereact/resources/primereact.min.css";
 
 //icons
 import "primeicons/primeicons.css";
+import "@/assets/styles/history.css";
+import "@/assets/styles/profile.css";
 
 import PrimeReact from "primereact/api";
 

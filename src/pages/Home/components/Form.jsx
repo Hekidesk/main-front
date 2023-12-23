@@ -43,7 +43,7 @@ const HomeForm = () => {
     );
   }, []);
 
-  useEffect(() => { // change this to id 
+  useEffect(() => {
     if (localStorage.getItem("user") !== null) {
       const foundUser = users.find(
         (user) => user.first_name === localStorage.getItem("user")
@@ -68,7 +68,6 @@ const HomeForm = () => {
     )
     localStorage.removeItem("user");
     localStorage.removeItem("id");
-
   };
 
   return (

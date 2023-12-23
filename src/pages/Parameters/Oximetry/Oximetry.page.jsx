@@ -1,4 +1,3 @@
-import "@/assets/styles/primereactStyle.css";
 import PageWrapper from "@/components/PageWrapper/PageWrapper";
 import Diagram from "@/components/Datagram/Diagram";
 import oximetryIcon from "@/assets/icon/parameter/oximetry.svg";

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Col, Row, Pagination } from "react-bootstrap";
 import ProfileSection from "@/components/Profile/ProfileSection";
-import { convertGMTToDateNum } from "@/utilities/time/time";
+import { convertGMTToDateNum, formatDateISO } from "@/utilities/time/time";
 import { Knob } from "primereact/knob";
 import PageWrapper from "@/components/PageWrapper/PageWrapper";
 import { TitleName } from "../Parameter/component/CSS";
@@ -9,7 +9,6 @@ import axios from "axios";
 import Swal from "sweetalert2";
 
 const TimeHistoryPage = () => {
-  const [data, setData] = useState(null);
   const [parameter, setParameter] = useState();
 
   const [heartBeat, setHeartBeat] = useState(0);
@@ -19,7 +18,6 @@ const TimeHistoryPage = () => {
   const [dates, setDates] = useState([]);
   const [currentDate, setCurrentDate] = useState(0);
   const [activeIndex, setActiveIndex] = useState(0);
-
 
   const types = [
     "Normal",
@@ -32,57 +30,73 @@ const TimeHistoryPage = () => {
 
   useEffect(() => {
     axios
-      .get("data/" + localStorage.getItem("account-id"))
+      .get("date/" + localStorage.getItem("account-id"))
       .then((response) => {
-          let temp_dates = response.data.map((d) => convertGMTToDateNum(d.time));
-          setDates(temp_dates);
-          setData(response.data);
-        }).catch((error) => {
-          Swal.fire({
-            icon: error,
-            title: error.response.data.error,
-            text: "Please repeat procedure!",
-          });
+        let temp_dates = response.data.map((d) => convertGMTToDateNum(d));
+        setDates(temp_dates);  
+      })
+      .catch((error) => {
+        Swal.fire({
+          icon: error,
+          title: error.response.error,
+          text: "Please repeat procedure!",
         });
+      });
   }, []);
 
   useEffect(() => {
-    if (data && data.length) retrieveDate(currentDate);
-  }, [data]);
+    if(dates.length) retrieveDate(0);
+  }, [dates]);
 
   useEffect(() => {
-    if (data && data.length) retrieveDate(activeIndex);
+    if(dates.length) retrieveDate(activeIndex);
   }, [activeIndex]);
 
   const retrieveDate = (currentDate) => {
     setActiveIndex(currentDate);
-    const result = data[currentDate];
-    setParameter([
-      { text: "Heart Rate ECG (bpm):", value: result.heartBeatECG },
-      { text: "Heart Rate PPG (bpm):", value: result.heartBeatPPG },
-      { text: "PR/RR Interval (msec):", value: result.PR_RR_Interval },
-      { text: "QRS Duration (msec):", value: result.QRS_Duration },
-      { text: "HR Variation:", value: result.hrvVal },
-      { text: "SpO2 (%):", value: result.SPO2 },
-      { text: "Temperature(°C):", value: result.temperature },
-      {
-        text: "SYS/DIA(mmHg):",
-        value: result.SYS ? result.SYS + "/" + result.DIA : null,
-      },
-      { text: "Arrythmia Type:", value: types[result.ArrythmiaType] },
-      { text: "Heart Rate sound (bpm):", value: result.heartBeatSound },
-      { text: "Respiration Rate:", value: result.respirationRate },
-    ]);
-    setHeartBeat(
-      result.heartBeatECG
-        ? result.heartBeatECG
-        : result.heartBeatPPG
-        ? result.heartBeatPPG
-        : result.heartBeatSound
-        ? result.heartBeatSound
-        : 0
-    );
-    setTemperature(result.temperature ? result.temperature : 0);
+    let result = {};
+    axios
+      .get("data/" + localStorage.getItem("account-id"), {
+        params: {
+          date: formatDateISO(dates[currentDate]),
+        },
+      })
+      .then((response) => {
+        result = response.data;
+        setParameter([
+          { text: "Heart Rate ECG (bpm):", value: result.heartBeatECG },
+          { text: "Heart Rate PPG (bpm):", value: result.heartBeatPPG },
+          { text: "PR/RR Interval (msec):", value: result.PR_RR_Interval },
+          { text: "QRS Duration (msec):", value: result.QRS_Duration },
+          { text: "HR Variation:", value: result.hrvVal },
+          { text: "SpO2 (%):", value: result.SPO2 },
+          { text: "Temperature(°C):", value: result.temperature },
+          {
+            text: "SYS/DIA(mmHg):",
+            value: result.SYS ? result.SYS + "/" + result.DIA : null,
+          },
+          { text: "Arrythmia Type:", value: types[result.ArrythmiaType] },
+          { text: "Heart Rate sound (bpm):", value: result.heartBeatSound },
+          { text: "Respiration Rate:", value: result.respirationRate },
+        ]);
+        setHeartBeat(
+          result.heartBeatECG
+            ? result.heartBeatECG
+            : result.heartBeatPPG
+            ? result.heartBeatPPG
+            : result.heartBeatSound
+            ? result.heartBeatSound
+            : 0
+        );
+        setTemperature(result.temperature ? result.temperature : 0);
+      })
+      .catch((error) => {
+        Swal.fire({
+          icon: error,
+          title: error.response.data.error,
+          text: "Please repeat procedure!",
+        });
+      });
   };
 
   const decCurrentUser = () => {
@@ -134,9 +148,9 @@ const TimeHistoryPage = () => {
               <Pagination.Prev
                 onClick={() => decCurrentUser()}
               ></Pagination.Prev>
-              {[...Array(5)].map((currElement, index) => (
+              {[...Array(5)].map((_, index) => (
                 <Pagination.Item
-                  key={currElement}
+                  key={index}
                   onClick={() => retrieveDate(currentDate + index)}
                   active={activeIndex === currentDate + index}
                 >

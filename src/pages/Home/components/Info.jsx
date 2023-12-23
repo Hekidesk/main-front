@@ -18,6 +18,7 @@ const InfoHome = () => {
             alt="Image"
             width="16px"
             style={{ margin: "0em 0.5em", textTransform: "uppercase" }}
+            loading="lazy"
           />
           AMAZING AUSCULTATION EXPERIENCE
         </ListItems>
@@ -27,6 +28,7 @@ const InfoHome = () => {
             alt="Image"
             width="16px"
             style={{ margin: "0em 0.5em", textTransform: "uppercase" }}
+            loading="lazy"
           />
           PERSONAL HEALTH MONITORING
         </ListItems>
@@ -36,12 +38,13 @@ const InfoHome = () => {
             alt="Image"
             width="10px"
             style={{ margin: "0em 0.5em", textTransform: "uppercase" }}
+            loading="lazy"
           />
           BLUETOOTH CONNECTION{" "}
         </ListItems>
       </List>
       <ImageWrapper>
-        <Image src={Icon} alt="icon" width="100%" />
+        <Image src={Icon} alt="icon" width="100%" loading="lazy"/>
       </ImageWrapper>
     </span>
   );

@@ -76,7 +76,7 @@ export const GetDateTimeDB = (date) => {
 
 export const convertGMTToDateNum = (date) => {
   const d = new Date(date);
-  return d.getFullYear() + "/" + d.getMonth() + "/" + d.getDate();
+  return d.getFullYear() + "/" + (d.getMonth() + 1) + "/" + d.getDate();
 
 }
 
@@ -84,4 +84,16 @@ export const convertStringToDateDB = (date, userId) => {
   date = String(date).split("/");
   return String(date[0]) + String(date[1]) + String(date[2]) + String(userId)
 }
+
+export const formatDateISO = (dateString) => {
+  const parts = dateString.split('/');
+  
+  // Ensure leading zeros for month and day if they are single digits
+  const year = parts[0];
+  const month = parts[1].length === 1 ? '0' + parts[1] : parts[1];
+  const day = parts[2].length === 1 ? '0' + parts[2] : parts[2];
+
+  return `${year}-${month}-${day}`;
+}
+
 

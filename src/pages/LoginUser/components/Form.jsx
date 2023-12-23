@@ -2,7 +2,7 @@ import Icon from "@/assets/logo/hekidesk-green.svg";
 import { Image } from "primereact/image";
 import { Button } from "primereact/button";
 import { ButtonStyle } from "@/components/reusable/ButtonStyle";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useMemo, useState, useEffect } from "react";
 import { InputTextGroup } from "@/components/reusable/InputTextGroup";
 import { ContainerWithoutHeight } from "@/components/reusable/Container";
 import { LogoRow, Row, Title, LogoWrapper } from "./CSS";
@@ -21,10 +21,10 @@ const LoginForm = () => {
   });
   const onChangeValue = (n, v) => setForm({ ...form, [n]: v });
 
-  const initialWarning = {
+  const initialWarning = useMemo(() => ({
     username: false,
     password: false,
-  };
+  }), []);
 
   const [warning, setWarning] = useState(initialWarning);
   const history = useNavigate();
@@ -55,11 +55,11 @@ const LoginForm = () => {
   }, []);
 
   const loginUser = () => {
-    setWarning(initialWarning);
-    setWarning({
+    setWarning(() => ({
+      ...initialWarning,
       password: !form.password,
       username: !form.username,
-    });
+    }));
     if (!form.username || !form.password) return;
 
     axios
@@ -83,7 +83,7 @@ const LoginForm = () => {
     <ContainerWithoutHeight>
       <LogoRow>
         <LogoWrapper>
-          <Image src={Icon} alt="icon" width="40px" />
+          <Image src={Icon} alt="icon" width="40px" loading="lazy"/>
         </LogoWrapper>
         <Title>{variable['app-name']}</Title>
       </LogoRow>
