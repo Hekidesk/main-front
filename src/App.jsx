@@ -7,6 +7,7 @@ import { DBConfig } from "@/database/DBConfig";
 import axios from "axios";
 import "@/assets/styles/Measurement.css";
 import UserInfo from "./utilities/userInfo.jsx";
+import "@/assets/styles/primereactStyle.css";
 
 export const BluetoothContext = createContext({});
 export const Authentication = createContext({});
@@ -14,6 +15,7 @@ export const Authentication = createContext({});
 initDB(DBConfig);
 
 axios.defaults.baseURL = "https://api.hekidesk.com/";
+// axios.defaults.baseURL = "http://127.0.0.1:5000";
 
 function App() {
   const connection = useSignalFeed();

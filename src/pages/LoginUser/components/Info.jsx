@@ -8,9 +8,9 @@ const LoginInfo = () => {
     <span>
       <br />
       <br />
-      <Text>Welocome, Please Login</Text>
+      <Text>Welcome, Please Login</Text>
       <ImageWrapper>
-        <Image src={Icon} alt="icon" width="100%" />
+        <Image src={Icon} alt="icon" width="100%" loading="lazy"/>
       </ImageWrapper>
     </span>
   );

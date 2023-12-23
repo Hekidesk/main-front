@@ -1,26 +1,52 @@
 /* eslint-disable no-undef */
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import React, { Suspense } from "react";
 
-import HomePage from "@/pages/Home/Home.page";
 import LoginPage from "@/pages/LoginUser/Login.page";
-import RegisterPage from "@/pages/RegisterUser/Register.page";
-import DeskPage from "@/pages/UserDesk/UserDesk.page";
-import ConnectionPage from "@/pages/Connection/Connection.page";
-import ParameterHistoryPage from "@/pages/History/Parameter/ParameterHistory.page";
-import TimeHistoryPage from "@/pages/History/Time/TimeHistory.page";
-import MeasurementPage from "@/pages/Measurement/Measurement.page";
-import HistoryDeskPage from "@/pages/History/HistoryDesk/HistoryDesk.page";
-import CardiogramPage from "@/pages/Parameters/Cardiogram/Cardiogram.page";
-import OximetryPage from "@/pages/Parameters/Oximetry/Oximetry.page";SignUpPage
-import TemperaturePage from "@/pages/Parameters/Temperature/Temperature.page";
-import BloodPressurePage from "@/pages/Parameters/BloodPressure/BloodPressure.page";
-import HeartAndLungSoundPage from "@/pages/Parameters/HeartAndLungSound/HeartAndLungSound.page";
 import ProtectedRoute from "@/hooks/ProtectedRoute";
-import SignUpPage from "./pages/SignUpUser/SignUp.page.jsx";
+const SignUpPage = React.lazy(() =>
+  import("./pages/SignUpUser/SignUp.page.jsx")
+);
+const MeasurementPage = React.lazy(() =>
+  import("./pages/Measurement/Measurement.page")
+);
+const HeartAndLungSoundPage = React.lazy(() =>
+  import("@/pages/Parameters/HeartAndLungSound/HeartAndLungSound.page")
+);
+const BloodPressurePage = React.lazy(() =>
+  import("@/pages/Parameters/BloodPressure/BloodPressure.page")
+);
+const TemperaturePage = React.lazy(() =>
+  import("@/pages/Parameters/Temperature/Temperature.page")
+);
+const OximetryPage = React.lazy(() =>
+  import("@/pages/Parameters/Oximetry/Oximetry.page")
+);
+const CardiogramPage = React.lazy(() =>
+  import("@/pages/Parameters/Cardiogram/Cardiogram.page")
+);
+const HistoryDeskPage = React.lazy(() =>
+  import("@/pages/History/HistoryDesk/HistoryDesk.page")
+);
+const TimeHistoryPage = React.lazy(() =>
+  import("@/pages/History/Time/TimeHistory.page")
+);
+const ParameterHistoryPage = React.lazy(() =>
+  import("@/pages/History/Parameter/ParameterHistory.page")
+);
+const ConnectionPage = React.lazy(() =>
+  import("@/pages/Connection/Connection.page")
+);
+const DeskPage = React.lazy(() => import("@/pages/UserDesk/UserDesk.page"));
+const RegisterPage = React.lazy(() =>
+  import("@/pages/RegisterUser/Register.page")
+);
+const HomePage = React.lazy(() => import("@/pages/Home/Home.page"));
 
 function AppRoutes() {
   return (
-    <BrowserRouter>
+    <Suspense>
+      <BrowserRouter>
         <Routes>
           <Route path={process.env.REACT_APP_BASE_URL} element={null}>
             <Route index element={<LoginPage />} />
@@ -141,7 +167,8 @@ function AppRoutes() {
             />
           </Route>
         </Routes>
-    </BrowserRouter>
+      </BrowserRouter>
+    </Suspense>
   );
 }
 
