@@ -12,7 +12,6 @@ const HistoryChart = ({ color, data, name }) => {
     );
     const surfaceBorder = documentStyle.getPropertyValue("--surface-border");
     if (data) {
-      console.log("data is: " + name + " " + JSON.stringify(data));
       const chartDataTemp = {
         labels: data[0].map((e) => e.date),
         datasets: [
@@ -71,7 +70,6 @@ const HistoryChart = ({ color, data, name }) => {
 
   return (
     <div className="card">
-      {console.log("chartData is: " + JSON.stringify(chartData))}
       <Chart
         type="line"
         className="chart"

@@ -22,11 +22,10 @@ import Swal from "sweetalert2";
 const ParameterHistoryPage = () => {
   const [parameterData, setData] = useState([]);
 
-  useEffect(() => {
-    const delay = async () => {
-      await new Promise((resolve) => setTimeout(resolve, 200));
-    };
+  const [dump, setDump] = React.useState();
+  const forceUpdate = React.useCallback(() => setDump({}), []);
 
+  useEffect(() => {
     let datas = Array(10).fill(undefined);
     const promise1 = axios
       .get("ECG_signal/" + localStorage.getItem("account-id") + "/0")
@@ -219,11 +218,13 @@ const ParameterHistoryPage = () => {
       });
 
     Promise.all([promise1, promise2, promise3, promise4, promise5]).then(() => {
-      console.log(datas);
       setData(datas);
-      delay();
       console.log(datas);
     });
+  }, [dump]);
+
+  useEffect(() => {
+    forceUpdate();
   }, []);
 
   return (
