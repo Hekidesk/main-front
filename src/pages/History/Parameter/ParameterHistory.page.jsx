@@ -12,7 +12,6 @@ import PR_RR_INTERVAL from "@/assets/icon/history/PR_RR_INTERVAL.svg";
 import QRS_Duration_Icon from "@/assets/icon/history/QRS_Duration.svg";
 import SYSDIAIcon from "@/assets/icon/history/bloodPressureIcon.svg";
 
-
 import HistoryChart from "../Chart/HistoryChart";
 import { GetDateTimeDB } from "@/utilities/time/time";
 import PageWrapper from "@/components/PageWrapper/PageWrapper";
@@ -23,12 +22,11 @@ import Swal from "sweetalert2";
 const ParameterHistoryPage = () => {
   const [parameterData, setData] = useState([]);
 
-  useEffect(() => {
-    const delay = async () => {
-      await new Promise(resolve => setTimeout(resolve, 500)); // 2000 milliseconds or 2 seconds
-    };
+  const [dump, setDump] = React.useState();
+  const forceUpdate = React.useCallback(() => setDump({}), []);
 
-    let datas = [];
+  useEffect(() => {
+    let datas = Array(10).fill(undefined);
     const promise1 = axios
       .get("ECG_signal/" + localStorage.getItem("account-id") + "/0")
       .then(
@@ -41,14 +39,13 @@ const ParameterHistoryPage = () => {
               value: res["heart_rate"],
             })
           );
-          datas.push({
+          datas[0] = {
             img: HeartRateIcon,
             title: "Heart Rate (bpm) - ecg",
             color: "#43a5d6",
             chartName: ["heartbeat ecg"],
             data: [tempFlow],
-          });
-          console.log(tempFlow);
+          };
           tempFlow = [];
           result.map((res) =>
             tempFlow.push({
@@ -56,13 +53,13 @@ const ParameterHistoryPage = () => {
               value: res["pr_interval"],
             })
           );
-          datas.push({
+          datas[1] = {
             img: PR_RR_INTERVAL,
             title: "PR/RR Interval (msec)",
             color: "orange",
             chartName: ["PR RR Interval"],
             data: [tempFlow],
-          });
+          };
 
           tempFlow = [];
           result.map((res) =>
@@ -71,13 +68,13 @@ const ParameterHistoryPage = () => {
               value: res["qrs_duration"],
             })
           );
-          datas.push({
+          datas[2] = {
             img: QRS_Duration_Icon,
             title: "QRS Duration (msec)",
             color: "black",
             chartName: ["QRS Duration"],
             data: [tempFlow],
-          });
+          };
 
           tempFlow = [];
           result.map((res) =>
@@ -86,13 +83,13 @@ const ParameterHistoryPage = () => {
               value: res["hrv_val"],
             })
           );
-          datas.push({
+          datas[3] = {
             img: SYSDIAIcon,
             title: "HR Variation",
             color: "green",
             chartName: ["hrv"],
             data: [tempFlow],
-          });
+          };
         },
         (error) => {
           Swal.fire({
@@ -102,8 +99,7 @@ const ParameterHistoryPage = () => {
           });
         }
       );
-    
-    delay();
+
     const promise2 = axios
       .get("PPG_signal/" + localStorage.getItem("account-id") + "/0")
       .then((response) => {
@@ -115,13 +111,13 @@ const ParameterHistoryPage = () => {
             value: res["heart_rate"],
           })
         );
-        datas.push({
+        datas[4] = {
           img: HeartRateIcon,
           title: "Heart Rate (bpm) - ppg",
           color: "red",
           chartName: ["heartbeat ppg"],
           data: [tempFlow],
-        });
+        };
         tempFlow = [];
         result.map((res) =>
           tempFlow.push({
@@ -129,16 +125,15 @@ const ParameterHistoryPage = () => {
             value: res["spo2"],
           })
         );
-        datas.push({
+        datas[5] = {
           img: Spo2Icon,
           title: "SpO2 (%)",
           color: "#8CCD47",
           chartName: ["SPO2"],
           data: [tempFlow],
-        });
+        };
       });
 
-    delay();
     const promise3 = axios
       .get("bp_signal/" + localStorage.getItem("account-id") + "/0")
       .then((response) => {
@@ -158,16 +153,15 @@ const ParameterHistoryPage = () => {
             value: res["diastolic"],
           })
         );
-        datas.push({
+        datas[6] = {
           img: SYSDIAIcon,
           title: "SYS/DIA(mmHg)",
           color: "yellow",
           chartName: ["SYS", "DIA"],
           data: [tempFlow, tempFlow2],
-        });
+        };
       });
-    
-    delay();
+
     const promise4 = axios
       .get("temperature_signal/" + localStorage.getItem("account-id") + "/0")
       .then((response) => {
@@ -179,16 +173,15 @@ const ParameterHistoryPage = () => {
             value: res["temperature"],
           })
         );
-        datas.push({
+        datas[7] = {
           img: TemperatureIcon,
           title: "Temperature",
           color: "purple",
           chartName: ["Temperature"],
           data: [tempFlow],
-        });
+        };
       });
-      
-    delay();
+
     const promise5 = axios
       .get("PCG_signal/" + localStorage.getItem("account-id") + "/0")
       .then((response) => {
@@ -200,13 +193,13 @@ const ParameterHistoryPage = () => {
             value: res["heart_rate"],
           })
         );
-        datas.push({
+        datas[8] = {
           img: HeartAbnormalityIcon,
           title: "Heart Rate - sound (bpm)",
           color: "#black",
           chartName: ["HeartBeat Sound"],
           data: [tempFlow],
-        });
+        };
 
         tempFlow = [];
         result.map((res) =>
@@ -215,19 +208,23 @@ const ParameterHistoryPage = () => {
             value: res["respiration_rate"],
           })
         );
-        datas.push({
+        datas[9] = {
           img: RespirationRateIcon,
           title: "Respiration Rate (bpm)",
           color: "#43a5d6",
           chartName: ["Rrespiration Rate"],
           data: [tempFlow],
-        });
-        console.log(datas);
+        };
       });
-      
-    Promise.all([promise1, promise2, promise3, promise4, promise5]).then(() =>
-      setData(datas)
-    );
+
+    Promise.all([promise1, promise2, promise3, promise4, promise5]).then(() => {
+      setData(datas);
+      console.log(datas);
+    });
+  }, [dump]);
+
+  useEffect(() => {
+    forceUpdate();
   }, []);
 
   return (

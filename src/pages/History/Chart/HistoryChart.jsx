@@ -23,12 +23,12 @@ const HistoryChart = ({ color, data, name }) => {
             tension: 0.4,
           },
           {
-            label: name.length > 1 ?  name[1] : null,
+            label: name.length > 1 ? name[1] : null,
             data: data.length > 1 ? data[1].map((e) => e.value) : null,
             fill: false,
-            borderColor: 0xFFFFFF - color,
+            borderColor: 0xffffff - color,
             tension: 0.4,
-          }
+          },
         ],
       };
       const options = {

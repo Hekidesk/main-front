@@ -31,7 +31,14 @@ const SignUpForm = () => {
   const [warning, setWarning] = useState(initialWarning);
   const history = useNavigate();
 
+  const phoneNumberPattern =
+    /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+
+  const validatePhoneNumber = (phoneNumber) =>
+    phoneNumberPattern.test(String(phoneNumber));
+
   const addUser = () => {
+    const isPhoneNumberValid = validatePhoneNumber(form.phoneNumber);
     setWarning(initialWarning);
     setWarning({
       username: !form.username,
@@ -39,6 +46,14 @@ const SignUpForm = () => {
       phoneNumber: !form.phoneNumber,
     });
     if (!form.username || !form.password || !form.phoneNumber) {
+      return;
+    }
+    if (!isPhoneNumberValid) {
+      Swal.fire({
+        icon: "error",
+        title: "Please enter a valid phone number",
+        text: "Don't enter zero at the beginning of the number",
+      });
       return;
     }
     axios
@@ -66,7 +81,7 @@ const SignUpForm = () => {
         <LogoWrapper>
           <Image src={Icon} alt="icon" width="40px" />
         </LogoWrapper>
-        <Title>{variable['app-name']}</Title>
+        <Title>{variable["app-name"]}</Title>
       </LogoRow>
       <Row>
         <InputTextGroup
